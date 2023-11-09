@@ -23,12 +23,12 @@ import { useCallback } from 'react';
 import { PageType } from 'pages/Login/types';
 import { ThirdPartyAccountInfo, isAppleLogin } from '../third-party-account';
 import { GuardianApprovalPageProps, GuardianApprovalPageResult } from 'components/entries/GuardianApproval';
-import { useThirdPartyLoginAtomic } from './atomic';
+import { useThirdPartyVerifyAtomic } from './atomic';
 
 export const useVerifyEntry = (verifyConfig: VerifyConfig): VerifyEntryHooks => {
   const { type, entryName, accountOriginalType, setErrorMessage, verifyAccountIdentifier } = verifyConfig;
 
-  const { googleLoginAdapter, appleLoginAdapter } = useThirdPartyLoginAtomic();
+  const { googleLoginAdapter, appleLoginAdapter } = useThirdPartyVerifyAtomic();
 
   const { navigateForResult, onFinish } = useBaseContainer({
     entryName,
