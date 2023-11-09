@@ -4,32 +4,41 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import io.aelf.core.PortkeyEntries
 import io.aelf.portkey.components.logic.PortkeyMMKVStorage
 import io.aelf.portkey.core.entry.PortkeyTest
+import io.aelf.portkey.demo.ui.composable.ChoiceMaker
 import io.aelf.portkey.demo.ui.theme.MyRNApplicationTheme
+import io.aelf.portkey.demo.ui.theme.Purple40
 import io.aelf.portkey.entry.usePortkeyEntry
 import io.aelf.portkey.entry.usePortkeyEntryWithParams
 import io.aelf.portkey.tools.startJSBackgroundTaskTest
 import io.aelf.portkey.ui.dialog.DialogProps
+import java.security.InvalidKeyException
 
+val environment = mapOf(
+    Pair("MAIN NET", "https://did-portkey.portkey.finance"),
+    Pair("TEST NET", "https://did-portkey-test.portkey.finance"),
+    Pair("Test1", "https://localtest-applesign.portkey.finance")
+)
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,7 +48,7 @@ class MainActivity : ComponentActivity() {
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
+                    color = Color.Gray
                 ) {
                     Column(
                         modifier = Modifier.fillMaxSize(),
@@ -47,23 +56,18 @@ class MainActivity : ComponentActivity() {
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         BigButton("Go to Login Entry", this@MainActivity::jumpToActivity)
-                        BigButton("Switch to MAIN CHAIN") {
-                            changeChain("AELF")
+                        ChoiceMaker(
+                            title = "Choose Chain",
+                            choicesList = mutableListOf("AELF", "tDVV", "tDVW")
+                        ) {
+                            changeChain(it)
                         }
-                        BigButton("Switch to SIDE CHAIN tDVV") {
-                            changeChain("tDVV")
-                        }
-                        BigButton("Switch to SIDE CHAIN tDVW") {
-                            changeChain("tDVW")
-                        }
-                        BigButton("Switch to MAIN NET") {
-                            changeEndPointUrl("https://did-portkey.portkey.finance")
-                        }
-                        BigButton("Switch to TEST NET") {
-                            changeEndPointUrl("https://did-portkey-test.portkey.finance")
-                        }
-                        BigButton("Switch to TEST1") {
-                            changeEndPointUrl("https://localtest-applesign.portkey.finance")
+                        ChoiceMaker(
+                            title = "Choose EndPointUrl",
+                            choicesList = environment.keys.toList(),
+                            useClearWallet = true
+                        ) {
+                            changeEndPointUrl(it)
                         }
                         BigButton(text = "Jump to Scan Page") {
                             jumpToActivity(PortkeyEntries.SCAN_QR_CODE_ENTRY.entryName)
@@ -104,7 +108,11 @@ class MainActivity : ComponentActivity() {
             )
         }
     }
-    private fun jumpToActivityWithParams(entryName: String = "referral_entry", params: Bundle? = null) {
+
+    private fun jumpToActivityWithParams(
+        entryName: String = "referral_entry",
+        params: Bundle? = null
+    ) {
         usePortkeyEntryWithParams(entryName, params) {
             PortkeyTest.showDialogForTestOnly(
                 DialogProps().apply {
@@ -115,14 +123,16 @@ class MainActivity : ComponentActivity() {
             )
         }
     }
+
     private fun changeChain(chainId: String) {
         PortkeyMMKVStorage.writeString("currChainId", chainId)
-        Toast.makeText(this, "chainId changed to $chainId", Toast.LENGTH_SHORT).show()
     }
 
-    private fun changeEndPointUrl(url: String) {
-        PortkeyMMKVStorage.writeString("endPointUrl", url)
-        Toast.makeText(this, "endPoint changed to $url", Toast.LENGTH_SHORT).show()
+    private fun changeEndPointUrl(name: String) {
+        PortkeyMMKVStorage.writeString(
+            "endPointUrl",
+            environment[name] ?: throw InvalidKeyException()
+        )
     }
 
     private fun signOut() {
@@ -135,18 +145,16 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 internal fun BigButton(text: String, callback: () -> Unit) {
-    Box {
-        Row {
-            Button(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 2.dp, start = 10.dp, end = 10.dp)
-                    .height(50.dp),
-                shape = RoundedCornerShape(8.dp),
-                onClick = callback,
-            ) {
-                Text(text)
-            }
-        }
+    Button(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = 2.dp, start = 10.dp, end = 10.dp)
+            .background(Purple40, RoundedCornerShape(10.dp))
+            .height(50.dp),
+        onClick = callback,
+        colors = ButtonDefaults.buttonColors(containerColor = Purple40)
+    ) {
+        Text(text, fontSize = 14.sp)
     }
+
 }

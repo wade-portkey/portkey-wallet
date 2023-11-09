@@ -5,7 +5,11 @@ import com.tencent.mmkv.MMKV
 import io.aelf.core.JSNameSpace
 import java.util.Arrays
 
-private val portkeyMMKV = MMKV.mmkvWithID("portkey-sdk")
+private val portkeyMMKV = MMKV.mmkvWithID("portkey-sdk").apply {
+    allKeys()?.filter { it.contains("#") }?.forEach {
+        removeValueForKey(it)
+    }
+}
 
 internal infix fun String.but(options: StorageKeyOptions): String {
     return when (options) {
