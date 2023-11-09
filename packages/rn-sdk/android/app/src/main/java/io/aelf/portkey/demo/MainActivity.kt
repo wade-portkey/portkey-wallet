@@ -17,6 +17,7 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -50,6 +51,13 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = Color.Gray
                 ) {
+                    val cachedChainId = remember {
+                        PortkeyMMKVStorage.readString("currChainId") ?: "AELF"
+                    }
+                    val cachedEndPointName = remember {
+                        val url = PortkeyMMKVStorage.readString("endPointUrl")
+                        environment.keys.find { environment[it] == url } ?: "MAIN NET"
+                    }
                     Column(
                         modifier = Modifier.fillMaxSize(),
                         verticalArrangement = Arrangement.spacedBy(2.dp, Alignment.Top),
@@ -58,14 +66,16 @@ class MainActivity : ComponentActivity() {
                         BigButton("Go to Login Entry", this@MainActivity::jumpToActivity)
                         ChoiceMaker(
                             title = "Choose Chain",
-                            choicesList = mutableListOf("AELF", "tDVV", "tDVW")
+                            choicesList = mutableListOf("AELF", "tDVV", "tDVW"),
+                            defaultChoice = cachedChainId
                         ) {
                             changeChain(it)
                         }
                         ChoiceMaker(
                             title = "Choose EndPointUrl",
                             choicesList = environment.keys.toList(),
-                            useClearWallet = true
+                            useClearWallet = true,
+                            defaultChoice = cachedEndPointName
                         ) {
                             changeEndPointUrl(it)
                         }
