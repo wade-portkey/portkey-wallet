@@ -48,7 +48,7 @@ internal fun ChoiceMaker(
         modifier = Modifier
             .fillMaxWidth()
             .padding(top = 2.dp, start = 10.dp, end = 10.dp)
-            .background(Purple40,RoundedCornerShape(8.dp))
+            .background(Purple40, RoundedCornerShape(8.dp))
             .height(50.dp),
         contentAlignment = Alignment.Center
     ) {
@@ -70,8 +70,9 @@ internal fun ChoiceMaker(
                                 .wrapContentWidth()
                         )
                     },
-                    onClick = {
+                    onClick = click@{
                         expand = false
+                        if (choice == it) return@click
                         fun execute() {
                             choice = it
                             if (useClearWallet) PortkeyMMKVStorage.clear()
