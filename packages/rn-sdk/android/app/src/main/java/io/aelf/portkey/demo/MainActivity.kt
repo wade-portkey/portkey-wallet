@@ -26,6 +26,7 @@ import io.aelf.core.PortkeyEntries
 import io.aelf.portkey.components.logic.PortkeyMMKVStorage
 import io.aelf.portkey.core.entry.PortkeyTest
 import io.aelf.portkey.demo.ui.composable.ChoiceMaker
+import io.aelf.portkey.demo.ui.composable.SimpleChoiceMaker
 import io.aelf.portkey.demo.ui.theme.MyRNApplicationTheme
 import io.aelf.portkey.demo.ui.theme.Purple40
 import io.aelf.portkey.entry.usePortkeyEntry
@@ -55,7 +56,13 @@ class MainActivity : ComponentActivity() {
                         verticalArrangement = Arrangement.spacedBy(2.dp, Alignment.Top),
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-                        BigButton("Go to Login Entry", this@MainActivity::jumpToActivity)
+                        SimpleChoiceMaker(
+                            title = "Select a page",
+                            choicesList = mutableListOf("Login", "Scan", "AccountingSettings")
+                        ) {
+                            gotoPage(it)
+                        }
+//                        BigButton("Go to Login Entry", this@MainActivity::jumpToActivity)
                         ChoiceMaker(
                             title = "Choose Chain",
                             choicesList = mutableListOf("AELF", "tDVV", "tDVW")
@@ -69,12 +76,12 @@ class MainActivity : ComponentActivity() {
                         ) {
                             changeEndPointUrl(it)
                         }
-                        BigButton(text = "Jump to Scan Page") {
-                            jumpToActivity(PortkeyEntries.SCAN_QR_CODE_ENTRY.entryName)
-                        }
-                        BigButton(text = "Jump to AccountSettings Page") {
-                            jumpToActivityWithParams(PortkeyEntries.ACCOUNT_SETTING_ENTRY.entryName)
-                        }
+//                        BigButton(text = "Jump to Scan Page") {
+//                            jumpToActivity(PortkeyEntries.SCAN_QR_CODE_ENTRY.entryName)
+//                        }
+//                        BigButton(text = "Jump to AccountSettings Page") {
+//                            jumpToActivityWithParams(PortkeyEntries.ACCOUNT_SETTING_ENTRY.entryName)
+//                        }
                         BigButton(text = "Background Service Call") {
                             startJSBackgroundTaskTest(this@MainActivity) {
                                 PortkeyTest.showDialogForTestOnly(
@@ -94,6 +101,21 @@ class MainActivity : ComponentActivity() {
                     PortkeyTest.UsePortkeyViewStub()
                 }
             }
+        }
+    }
+
+    private fun gotoPage(it: String) {
+        when(it){
+            "Login" -> {
+               jumpToActivity()
+            }
+            "Scan" -> {
+                jumpToActivity(PortkeyEntries.SCAN_QR_CODE_ENTRY.entryName)
+            }
+            "AccountingSettings"->{
+                jumpToActivityWithParams(PortkeyEntries.ACCOUNT_SETTING_ENTRY.entryName)
+            }
+
         }
     }
 
