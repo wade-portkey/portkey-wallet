@@ -10,7 +10,7 @@ import { GuardianConfig } from 'model/verify/guardian';
 import { SignUpConfig } from 'model/verify/sign-up';
 import { GuardianVerifyConfig, GuardianVerifyType } from 'model/verify/social-recovery';
 import { NetworkController } from 'network/controller';
-import { AccountOrGuardianOriginalTypeStr } from 'network/dto/guardian';
+import { AccountOrGuardianOriginalTypeStr, CheckVerifyCodeResultDTO, GuardianInfo } from 'network/dto/guardian';
 import {
   AElfWeb3SDK,
   RequestProcessResult,
@@ -21,6 +21,8 @@ import { CountryCodeDataDTO } from 'types/wallet';
 import { randomId, sleep } from '@portkey-wallet/utils';
 import { ThirdPartyAccountInfo } from 'model/verify/third-party-account';
 import { GlobalStorage } from 'service/storage';
+import { ChainId } from '@portkey-wallet/types';
+import { UserGuardianItem } from '@portkey-wallet/store/store-ca/guardians/type';
 
 export const COUNTRY_CODE_DATA_KEY = 'countryCodeData';
 export const CURRENT_USING_COUNTRY_CODE = 'currentUsingCountryCode';
@@ -111,22 +113,42 @@ export const getSocialRecoveryPageData = async (
     accountIdentifier,
     accountOriginalType,
     guardianVerifyType: GuardianVerifyType.CREATE_WALLET,
-    guardians: (guardians?.guardianList?.guardians ?? []).map(guardian => ({
-      ...guardian,
-      accountIdentifier,
-      accountOriginalType,
-      name: guardian.name ?? 'Portkey',
-      imageUrl: guardian.imageUrl ?? '',
-      thirdPartyEmail: guardian.thirdPartyEmail ?? '',
-      sendVerifyCodeParams: {
-        type: guardian.type as any,
-        guardianIdentifier: guardian.guardianIdentifier,
-        verifierId: guardian.verifierId,
-        chainId,
-        operationType: OperationTypeEnum.communityRecovery,
-      },
-    })),
+    guardians: (guardians?.guardianList?.guardians ?? []).map(guardian => parseGuardianInfo(guardian, chainId)),
     thirdPartyAccountInfo,
+  };
+};
+
+export const parseGuardianInfo = (
+  guardianOriginalInfo: GuardianInfo,
+  chainId: ChainId,
+  verifiedData?: CheckVerifyCodeResultDTO,
+  accountIdentifier = '',
+  accountOriginalType = AccountOriginalType.Email,
+): GuardianConfig => {
+  return {
+    ...guardianOriginalInfo,
+    accountIdentifier,
+    accountOriginalType,
+    name: guardianOriginalInfo.name ?? 'Portkey',
+    imageUrl: guardianOriginalInfo.imageUrl ?? '',
+    thirdPartyEmail: guardianOriginalInfo.thirdPartyEmail ?? '',
+    sendVerifyCodeParams: {
+      type: guardianOriginalInfo.type as any,
+      guardianIdentifier: guardianOriginalInfo.guardianIdentifier,
+      verifierId: guardianOriginalInfo.verifierId,
+      chainId,
+      operationType: OperationTypeEnum.communityRecovery,
+    },
+    verifiedDoc: verifiedData,
+  };
+};
+
+export const getCentralGuardianKey = (guardian: GuardianInfo | UserGuardianItem): CentralGuardianKey => {
+  const isGuardianInfo = (item: GuardianInfo | UserGuardianItem): item is GuardianInfo => {
+    return (item as GuardianInfo).guardianIdentifier !== undefined;
+  };
+  return {
+    verifierId: isGuardianInfo(guardian) ? guardian.verifierId : guardian.verifier?.id ?? '',
   };
 };
 
@@ -227,3 +249,7 @@ export const guardianTypeStrToEnum = (guardianType: AccountOrGuardianOriginalTyp
 export interface AccountCheckResult {
   hasRegistered: boolean;
 }
+
+export type CentralGuardianKey = {
+  verifierId: string;
+};
