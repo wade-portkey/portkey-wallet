@@ -14,14 +14,6 @@ fun usePortkeyRecovery(entry: String, callback: () -> Unit) {
     callback()
 }
 
-fun Activity.usePortkeyEntry(entryName: String, callback: (WritableMap) -> Unit = {}) {
-    val intent = Intent(this, DefaultReactActivity::class.java)
-    val callbackId = generateUniqueCallbackID()
-    intent.putExtra(StorageIdentifiers.PAGE_ENTRY, entryName)
-    intent.putExtra(StorageIdentifiers.PAGE_CALLBACK_ID, callbackId)
-    NavigationHolder.registerNativeCallback(callbackId, callback)
-    startActivity(intent)
-}
 fun Activity.usePortkeyEntryWithParams(entryName: String, params: Bundle? = null, callback: (WritableMap) -> Unit = {}) {
     val intent = Intent(this, DefaultReactActivity::class.java)
     val callbackId = generateUniqueCallbackID()

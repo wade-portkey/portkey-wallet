@@ -1,8 +1,7 @@
 import GStyles from 'assets/theme/GStyles';
-import CommonButton from 'components/CommonButton';
 import { TextL, TextM, TextS } from 'components/CommonText';
 import Svg from 'components/Svg';
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useMemo, useRef, useState } from 'react';
 import { Text, View } from 'react-native';
 import { pTd } from 'utils/unit';
 import navigationService from 'utils/navigationService';
@@ -12,7 +11,6 @@ import ListItem from 'components/ListItem';
 import { useLanguage } from 'i18n/hooks';
 import CommonInput from 'components/CommonInput';
 import { checkEmail } from '@portkey-wallet/utils/check';
-// import { useGuardiansInfo } from 'hooks/store';
 import { LOGIN_TYPE_LIST } from 'constants/misc';
 import { PRIVATE_GUARDIAN_ACCOUNT } from '@portkey-wallet/constants/constants-ca/guardian';
 import { ApprovalType, VerificationType, OperationTypeEnum, VerifierItem } from '@portkey-wallet/types/verifier';
@@ -21,42 +19,33 @@ import GuardianTypeSelectOverlay from '../components/GuardianTypeSelectOverlay';
 import VerifierSelectOverlay from '../components/VerifierSelectOverlay';
 import ActionSheet from 'components/ActionSheet';
 import { ErrorType } from 'types/common';
-import { UserGuardianItem } from '@portkey-wallet/store/store-ca/guardians/type';
 import { FontStyles } from 'assets/theme/styles';
 import Loading from 'components/Loading';
 import CommonToast from 'components/CommonToast';
-import useRouterParams from '@portkey-wallet/hooks/useRouterParams';
 import { LoginType } from '@portkey-wallet/types/types-ca/wallet';
-// import { useAppDispatch } from 'store/hooks';
-import { setPreGuardianAction } from '@portkey-wallet/store/store-ca/guardians/actions';
 import { VerifierImage } from 'pages/Guardian/components/VerifierImage';
 import { verification } from 'utils/api';
 import fonts from 'assets/theme/fonts';
 import PhoneInput from 'components/PhoneInput';
 import Touchable from 'components/Touchable';
-// import {
-//   AppleAuthentication,
-//   useAppleAuthentication,
-//   useGoogleAuthentication,
-//   useVerifyToken,
-// } from 'hooks/authentication';
-import GuardianAccountItem from '../components/GuardianAccountItem';
 import { request } from '@portkey-wallet/api/api-did';
 import verificationApiConfig from '@portkey-wallet/api/api-did/verification';
-import { useCurrentWalletInfo, useOriginChainId } from '@portkey-wallet/hooks/hooks-ca/wallet';
 import { usePhoneCountryCode } from '@portkey-wallet/hooks/hooks-ca/misc';
-import { checkIsLastLoginAccount } from '@portkey-wallet/utils/guardian';
-import { cancelLoginAccount } from 'utils/guardian';
-// import { useGetCurrentCAContract } from 'hooks/contract';
-import myEvents from 'utils/deviceEvent';
-import { getTempWalletConfig } from 'model/verify/after-verify';
-import { getUnlockedWallet } from 'model/wallet';
+import {
+  AppleAuthentication,
+  useAppleAuthentication,
+  useGoogleAuthentication,
+  useVerifyToken,
+} from 'model/hooks/authentication';
+import { PortkeyConfig } from 'global/constants';
 import useEffectOnce from 'hooks/useEffectOnce';
-
-type RouterParams = {
-  guardian?: UserGuardianItem;
-  isEdit?: boolean;
-};
+import { callGetVerifiersMethod } from 'model/contract/handler';
+import { NetworkController } from 'network/controller';
+import { getUnlockedWallet } from 'model/wallet';
+import { guardianTypeStrToEnum, parseGuardianInfo } from 'model/global';
+import { GuardianConfig } from 'model/verify/guardian';
+import useBaseContainer from 'model/container/UseBaseContainer';
+import { PortkeyEntries } from 'config/entries';
 
 type thirdPartyInfoType = {
   id: string;
@@ -67,25 +56,10 @@ type TypeItemType = typeof LOGIN_TYPE_LIST[number];
 
 const GuardianAdd: React.FC = () => {
   const { t } = useLanguage();
-  const [originalChainId, setOriginChainId] = useState<string>();
-  const [caHash, setCaHash] = useState<string>();
-  const [managerAddress, setManagerAddress] = useState<string>();
-  // const dispatch = useAppDispatch();
-  // const originChainId = getUnlockedWallet();
-  useEffectOnce(() => {
-    (async () => {
-      const tempWalletConfig = await getTempWalletConfig();
-      setOriginChainId(tempWalletConfig.originalChainId);
-      setCaHash(tempWalletConfig.caInfo?.caHash);
-      setManagerAddress(tempWalletConfig.caInfo?.caAddress);
-    })();
-  });
-  // const { caHash, address: managerAddress } = useCurrentWalletInfo();
-  // const getCurrentCAContract = useGetCurrentCAContract();
-
-  // const { guardian: editGuardian, isEdit = false } = useRouterParams<RouterParams>();
-
-  const { verifierMap, userGuardiansList } = useGuardiansInfo();
+  const [userGuardiansList, setUserGuardiansList] = useState<Array<GuardianConfig>>([]);
+  const [verifierMap, setVerifierMap] = useState<{
+    [key: string]: any;
+  }>([] as any);
   const verifierList = useMemo(() => (verifierMap ? Object.values(verifierMap) : []), [verifierMap]);
 
   const [selectedType, setSelectedType] = useState<TypeItemType>();
@@ -94,10 +68,14 @@ const GuardianAdd: React.FC = () => {
   const [guardianTypeError, setGuardianTypeError] = useState<ErrorType>({ ...INIT_HAS_ERROR });
   const [guardianError, setGuardianError] = useState<ErrorType>({ ...INIT_NONE_ERROR });
   const { localPhoneCountryCode: country } = usePhoneCountryCode();
+  const [firstName, setFirstName] = useState<string>();
+  const { navigateForResult } = useBaseContainer({
+    entryName: PortkeyEntries.ADD_GUARDIAN_ENTRY,
+  });
+
   const { appleSign } = useAppleAuthentication();
   const { googleSign } = useGoogleAuthentication();
   const verifyToken = useVerifyToken();
-  const [firstName, setFirstName] = useState<string>();
 
   const thirdPartyInfoRef = useRef<thirdPartyInfoType>();
 
@@ -112,6 +90,22 @@ const GuardianAdd: React.FC = () => {
   //     setSelectedVerifier(verifierList.find(item => item.name === editGuardian?.verifier?.name));
   //   }
   // }, [editGuardian, verifierList]);
+
+  useEffectOnce(async () => {
+    const { data: verifiers } = await callGetVerifiersMethod();
+    console.log('verifiers', JSON.stringify(verifiers));
+    verifiers && setVerifierMap(verifiers);
+    const {
+      caInfo: { caHash },
+    } = await getUnlockedWallet();
+    const chainId = await PortkeyConfig.currChainId();
+    const guardiansInfo = await NetworkController.getGuardianInfo('', caHash);
+    const parsedGuardians = guardiansInfo?.guardianList?.guardians?.map(guardian => {
+      return parseGuardianInfo(guardian, chainId);
+    });
+    console.log('guardians:', JSON.stringify(parsedGuardians));
+    parsedGuardians && setUserGuardiansList(parsedGuardians);
+  });
 
   const onAccountChange = useCallback((value: string) => {
     setAccount(value);
@@ -137,9 +131,9 @@ const GuardianAdd: React.FC = () => {
       if (
         userGuardiansList?.findIndex(
           guardian =>
-            guardian.guardianType === selectedType?.value &&
-            guardian.guardianAccount === _account &&
-            guardian.verifier?.id === selectedVerifier?.id,
+            guardianTypeStrToEnum(guardian.sendVerifyCodeParams.type) === selectedType?.value &&
+            guardian.sendVerifyCodeParams.guardianIdentifier === _account &&
+            guardian.sendVerifyCodeParams.verifierId === selectedVerifier?.id,
         ) !== -1
       ) {
         return { ...INIT_HAS_ERROR, errorMsg: t('This guardian already exists') };
@@ -153,9 +147,9 @@ const GuardianAdd: React.FC = () => {
       if (
         userGuardiansList?.findIndex(
           guardian =>
-            guardian.guardianType === selectedType?.value &&
-            guardian.guardianAccount === guardianAccount &&
-            guardian.verifier?.id === selectedVerifier?.id,
+            guardianTypeStrToEnum(guardian.sendVerifyCodeParams.type) === selectedType?.value &&
+            guardian.sendVerifyCodeParams.guardianIdentifier === guardianAccount &&
+            guardian.sendVerifyCodeParams.verifierId === selectedVerifier?.id,
         ) !== -1
       ) {
         return { ...INIT_HAS_ERROR, errorMsg: t('This guardian already exists') };
@@ -173,6 +167,7 @@ const GuardianAdd: React.FC = () => {
       verifierInfo: VerifierItem,
       guardianType: LoginType,
     ) => {
+      const originalChainId = await PortkeyConfig.currChainId();
       const rst = await verifyToken(guardianType, {
         accessToken: thirdPartyInfo.accessToken,
         id: thirdPartyInfo.id,
@@ -198,7 +193,7 @@ const GuardianAdd: React.FC = () => {
         authenticationInfo: { [thirdPartyInfo.id]: thirdPartyInfo.accessToken },
       });
     },
-    [verifyToken, originalChainId],
+    [verifyToken],
   );
 
   const onConfirm = useCallback(async () => {
@@ -257,6 +252,7 @@ const GuardianAdd: React.FC = () => {
             try {
               if ([LoginType.Email, LoginType.Phone].includes(guardianType)) {
                 Loading.show();
+                const originalChainId = await PortkeyConfig.currChainId();
                 const req = await verification.sendVerificationCode({
                   params: {
                     type: LoginType[guardianType],
@@ -291,16 +287,7 @@ const GuardianAdd: React.FC = () => {
         },
       ],
     });
-  }, [
-    selectedVerifier,
-    selectedType,
-    account,
-    checkCurGuardianRepeat,
-    t,
-    country.code,
-    thirdPartyConfirm,
-    originalChainId,
-  ]);
+  }, [selectedVerifier, selectedType, account, checkCurGuardianRepeat, t, country.code, thirdPartyConfirm]);
 
   const onApproval = useCallback(() => {
     const _guardianError = checkCurGuardianRepeat();
@@ -315,7 +302,7 @@ const GuardianAdd: React.FC = () => {
         verifier: selectedVerifier,
       },
     });
-  }, [checkCurGuardianRepeat, dispatch, selectedVerifier]);
+  }, [checkCurGuardianRepeat, selectedVerifier]);
 
   // const onRemove = useCallback(async () => {
   //   if (!userGuardiansList) return;
@@ -545,6 +532,7 @@ const GuardianAdd: React.FC = () => {
             label={t('Guardian Phone')}
             theme="white-bg"
             value={account}
+            navigateForResult={navigateForResult}
             errorMessage={guardianTypeError.isError ? guardianTypeError.errorMsg : ''}
             onChangeText={onAccountChange}
             selectCountry={country}
@@ -563,6 +551,7 @@ const GuardianAdd: React.FC = () => {
     country,
     guardianTypeError.errorMsg,
     guardianTypeError.isError,
+    navigateForResult,
     onAccountChange,
     renderAppleAccount,
     renderGoogleAccount,

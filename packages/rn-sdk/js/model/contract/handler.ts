@@ -1,5 +1,6 @@
 import { getContractBasic } from '@portkey-wallet/contracts/utils';
 import { ContractBasic } from '@portkey-wallet/contracts/utils/ContractBasic';
+import { VerifierInfo } from '@portkey-wallet/types/verifier';
 import { getCachedNetworkConfig } from 'model/chain';
 import { isWalletUnlocked } from 'model/verify/after-verify';
 import { getUnlockedWallet } from 'model/wallet';
@@ -30,4 +31,13 @@ export const callAddManagerMethod = async (extraData: string, managerAddress: st
     managerAddress,
     extraData,
   });
+};
+
+export const callGetVerifiersMethod = async (): Promise<{
+  data?: {
+    [key: string]: VerifierInfo;
+  };
+}> => {
+  const contractInstance = await getContractInstance();
+  return await contractInstance.callViewMethod('GetVerifierServers');
 };

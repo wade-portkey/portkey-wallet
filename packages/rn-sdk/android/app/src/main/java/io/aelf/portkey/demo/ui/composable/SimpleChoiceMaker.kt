@@ -23,11 +23,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import io.aelf.portkey.components.logic.PortkeyMMKVStorage
-import io.aelf.portkey.core.entry.PortkeyTest
 import io.aelf.portkey.demo.ui.theme.Purple40
-import io.aelf.portkey.ui.basic.Toast
-import io.aelf.portkey.ui.dialog.DialogProps
 
 @Composable
 internal fun SimpleChoiceMaker(
@@ -49,7 +45,7 @@ internal fun SimpleChoiceMaker(
             },
         contentAlignment = Alignment.Center
     ) {
-        Text(text = "$title",  color = Color.White, fontSize = 14.sp)
+        Text(text = title,  color = Color.White, fontSize = 14.sp)
         DropdownMenu(
             expanded = expand,
             onDismissRequest = { expand = false },

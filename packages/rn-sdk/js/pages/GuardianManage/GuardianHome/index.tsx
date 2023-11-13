@@ -14,9 +14,14 @@ import { UserGuardianItem } from '@portkey-wallet/store/store-ca/guardians/type'
 import { getBottomSpace } from 'utils/screen';
 import { GuardianInfo } from 'network/dto/guardian';
 import { guardianTypeStrToEnum } from 'model/global';
+import useBaseContainer from 'model/container/UseBaseContainer';
+import { PortkeyEntries } from 'config/entries';
 
 export default function GuardianHome() {
   const { t } = useLanguage();
+  const { navigationTo } = useBaseContainer({
+    entryName: PortkeyEntries.GUARDIAN_HOME_ENTRY,
+  });
 
   const [guardianList, setGuardianList] = useState<GuardianInfo[]>([]);
   const userGuardiansList = useMemo(() => {
@@ -64,7 +69,7 @@ export default function GuardianHome() {
         <TouchableOpacity
           style={{ padding: pTd(16) }}
           onPress={() => {
-            // navigationService.navigate('GuardianEdit');
+            navigationTo(PortkeyEntries.ADD_GUARDIAN_ENTRY, {});
           }}>
           <Svg icon="add1" size={pTd(20)} color={defaultColors.font2} />
         </TouchableOpacity>
