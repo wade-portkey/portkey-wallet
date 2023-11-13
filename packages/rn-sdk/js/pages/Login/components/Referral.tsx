@@ -72,7 +72,7 @@ export default function Referral({
   };
 
   const pushToSignUp = () => {
-    navigateForResult<SignInPageResult, SignInPageProps>(PortkeyEntries.SIGN_UP_REFERRAL_ENTRY, {}, res => {
+    navigateForResult<SignInPageResult, SignInPageProps>(PortkeyEntries.SIGN_UP_ENTRY, {}, res => {
       if (res.status === 'success') {
         onSuccess();
       }

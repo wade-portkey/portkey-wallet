@@ -3,7 +3,6 @@ import GuardianApprovalEntryPage from 'pages/entries/GuardianApproval';
 import SignInEntryPage from 'pages/entries/SignIn';
 import SelectCountryPage from 'pages/entries/SelectCountry';
 import SignUpEntryPage from 'pages/entries/SignUp';
-import SignUpReferralEntryPage from 'pages/entries/SignUp/referral';
 import VerifierDetailsEntryPage from 'pages/entries/VerifierDetails';
 import { PortkeyEntries } from 'config/entries';
 import ViewOnWebView from 'pages/Activity/ViewOnWebView';
@@ -28,7 +27,6 @@ const initEntries = () => {
   entryConfig.set(PortkeyEntries.SIGN_IN_ENTRY, () => SignInEntryPage);
   entryConfig.set(PortkeyEntries.SELECT_COUNTRY_ENTRY, () => SelectCountryPage);
   entryConfig.set(PortkeyEntries.SIGN_UP_ENTRY, () => SignUpEntryPage);
-  entryConfig.set(PortkeyEntries.SIGN_UP_REFERRAL_ENTRY, () => SignUpReferralEntryPage);
 
   // verify stage
   entryConfig.set(PortkeyEntries.VERIFIER_DETAIL_ENTRY, () => VerifierDetailsEntryPage);
