@@ -22,6 +22,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
+internal var entered = false
 
 abstract class BasePortkeyReactActivity : ReactActivity() {
 
@@ -30,6 +31,10 @@ abstract class BasePortkeyReactActivity : ReactActivity() {
 
     private var permissionCallback: (Boolean) -> Unit = {}
     private var imageChooseCallback: (String?) -> Unit = {}
+
+    init {
+        entered = true
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,9 +49,10 @@ abstract class BasePortkeyReactActivity : ReactActivity() {
         super.onNewIntent(intent)
         val paramsBundle = intent?.getBundleExtra(StorageIdentifiers.PAGE_PARAMS)
         val params = Arguments.fromBundle(paramsBundle)
-        reactInstanceManager.currentReactContext?.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter::class.java)?.emit(
-            "onNewIntent", params
-        )
+        reactInstanceManager.currentReactContext?.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter::class.java)
+            ?.emit(
+                "onNewIntent", params
+            )
     }
 
     override fun createReactActivityDelegate(): ReactActivityDelegate {
@@ -195,6 +201,7 @@ fun ReadableMap.toBundle(extraEntries: Array<Pair<String, String>> = emptyArray(
     }
     return bundle
 }
+
 /**
  * React Native only accept
  */
