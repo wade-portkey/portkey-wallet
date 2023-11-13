@@ -22,3 +22,7 @@ export enum PortkeyEntries {
   SCAN_LOG_IN = 'scan_log_in_entry',
   VIEW_ON_WEBVIEW = 'view_on_webview',
 }
+
+export function isPortkeyEntries(variable: any): boolean {
+  return Object.values(PortkeyEntries).includes(variable);
+}
