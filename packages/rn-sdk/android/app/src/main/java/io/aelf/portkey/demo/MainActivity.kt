@@ -17,6 +17,7 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -26,6 +27,7 @@ import io.aelf.core.PortkeyEntries
 import io.aelf.portkey.components.logic.PortkeyMMKVStorage
 import io.aelf.portkey.core.entry.PortkeyTest
 import io.aelf.portkey.demo.ui.composable.ChoiceMaker
+import io.aelf.portkey.demo.ui.composable.SimpleChoiceMaker
 import io.aelf.portkey.demo.ui.theme.MyRNApplicationTheme
 import io.aelf.portkey.demo.ui.theme.Purple40
 import io.aelf.portkey.entry.usePortkeyEntry
@@ -50,31 +52,46 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = Color.Gray
                 ) {
+                    val cachedChainId = remember {
+                        PortkeyMMKVStorage.readString("currChainId") ?: "AELF"
+                    }
+                    val cachedEndPointName = remember {
+                        val url = PortkeyMMKVStorage.readString("endPointUrl")
+                        environment.keys.find { environment[it] == url } ?: "MAIN NET"
+                    }
                     Column(
                         modifier = Modifier.fillMaxSize(),
                         verticalArrangement = Arrangement.spacedBy(2.dp, Alignment.Top),
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-                        BigButton("Go to Login Entry", this@MainActivity::jumpToActivity)
+                        SimpleChoiceMaker(
+                            title = "Select a page",
+                            choicesList = mutableListOf("Login", "Scan", "AccountingSettings")
+                        ) {
+                            gotoPage(it)
+                        }
+//                        BigButton("Go to Login Entry", this@MainActivity::jumpToActivity)
                         ChoiceMaker(
                             title = "Choose Chain",
-                            choicesList = mutableListOf("AELF", "tDVV", "tDVW")
+                            choicesList = mutableListOf("AELF", "tDVV", "tDVW"),
+                            defaultChoice = cachedChainId
                         ) {
                             changeChain(it)
                         }
                         ChoiceMaker(
                             title = "Choose EndPointUrl",
                             choicesList = environment.keys.toList(),
-                            useClearWallet = true
+                            useClearWallet = true,
+                            defaultChoice = cachedEndPointName
                         ) {
                             changeEndPointUrl(it)
                         }
-                        BigButton(text = "Jump to Scan Page") {
-                            jumpToActivity(PortkeyEntries.SCAN_QR_CODE_ENTRY.entryName)
-                        }
-                        BigButton(text = "Jump to AccountSettings Page") {
-                            jumpToActivityWithParams(PortkeyEntries.ACCOUNT_SETTING_ENTRY.entryName)
-                        }
+//                        BigButton(text = "Jump to Scan Page") {
+//                            jumpToActivity(PortkeyEntries.SCAN_QR_CODE_ENTRY.entryName)
+//                        }
+//                        BigButton(text = "Jump to AccountSettings Page") {
+//                            jumpToActivityWithParams(PortkeyEntries.ACCOUNT_SETTING_ENTRY.entryName)
+//                        }
                         BigButton(text = "Background Service Call") {
                             startJSBackgroundTaskTest(this@MainActivity) {
                                 PortkeyTest.showDialogForTestOnly(
@@ -94,6 +111,21 @@ class MainActivity : ComponentActivity() {
                     PortkeyTest.UsePortkeyViewStub()
                 }
             }
+        }
+    }
+
+    private fun gotoPage(it: String) {
+        when(it){
+            "Login" -> {
+               jumpToActivity()
+            }
+            "Scan" -> {
+                jumpToActivity(PortkeyEntries.SCAN_QR_CODE_ENTRY.entryName)
+            }
+            "AccountingSettings"->{
+                jumpToActivityWithParams(PortkeyEntries.ACCOUNT_SETTING_ENTRY.entryName)
+            }
+
         }
     }
 

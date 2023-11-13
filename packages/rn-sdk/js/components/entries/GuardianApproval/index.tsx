@@ -3,6 +3,9 @@ import { PortkeyEntries } from '../../../config/entries';
 import BaseContainer, { BaseContainerProps } from '../../../model/container/BaseContainer';
 import GuardianApproval from 'pages/Guardian/GuardianApproval';
 import React from 'react';
+import { isWalletUnlocked } from 'model/verify/after-verify';
+import CommonToast from 'components/CommonToast';
+import { sleep } from '@portkey-wallet/utils';
 
 export default class GuardianApprovalEntryPage extends BaseContainer<
   GuardianApprovalPageProps,
@@ -12,12 +15,23 @@ export default class GuardianApprovalEntryPage extends BaseContainer<
   constructor(props: GuardianApprovalPageProps) {
     super(props);
     const { deliveredGuardianListInfo } = props;
+    isWalletUnlocked().then(isUnlocked => {
+      if (!isUnlocked) {
+        CommonToast.fail('no unlocked wallet found!');
+        sleep(1500).then(() => {
+          this.onPageFinish({
+            isVerified: false,
+            errorMessage: 'no unlocked wallet found!',
+          });
+        });
+      }
+    });
     if (!deliveredGuardianListInfo) throw new Error('guardianConfig is null!');
     console.log('GuardianApprovalEntryPage', deliveredGuardianListInfo);
     const verifiedTime = new Date().getTime();
     this.state = {
       verifiedTime,
-      socialRecoveryConfig: JSON.parse(deliveredGuardianListInfo),
+      config: JSON.parse(deliveredGuardianListInfo),
     };
   }
 
@@ -31,7 +45,7 @@ export default class GuardianApprovalEntryPage extends BaseContainer<
   };
 
   render() {
-    const { socialRecoveryConfig, verifiedTime } = this.state;
+    const { config: socialRecoveryConfig, verifiedTime } = this.state;
     return (
       <>
         <GuardianApproval
@@ -45,12 +59,12 @@ export default class GuardianApprovalEntryPage extends BaseContainer<
 }
 
 export interface GuardianApprovalPageProps extends BaseContainerProps {
-  deliveredGuardianListInfo: string; // SocialRecoveryConfig
+  deliveredGuardianListInfo: string; // GuardianVerifyConfig
 }
 
 export interface GuardianApprovalPageState {
   verifiedTime: number;
-  socialRecoveryConfig: GuardianVerifyConfig;
+  config: GuardianVerifyConfig;
 }
 
 export interface GuardianApprovalPageResult {

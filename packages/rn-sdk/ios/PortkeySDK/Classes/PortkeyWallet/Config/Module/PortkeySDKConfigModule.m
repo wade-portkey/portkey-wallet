@@ -13,16 +13,20 @@ const static NSString *kTermsOfServiceTitle = @"PortkeySDKTermsOfServiceTitle";
 
 @implementation PortkeySDKConfigModule
 
-+ (void)configTermsOfServiceWithPrefix:(NSString *)prefix title:(NSString *)title {
+- (void)setNetwork:(PortkeySDKNetworkConfigItem *)network {
+    
+}
+
+- (void)configTermsOfServiceWithPrefix:(NSString *)prefix title:(NSString *)title {
     [PortkeySDKMMKVStorage writeString:prefix forKey:(NSString *)kTermsOfServicePrefix];
     [PortkeySDKMMKVStorage writeString:title forKey:(NSString *)kTermsOfServiceTitle];
 }
 
-+ (NSString *)termsOfServicePrefix {
+- (NSString *)termsOfServicePrefix {
     return [PortkeySDKMMKVStorage readString:(NSString *)kTermsOfServicePrefix];
 }
 
-+ (NSString *)termsOfServiceTitle {
+- (NSString *)termsOfServiceTitle {
     return [PortkeySDKMMKVStorage readString:(NSString *)kTermsOfServiceTitle];
 }
 
