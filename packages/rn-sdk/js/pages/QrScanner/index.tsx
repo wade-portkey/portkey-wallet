@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import { View, Text, SafeAreaView, StyleSheet, TouchableOpacity, Platform } from 'react-native';
 import Svg from 'components/Svg';
@@ -21,17 +21,20 @@ import { isAddress } from '@portkey-wallet/utils';
 import { NetworkType } from '@portkey-wallet/types';
 import { EndPoints, PortkeyConfig } from 'global/constants';
 import useBaseContainer, { VoidResult } from 'model/container/UseBaseContainer';
-import { PortkeyEntries } from 'config/entries';
+import { PortkeyEntries, isPortkeyEntries } from 'config/entries';
 import { EntryResult, PermissionType, chooseImageAndroid, PortkeyModulesEntity } from 'service/native-modules';
 import useEffectOnce from 'hooks/useEffectOnce';
 import { ScanToLoginProps } from 'pages/Login/ScanLogin';
 import { isWalletUnlocked } from 'model/verify/after-verify';
+import { checkIsPortKeyUrl, isEntryScheme } from 'utils/scheme';
+import { myThrottle } from 'utils/commonUtil';
 
 const QrScanner: React.FC = () => {
   const { t } = useLanguage();
+  const canScan = useRef<boolean>(true);
   // const jumpToWebview = useDiscoverJumpWithNetWork();
   const [refresh, setRefresh] = useState<boolean>();
-  const { onFinish, navigateForResult } = useBaseContainer({
+  const { onFinish, navigateForResult, navigationTo } = useBaseContainer({
     entryName: PortkeyEntries.SCAN_QR_CODE,
   });
   const navigateBack = (res: EntryResult<ScanQRCodeResult> = { status: 'success', data: {} }) => {
@@ -76,14 +79,39 @@ const QrScanner: React.FC = () => {
       CommonToast.fail('Content not supported by now');
     }
   };
-
-  const handleBarCodeScanned = async ({ data = '' }) => {
+  const handlePortKeyScheme = useCallback(
+    (portkeyUrl: string) => {
+      const isEntry = isEntryScheme(portkeyUrl);
+      console.log('handlePortKeyScheme isEntry', isEntry);
+      if (isEntry) {
+        const entry = isEntry.entry;
+        const params = isEntry.query;
+        if (entry !== undefined && isPortkeyEntries(entry)) {
+          navigationTo(entry as PortkeyEntries, { params: params });
+        } else {
+          CommonToast.fail('It looks like you want to jump to the page, but you don’t have the entry parameter');
+        }
+      }
+    },
+    [navigationTo],
+  );
+  const handleBarCodeScanned = myThrottle(async ({ data = '' }) => {
+    if (!canScan.current) {
+      return;
+    }
+    canScan.current = false;
     if (typeof data !== 'string') return invalidQRCode(InvalidQRCodeText.INVALID_QR_CODE);
     const currentNetwork = await determineCurrentNetwork();
     try {
       const str = data.replace(/("|'|\s)/g, '');
       if (checkIsUrl(str)) {
-        return invalidQRCode(InvalidQRCodeText.INVALID_QR_CODE);
+        if (checkIsPortKeyUrl(str)) {
+          //handle "portkey" custom scheme
+          handlePortKeyScheme(str);
+        } else {
+          return invalidQRCode(InvalidQRCodeText.INVALID_QR_CODE);
+        }
+        return;
       }
       const qrCodeData = expandQrData(JSON.parse(data));
       // if not currentNetwork
@@ -97,8 +125,9 @@ const QrScanner: React.FC = () => {
       return invalidQRCode(InvalidQRCodeText.INVALID_QR_CODE);
     } finally {
       Loading.hide();
+      canScan.current = true;
     }
-  };
+  }, 3000);
 
   const selectImage = async () => {
     const permission = await ensurePermission('photo', withoutPermissionWarning, false);
@@ -131,6 +160,10 @@ const QrScanner: React.FC = () => {
         <Camera
           ratio={'16:9'}
           style={[PageStyle.barCodeScanner, !isIOS && PageStyle.barCodeScannerAndroid]}
+          // barCodeScannerSettings={{
+          //   interval: 3000,
+          //   barCodeTypes: [BarCodeScanner.Constants.BarCodeType.qr],
+          // }}
           onBarCodeScanned={handleBarCodeScanned}>
           <SafeAreaView style={PageStyle.innerView}>
             <View style={PageStyle.iconWrap}>

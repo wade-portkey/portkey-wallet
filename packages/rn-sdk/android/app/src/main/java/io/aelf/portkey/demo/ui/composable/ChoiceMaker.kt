@@ -49,12 +49,12 @@ internal fun ChoiceMaker(
             .fillMaxWidth()
             .padding(top = 2.dp, start = 10.dp, end = 10.dp)
             .background(Purple40, RoundedCornerShape(8.dp))
-            .height(50.dp),
+            .height(50.dp).clickable {
+                expand = !expand
+            },
         contentAlignment = Alignment.Center
     ) {
-        Text(text = "$title(now using:$choice)", modifier = Modifier.clickable click@{
-            expand = !expand
-        }, color = Color.White, fontSize = 14.sp)
+        Text(text = "$title(now using:$choice)", color = Color.White, fontSize = 14.sp)
         DropdownMenu(
             expanded = expand,
             onDismissRequest = { expand = false },

@@ -78,7 +78,7 @@ class PermissionModule(private val reactApplicationContext: ReactApplicationCont
     private fun getPermissionType(name: String): String? {
         return when (name) {
             "camera" -> Manifest.permission.CAMERA
-            "photo" -> Manifest.permission.READ_EXTERNAL_STORAGE
+            "photo" -> Manifest.permission.READ_MEDIA_IMAGES
             "location" -> Manifest.permission.ACCESS_FINE_LOCATION
             "microphone" -> Manifest.permission.RECORD_AUDIO
             "storage" -> Manifest.permission.WRITE_EXTERNAL_STORAGE
