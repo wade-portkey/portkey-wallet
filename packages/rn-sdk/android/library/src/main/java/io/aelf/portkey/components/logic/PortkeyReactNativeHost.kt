@@ -2,6 +2,7 @@ package io.aelf.portkey.components.logic
 
 import android.annotation.SuppressLint
 import android.app.Application
+import android.os.Environment
 import com.facebook.hermes.reactexecutor.HermesExecutorFactory
 import com.facebook.react.PackageList
 import com.facebook.react.ReactNativeHost
@@ -12,6 +13,7 @@ import com.facebook.react.bridge.ReactContext
 import com.facebook.react.bridge.WritableNativeArray
 import io.aelf.portkey.native_modules.PortkeyNativePackages
 import io.aelf.portkey.tools.generateUniqueCallbackID
+import java.io.File
 
 var hostInstance: PortkeyReactNativeHost? = null
 
@@ -34,6 +36,9 @@ class PortkeyReactNativeHost(
         return "index"
     }
 
+//    override fun getJSBundleFile(): String? {
+//        return "${application.filesDir}${File.separator}index.android.bundle"
+//    }
     override fun getBundleAssetName(): String {
         return "index.android.bundle"
     }
