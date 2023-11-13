@@ -14,7 +14,7 @@ import { AccountOriginalType, isWalletExists, isWalletUnlocked } from 'model/ver
 import CommonToast from 'components/CommonToast';
 import useEffectOnce from 'hooks/useEffectOnce';
 import { CheckPinProps, CheckPinResult } from 'pages/Pin/CheckPin';
-import { SignInPageProps, SignInPageResult } from 'components/entries/SignIn';
+import { SignInPageProps, SignInPageResult } from 'pages/entries/SignIn';
 import TermsServiceButton from './TermsServiceButton';
 import Divider from 'components/Divider';
 import { defaultColors } from 'assets/theme';
@@ -44,9 +44,7 @@ export default function Referral({
 }) {
   // eslint-disable-next-line @typescript-eslint/no-empty-function
 
-  const { onFinish, navigateForResult } = useBaseContainer({
-    entryName: PortkeyEntries.REFERRAL_ENTRY,
-  });
+  const { onFinish, navigateForResult, getEntryName } = useBaseContainer({});
 
   const setErrorMessage = (msg?: string) => {
     if (msg) {
@@ -57,7 +55,7 @@ export default function Referral({
   const { thirdPartyLogin } = useVerifyEntry({
     type: PageType.login, // keep it
     accountOriginalType: AccountOriginalType.Apple,
-    entryName: PortkeyEntries.REFERRAL_ENTRY,
+    entryName: getEntryName() as PortkeyEntries,
     setErrorMessage,
   });
 

@@ -1,7 +1,6 @@
 export enum PortkeyEntries {
   TEST = 'test',
 
-  REFERRAL_ENTRY = 'referral_entry',
   SIGN_IN_ENTRY = 'sign_in_entry',
   SIGN_UP_ENTRY = 'sign_up_entry',
   SIGN_UP_REFERRAL_ENTRY = 'sign_up_referral_entry',

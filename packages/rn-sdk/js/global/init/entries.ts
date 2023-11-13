@@ -1,11 +1,10 @@
 import TestPage from 'components/TestPage';
-import GuardianApprovalEntryPage from 'components/entries/GuardianApproval';
-import ReferralEntryPage from 'components/entries/Referral';
-import SignInEntryPage from 'components/entries/SignIn';
-import SelectCountryPage from 'components/entries/SelectCountry';
-import SignUpEntryPage from 'components/entries/SignUp';
-import SignUpReferralEntryPage from 'components/entries/SignUp/referral';
-import VerifierDetailsEntryPage from 'components/entries/VerifierDetails';
+import GuardianApprovalEntryPage from 'pages/entries/GuardianApproval';
+import SignInEntryPage from 'pages/entries/SignIn';
+import SelectCountryPage from 'pages/entries/SelectCountry';
+import SignUpEntryPage from 'pages/entries/SignUp';
+import SignUpReferralEntryPage from 'pages/entries/SignUp/referral';
+import VerifierDetailsEntryPage from 'pages/entries/VerifierDetails';
 import { PortkeyEntries } from 'config/entries';
 import ViewOnWebView from 'pages/Activity/ViewOnWebView';
 import AccountSettings from 'pages/My/AccountSettings';
@@ -26,7 +25,6 @@ const initEntries = () => {
   entryConfig.set(PortkeyEntries.TEST, () => TestPage);
 
   // entry stage
-  entryConfig.set(PortkeyEntries.REFERRAL_ENTRY, () => ReferralEntryPage);
   entryConfig.set(PortkeyEntries.SIGN_IN_ENTRY, () => SignInEntryPage);
   entryConfig.set(PortkeyEntries.SELECT_COUNTRY_ENTRY, () => SelectCountryPage);
   entryConfig.set(PortkeyEntries.SIGN_UP_ENTRY, () => SignUpEntryPage);

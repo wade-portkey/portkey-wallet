@@ -17,12 +17,12 @@ import { SendVerifyCodeResultDTO } from 'network/dto/guardian';
 import { OperationTypeEnum } from '@portkey-wallet/types/verifier';
 import { NetworkController } from 'network/controller';
 import { PortkeyConfig } from 'global/constants';
-import { VerifierDetailsPageProps } from 'components/entries/VerifierDetails';
+import { VerifierDetailsPageProps } from 'pages/entries/VerifierDetails';
 import { VerifyPageResult } from 'pages/Guardian/VerifierDetails';
 import { useCallback } from 'react';
 import { PageType } from 'pages/Login/types';
 import { ThirdPartyAccountInfo, isAppleLogin } from '../third-party-account';
-import { GuardianApprovalPageProps, GuardianApprovalPageResult } from 'components/entries/GuardianApproval';
+import { GuardianApprovalPageProps, GuardianApprovalPageResult } from 'pages/entries/GuardianApproval';
 import { useThirdPartyVerifyAtomic } from './atomic';
 
 export const useVerifyEntry = (verifyConfig: VerifyConfig): VerifyEntryHooks => {

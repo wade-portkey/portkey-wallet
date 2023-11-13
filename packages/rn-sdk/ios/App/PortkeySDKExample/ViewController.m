@@ -175,7 +175,7 @@
 #pragma mark - Selector
 
 - (void)loginButtonClicked:(id)sender {
-    [[PortkeySDKRouterModule sharedInstance] navigateToWithOptions:@"referral_entry"
+    [[PortkeySDKRouterModule sharedInstance] navigateToWithOptions:@"sign_in_entry"
                                                         launchMode:@""
                                                               from:@""
                                                             params:@{}

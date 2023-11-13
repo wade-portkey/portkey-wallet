@@ -37,7 +37,7 @@ export default function SignupReferral() {
     return currentNetwork?.networkType === 'MAIN';
   }, [currentNetwork?.networkType]);
   const { onFinish } = useBaseContainer({
-    entryName: PortkeyEntries.REFERRAL_ENTRY,
+    entryName: PortkeyEntries.SIGN_UP_REFERRAL_ENTRY,
   });
   const loginMap = useMemo(
     () => ({
