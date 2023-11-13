@@ -30,7 +30,6 @@ import PhoneInput from 'components/PhoneInput';
 import Touchable from 'components/Touchable';
 import { request } from '@portkey-wallet/api/api-did';
 import verificationApiConfig from '@portkey-wallet/api/api-did/verification';
-import { usePhoneCountryCode } from '@portkey-wallet/hooks/hooks-ca/misc';
 import {
   AppleAuthentication,
   useAppleAuthentication,
@@ -42,10 +41,12 @@ import useEffectOnce from 'hooks/useEffectOnce';
 import { callGetVerifiersMethod } from 'model/contract/handler';
 import { NetworkController } from 'network/controller';
 import { getUnlockedWallet } from 'model/wallet';
-import { guardianTypeStrToEnum, parseGuardianInfo } from 'model/global';
+import { getCachedCountryCodeData, guardianTypeStrToEnum, parseGuardianInfo } from 'model/global';
 import { GuardianConfig } from 'model/verify/guardian';
 import useBaseContainer from 'model/container/UseBaseContainer';
 import { PortkeyEntries } from 'config/entries';
+import { CountryCodeItem, defaultCountryCode } from 'types/wallet';
+import CommonButton from 'components/CommonButton';
 
 type thirdPartyInfoType = {
   id: string;
@@ -54,7 +55,7 @@ type thirdPartyInfoType = {
 
 type TypeItemType = typeof LOGIN_TYPE_LIST[number];
 
-const GuardianAdd: React.FC = () => {
+const AddGuardian: React.FC = () => {
   const { t } = useLanguage();
   const [userGuardiansList, setUserGuardiansList] = useState<Array<GuardianConfig>>([]);
   const [verifierMap, setVerifierMap] = useState<{
@@ -67,11 +68,16 @@ const GuardianAdd: React.FC = () => {
   const [account, setAccount] = useState<string>();
   const [guardianTypeError, setGuardianTypeError] = useState<ErrorType>({ ...INIT_HAS_ERROR });
   const [guardianError, setGuardianError] = useState<ErrorType>({ ...INIT_NONE_ERROR });
-  const { localPhoneCountryCode: country } = usePhoneCountryCode();
+  const [country, setCountry] = useState<CountryCodeItem>(defaultCountryCode);
   const [firstName, setFirstName] = useState<string>();
   const { navigateForResult } = useBaseContainer({
     entryName: PortkeyEntries.ADD_GUARDIAN_ENTRY,
   });
+
+  const checkMMKVStorage = async () => {
+    const countryDTO = await getCachedCountryCodeData();
+    setCountry(countryDTO?.locateData);
+  };
 
   const { appleSign } = useAppleAuthentication();
   const { googleSign } = useGoogleAuthentication();
@@ -92,7 +98,9 @@ const GuardianAdd: React.FC = () => {
   // }, [editGuardian, verifierList]);
 
   useEffectOnce(async () => {
-    const { data: verifiers } = await callGetVerifiersMethod();
+    await checkMMKVStorage();
+    const { data } = await callGetVerifiersMethod();
+    const { verifierServers: verifiers } = data || {};
     console.log('verifiers', JSON.stringify(verifiers));
     verifiers && setVerifierMap(verifiers);
     const {
@@ -116,6 +124,11 @@ const GuardianAdd: React.FC = () => {
     setGuardianError({ ...INIT_NONE_ERROR });
     setSelectedVerifier(item);
   }, []);
+
+  const isConfirmDisable = useMemo(
+    () => !selectedVerifier || !selectedType || !account,
+    [account, selectedType, selectedVerifier],
+  );
 
   const checkCurGuardianRepeat = useCallback(() => {
     if (!selectedType) {
@@ -202,8 +215,8 @@ const GuardianAdd: React.FC = () => {
     let guardianAccount = account;
     let showGuardianAccount;
     if (guardianType === LoginType.Phone) {
-      guardianAccount = `+${country.code}${account}`;
-      showGuardianAccount = `+${country.code} ${account}`;
+      guardianAccount = `+${country?.code}${account}`;
+      showGuardianAccount = `+${country?.code} ${account}`;
     }
     if (guardianType === LoginType.Email) {
       const guardianErrorMsg = checkEmail(account);
@@ -288,101 +301,6 @@ const GuardianAdd: React.FC = () => {
       ],
     });
   }, [selectedVerifier, selectedType, account, checkCurGuardianRepeat, t, country.code, thirdPartyConfirm]);
-
-  const onApproval = useCallback(() => {
-    const _guardianError = checkCurGuardianRepeat();
-    setGuardianError(_guardianError);
-    if (_guardianError.isError || !selectedVerifier) return;
-    // dispatch(setPreGuardianAction(editGuardian));
-
-    navigationService.navigate('GuardianApproval', {
-      approvalType: ApprovalType.editGuardian,
-      guardianItem: {
-        // ...editGuardian,
-        verifier: selectedVerifier,
-      },
-    });
-  }, [checkCurGuardianRepeat, selectedVerifier]);
-
-  // const onRemove = useCallback(async () => {
-  //   if (!userGuardiansList) return;
-
-  //   const isLastLoginAccount = checkIsLastLoginAccount(userGuardiansList, null);
-
-  //   if (isLastLoginAccount) {
-  //     ActionSheet.alert({
-  //       title2: t('This guardian is the only login account and cannot be removed'),
-  //       buttons: [
-  //         {
-  //           title: t('OK'),
-  //         },
-  //       ],
-  //     });
-  //     return;
-  //   }
-
-  //   const isLoginAccount = editGuardian.isLoginAccount;
-  //   const result = await new Promise(resolve => {
-  //     ActionSheet.alert({
-  //       title: isLoginAccount ? undefined : 'Are you sure you want to remove this guardian?',
-  //       title2: isLoginAccount
-  //         ? `This guardian is set as a login account. Click "Confirm" to unset and remove this guardian`
-  //         : undefined,
-  //       message: isLoginAccount ? undefined : `Removing a guardian requires guardians' approval`,
-  //       buttons: [
-  //         {
-  //           title: isLoginAccount ? 'Cancel' : 'Close',
-  //           type: 'outline',
-  //           onPress: () => {
-  //             resolve(false);
-  //           },
-  //         },
-  //         {
-  //           title: isLoginAccount ? 'Confirm' : 'Send Request',
-  //           onPress: () => {
-  //             resolve(true);
-  //           },
-  //         },
-  //       ],
-  //     });
-  //   });
-  //   if (!result) return;
-
-  //   if (editGuardian.isLoginAccount) {
-  //     if (!managerAddress || !caHash) return;
-  //     Loading.show();
-  //     try {
-  //       const caContract = await getCurrentCAContract();
-  //       const req = await cancelLoginAccount(caContract, managerAddress, caHash, editGuardian);
-  //       if (req && !req.error) {
-  //         myEvents.refreshGuardiansList.emit();
-  //       } else {
-  //         CommonToast.fail(req?.error?.message || '');
-  //         return;
-  //       }
-  //     } catch (error) {
-  //       CommonToast.failError(error);
-  //       return;
-  //     } finally {
-  //       Loading.hide();
-  //     }
-  //   }
-
-  //   navigationService.navigate('GuardianApproval', {
-  //     approvalType: ApprovalType.deleteGuardian,
-  //     guardianItem: editGuardian,
-  //   });
-  // }, [caHash, editGuardian, managerAddress, t, userGuardiansList]);
-
-  // const isConfirmDisable = useMemo(
-  //   () => !selectedVerifier || !selectedType || !account,
-  //   [account, selectedType, selectedVerifier],
-  // );
-
-  // const isApprovalDisable = useMemo(
-  //   () => selectedVerifier?.id === editGuardian?.verifier?.id,
-  //   [editGuardian, selectedVerifier],
-  // );
 
   const onChooseType = useCallback((_type: TypeItemType) => {
     setSelectedType(_type);
@@ -532,6 +450,7 @@ const GuardianAdd: React.FC = () => {
             label={t('Guardian Phone')}
             theme="white-bg"
             value={account}
+            onCountryChange={setCountry}
             navigateForResult={navigateForResult}
             errorMessage={guardianTypeError.isError ? guardianTypeError.errorMsg : ''}
             onChangeText={onAccountChange}
@@ -619,8 +538,13 @@ const GuardianAdd: React.FC = () => {
         />
         {guardianError.isError && <TextS style={pageStyles.errorTips}>{guardianError.errorMsg || ''}</TextS>}
       </View>
+      <View>
+        <CommonButton disabled={isConfirmDisable} type="primary" onPress={onConfirm}>
+          {t('Confirm')}
+        </CommonButton>
+      </View>
     </PageContainer>
   );
 };
 
-export default GuardianAdd;
+export default AddGuardian;

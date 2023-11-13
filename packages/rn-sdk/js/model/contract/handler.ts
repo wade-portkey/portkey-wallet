@@ -35,7 +35,7 @@ export const callAddManagerMethod = async (extraData: string, managerAddress: st
 
 export const callGetVerifiersMethod = async (): Promise<{
   data?: {
-    [key: string]: VerifierInfo;
+    verifierServers: { [key: string]: VerifierInfo };
   };
 }> => {
   const contractInstance = await getContractInstance();

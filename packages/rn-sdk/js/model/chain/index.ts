@@ -16,6 +16,6 @@ export const getCachedNetworkConfig = async (
     peerUrl: chainInfo.endPoint,
     caContractAddress: chainInfo.caContractAddress,
   };
-  TempStorage.set(NETWORK_CONFIG_KEY, config);
+  TempStorage.set(NETWORK_CONFIG_KEY, JSON.stringify(config));
   return config;
 };
