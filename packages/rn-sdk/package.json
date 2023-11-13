@@ -65,7 +65,8 @@
   },
   "scripts": {
     "start": "react-native start",
-    "postinstall": "patch-package"
+    "postinstall": "patch-package",
+    "build": "sh ./script/build.sh"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
