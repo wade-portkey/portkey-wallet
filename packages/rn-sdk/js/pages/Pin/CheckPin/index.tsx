@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import PageContainer from 'components/PageContainer';
 import { DigitInputInterface } from 'components/DigitInput';
 import { PIN_SIZE } from '@portkey-wallet/constants/misc';
@@ -11,7 +11,6 @@ import { checkPin, getUseBiometric, unLockTempWallet } from 'model/verify/after-
 import { touchAuth } from '../SetBiometrics';
 import Loading from 'components/Loading';
 import useEffectOnce from 'hooks/useEffectOnce';
-import { TempStorage } from 'service/storage';
 import myEvents from 'utils/deviceEvent';
 
 export default function CheckPin(props: CheckPinProps) {

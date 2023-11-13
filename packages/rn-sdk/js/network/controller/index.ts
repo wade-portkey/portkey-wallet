@@ -88,12 +88,13 @@ export class NetworkControllerEntity {
     return res.result;
   };
 
-  getGuardianInfo = async (chainId: string, loginGuardianIdentifier: string): Promise<GetGuardianInfoResultDTO> => {
+  getGuardianInfo = async (loginGuardianIdentifier: string, chainId?: string): Promise<GetGuardianInfoResultDTO> => {
+    const chain = chainId ?? (await PortkeyConfig.currChainId());
     const res = await this.realExecute<GetGuardianInfoResultDTO>(
       await this.parseUrl(APIPaths.GET_GUARDIAN_INFO),
       'GET',
       {
-        chainId,
+        chainId: chain,
         loginGuardianIdentifier,
         guardianIdentifier: loginGuardianIdentifier,
       },

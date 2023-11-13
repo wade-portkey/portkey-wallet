@@ -210,7 +210,7 @@ export const getCaInfoByAccountIdentifierOrSessionId = async (
   sessionId?: string,
 ): Promise<{ caHash: string; caAddress: string }> => {
   if (accountIdentifier) {
-    const result = await NetworkController.getGuardianInfo(originalChainId, accountIdentifier);
+    const result = await NetworkController.getGuardianInfo(accountIdentifier);
     return result;
   } else if (sessionId) {
     const result = fromRecovery
