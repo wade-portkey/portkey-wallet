@@ -10,7 +10,6 @@ import Touchable from 'components/Touchable';
 import GStyles from 'assets/theme/GStyles';
 import { getTempWalletConfig, RecoverWalletConfig } from 'model/verify/after-verify';
 import { NetworkController } from 'network/controller';
-import { PortkeyConfig } from 'global/constants';
 import { UserGuardianItem } from '@portkey-wallet/store/store-ca/guardians/type';
 import { getBottomSpace } from 'utils/screen';
 import { GuardianInfo } from 'network/dto/guardian';
@@ -40,9 +39,7 @@ export default function GuardianHome() {
   useEffect(() => {
     (async () => {
       const config: RecoverWalletConfig = await getTempWalletConfig();
-      const chainId = (await PortkeyConfig.currChainId()) ?? config.originalChainId;
       const guardianInfo = await NetworkController.getGuardianInfo(
-        chainId,
         config.accountIdentifier as string,
         config?.caInfo?.caHash,
       );
