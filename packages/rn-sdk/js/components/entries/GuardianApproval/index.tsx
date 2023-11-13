@@ -17,7 +17,7 @@ export default class GuardianApprovalEntryPage extends BaseContainer<
     const verifiedTime = new Date().getTime();
     this.state = {
       verifiedTime,
-      socialRecoveryConfig: JSON.parse(deliveredGuardianListInfo),
+      config: JSON.parse(deliveredGuardianListInfo),
     };
   }
 
@@ -31,7 +31,7 @@ export default class GuardianApprovalEntryPage extends BaseContainer<
   };
 
   render() {
-    const { socialRecoveryConfig, verifiedTime } = this.state;
+    const { config: socialRecoveryConfig, verifiedTime } = this.state;
     return (
       <>
         <GuardianApproval
@@ -50,7 +50,7 @@ export interface GuardianApprovalPageProps extends BaseContainerProps {
 
 export interface GuardianApprovalPageState {
   verifiedTime: number;
-  socialRecoveryConfig: GuardianVerifyConfig;
+  config: GuardianVerifyConfig;
 }
 
 export interface GuardianApprovalPageResult {

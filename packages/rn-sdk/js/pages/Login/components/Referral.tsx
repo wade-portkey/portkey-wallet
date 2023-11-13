@@ -21,8 +21,6 @@ import { defaultColors } from 'assets/theme';
 import { PageLoginType, PageType } from '../types';
 import { useVerifyEntry } from 'model/verify/entry';
 import { isIOS } from '@portkey-wallet/utils/mobile/device';
-import { useAppleAuthentication, useGoogleAuthentication } from 'model/hooks/authentication';
-import { AppleAccountInfo, GoogleAccountInfo } from 'model/verify/third-party-account';
 
 const TitleMap = {
   [PageType.login]: {
@@ -46,25 +44,6 @@ export default function Referral({
 }) {
   // eslint-disable-next-line @typescript-eslint/no-empty-function
 
-  const { appleSign } = useAppleAuthentication();
-  const { googleSign } = useGoogleAuthentication();
-
-  const appleLoginAdapter = useCallback(async (): Promise<AppleAccountInfo> => {
-    const userInfo = await appleSign();
-    return {
-      accountIdentifier: userInfo?.user?.id,
-      identityToken: userInfo?.identityToken,
-    };
-  }, [appleSign]);
-
-  const googleLoginAdapter = useCallback(async (): Promise<GoogleAccountInfo> => {
-    const userInfo = await googleSign();
-    return {
-      accountIdentifier: userInfo?.user?.id,
-      accessToken: userInfo?.accessToken,
-    };
-  }, [googleSign]);
-
   const { onFinish, navigateForResult } = useBaseContainer({
     entryName: PortkeyEntries.REFERRAL_ENTRY,
   });
@@ -80,8 +59,6 @@ export default function Referral({
     accountOriginalType: AccountOriginalType.Apple,
     entryName: PortkeyEntries.REFERRAL_ENTRY,
     setErrorMessage,
-    googleSign: googleLoginAdapter,
-    appleSign: appleLoginAdapter,
   });
 
   const onSuccess = (text = 'You have already logged in, page close in 5 seconds') => {
