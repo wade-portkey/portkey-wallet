@@ -73,22 +73,6 @@ export default function Referral({
     }, 5000);
   };
 
-  const pushToSignIn = () => {
-    if (type === PageType.login) {
-      navigateForResult<SignInPageResult, SignInPageProps>(PortkeyEntries.SIGN_IN_ENTRY, {}, res => {
-        if (res.status === 'success') {
-          onSuccess();
-        }
-      });
-    } else {
-      navigateForResult<SignInPageResult, SignInPageProps>(PortkeyEntries.SIGN_UP_ENTRY, {}, res => {
-        if (res.status === 'success') {
-          onSuccess();
-        }
-      });
-    }
-  };
-
   const pushToSignUp = () => {
     navigateForResult<SignInPageResult, SignInPageProps>(PortkeyEntries.SIGN_UP_REFERRAL_ENTRY, {}, res => {
       if (res.status === 'success') {
@@ -163,7 +147,7 @@ export default function Referral({
         />
 
         <Divider title="OR" inset={true} style={pageStyles.dividerStyle} />
-        <CommonButton type="primary" onPress={pushToSignIn} title={TitleMap[type].button} />
+        <CommonButton type="primary" onPress={() => setLoginType(PageLoginType.phone)} title={TitleMap[type].button} />
       </View>
       {type === PageType.login && (
         <Touchable style={[GStyles.flexRowWrap, GStyles.itemCenter, styles.signUpTip]} onPress={pushToSignUp}>
