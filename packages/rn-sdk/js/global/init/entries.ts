@@ -59,13 +59,13 @@ const initEntries = () => {
     AppRegistry.registerComponent(key, value);
   }
 };
-export enum LanuchMode {
+export enum LaunchMode {
   STANDARD = 'standard',
   SINGLE_TASK = 'single_task',
   SINGLE_TOP = 'single_top',
 }
 const registerLaunchMode = () => {
-  LaunchModeSet.set(PortkeyEntries.ACCOUNT_SETTING_ENTRY, LanuchMode.SINGLE_TASK.toString());
+  LaunchModeSet.set(PortkeyEntries.ACCOUNT_SETTING_ENTRY, LaunchMode.SINGLE_TASK.toString());
 };
 export const LaunchModeSet = new Map();
 export { initEntries, registerLaunchMode };
