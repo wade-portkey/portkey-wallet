@@ -181,8 +181,10 @@ internal object NetworkConnector {
             ResultWrapper(0, result = result)
         } else {
             val errorCode: String = if (result != null) {
-                val code = result.asJsonObject.get("error").asJsonObject.get("code")
-                if (!code.isJsonNull) {
+                val code = result.asJsonObject.get("error")?.apply {
+                    this.asJsonObject.get("code")
+                }
+                if (code != null && !code.isJsonNull) {
                     code.asString
                 } else {
                     "-1"
@@ -190,8 +192,10 @@ internal object NetworkConnector {
             } else "${response.code}"
             val errMessage: String =
                 if (result != null) {
-                    val message = result.asJsonObject.get("error").asJsonObject.get("message")
-                    if (!message.isJsonNull) {
+                    val message = result.asJsonObject.get("error")?.apply {
+                        this.asJsonObject.get("message")
+                    }
+                    if (message != null && !message.isJsonNull) {
                         message.asString
                     } else {
                         "empty"

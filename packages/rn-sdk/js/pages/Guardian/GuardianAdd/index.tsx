@@ -13,7 +13,7 @@ import CommonInput from 'components/CommonInput';
 import { checkEmail } from '@portkey-wallet/utils/check';
 import { LOGIN_TYPE_LIST } from 'constants/misc';
 import { PRIVATE_GUARDIAN_ACCOUNT } from '@portkey-wallet/constants/constants-ca/guardian';
-import { ApprovalType, VerificationType, OperationTypeEnum, VerifierItem } from '@portkey-wallet/types/verifier';
+import { ApprovalType, OperationTypeEnum, VerificationType, VerifierItem } from '@portkey-wallet/types/verifier';
 import { INIT_HAS_ERROR, INIT_NONE_ERROR } from 'constants/common';
 import GuardianTypeSelectOverlay from '../components/GuardianTypeSelectOverlay';
 import VerifierSelectOverlay from '../components/VerifierSelectOverlay';
@@ -24,7 +24,6 @@ import Loading from 'components/Loading';
 import CommonToast from 'components/CommonToast';
 import { LoginType } from '@portkey-wallet/types/types-ca/wallet';
 import { VerifierImage } from 'pages/Guardian/components/VerifierImage';
-import { verification } from 'utils/api';
 import fonts from 'assets/theme/fonts';
 import PhoneInput from 'components/PhoneInput';
 import Touchable from 'components/Touchable';
@@ -41,12 +40,21 @@ import useEffectOnce from 'hooks/useEffectOnce';
 import { callGetVerifiersMethod } from 'model/contract/handler';
 import { NetworkController } from 'network/controller';
 import { getUnlockedWallet } from 'model/wallet';
-import { getCachedCountryCodeData, guardianTypeStrToEnum, parseGuardianInfo } from 'model/global';
+import {
+  getCachedCountryCodeData,
+  guardianEnumToTypeStr,
+  guardianTypeStrToEnum,
+  parseGuardianInfo,
+} from 'model/global';
 import { GuardianConfig } from 'model/verify/guardian';
 import useBaseContainer from 'model/container/UseBaseContainer';
 import { PortkeyEntries } from 'config/entries';
 import { CountryCodeItem, defaultCountryCode } from 'types/wallet';
 import CommonButton from 'components/CommonButton';
+import { verifyHumanMachine } from 'components/VerifyHumanMachine';
+import { handleGuardiansApproval, handlePhoneOrEmailGuardianVerify } from 'model/verify/entry/hooks';
+import { AccountOriginalType } from 'model/verify/after-verify';
+import { GuardianVerifyType } from 'model/verify/social-recovery';
 
 type thirdPartyInfoType = {
   id: string;
@@ -70,7 +78,7 @@ const AddGuardian: React.FC = () => {
   const [guardianError, setGuardianError] = useState<ErrorType>({ ...INIT_NONE_ERROR });
   const [country, setCountry] = useState<CountryCodeItem>(defaultCountryCode);
   const [firstName, setFirstName] = useState<string>();
-  const { navigateForResult } = useBaseContainer({
+  const { navigateForResult, onFinish } = useBaseContainer({
     entryName: PortkeyEntries.ADD_GUARDIAN_ENTRY,
   });
 
@@ -84,18 +92,6 @@ const AddGuardian: React.FC = () => {
   const verifyToken = useVerifyToken();
 
   const thirdPartyInfoRef = useRef<thirdPartyInfoType>();
-
-  // useEffect(() => {
-  //   if (editGuardian) {
-  //     setSelectedType(LOGIN_TYPE_LIST.find(item => item.value === editGuardian?.guardianType));
-  //     if ([LoginType.Apple, LoginType.Google].includes(editGuardian.guardianType)) {
-  //       setAccount(editGuardian.isPrivate ? PRIVATE_GUARDIAN_ACCOUNT : editGuardian.thirdPartyEmail);
-  //     } else {
-  //       setAccount(editGuardian.guardianAccount);
-  //     }
-  //     setSelectedVerifier(verifierList.find(item => item.name === editGuardian?.verifier?.name));
-  //   }
-  // }, [editGuardian, verifierList]);
 
   useEffectOnce(async () => {
     await checkMMKVStorage();
@@ -265,28 +261,55 @@ const AddGuardian: React.FC = () => {
             try {
               if ([LoginType.Email, LoginType.Phone].includes(guardianType)) {
                 Loading.show();
+                const accountIdentifier = guardianAccount || '';
+                const accountOriginalType =
+                  guardianType === LoginType.Email ? AccountOriginalType.Email : AccountOriginalType.Phone;
                 const originalChainId = await PortkeyConfig.currChainId();
-                const req = await verification.sendVerificationCode({
-                  params: {
-                    type: LoginType[guardianType],
-                    guardianIdentifier: guardianAccount,
+                const needRecaptcha = await NetworkController.isGoogleRecaptchaOpen(OperationTypeEnum.addGuardian);
+                let reCaptchaToken: string | undefined;
+                if (needRecaptcha) {
+                  reCaptchaToken = (await verifyHumanMachine('en')) as string;
+                }
+                const req = await NetworkController.sendVerifyCode(
+                  {
+                    type: guardianEnumToTypeStr(guardianType),
+                    guardianIdentifier: guardianAccount || '',
                     verifierId: selectedVerifier.id,
-                    chainId: originalChainId || 'AELF',
+                    chainId: originalChainId,
                     operationType: OperationTypeEnum.addGuardian,
                   },
-                });
+                  reCaptchaToken ? { reCaptchaToken } : {},
+                );
                 if (req.verifierSessionId) {
-                  navigationService.navigate('VerifierDetails', {
-                    guardianItem: {
-                      isLoginAccount: false,
-                      verifier: selectedVerifier,
-                      guardianAccount,
-                      guardianType: guardianType,
+                  const thisGuardian: GuardianConfig = {
+                    sendVerifyCodeParams: {
+                      type: guardianEnumToTypeStr(guardianType),
+                      guardianIdentifier: guardianAccount || '',
+                      verifierId: selectedVerifier.id,
+                      chainId: originalChainId,
+                      operationType: OperationTypeEnum.communityRecovery,
                     },
-                    requestCodeResult: {
-                      verifierSessionId: req.verifierSessionId,
-                    },
+                    accountIdentifier,
+                    accountOriginalType,
+                    isLoginGuardian: false,
+                    name: selectedVerifier.name,
+                    imageUrl: selectedVerifier.imageUrl,
+                  };
+                  const guardianVerifyResult = await handlePhoneOrEmailGuardianVerify({
                     verificationType: VerificationType.addGuardian,
+                    accountIdentifier,
+                    accountOriginalType,
+                    deliveredGuardianInfo: JSON.stringify(thisGuardian),
+                  });
+                  if (!guardianVerifyResult) {
+                    throw new Error('guardian is not verified!');
+                  }
+                  handleGuardiansApproval({
+                    guardianVerifyType: GuardianVerifyType.ADD_GUARDIAN,
+                    accountIdentifier,
+                    accountOriginalType,
+                    guardians: userGuardiansList,
+                    particularGuardian: thisGuardian,
                   });
                 } else {
                   throw new Error('send fail');
@@ -300,7 +323,16 @@ const AddGuardian: React.FC = () => {
         },
       ],
     });
-  }, [selectedVerifier, selectedType, account, checkCurGuardianRepeat, t, country.code, thirdPartyConfirm]);
+  }, [
+    selectedVerifier,
+    selectedType,
+    account,
+    checkCurGuardianRepeat,
+    t,
+    country?.code,
+    thirdPartyConfirm,
+    userGuardiansList,
+  ]);
 
   const onChooseType = useCallback((_type: TypeItemType) => {
     setSelectedType(_type);
@@ -418,15 +450,6 @@ const AddGuardian: React.FC = () => {
   }, [account, firstName, onAppleSign]);
 
   const renderGuardianAccount = useCallback(() => {
-    // if (isEdit) {
-    //   return (
-    //     <View style={pageStyles.accountWrap}>
-    //       <TextM style={pageStyles.accountLabel}>Guardian {LoginType[editGuardian?.guardianType || 0]}</TextM>
-    //       <GuardianAccountItem guardian={editGuardian} />
-    //     </View>
-    //   );
-    // }
-
     if (!selectedType) return <></>;
 
     switch (selectedType.value) {
@@ -482,7 +505,9 @@ const AddGuardian: React.FC = () => {
     <PageContainer
       safeAreaColor={['blue', 'gray']}
       titleDom={t('Add Guardians')}
-      leftCallback={() => navigationService.navigate('GuardianHome')}
+      leftCallback={() => {
+        onFinish({ status: 'cancel' });
+      }}
       containerStyles={pageStyles.pageWrap}
       scrollViewProps={{ disabled: true }}>
       <View style={pageStyles.contentWrap}>

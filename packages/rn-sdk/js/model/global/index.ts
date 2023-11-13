@@ -23,6 +23,7 @@ import { ThirdPartyAccountInfo } from 'model/verify/third-party-account';
 import { GlobalStorage } from 'service/storage';
 import { ChainId } from '@portkey-wallet/types';
 import { UserGuardianItem } from '@portkey-wallet/store/store-ca/guardians/type';
+import { LoginType } from '@portkey-wallet/types/types-ca/wallet';
 
 export const COUNTRY_CODE_DATA_KEY = 'countryCodeData';
 export const CURRENT_USING_COUNTRY_CODE = 'currentUsingCountryCode';
@@ -241,6 +242,23 @@ export const guardianTypeStrToEnum = (guardianType: AccountOrGuardianOriginalTyp
       return GuardianType.Google;
     case 'Apple':
       return GuardianType.Apple;
+    default:
+      throw new Error('invalid guardian type');
+  }
+};
+
+export const guardianEnumToTypeStr = (
+  guardianType: LoginType | GuardianType | AccountOriginalType,
+): AccountOrGuardianOriginalTypeStr => {
+  switch (guardianType) {
+    case GuardianType.Email:
+      return 'Email';
+    case GuardianType.Phone:
+      return 'Phone';
+    case GuardianType.Google:
+      return 'Google';
+    case GuardianType.Apple:
+      return 'Apple';
     default:
       throw new Error('invalid guardian type');
   }

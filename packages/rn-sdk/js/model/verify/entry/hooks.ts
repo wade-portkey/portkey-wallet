@@ -8,13 +8,14 @@ import { parseGuardianInfo } from 'model/global';
 import { PortkeyConfig } from 'global/constants';
 import { GuardianApprovalPageProps, GuardianApprovalPageResult } from 'components/entries/GuardianApproval';
 import Loading from 'components/Loading';
+import { OnGuardianHomeNewIntent } from 'pages/GuardianManage/GuardianHome';
 
 const navigateToForResult = async <P, R>(
   entryName: string,
   props?: Partial<P>,
   from = 'UNKNOWN',
 ): Promise<R | null> => {
-  return new Promise<R | null>((resolve, reject) => {
+  return new Promise<R | null>((resolve, _) => {
     PortkeyModulesEntity.RouterModule.navigateToWithOptions(
       entryName,
       LaunchModeSet.get(entryName) || LaunchMode.STANDARD,
@@ -23,14 +24,21 @@ const navigateToForResult = async <P, R>(
         params: props,
       },
       (result: EntryResult<R>) => {
-        if (result.status === 'success') {
-          resolve(result.data ?? null);
-        } else {
-          result.status !== 'system' && reject(result);
-        }
+        resolve(result.data ?? null);
       },
     );
   });
+};
+
+const returnToGuardianHome = async (intent: OnGuardianHomeNewIntent) => {
+  PortkeyModulesEntity.RouterModule.navigateTo<OnGuardianHomeNewIntent>(
+    PortkeyEntries.GUARDIAN_HOME_ENTRY,
+    LaunchMode.SINGLE_TASK,
+    `GuardianVerifyType#${intent.type}`,
+    'none',
+    false,
+    intent,
+  );
 };
 
 export const handlePhoneOrEmailGuardianVerify = async (config: VerifierDetailsPageProps) => {
@@ -64,12 +72,16 @@ export const handleGuardiansApproval = async (config: GuardianVerifyConfig) => {
     console.error(e);
   }
   Loading.hide();
-  return navigateToForResult<GuardianApprovalPageProps, GuardianApprovalPageResult>(
+  const option = await navigateToForResult<GuardianApprovalPageProps, GuardianApprovalPageResult>(
     PortkeyEntries.GUARDIAN_APPROVAL_ENTRY,
     {
       deliveredGuardianListInfo: JSON.stringify(config),
     },
   );
+  returnToGuardianHome({
+    type: GuardianVerifyType.ADD_GUARDIAN,
+    result: option ? 'success' : 'fail',
+  });
 };
 
 const checkGuardiansApprovalConfig = (config: GuardianVerifyConfig): boolean => {

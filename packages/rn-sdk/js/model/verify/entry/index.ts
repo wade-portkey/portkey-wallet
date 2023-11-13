@@ -47,19 +47,19 @@ export const useVerifyEntry = (verifyConfig: VerifyConfig): VerifyEntryHooks => 
 
   const sendVerifyCode = async (
     guardianConfig: GuardianConfig | undefined,
-    googleRecaptchaToken?: string,
+    reCaptchaToken?: string,
   ): Promise<SendVerifyCodeResultDTO | null> => {
     if (!guardianConfig) throw new Error('guardianConfig is not defined');
     const needGoogleRecaptcha = await NetworkController.isGoogleRecaptchaOpen(
       guardianConfig.sendVerifyCodeParams.operationType,
     );
-    if (needGoogleRecaptcha && !googleRecaptchaToken) {
+    if (needGoogleRecaptcha && !reCaptchaToken) {
       console.warn('Need google recaptcha! Better check it before calling this function.');
       return null;
     }
     const result = await NetworkController.sendVerifyCode(
       guardianConfig.sendVerifyCodeParams,
-      googleRecaptchaToken ? { reCaptchaToken: googleRecaptchaToken } : {},
+      reCaptchaToken ? { reCaptchaToken } : {},
     );
     if (result?.verifierSessionId) {
       return result;

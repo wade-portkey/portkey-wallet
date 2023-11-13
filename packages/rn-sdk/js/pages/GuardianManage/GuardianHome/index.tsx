@@ -16,6 +16,7 @@ import { GuardianInfo } from 'network/dto/guardian';
 import { guardianTypeStrToEnum } from 'model/global';
 import useBaseContainer from 'model/container/UseBaseContainer';
 import { PortkeyEntries } from 'config/entries';
+import { GuardianVerifyType } from 'model/verify/social-recovery';
 
 export default function GuardianHome() {
   const { t } = useLanguage();
@@ -92,6 +93,12 @@ export default function GuardianHome() {
       </View>
     </PageContainer>
   );
+}
+
+export interface OnGuardianHomeNewIntent {
+  type: GuardianVerifyType;
+  result: 'success' | 'fail' | 'cancel' | 'system';
+  extra?: any;
 }
 
 const pageStyles = StyleSheet.create({

@@ -53,10 +53,17 @@ class MainActivity : ComponentActivity() {
                     color = Color.Gray
                 ) {
                     val cachedChainId = remember {
-                        PortkeyMMKVStorage.readString("currChainId") ?: "AELF"
+                        val chainId = PortkeyMMKVStorage.readString("currChainId")
+                        if (chainId.isNullOrEmpty()) {
+                            changeChain("AELF")
+                        }
+                        chainId ?: "AELF"
                     }
                     val cachedEndPointName = remember {
                         val url = PortkeyMMKVStorage.readString("endPointUrl")
+                        if (url.isNullOrEmpty()) {
+                            changeEndPointUrl("MAIN NET")
+                        }
                         environment.keys.find { environment[it] == url } ?: "MAIN NET"
                     }
                     Column(
