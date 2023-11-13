@@ -6,10 +6,14 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <PortkeySDK/PortkeySDKAccountInfo.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol PortkeySDKAccountProtocol <NSObject>
+
+- (void)login:(void(^)(NSError * _Nullable, PortkeySDKAccountInfo * _Nullable))callback;
+- (void)logout:(void(^)(NSError * _Nullable))callback;
 
 @end
 

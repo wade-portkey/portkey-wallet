@@ -8,6 +8,7 @@
 #import "PortkeySDKPortkey.h"
 #import <PortkeySDK/PortkeySDKAccountModule.h>
 #import <PortkeySDK/PortkeySDKConfigModule.h>
+#import <PortkeySDK/PortkeySDKServiceModule.h>
 
 @interface PortkeySDKPortkey ()
 
@@ -18,6 +19,8 @@
 @end
 
 @implementation PortkeySDKPortkey
+
+#pragma mark - Public
 
 + (instancetype)portkey {
     static PortkeySDKPortkey *portkey = nil;
@@ -30,6 +33,27 @@
 
 + (void)initPortkey {
     
+}
+
+- (void)login:(void (^)(NSError * _Nullable, PortkeySDKAccountInfo * _Nullable))callback {
+    [self.accountModule login:^(NSError * _Nullable error, PortkeySDKAccountInfo * _Nullable accountInfo) {
+        if (!error) {
+            [self generateService];
+        }
+        if (callback) {
+            callback(error, accountInfo);
+        }
+    }];
+}
+
+- (void)logout:(void (^)(NSError * _Nullable))callback {
+    
+}
+
+#pragma mark - Private
+
+- (void)generateService {
+    self.service = [PortkeySDKServiceModule new];
 }
 
 #pragma mark - Getter

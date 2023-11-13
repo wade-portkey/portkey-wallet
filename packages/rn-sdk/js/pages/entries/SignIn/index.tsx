@@ -1,14 +1,14 @@
-import { CountryCodeItem } from 'types/wallet';
 import { PortkeyEntries } from '../../../config/entries';
 import BaseContainer, { BaseContainerProps, BaseContainerState } from '../../../model/container/BaseContainer';
-import { AccountCheckResult, CURRENT_USING_COUNTRY_CODE, attemptAccountCheck } from '../../../model/global';
-import LoginPortkey from 'pages/Login/LoginPortkey';
+import SigninPortkey from 'pages/Login/LoginPortkey';
 import React from 'react';
-import { GlobalStorage } from 'service/storage';
 import BaseContainerContext from 'model/container/BaseContainerContext';
+import { CountryCodeItem } from 'types/wallet';
+import { GlobalStorage } from 'service/storage';
+import { CURRENT_USING_COUNTRY_CODE } from '../../../model/global';
 
 export default class SignInEntryPage extends BaseContainer<SignInPageProps, SignInPageState, SignInPageResult> {
-  constructor(props: SignInPageProps) {
+  constructor(props: BaseContainerProps) {
     super(props);
     this.checkMMKVStorage();
     this.state = {
@@ -27,6 +27,10 @@ export default class SignInEntryPage extends BaseContainer<SignInPageProps, Sign
       });
   };
 
+  onShow(_rootTag?: any): void {
+    console.log('ReferralEntryPage onShow');
+  }
+
   updateCountryCode = (countryCode: CountryCodeItem) => {
     this.setState({
       currentCountryCodeItem: countryCode,
@@ -35,15 +39,11 @@ export default class SignInEntryPage extends BaseContainer<SignInPageProps, Sign
 
   getEntryName = (): string => PortkeyEntries.SIGN_IN_ENTRY;
 
-  attemptAccountCheck = async (accountIdentifier: string): Promise<AccountCheckResult> => {
-    return attemptAccountCheck(accountIdentifier);
-  };
-
   render() {
     return (
       <>
         <BaseContainerContext.Provider value={{ entryName: this.getEntryName() }}>
-          <LoginPortkey
+          <SigninPortkey
             selectedCountryCode={this.state.currentCountryCodeItem}
             updateCountryCode={this.updateCountryCode}
           />
