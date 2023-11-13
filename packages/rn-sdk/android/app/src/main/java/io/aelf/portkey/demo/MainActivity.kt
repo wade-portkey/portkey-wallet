@@ -107,7 +107,7 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    private fun jumpToActivity(entryName: String = "referral_entry") {
+    private fun jumpToActivity(entryName: String = PortkeyEntries.SIGN_IN_ENTRY.entryName) {
         usePortkeyEntry(entryName) {
             PortkeyTest.showDialogForTestOnly(
                 DialogProps().apply {
@@ -120,7 +120,7 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun jumpToActivityWithParams(
-        entryName: String = "referral_entry",
+        entryName: String = PortkeyEntries.SIGN_IN_ENTRY.entryName,
         params: Bundle? = null
     ) {
         usePortkeyEntryWithParams(entryName, params) {
