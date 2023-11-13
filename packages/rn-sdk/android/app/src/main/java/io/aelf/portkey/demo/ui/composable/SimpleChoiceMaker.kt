@@ -67,20 +67,7 @@ internal fun SimpleChoiceMaker(
                     },
                     onClick = click@{
                         expand = false
-                        fun execute() {
-                            afterChosen(it)
-                        }
-                        PortkeyTest.showDialogForTestOnly(
-                            DialogProps().apply {
-                                mainTitle = "Confirm"
-                                subTitle =
-                                    "Are you sure you wanna go to $it page?"
-                                useSingleConfirmButton = false
-                                positiveCallback = {
-                                    execute()
-                                }
-                            }
-                        )
+                        afterChosen(it)
                     }
                 )
             }
