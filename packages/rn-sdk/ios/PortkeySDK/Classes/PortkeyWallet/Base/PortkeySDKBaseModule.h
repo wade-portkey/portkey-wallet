@@ -1,15 +1,15 @@
 //
-//  PortkeySDKWallet.h
+//  PortkeySDKBaseModule.h
 //  PortkeySDK
 //
-//  Created by wade-cui on 2023/9/26.
+//  Created by wade-cui on 2023/11/10.
 //
 
 #import <Foundation/Foundation.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface PortkeySDKWallet : NSObject
+@interface PortkeySDKBaseModule : NSObject
 
 @end
 

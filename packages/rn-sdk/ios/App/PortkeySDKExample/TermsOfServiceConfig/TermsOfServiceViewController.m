@@ -9,7 +9,7 @@
 #import "TermsOfServiceViewController.h"
 #import <YYKit/YYKit.h>
 #import <Toast/Toast.h>
-#import <PortkeySDK/PortkeySDKConfigModule.h>
+#import <PortkeySDK/PortkeySDKPortkey.h>
 
 @interface TermsOfServiceViewController ()
 
@@ -52,12 +52,12 @@
 }
 
 - (void)readAndShowConfig {
-    NSString *prefix = [PortkeySDKConfigModule termsOfServicePrefix];
+    NSString *prefix = [[self config] termsOfServicePrefix];
     if (prefix.length) {
         self.prefixTextField.text = prefix;
     }
     
-    NSString *title = [PortkeySDKConfigModule termsOfServiceTitle];
+    NSString *title = [[self config] termsOfServiceTitle];
     if (title.length) {
         self.titleTextField.text = title;
     }
@@ -66,7 +66,7 @@
 #pragma mark - Selector Methods
 
 - (void)confirmButtonClicked:(id)sender {
-    [PortkeySDKConfigModule configTermsOfServiceWithPrefix:[self.prefixTextField.text stringByTrim]
+    [[self config] configTermsOfServiceWithPrefix:[self.prefixTextField.text stringByTrim]
                                                title:[self.titleTextField.text stringByTrim]];
     
     [self.view makeToast:@"config success"];
@@ -100,6 +100,10 @@
 
 - (CGSize)textFieldSize {
     return CGSizeMake(300, 44);
+}
+
+- (id<PortkeySDKConfigProtocol>)config {
+    return [PortkeySDKPortkey portkey].config;
 }
 
 @end

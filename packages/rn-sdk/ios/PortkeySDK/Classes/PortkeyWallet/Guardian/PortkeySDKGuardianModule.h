@@ -6,10 +6,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <PortkeySDK/PortkeySDKGuardianProtocol.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface PortkeySDKGuardianModule : NSObject
+@interface PortkeySDKGuardianModule : NSObject <PortkeySDKGuardianProtocol>
 
 @end
 
