@@ -38,7 +38,7 @@ export default function PhoneInput({
       PortkeyEntries.SELECT_COUNTRY_ENTRY,
       { selectCountry: JSON.stringify(selectCountry) } as any,
       res => {
-        const { result } = res.data;
+        const { result } = res.data || {};
         if (result) {
           try {
             const country = JSON.parse(result);

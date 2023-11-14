@@ -7,6 +7,7 @@ import {
 } from '../../service/native-modules';
 import { PortkeyEntries } from '../../config/entries';
 import { VoidResult } from './UseBaseContainer';
+import { LanuchMode, LaunchModeSet } from 'global/init/entries';
 
 export default abstract class BaseContainer<
   P extends BaseContainerProps,
@@ -35,12 +36,14 @@ export default abstract class BaseContainer<
     }
   }
 
-  navigationTo = (entry: PortkeyEntries, targetScene?: string, closeCurrentScreen?: boolean) => {
+  navigationTo = (entry: PortkeyEntries, targetScene?: string, closeCurrentScreen?: boolean, params?: any) => {
     PortkeyModulesEntity.RouterModule.navigateTo(
       entry,
+      LaunchModeSet.get(entry) || LanuchMode.STANDARD,
       this.getEntryName(),
       targetScene ?? 'none',
       closeCurrentScreen ?? false,
+      params,
     );
   };
 
@@ -52,6 +55,7 @@ export default abstract class BaseContainer<
     const { params, closeCurrentScreen, navigationAnimation, navigationAnimationDuration, targetScene } = options;
     PortkeyModulesEntity.RouterModule.navigateToWithOptions(
       entry,
+      LaunchModeSet.get(entry) || LanuchMode.STANDARD,
       this.getEntryName(),
       {
         params: params ?? ({} as any),

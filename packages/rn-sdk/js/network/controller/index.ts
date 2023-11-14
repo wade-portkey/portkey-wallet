@@ -44,6 +44,7 @@ export class NetworkControllerEntity {
         url = url + `&${key}=${encodeURIComponent((value ?? 'null') as string)}`;
       });
     }
+    headers = Object.assign({}, headers ?? {}, { Version: 'v1.4.8' });
     const result = nativeFetch<T>(url, method, params, headers, extraOptions);
     return result;
   };
@@ -89,12 +90,13 @@ export class NetworkControllerEntity {
   };
 
   getGuardianInfo = async (
-    chainId: string,
     loginGuardianIdentifier?: string,
     caHash?: string,
+    chainId?: string,
   ): Promise<GetGuardianInfoResultDTO> => {
+    const cachedChainId = chainId ?? (await PortkeyConfig.currChainId());
     let params = {
-      chainId,
+      chainId: cachedChainId,
     };
     caHash && (params = Object.assign(params, { caHash }));
     loginGuardianIdentifier &&

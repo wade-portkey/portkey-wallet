@@ -1,6 +1,6 @@
 import { defaultColors } from 'assets/theme';
 import Svg from 'components/Svg';
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { pTd } from 'utils/unit';
 import PageContainer from 'components/PageContainer';
@@ -8,48 +8,96 @@ import { useLanguage } from 'i18n/hooks';
 import GuardianItem from 'pages/Guardian/components/GuardianItem';
 import Touchable from 'components/Touchable';
 import GStyles from 'assets/theme/GStyles';
-import { getTempWalletConfig, RecoverWalletConfig } from 'model/verify/after-verify';
+import { AccountOriginalType, getTempWalletConfig, RecoverWalletConfig } from 'model/verify/after-verify';
 import { NetworkController } from 'network/controller';
-import { PortkeyConfig } from 'global/constants';
 import { UserGuardianItem } from '@portkey-wallet/store/store-ca/guardians/type';
 import { getBottomSpace } from 'utils/screen';
 import { GuardianInfo } from 'network/dto/guardian';
-import { guardianTypeStrToEnum } from 'model/global';
+import { guardianTypeStrToEnum, parseGuardianInfo } from 'model/global';
+import useBaseContainer from 'model/container/UseBaseContainer';
+import { PortkeyEntries } from 'config/entries';
+import { GuardianVerifyType } from 'model/verify/social-recovery';
+import useEffectOnce from 'hooks/useEffectOnce';
+import CommonToast from 'components/CommonToast';
+import Loading from 'components/Loading';
+import { sleep } from '@portkey-wallet/utils';
+import { ModifyGuardianProps } from 'pages/Guardian/GuardianManage/ModifyGuardian';
+import { PortkeyConfig } from 'global/constants';
+import { OperationTypeEnum } from '@portkey-wallet/types/verifier';
+import { callGetVerifiersMethod } from 'model/contract/handler';
 
 export default function GuardianHome() {
   const { t } = useLanguage();
+
+  const [verifierMap, setVerifierMap] = useState<{
+    [key: string]: any;
+  }>([] as any);
+  const verifierList = useMemo(() => (verifierMap ? Object.values(verifierMap) : []), [verifierMap]);
+
+  useEffectOnce(async () => {
+    const { data } = await callGetVerifiersMethod();
+    const { verifierServers: verifiers } = data || {};
+    console.log('verifiers', JSON.stringify(verifiers));
+    verifiers && setVerifierMap(verifiers);
+  });
+
+  const { navigationTo, navigateForResult } = useBaseContainer({
+    entryName: PortkeyEntries.GUARDIAN_HOME_ENTRY,
+    onNewIntent: async (intent: OnGuardianHomeNewIntent) => {
+      Loading.show();
+      refreshGuardianInfo();
+      await sleep(500);
+      Loading.hide();
+      console.log('GuardianHome onNewIntent', intent);
+      switch (intent.type) {
+        case GuardianVerifyType.ADD_GUARDIAN: {
+          if (intent.result === 'success') {
+            CommonToast.success('Add guardian success', 1000);
+          } else {
+            CommonToast.fail('Add guardian fail');
+          }
+        }
+      }
+    },
+  });
 
   const [guardianList, setGuardianList] = useState<GuardianInfo[]>([]);
   const userGuardiansList = useMemo(() => {
     if (!guardianList) return [];
     return guardianList
       .map((item, index) => {
+        const verifier = verifierList.find(v => v.id === item.verifierId);
         const parsedItem = {
           ...item,
+          identifierHash: item.identifierHash,
           guardianAccount: item.guardianIdentifier,
           isLoginAccount: item.isLoginGuardian,
           guardianType: guardianTypeStrToEnum(item.type as 'Apple' | 'Google' | 'Email' | 'Phone'),
           key: `${index}`,
-          identifierHash: '',
+          verifier: {
+            id: item.verifierId,
+            name: item.name ?? verifier?.name,
+            imageUrl: item.imageUrl,
+          },
         } as UserGuardianItem;
         return parsedItem;
       })
       .reverse();
-  }, [guardianList]);
+  }, [guardianList, verifierList]);
 
-  useEffect(() => {
-    (async () => {
-      const config: RecoverWalletConfig = await getTempWalletConfig();
-      const chainId = (await PortkeyConfig.currChainId()) ?? config.originalChainId;
-      const guardianInfo = await NetworkController.getGuardianInfo(
-        chainId,
-        config.accountIdentifier as string,
-        config?.caInfo?.caHash,
-      );
-      if (guardianInfo?.guardianList?.guardians) {
-        setGuardianList(guardianInfo?.guardianList?.guardians);
-      }
-    })();
+  useEffectOnce(() => {
+    refreshGuardianInfo();
+  });
+
+  const refreshGuardianInfo = useCallback(async () => {
+    const config: RecoverWalletConfig = await getTempWalletConfig();
+    const guardianInfo = await NetworkController.getGuardianInfo(
+      config.accountIdentifier as string,
+      config?.caInfo?.caHash,
+    );
+    if (guardianInfo?.guardianList?.guardians) {
+      setGuardianList(guardianInfo?.guardianList?.guardians);
+    }
   }, []);
 
   const renderGuardianBtn = useCallback(
@@ -67,7 +115,7 @@ export default function GuardianHome() {
         <TouchableOpacity
           style={{ padding: pTd(16) }}
           onPress={() => {
-            // navigationService.navigate('GuardianEdit');
+            navigationTo(PortkeyEntries.ADD_GUARDIAN_ENTRY, {});
           }}>
           <Svg icon="add1" size={pTd(20)} color={defaultColors.font2} />
         </TouchableOpacity>
@@ -76,8 +124,24 @@ export default function GuardianHome() {
         {userGuardiansList.map((guardian, idx) => (
           <Touchable
             key={idx}
-            onPress={() => {
-              // navigationService.navigate('GuardianDetail', { guardian });
+            onPress={async () => {
+              const chainId = await PortkeyConfig.currChainId();
+              navigateForResult(PortkeyEntries.GUARDIAN_DETAIL_ENTRY, {
+                closeCurrentScreen: false,
+                params: {
+                  info: JSON.stringify({
+                    particularGuardianInfo: parseGuardianInfo(
+                      guardianList[Number(guardian.key)],
+                      chainId,
+                      undefined,
+                      '',
+                      AccountOriginalType.Email,
+                      OperationTypeEnum.editGuardian,
+                    ),
+                    originalGuardianItem: guardian,
+                  } as ModifyGuardianProps),
+                },
+              });
             }}>
             <GuardianItem
               guardianItem={guardian}
@@ -90,6 +154,12 @@ export default function GuardianHome() {
       </View>
     </PageContainer>
   );
+}
+
+export interface OnGuardianHomeNewIntent {
+  type: GuardianVerifyType;
+  result: 'success' | 'fail' | 'cancel' | 'system';
+  extra?: any;
 }
 
 const pageStyles = StyleSheet.create({

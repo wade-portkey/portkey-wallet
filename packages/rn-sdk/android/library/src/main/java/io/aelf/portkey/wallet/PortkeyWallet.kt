@@ -8,7 +8,7 @@ class PortkeyWallet {
 
 }
 
-internal fun isWalletUnlocked(): Boolean {
+fun isWalletUnlocked(): Boolean {
     val walletConfig = PortkeyMMKVStorage.readString("walletConfig" but TEMP)
     return walletConfig?.isNotEmpty() ?: false
 }

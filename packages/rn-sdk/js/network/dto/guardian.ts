@@ -56,6 +56,7 @@ export interface SendVerifyCodeParams {
   guardianIdentifier: string;
   verifierId: string;
   chainId: ChainId;
+  targetChainId?: ChainId;
   operationType: OperationTypeEnum;
 }
 

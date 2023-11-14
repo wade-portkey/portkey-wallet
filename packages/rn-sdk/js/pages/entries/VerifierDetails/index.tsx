@@ -50,4 +50,6 @@ export interface VerifierDetailsPageState {
   guardianConfig: GuardianConfig;
 }
 
-export interface VerifierDetailsPageResult {}
+export interface VerifierDetailsPageResult {
+  verifiedData: string; // CheckVerifyCodeResultDTO
+}

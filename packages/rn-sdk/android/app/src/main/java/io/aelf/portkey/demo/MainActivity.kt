@@ -35,10 +35,10 @@ import io.aelf.portkey.demo.ui.composable.ChoiceMaker
 import io.aelf.portkey.demo.ui.composable.SimpleChoiceMaker
 import io.aelf.portkey.demo.ui.theme.MyRNApplicationTheme
 import io.aelf.portkey.demo.ui.theme.Purple40
-import io.aelf.portkey.entry.usePortkeyEntry
 import io.aelf.portkey.entry.usePortkeyEntryWithParams
 import io.aelf.portkey.tools.startJSBackgroundTaskTest
 import io.aelf.portkey.ui.dialog.DialogProps
+import io.aelf.portkey.wallet.isWalletUnlocked
 import java.io.BufferedReader
 import java.io.File
 import java.io.FileReader
@@ -63,10 +63,17 @@ class MainActivity : ComponentActivity() {
                     color = Color.Gray
                 ) {
                     val cachedChainId = remember {
-                        PortkeyMMKVStorage.readString("currChainId") ?: "AELF"
+                        val chainId = PortkeyMMKVStorage.readString("currChainId")
+                        if (chainId.isNullOrEmpty()) {
+                            changeChain("AELF")
+                        }
+                        chainId ?: "AELF"
                     }
                     val cachedEndPointName = remember {
                         val url = PortkeyMMKVStorage.readString("endPointUrl")
+                        if (url.isNullOrEmpty()) {
+                            changeEndPointUrl("MAIN NET")
+                        }
                         environment.keys.find { environment[it] == url } ?: "MAIN NET"
                     }
                     Column(
@@ -76,11 +83,15 @@ class MainActivity : ComponentActivity() {
                     ) {
                         SimpleChoiceMaker(
                             title = "Select a page",
-                            choicesList = mutableListOf("Login", "Scan", "AccountingSettings")
+                            choicesList = mutableListOf(
+                                "Login",
+                                "Scan",
+                                "AccountingSettings",
+                                "GuardianHome"
+                            )
                         ) {
                             gotoPage(it)
                         }
-//                        BigButton("Go to Login Entry", this@MainActivity::jumpToActivity)
                         ChoiceMaker(
                             title = "Choose Chain",
                             choicesList = mutableListOf("AELF", "tDVV", "tDVW"),
@@ -96,21 +107,12 @@ class MainActivity : ComponentActivity() {
                         ) {
                             changeEndPointUrl(it)
                         }
-//                        BigButton(text = "Jump to Scan Page") {
-//                            jumpToActivity(PortkeyEntries.SCAN_QR_CODE_ENTRY.entryName)
-//                        }
-//                        BigButton(text = "Jump to AccountSettings Page") {
-//                            jumpToActivityWithParams(PortkeyEntries.ACCOUNT_SETTING_ENTRY.entryName)
-//                        }
                         BigButton(text = "Background Service Call") {
                             startJSBackgroundTaskTest(this@MainActivity) {
-                                PortkeyTest.showDialogForTestOnly(
-                                    DialogProps().apply {
-                                        mainTitle = "Background Service Call"
-                                        subTitle =
-                                            "data: ${it.data}"
-                                        useSingleConfirmButton = true
-                                    }
+                                showWarnDialog(
+                                    mainTitle = "Background Service Call",
+                                    subTitle =
+                                    "data: ${it.data}",
                                 )
                             }
                         }
@@ -125,43 +127,48 @@ class MainActivity : ComponentActivity() {
 //        AssetHelper.copyAssetsToFiles(this)   // copy bundle to memory，Simulate the process of loading bundle remotely
     }
     private fun gotoPage(it: String) {
-        when(it){
+        when (it) {
             "Login" -> {
-               jumpToActivity()
+                jumpToActivity()
             }
+
             "Scan" -> {
                 jumpToActivity(PortkeyEntries.SCAN_QR_CODE_ENTRY.entryName)
             }
-            "AccountingSettings"->{
-                jumpToActivityWithParams(PortkeyEntries.ACCOUNT_SETTING_ENTRY.entryName)
+
+            "AccountingSettings" -> {
+                jumpToActivity(PortkeyEntries.ACCOUNT_SETTING_ENTRY.entryName)
             }
 
+            "GuardianHome" -> {
+                jumpToActivity(PortkeyEntries.GUARDIAN_HOME_ENTRY.entryName)
+            }
         }
     }
 
     private fun jumpToActivity(entryName: String = PortkeyEntries.SIGN_IN_ENTRY.entryName) {
-        usePortkeyEntry(entryName) {
-            PortkeyTest.showDialogForTestOnly(
-                DialogProps().apply {
-                    mainTitle = "Login Result"
-                    subTitle = "$it"
-                    useSingleConfirmButton = true
-                }
-            )
-        }
+        jumpToActivityWithParams(entryName)
     }
 
     private fun jumpToActivityWithParams(
         entryName: String = PortkeyEntries.SIGN_IN_ENTRY.entryName,
         params: Bundle? = null
     ) {
-        usePortkeyEntryWithParams(entryName, params) {
-            PortkeyTest.showDialogForTestOnly(
-                DialogProps().apply {
-                    mainTitle = "Login Result"
-                    subTitle = "$it"
-                    useSingleConfirmButton = true
+        if (entryName != PortkeyEntries.SIGN_IN_ENTRY.entryName) {
+            if (!isWalletUnlocked()) {
+                showWarnDialog(
+                    mainTitle = "Error 😅",
+                    subTitle = "this operation needs wallet unlocked, and it seems that you did not unlock your wallet yet, click button below to enter login page.",
+                ) {
+                    jumpToActivity()
                 }
+                return
+            }
+        }
+        usePortkeyEntryWithParams(entryName, params) {
+            showWarnDialog(
+                mainTitle = "Entry Result",
+                subTitle = "$it",
             )
         }
     }
@@ -181,6 +188,21 @@ class MainActivity : ComponentActivity() {
         PortkeyMMKVStorage.clear()
         Toast.makeText(this, "all data erased, and all configs are reset.", Toast.LENGTH_SHORT)
             .show()
+    }
+
+    private fun showWarnDialog(
+        mainTitle: String = "Warning",
+        subTitle: String = "",
+        then: () -> Unit = {}
+    ) {
+        PortkeyTest.showDialogForTestOnly(
+            DialogProps().apply {
+                this.mainTitle = mainTitle
+                this.subTitle = subTitle
+                this.useSingleConfirmButton = true
+                positiveCallback = then
+            }
+        )
     }
 
 }
