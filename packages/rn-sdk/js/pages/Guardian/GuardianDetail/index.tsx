@@ -208,10 +208,6 @@ export default function GuardianDetail(config: { info: string }) {
             });
             return;
           }
-          if (error.code !== '3002') {
-            CommonToast.fail('Setup failed');
-            return;
-          }
         } finally {
           Loading.hide();
         }

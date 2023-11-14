@@ -54,6 +54,7 @@ export const callAddGuardianMethod = async (
     address,
     caInfo: { caHash },
   } = (await getUnlockedWallet()) || {};
+  console.log('callAddGuardianMethod', particularGuardian, guardianList);
   return await contractInstance.callSendMethod('AddGuardian', address, {
     caHash,
     guardianToAdd: parseGuardianConfigInfoToCaType(particularGuardian),

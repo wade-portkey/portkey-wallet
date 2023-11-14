@@ -165,7 +165,6 @@ export default function GuardianApproval({
         Loading.show();
         const result = await callAddGuardianMethod(particularGuardian, getVerifiedGuardianInfo());
         Loading.hide();
-        console.log('callAddGuardianMethod', result);
         onPageFinish({
           isVerified: result?.error ? false : true,
         });

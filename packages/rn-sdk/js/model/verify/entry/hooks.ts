@@ -84,15 +84,14 @@ export const handleGuardiansApproval = async (config: GuardianVerifyConfig) => {
 };
 
 const checkGuardiansApprovalConfig = (config: GuardianVerifyConfig): boolean => {
-  const { guardianVerifyType, particularGuardian, accountIdentifier } = config;
+  const { guardianVerifyType, particularGuardian } = config;
   console.log('checkGuardiansApprovalConfig', config);
-  if (!accountIdentifier) return false;
   switch (guardianVerifyType) {
     case GuardianVerifyType.CREATE_WALLET: {
       return !particularGuardian;
     }
     case GuardianVerifyType.ADD_GUARDIAN: {
-      return !!particularGuardian?.verifiedDoc && !!particularGuardian?.verifySessionId;
+      return true;
     }
     default:
       return false;

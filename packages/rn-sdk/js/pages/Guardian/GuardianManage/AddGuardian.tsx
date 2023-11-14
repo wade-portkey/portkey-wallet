@@ -4,7 +4,6 @@ import Svg from 'components/Svg';
 import React, { useCallback, useMemo, useRef, useState } from 'react';
 import { Text, View } from 'react-native';
 import { pTd } from 'utils/unit';
-import navigationService from 'utils/navigationService';
 import PageContainer from 'components/PageContainer';
 import { pageStyles } from './style';
 import ListItem from 'components/ListItem';
@@ -13,7 +12,7 @@ import CommonInput from 'components/CommonInput';
 import { checkEmail } from '@portkey-wallet/utils/check';
 import { LOGIN_TYPE_LIST } from 'constants/misc';
 import { PRIVATE_GUARDIAN_ACCOUNT } from '@portkey-wallet/constants/constants-ca/guardian';
-import { ApprovalType, OperationTypeEnum, VerificationType, VerifierItem } from '@portkey-wallet/types/verifier';
+import { OperationTypeEnum, VerificationType, VerifierItem } from '@portkey-wallet/types/verifier';
 import { INIT_HAS_ERROR, INIT_NONE_ERROR } from 'constants/common';
 import GuardianTypeSelectOverlay from '../components/GuardianTypeSelectOverlay';
 import VerifierSelectOverlay from '../components/VerifierSelectOverlay';
@@ -189,6 +188,7 @@ const AddGuardian: React.FC = () => {
       verifierInfo: VerifierItem,
       guardianType: LoginType,
     ) => {
+      if (!selectedVerifier) return;
       const originalChainId = await PortkeyConfig.currChainId();
       const rst = await verifyToken(guardianType, {
         accessToken: thirdPartyInfo.accessToken,
@@ -198,24 +198,35 @@ const AddGuardian: React.FC = () => {
         operationType: OperationTypeEnum.addGuardian,
       });
       Loading.hide();
-
-      navigationService.navigate('GuardianApproval', {
-        approvalType: ApprovalType.addGuardian,
-        guardianItem: {
-          isLoginAccount: false,
-          verifier: verifierInfo,
-          guardianAccount,
-          guardianType,
+      if (!rst) throw new Error('verify fail');
+      const thisGuardian: GuardianConfig = {
+        sendVerifyCodeParams: {
+          type: guardianEnumToTypeStr(guardianType),
+          guardianIdentifier: guardianAccount || '',
+          verifierId: selectedVerifier.id,
+          chainId: originalChainId,
+          operationType: OperationTypeEnum.communityRecovery,
         },
-        verifierInfo: {
-          ...rst,
-          verifierId: verifierInfo.id,
+        alreadySent: true,
+        accountIdentifier: 'unknown',
+        accountOriginalType: AccountOriginalType.Email,
+        isLoginGuardian: false,
+        name: selectedVerifier.name,
+        imageUrl: selectedVerifier.imageUrl,
+        verifiedDoc: {
+          verificationDoc: rst.verificationDoc,
+          signature: rst.signature,
         },
-        verifiedTime: Date.now(),
-        authenticationInfo: { [thirdPartyInfo.id]: thirdPartyInfo.accessToken },
+      };
+      handleGuardiansApproval({
+        guardianVerifyType: GuardianVerifyType.ADD_GUARDIAN,
+        accountIdentifier: '',
+        accountOriginalType: AccountOriginalType.Email,
+        guardians: userGuardiansList,
+        particularGuardian: thisGuardian,
       });
     },
-    [verifyToken],
+    [selectedVerifier, userGuardiansList, verifyToken],
   );
 
   const onConfirm = useCallback(async () => {
