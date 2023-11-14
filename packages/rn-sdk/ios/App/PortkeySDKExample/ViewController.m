@@ -30,6 +30,7 @@
 
 @property (nonatomic, strong) UIButton *scanQrcodeButton;
 @property (nonatomic, strong) UIButton *guardianHomeButton;
+@property (nonatomic, strong) UIButton *accountSettingButton;
 
 @property (nonatomic, strong) UIButton *exitButton;
 
@@ -94,7 +95,7 @@
     self.scanQrcodeButton.frame = self.termsButton.frame;
     self.scanQrcodeButton.top = self.termsButton.bottom + 5;
     [self.scanQrcodeButton addBlockForControlEvents:UIControlEventTouchUpInside block:^(id  _Nonnull sender) {
-        [[PortkeySDKRouterModule sharedInstance] navigateTo:@"scan_qr_code_entry" from:@"" targetScene:@""];
+        [[PortkeySDKRouterModule sharedInstance] navigateTo:@"scan_qr_code_entry" launchMode:@"" from:@"" targetScene:@"" closeCurrentScreen:NO params:@{}];
     }];
     [self.view addSubview:self.scanQrcodeButton];
     
@@ -105,16 +106,30 @@
         @strongify(self)
         NSString *walletConfig = [PortkeySDKMMKVStorage readTempString:@"walletConfig"];
         if ([walletConfig isKindOfClass:NSString.class] && walletConfig.length) {
-            [[PortkeySDKRouterModule sharedInstance] navigateTo:@"guardian_home_entry" from:@"" targetScene:@""];
+            [[PortkeySDKRouterModule sharedInstance] navigateTo:@"guardian_home_entry" launchMode:@"" from:@"" targetScene:@"" closeCurrentScreen:NO params:@{}];
         } else {
             [self.view makeToast:@"Please login or unlock first"];
         }
     }];
     [self.view addSubview:self.guardianHomeButton];
     
+    self.accountSettingButton = [self createButtonWithTitle:@"Account Setting"];
+    self.accountSettingButton.frame = self.guardianHomeButton.frame;
+    self.accountSettingButton.top = self.guardianHomeButton.bottom + 5;
+    [self.accountSettingButton addBlockForControlEvents:UIControlEventTouchUpInside block:^(id  _Nonnull sender) {
+        @strongify(self)
+        NSString *walletConfig = [PortkeySDKMMKVStorage readTempString:@"walletConfig"];
+        if ([walletConfig isKindOfClass:NSString.class] && walletConfig.length) {
+            [[PortkeySDKRouterModule sharedInstance] navigateTo:@"account_setting_entry" launchMode:@"single_task" from:@"" targetScene:@"" closeCurrentScreen:NO params:@{}];
+        } else {
+            [self.view makeToast:@"Please login or unlock first"];
+        }
+    }];
+    [self.view addSubview:self.accountSettingButton];
+    
     self.bundleConfigButton = [self createButtonWithTitle:@"Config Bundle"];
     self.bundleConfigButton.frame = self.guardianHomeButton.frame;
-    self.bundleConfigButton.top = self.guardianHomeButton.bottom + 20;
+    self.bundleConfigButton.top = self.accountSettingButton.bottom + 20;
     [self.bundleConfigButton addBlockForControlEvents:UIControlEventTouchUpInside block:^(id  _Nonnull sender) {
         @strongify(self)
         [self.navigationController pushViewController:[BundleConfigViewController new] animated:YES];

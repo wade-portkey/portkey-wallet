@@ -8,6 +8,7 @@
 #import "PortkeySDKRouterModule.h"
 #import <PortkeySDK/PortkeySDKRNViewController.h>
 #import <PortkeySDK/PortkeySDKNativeWrapperModule.h>
+#import <PortkeySDK/PortkeySDKJSCallModule.h>
 
 @implementation PortkeySDKRouterModule
 
@@ -23,13 +24,30 @@
 RCT_EXPORT_MODULE(RouterModule);
 
 RCT_EXPORT_METHOD(navigateTo:(NSString *)entry
+                  launchMode:(NSString *)launchMode
                   from:(NSString *)from
-                  targetScene:(NSString *)targetScene)
+                  targetScene:(NSString *)targetScene
+                  closeCurrentScreen:(BOOL)closeCurrentScreen
+                  params:(NSDictionary *)params)
 {
     if (entry.length <= 0) return;
     dispatch_async(dispatch_get_main_queue(), ^{
-        PortkeySDKRNViewController *vc = [[PortkeySDKRNViewController alloc] initWithModuleName:entry];
-        [[self topViewController].navigationController pushViewController:vc animated:YES];
+        NSMutableDictionary *props = [[NSMutableDictionary alloc] initWithDictionary:@{
+            @"from": from ?: @"",
+            @"targetScene": targetScene ?: @""
+        }];
+        if (params) {
+            [props addEntriesFromDictionary:params];
+        }
+        UIViewController *topViewController = [self topViewController];
+        UINavigationController *navigationController = topViewController.navigationController;
+        if ([self isNavigateToSingleTask:navigationController entry:entry]) {
+            [self navigateToSingleTask:navigationController entry:entry params:params];
+            return;
+        }
+        PortkeySDKRNViewController *vc = [[PortkeySDKRNViewController alloc] initWithModuleName:entry initialProperties:props];
+        if (launchMode.length) vc.launchMode = launchMode;
+        [navigationController pushViewController:vc animated:YES];
     });
 }
 
@@ -156,9 +174,9 @@ RCT_EXPORT_METHOD(navigateBack:(id)result)
         }
     }];
     if (singleTaskIndex >= 0 && singleTaskIndex < viewControllers.count) {
-        NSArray<UIViewController *> *subViewControllers = [viewControllers subarrayWithRange:NSMakeRange(0, singleTaskIndex)];
+        NSArray<UIViewController *> *subViewControllers = [viewControllers subarrayWithRange:NSMakeRange(0, singleTaskIndex + 1)];
         navigationController.viewControllers = subViewControllers;
-        [PortkeySDKNativeWrapperModule sendOnNewIntentWithParams:params bridge:self.bridge];
+        [PortkeySDKNativeWrapperModule sendOnNewIntentWithParams:params bridge:[PortkeySDKJSCallModule sharedInstance].bridge];
     }
 }
 
