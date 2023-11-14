@@ -16,7 +16,9 @@ import QrScanner from 'pages/QrScanner';
 import GuardianHome from 'pages/GuardianManage/GuardianHome';
 import { AppRegistry, ComponentProvider } from 'react-native';
 import Biometric from 'pages/My/Biometric';
-import AddGuardian from 'pages/Guardian/GuardianAdd';
+import AddGuardian from 'pages/Guardian/GuardianManage/AddGuardian';
+import ModifyGuardian from 'pages/Guardian/GuardianManage/ModifyGuardian';
+import GuardianDetail from 'pages/Guardian/GuardianDetail';
 
 type AcceptableComponentType = ComponentProvider;
 
@@ -45,7 +47,9 @@ const initEntries = () => {
 
   // guardian manage
   entryConfig.set(PortkeyEntries.GUARDIAN_HOME_ENTRY, () => GuardianHome);
+  entryConfig.set(PortkeyEntries.GUARDIAN_DETAIL_ENTRY, () => GuardianDetail);
   entryConfig.set(PortkeyEntries.ADD_GUARDIAN_ENTRY, () => AddGuardian);
+  entryConfig.set(PortkeyEntries.MODIFY_GUARDIAN_ENTRY, () => ModifyGuardian);
 
   // webview
   entryConfig.set(PortkeyEntries.VIEW_ON_WEBVIEW, () => ViewOnWebView);

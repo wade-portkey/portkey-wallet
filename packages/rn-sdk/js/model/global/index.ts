@@ -141,6 +141,7 @@ export const parseGuardianInfo = (
       chainId,
       operationType: operationType,
     },
+    identifierHash: guardianOriginalInfo.identifierHash,
     verifiedDoc: verifiedData,
   };
 };

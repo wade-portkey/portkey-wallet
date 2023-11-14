@@ -61,6 +61,23 @@ export const callAddGuardianMethod = async (
   });
 };
 
+export const callCancelLoginGuardianMethod = async (particularGuardian: GuardianConfig) => {
+  const contractInstance = await getContractInstance();
+  const { guardianIdentifier } = handleVerificationDoc(particularGuardian.verifiedDoc?.verificationDoc ?? '');
+  const {
+    address,
+    caInfo: { caHash },
+  } = (await getUnlockedWallet()) || {};
+  return contractInstance.callSendMethod('UnsetGuardianForLogin', address, {
+    caHash,
+    guardian: {
+      type: guardianTypeStrToEnum(particularGuardian.sendVerifyCodeParams.type),
+      verifierId: particularGuardian.sendVerifyCodeParams.verifierId,
+      identifierHash: guardianIdentifier,
+    },
+  });
+};
+
 const parseGuardianConfigInfoToCaType = (guardianConfig: GuardianConfig) => {
   const { guardianIdentifier } = handleVerificationDoc(guardianConfig.verifiedDoc?.verificationDoc ?? '');
   return {
