@@ -103,7 +103,7 @@ internal object NavigationHolder {
                 entryMap.remove(componentKey)
                 it.get()?.navigateBackWithResult(generateSystemCallbackData())
             }
-            CoroutineScope(Dispatchers.Main).launch {
+            getTopComponent()?.runOnUiThread {
                 getTopComponent()?.onNewIntent(Intent().apply {
                     putExtra(StorageIdentifiers.PAGE_PARAMS, bundle)
                 })
