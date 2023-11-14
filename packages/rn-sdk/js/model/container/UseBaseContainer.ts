@@ -13,7 +13,7 @@ const useBaseContainer = (props: BaseContainerHookedProps): BaseContainerHooks =
   const { containerId, entryName, onShow } = props;
   const onNewIntent = useCallback((listener: (arg0: any) => void) => {
     DeviceEventEmitter.addListener('onNewIntent', params => {
-      // 处理传递的参数
+      // handle callback params
       listener(params);
     });
   }, []);
