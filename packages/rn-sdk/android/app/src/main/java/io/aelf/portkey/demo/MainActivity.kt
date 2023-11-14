@@ -136,11 +136,15 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    private fun jumpToActivity(
-        entryName: String = "referral_entry",
+    private fun jumpToActivity(entryName: String = PortkeyEntries.SIGN_IN_ENTRY.entryName) {
+        jumpToActivityWithParams(entryName)
+    }
+
+    private fun jumpToActivityWithParams(
+        entryName: String = PortkeyEntries.SIGN_IN_ENTRY.entryName,
         params: Bundle? = null
     ) {
-        if (entryName != "referral_entry") {
+        if (entryName != PortkeyEntries.SIGN_IN_ENTRY.entryName) {
             if (!isWalletUnlocked()) {
                 showWarnDialog(
                     mainTitle = "Error 😅",

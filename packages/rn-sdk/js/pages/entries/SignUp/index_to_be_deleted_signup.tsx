@@ -1,6 +1,6 @@
 import { PortkeyEntries } from '../../../config/entries';
 import BaseContainer, { BaseContainerProps } from '../../../model/container/BaseContainer';
-import SignupReferral from 'pages/Login/SignupPortkey/referral';
+import SignupPortkey from 'pages/Login/SignupPortkey';
 import React from 'react';
 import { CountryCodeItem } from 'types/wallet';
 import { GlobalStorage } from 'service/storage';
@@ -29,13 +29,16 @@ export default class SignUpEntryPage extends BaseContainer<BaseContainerProps, S
     });
   };
 
-  getEntryName = (): string => PortkeyEntries.SIGN_UP_REFERRAL_ENTRY;
+  getEntryName = (): string => PortkeyEntries.SIGN_UP_ENTRY;
 
   render() {
     return (
       <>
         <BaseContainerContext.Provider value={{ entryName: this.getEntryName() }}>
-          <SignupReferral />
+          <SignupPortkey
+            selectedCountryCode={this.state.currentCountryCodeItem}
+            updateCountryCode={this.updateCountryCode}
+          />
         </BaseContainerContext.Provider>
       </>
     );
