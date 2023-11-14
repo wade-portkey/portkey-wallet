@@ -100,9 +100,11 @@ internal object NavigationHolder {
                 entryMap.remove(componentKey)
                 it.get()?.navigateBackWithResult(generateSystemCallbackData())
             }
-            getTopComponent()?.onNewIntent(Intent().apply {
-                putExtra(StorageIdentifiers.PAGE_PARAMS, bundle)
-            })
+            getTopComponent()?.runOnUiThread {
+                getTopComponent()?.onNewIntent(Intent().apply {
+                    putExtra(StorageIdentifiers.PAGE_PARAMS, bundle)
+                })
+            }
             return true
         } else {
             return false

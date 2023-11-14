@@ -1,6 +1,9 @@
 package io.aelf.portkey.demo
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.os.Bundle
+import android.os.Environment
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -23,6 +26,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import io.aelf.core.PortkeyEntries
 import io.aelf.portkey.components.logic.PortkeyMMKVStorage
 import io.aelf.portkey.core.entry.PortkeyTest
@@ -34,7 +39,12 @@ import io.aelf.portkey.entry.usePortkeyEntry
 import io.aelf.portkey.entry.usePortkeyEntryWithParams
 import io.aelf.portkey.tools.startJSBackgroundTaskTest
 import io.aelf.portkey.ui.dialog.DialogProps
+import java.io.BufferedReader
+import java.io.File
+import java.io.FileReader
+import java.io.IOException
 import java.security.InvalidKeyException
+
 
 val environment = mapOf(
     Pair("MAIN NET", "https://did-portkey.portkey.finance"),
@@ -112,8 +122,8 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
+//        AssetHelper.copyAssetsToFiles(this)   // copy bundle to memory，Simulate the process of loading bundle remotely
     }
-
     private fun gotoPage(it: String) {
         when(it){
             "Login" -> {

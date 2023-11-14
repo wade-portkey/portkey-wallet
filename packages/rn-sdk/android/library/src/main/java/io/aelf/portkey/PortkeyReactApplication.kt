@@ -21,10 +21,12 @@ class PortkeyReactApplication : Application(), ReactApplication {
     }
 
     private fun createNewHost(): PortkeyReactNativeHost {
-        return PortkeyReactNativeHost(
+        val nativeHost = PortkeyReactNativeHost(
             application = this,
             isDebug = BuildConfig.IS_DEBUG
         )
+        nativeHost.reactInstanceManager.createReactContextInBackground()
+        return  nativeHost
     }
 
 }

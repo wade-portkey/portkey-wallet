@@ -11,6 +11,7 @@ import { PortkeyEntries } from 'config/entries';
 import useBaseContainer from 'model/container/UseBaseContainer';
 import { CheckPinProps } from 'pages/Pin/CheckPin';
 import useEffectOnce from 'hooks/useEffectOnce';
+import CommonToast from 'components/CommonToast';
 
 export default function AccountSettings() {
   const biometricsReady = useBiometricsReady();
@@ -51,11 +52,15 @@ export default function AccountSettings() {
     },
     [navigationTo],
   );
-  // useEffectOnce(() => {
-  //   onNewIntent((params: { name: any }) => {
-  //     console.log('wfs:::', params.name);
-  //   });
-  // });
+  useEffectOnce(() => {
+    onNewIntent((params: { modified: boolean }) => {
+      console.log('params.modified', params.modified);
+      if (params.modified) {
+        console.log('params.modified if');
+        CommonToast.success(t('Modified Successfully'));
+      }
+    });
+  });
   return (
     <BaseContainerContext.Provider value={{ entryName: PortkeyEntries.ACCOUNT_SETTING_ENTRY }}>
       <PageContainer
