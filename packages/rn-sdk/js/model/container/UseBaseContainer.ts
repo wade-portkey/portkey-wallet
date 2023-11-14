@@ -8,14 +8,9 @@ import { LaunchMode, LaunchModeSet } from 'global/init/entries';
 
 const useBaseContainer = (props: BaseContainerHookedProps): BaseContainerHooks => {
   const onShowListener = useRef<EmitterSubscription | null>(null);
+  const onNewIntentListener = useRef<EmitterSubscription | null>(null);
   const baseContainerContext = useContext(BaseContainerContext);
-  const { containerId, entryName, onShow } = props;
-  const onNewIntent = useCallback((listener: (arg0: any) => void) => {
-    DeviceEventEmitter.addListener('onNewIntent', params => {
-      // 处理传递的参数
-      listener(params);
-    });
-  }, []);
+  const { containerId, entryName, onShow, onNewIntent } = props;
   useEffect(() => {
     if (containerId) {
       onShowListener.current?.remove();
@@ -26,10 +21,17 @@ const useBaseContainer = (props: BaseContainerHookedProps): BaseContainerHooks =
         }
       });
     }
+    if (onNewIntent) {
+      onNewIntentListener.current?.remove();
+      onNewIntentListener.current = DeviceEventEmitter.addListener('onNewIntent', params => {
+        onNewIntent?.(params);
+      });
+    }
     return () => {
       onShowListener.current?.remove();
+      onNewIntentListener.current?.remove();
     };
-  }, [onShow, containerId]);
+  }, [onShow, containerId, onNewIntent]);
 
   const getEntryName = useCallback(
     () => entryName ?? baseContainerContext.entryName,
@@ -120,9 +122,8 @@ const useBaseContainer = (props: BaseContainerHookedProps): BaseContainerHooks =
       onError,
       onFatal,
       onWarn,
-      onNewIntent,
     };
-  }, [getEntryName, navigateForResult, navigationTo, onError, onFatal, onFinish, onWarn, onNewIntent]);
+  }, [getEntryName, navigateForResult, navigationTo, onError, onFatal, onFinish, onWarn]);
 };
 
 export interface BaseContainerHooks {
@@ -148,7 +149,6 @@ export interface BaseContainerHooks {
   onError: (err: Error) => void;
   onFatal: (err: Error) => void;
   onWarn: (msg: string) => void;
-  onNewIntent: (params: any) => void;
 }
 
 export interface VoidResult {}
@@ -157,6 +157,7 @@ export interface BaseContainerHookedProps {
   containerId?: any;
   entryName?: string;
   onShow?: () => void;
+  onNewIntent?: (params: any) => Promise<void> | void;
 }
 
 export default useBaseContainer;

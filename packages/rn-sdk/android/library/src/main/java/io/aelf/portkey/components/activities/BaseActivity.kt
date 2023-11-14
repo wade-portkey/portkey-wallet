@@ -158,7 +158,7 @@ class DefaultReactActivity : BasePortkeyReactActivity()
 
 internal fun getReactActivityClass(entry: String): Class<out BasePortkeyReactActivity> {
     return when (entry) {
-        PortkeyEntries.TEST.entryName -> DefaultReactActivity::class.java
+        PortkeyEntries.SIGN_IN_ENTRY.entryName -> DefaultReactActivity::class.java
         else -> DefaultReactActivity::class.java
     }
 }

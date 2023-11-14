@@ -16,7 +16,7 @@ import useEffectOnce from 'hooks/useEffectOnce';
 import Touchable from 'components/Touchable';
 import ActionSheet from 'components/ActionSheet';
 import { GuardiansStatus, GuardiansStatusItem } from '../types';
-import { GuardianVerifyConfig } from 'model/verify/social-recovery';
+import { GuardianVerifyConfig, GuardianVerifyType } from 'model/verify/social-recovery';
 import { GuardianConfig } from 'model/verify/guardian';
 import { UserGuardianItem } from '@portkey-wallet/store/store-ca/guardians/type';
 import { GuardianApprovalPageResult } from 'pages/entries/GuardianApproval';
@@ -35,17 +35,25 @@ import { PortkeyConfig } from 'global/constants';
 import { ApprovedGuardianInfo } from 'network/dto/wallet';
 import { AppleAccountInfo, GoogleAccountInfo, isAppleLogin } from 'model/verify/third-party-account';
 import { useAppleAuthentication, useGoogleAuthentication } from 'model/hooks/authentication';
+import { callAddGuardianMethod } from 'model/contract/handler';
 
 export default function GuardianApproval({
-  guardianListConfig,
+  guardianVerifyConfig: guardianListConfig,
   verifiedTime,
   onPageFinish,
 }: {
-  guardianListConfig: GuardianVerifyConfig;
+  guardianVerifyConfig: GuardianVerifyConfig;
   verifiedTime: number;
   onPageFinish: (result: GuardianApprovalPageResult) => void;
 }) {
-  const { guardians, accountIdentifier, accountOriginalType, thirdPartyAccountInfo } = guardianListConfig;
+  const {
+    guardians,
+    accountIdentifier,
+    accountOriginalType,
+    thirdPartyAccountInfo,
+    guardianVerifyType,
+    particularGuardian,
+  } = guardianListConfig;
   const { t } = useLanguage();
 
   const { navigateForResult } = useBaseContainer({
@@ -151,10 +159,27 @@ export default function GuardianApproval({
 
   const onFinish = async () => {
     const pageData = await getVerifiedData();
-    onPageFinish({
-      isVerified: true,
-      deliveredVerifiedData: JSON.stringify(pageData),
-    });
+    switch (guardianVerifyType) {
+      case GuardianVerifyType.ADD_GUARDIAN: {
+        if (!particularGuardian) throw new Error('guardian info is null!');
+        Loading.show();
+        const result = await callAddGuardianMethod(particularGuardian, getVerifiedGuardianInfo());
+        Loading.hide();
+        console.log('callAddGuardianMethod', result);
+        onPageFinish({
+          isVerified: result?.error ? false : true,
+        });
+        break;
+      }
+
+      case GuardianVerifyType.CREATE_WALLET:
+      default: {
+        onPageFinish({
+          isVerified: true,
+          deliveredVerifiedData: JSON.stringify(pageData),
+        });
+      }
+    }
   };
 
   const particularButton = (guardian: GuardianConfig, key: string) => {

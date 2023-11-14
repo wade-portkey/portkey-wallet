@@ -54,7 +54,13 @@ import CommonButton from 'components/CommonButton';
 import { verifyHumanMachine } from 'components/VerifyHumanMachine';
 import { handleGuardiansApproval, handlePhoneOrEmailGuardianVerify } from 'model/verify/entry/hooks';
 import { AccountOriginalType } from 'model/verify/after-verify';
-import { GuardianVerifyType } from 'model/verify/social-recovery';
+import { GuardianVerifyType, VerifiedGuardianInfo } from 'model/verify/social-recovery';
+import { Buffer } from 'buffer';
+import { sleep } from '@portkey-wallet/utils';
+
+if (!global.Buffer) {
+  global.Buffer = Buffer;
+}
 
 type thirdPartyInfoType = {
   id: string;
@@ -105,7 +111,14 @@ const AddGuardian: React.FC = () => {
     const chainId = await PortkeyConfig.currChainId();
     const guardiansInfo = await NetworkController.getGuardianInfo('', caHash);
     const parsedGuardians = guardiansInfo?.guardianList?.guardians?.map(guardian => {
-      return parseGuardianInfo(guardian, chainId);
+      return parseGuardianInfo(
+        guardian,
+        chainId,
+        undefined,
+        undefined,
+        AccountOriginalType.Email,
+        OperationTypeEnum.addGuardian,
+      );
     });
     console.log('guardians:', JSON.stringify(parsedGuardians));
     parsedGuardians && setUserGuardiansList(parsedGuardians);
@@ -289,7 +302,9 @@ const AddGuardian: React.FC = () => {
                       chainId: originalChainId,
                       operationType: OperationTypeEnum.communityRecovery,
                     },
+                    alreadySent: true,
                     accountIdentifier,
+                    verifySessionId: req.verifierSessionId,
                     accountOriginalType,
                     isLoginGuardian: false,
                     name: selectedVerifier.name,
@@ -301,15 +316,25 @@ const AddGuardian: React.FC = () => {
                     accountOriginalType,
                     deliveredGuardianInfo: JSON.stringify(thisGuardian),
                   });
-                  if (!guardianVerifyResult) {
+                  if (!guardianVerifyResult?.verifiedData) {
                     throw new Error('guardian is not verified!');
                   }
+                  const verifiedData = JSON.parse(guardianVerifyResult.verifiedData) as VerifiedGuardianInfo;
+                  Loading.show();
+                  await sleep(500);
+                  Loading.hide();
+                  await sleep(200);
                   handleGuardiansApproval({
                     guardianVerifyType: GuardianVerifyType.ADD_GUARDIAN,
                     accountIdentifier,
                     accountOriginalType,
-                    guardians: userGuardiansList,
-                    particularGuardian: thisGuardian,
+                    guardians: userGuardiansList.map(it => {
+                      it.accountIdentifier = accountIdentifier;
+                      return it;
+                    }),
+                    particularGuardian: Object.assign({}, thisGuardian, {
+                      verifiedDoc: verifiedData,
+                    } as Partial<GuardianConfig>),
                   });
                 } else {
                   throw new Error('send fail');

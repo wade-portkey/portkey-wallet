@@ -181,22 +181,28 @@ internal object NetworkConnector {
             ResultWrapper(0, result = result)
         } else {
             val errorCode: String = if (result != null) {
-                val code = result.asJsonObject.get("error")?.apply {
-                    this.asJsonObject.get("code")
-                }
-                if (code != null && !code.isJsonNull) {
-                    code.asString
+                val error = result.asJsonObject.get("error")
+                if (error != null && !error.isJsonNull) {
+                    val code = error.asJsonObject.get("code")
+                    if (code != null && !code.isJsonNull) {
+                        code.asString
+                    } else {
+                        "empty"
+                    }
                 } else {
                     "-1"
                 }
             } else "${response.code}"
             val errMessage: String =
                 if (result != null) {
-                    val message = result.asJsonObject.get("error")?.apply {
-                        this.asJsonObject.get("message")
-                    }
-                    if (message != null && !message.isJsonNull) {
-                        message.asString
+                    val error = result.asJsonObject.get("error")
+                    if (error != null && !error.isJsonNull) {
+                        val message = error.asJsonObject.get("message")
+                        if (message != null && !message.isJsonNull) {
+                            message.asString
+                        } else {
+                            "empty"
+                        }
                     } else {
                         "empty"
                     }

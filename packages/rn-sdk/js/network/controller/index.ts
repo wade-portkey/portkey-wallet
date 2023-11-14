@@ -44,6 +44,7 @@ export class NetworkControllerEntity {
         url = url + `&${key}=${encodeURIComponent((value ?? 'null') as string)}`;
       });
     }
+    headers = Object.assign({}, headers ?? {}, { Version: 'v1.4.8' });
     const result = nativeFetch<T>(url, method, params, headers, extraOptions);
     return result;
   };

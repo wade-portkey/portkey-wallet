@@ -1,4 +1,3 @@
-import { VerifierDetailsPageProps, VerifierDetailsPageResult } from 'components/entries/VerifierDetails';
 import { PortkeyEntries } from 'config/entries';
 import { LaunchModeSet, LaunchMode } from 'global/init/entries';
 import { EntryResult, PortkeyModulesEntity } from 'service/native-modules';
@@ -6,22 +5,20 @@ import { GuardianVerifyConfig, GuardianVerifyType } from '../social-recovery';
 import { NetworkController } from 'network/controller';
 import { parseGuardianInfo } from 'model/global';
 import { PortkeyConfig } from 'global/constants';
-import { GuardianApprovalPageProps, GuardianApprovalPageResult } from 'components/entries/GuardianApproval';
 import Loading from 'components/Loading';
 import { OnGuardianHomeNewIntent } from 'pages/GuardianManage/GuardianHome';
+import { GuardianApprovalPageProps, GuardianApprovalPageResult } from 'pages/entries/GuardianApproval';
+import { VerifierDetailsPageProps, VerifierDetailsPageResult } from 'pages/entries/VerifierDetails';
 
-const navigateToForResult = async <P, R>(
-  entryName: string,
-  props?: Partial<P>,
-  from = 'UNKNOWN',
-): Promise<R | null> => {
+const navigateToForResult = async <P, R>(entryName: string, props: P, from = 'UNKNOWN'): Promise<R | null> => {
   return new Promise<R | null>((resolve, _) => {
-    PortkeyModulesEntity.RouterModule.navigateToWithOptions(
+    PortkeyModulesEntity.RouterModule.navigateToWithOptions<R, P>(
       entryName,
       LaunchModeSet.get(entryName) || LaunchMode.STANDARD,
       from,
       {
         params: props,
+        closeCurrentScreen: false,
       },
       (result: EntryResult<R>) => {
         resolve(result.data ?? null);
@@ -78,6 +75,8 @@ export const handleGuardiansApproval = async (config: GuardianVerifyConfig) => {
       deliveredGuardianListInfo: JSON.stringify(config),
     },
   );
+  console.log('handleGuardiansApproval', option);
+  Loading.hide();
   returnToGuardianHome({
     type: GuardianVerifyType.ADD_GUARDIAN,
     result: option ? 'success' : 'fail',
@@ -86,6 +85,7 @@ export const handleGuardiansApproval = async (config: GuardianVerifyConfig) => {
 
 const checkGuardiansApprovalConfig = (config: GuardianVerifyConfig): boolean => {
   const { guardianVerifyType, particularGuardian, accountIdentifier } = config;
+  console.log('checkGuardiansApprovalConfig', config);
   if (!accountIdentifier) return false;
   switch (guardianVerifyType) {
     case GuardianVerifyType.CREATE_WALLET: {

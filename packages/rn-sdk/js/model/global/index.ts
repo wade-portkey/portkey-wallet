@@ -125,6 +125,7 @@ export const parseGuardianInfo = (
   verifiedData?: CheckVerifyCodeResultDTO,
   accountIdentifier = '',
   accountOriginalType = AccountOriginalType.Email,
+  operationType = OperationTypeEnum.communityRecovery,
 ): GuardianConfig => {
   return {
     ...guardianOriginalInfo,
@@ -138,7 +139,7 @@ export const parseGuardianInfo = (
       guardianIdentifier: guardianOriginalInfo.guardianIdentifier,
       verifierId: guardianOriginalInfo.verifierId,
       chainId,
-      operationType: OperationTypeEnum.communityRecovery,
+      operationType: operationType,
     },
     verifiedDoc: verifiedData,
   };

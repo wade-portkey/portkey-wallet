@@ -35,7 +35,7 @@ export default class GuardianApprovalEntryPage extends BaseContainer<
     return (
       <>
         <GuardianApproval
-          guardianListConfig={socialRecoveryConfig}
+          guardianVerifyConfig={socialRecoveryConfig}
           verifiedTime={verifiedTime}
           onPageFinish={this.onPageFinish}
         />

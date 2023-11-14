@@ -9,6 +9,9 @@ import io.aelf.portkey.components.activities.BasePortkeyReactActivity
 import io.aelf.portkey.components.activities.DefaultReactActivity
 import io.aelf.portkey.config.NO_CALLBACK_METHOD
 import io.aelf.portkey.config.StorageIdentifiers
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.lang.ref.WeakReference
 import java.util.LinkedList
 
@@ -100,9 +103,11 @@ internal object NavigationHolder {
                 entryMap.remove(componentKey)
                 it.get()?.navigateBackWithResult(generateSystemCallbackData())
             }
-            getTopComponent()?.onNewIntent(Intent().apply {
-                putExtra(StorageIdentifiers.PAGE_PARAMS, bundle)
-            })
+            CoroutineScope(Dispatchers.Main).launch {
+                getTopComponent()?.onNewIntent(Intent().apply {
+                    putExtra(StorageIdentifiers.PAGE_PARAMS, bundle)
+                })
+            }
             return true
         } else {
             return false
