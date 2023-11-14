@@ -38,6 +38,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:YES animated:animated];
     [PortkeySDKNativeWrapperModule sendOnShowEventWithModuleName:self.rnRootView.moduleName
                                                           bridge:self.rnRootView.bridge
                                                         reactTag:self.rnRootView.reactTag];
@@ -47,6 +48,11 @@
     [super viewDidAppear:animated];
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:animated];
+}
+
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
 }
@@ -54,6 +60,14 @@
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     self.rnRootView.frame = self.view.bounds;
+}
+
+- (BOOL)isSingleTask {
+    return self.launchMode.length && [self.launchMode isEqualToString:@"single_task"];
+}
+
+- (NSString *)moduleName {
+    return self.rnRootView.moduleName;
 }
 
 @end

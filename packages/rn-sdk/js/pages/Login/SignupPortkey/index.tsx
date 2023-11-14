@@ -3,29 +3,32 @@ import PageContainer, { SafeAreaColorMapKeyUnit } from 'components/PageContainer
 import { TextM, TextXXXL } from 'components/CommonText';
 import { pTd } from 'utils/unit';
 import { ImageBackground, View } from 'react-native';
+import { isIOS } from '@portkey-wallet/utils/mobile/device';
 import { useLanguage } from 'i18n/hooks';
 import Svg from 'components/Svg';
 import { BGStyles, FontStyles } from 'assets/theme/styles';
-import { isIOS } from '@portkey-wallet/utils/mobile/device';
 import styles from '../styles';
 import Email from '../components/Email';
 import Phone from '../components/Phone';
+import QRCode from '../components/QRCode';
+import Referral from '../components/Referral';
+import SwitchNetwork from '../components/SwitchNetwork';
 import { PageLoginType, PageType } from '../types';
 import GStyles from 'assets/theme/GStyles';
 import fonts from 'assets/theme/fonts';
 import { defaultColors } from 'assets/theme';
-import { CountryCodeItem } from 'types/wallet';
-import useInitSkeleton from 'model/hooks/UseInitSkeleton';
+import useEffectOnce from 'hooks/useEffectOnce';
+import { checkForCountryCodeCached } from 'model/global';
 import useBaseContainer from 'model/container/UseBaseContainer';
 import { PortkeyEntries } from 'config/entries';
-import Referral from '../components/Referral';
-
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const skeletonPath = require('assets/image/pngs/skeleton-email.png');
-
-const safeAreaColor: SafeAreaColorMapKeyUnit[] = ['transparent', 'transparent'];
+import NetworkContext from '../context/NetworkContext';
+import { NetworkItem } from '@portkey-wallet/types/types-ca/network';
+import { PortkeyConfig, setEndPointUrl } from 'global/constants';
+import { NetworkList } from '@portkey-wallet/constants/constants-ca/network-mainnet';
+import { CountryCodeItem } from 'types/wallet';
 
 const scrollViewProps = { extraHeight: 120 };
+const safeAreaColor: SafeAreaColorMapKeyUnit[] = ['transparent', 'transparent'];
 
 export default function SignupPortkey({
   selectedCountryCode,
@@ -35,18 +38,18 @@ export default function SignupPortkey({
   updateCountryCode: (item: CountryCodeItem) => void;
 }) {
   const [loginType, setLoginType] = useState<PageLoginType>(PageLoginType.referral);
+  const [currentNetwork, setCurrentNetwork] = useState<NetworkItem | undefined>(undefined);
   const { t } = useLanguage();
-  const isMainnet = true;
-  const { initSkeleton, showSkeleton } = useInitSkeleton(skeletonPath);
-
+  const isMainnet = useMemo(() => {
+    return currentNetwork?.networkType === 'MAIN';
+  }, [currentNetwork?.networkType]);
   const { onFinish } = useBaseContainer({
     entryName: PortkeyEntries.SIGN_UP_ENTRY,
   });
-
-  const signupMap = useMemo(
+  const loginMap = useMemo(
     () => ({
       [PageLoginType.email]: <Email setLoginType={setLoginType} type={PageType.signup} />,
-      [PageLoginType.qrCode]: <View />,
+      [PageLoginType.qrCode]: <QRCode setLoginType={setLoginType} />,
       [PageLoginType.phone]: (
         <Phone
           setLoginType={setLoginType}
@@ -55,10 +58,31 @@ export default function SignupPortkey({
           updateCountryCode={updateCountryCode}
         />
       ),
-      [PageLoginType.referral]: <Referral setLoginType={setLoginType} />,
+      [PageLoginType.referral]: <Referral setLoginType={setLoginType} type={PageType.signup} />,
     }),
     [selectedCountryCode, updateCountryCode],
   );
+  useEffectOnce(() => {
+    checkForCountryCodeCached();
+    loadCurrentNetwork();
+  });
+  const loadCurrentNetwork = () => {
+    PortkeyConfig.endPointUrl().then(url => {
+      const network = NetworkList.find(item => item.apiUrl === url) || NetworkList[0];
+      setCurrentNetwork(network);
+    });
+  };
+
+  const onBack = () => {
+    if (loginType !== PageLoginType.referral) {
+      setLoginType(PageLoginType.referral);
+    } else {
+      onFinish({
+        status: 'cancel',
+        data: {},
+      });
+    }
+  };
 
   const backgroundImage = useMemo(() => {
     if (isIOS) {
@@ -68,42 +92,42 @@ export default function SignupPortkey({
     }
   }, []);
 
-  const goBack = () => {
-    onFinish<{ status: string }>({
-      status: 'cancel',
-      data: {
-        status: 'cancel',
-      },
-    });
+  const networkContext = {
+    currentNetwork: currentNetwork,
+    changeCurrentNetwork: (network: NetworkItem) => {
+      if (network.apiUrl) {
+        setCurrentNetwork(network);
+        setEndPointUrl(network.apiUrl);
+      }
+    },
   };
 
-  return initSkeleton ? (
-    showSkeleton()
-  ) : (
-    <ImageBackground style={styles.backgroundContainer} resizeMode="cover" source={backgroundImage}>
-      <PageContainer
-        titleDom
-        type="leftBack"
-        themeType="blue"
-        pageSafeBottomPadding={!isIOS}
-        style={BGStyles.transparent}
-        safeAreaColor={safeAreaColor}
-        scrollViewProps={scrollViewProps}
-        containerStyles={styles.containerStyles}
-        leftCallback={goBack}>
-        <Svg icon="logo-icon" size={pTd(60)} iconStyle={styles.logoIconStyle} color={defaultColors.bg1} />
-        <View style={GStyles.center}>
-          {!isMainnet && (
-            <View style={styles.labelBox}>
-              <TextM style={[FontStyles.font11, fonts.mediumFont]}>TEST</TextM>
-            </View>
-          )}
-          <TextXXXL style={[styles.titleStyle, FontStyles.font11]}>{t('Sign up Portkey')}</TextXXXL>
-        </View>
-
-        {signupMap[loginType]}
-        {/* <SwitchNetwork /> */}
-      </PageContainer>
-    </ImageBackground>
+  return (
+    <NetworkContext.Provider value={networkContext}>
+      <ImageBackground style={styles.backgroundContainer} resizeMode="cover" source={backgroundImage}>
+        <PageContainer
+          titleDom
+          type="leftBack"
+          themeType="blue"
+          style={BGStyles.transparent}
+          pageSafeBottomPadding={!isIOS}
+          containerStyles={styles.containerStyles}
+          safeAreaColor={safeAreaColor}
+          scrollViewProps={scrollViewProps}
+          leftCallback={onBack}>
+          <Svg icon="logo-icon" size={pTd(60)} iconStyle={styles.logoIconStyle} color={defaultColors.bg1} />
+          <View style={GStyles.center}>
+            {!isMainnet && (
+              <View style={styles.labelBox}>
+                <TextM style={[FontStyles.font11, fonts.mediumFont]}>TEST</TextM>
+              </View>
+            )}
+            <TextXXXL style={[styles.titleStyle, FontStyles.font11]}>{t('Sign up Portkey')}</TextXXXL>
+          </View>
+          {loginMap[loginType]}
+          <SwitchNetwork />
+        </PageContainer>
+      </ImageBackground>
+    </NetworkContext.Provider>
   );
 }

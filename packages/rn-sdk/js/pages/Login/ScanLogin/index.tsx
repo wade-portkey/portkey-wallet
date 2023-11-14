@@ -15,12 +15,9 @@ import { LoginQRData } from '@portkey-wallet/types/types-ca/qrcode';
 import useBaseContainer from 'model/container/UseBaseContainer';
 import { PortkeyEntries } from 'config/entries';
 import { NetworkController } from 'network/controller';
-import { getContractBasic } from '@portkey-wallet/contracts/utils';
-import { addManager } from 'utils/wallet';
 import { extraDataEncode, getDeviceInfoFromQR } from '@portkey-wallet/utils/device';
 import { PortkeyConfig } from 'global/constants';
-import { getUnlockedWallet } from 'model/wallet';
-import { AElfWeb3SDK } from 'network/dto/wallet';
+import { callAddManagerMethod } from 'model/contract/handler';
 
 const ScrollViewProps = { disabled: true };
 
@@ -39,12 +36,9 @@ export default function ScanLogin(props: ScanToLoginProps) {
   const onLogin = async () => {
     try {
       setLoading(true);
-      const { caInfo, currChainNetworkConfig, address, privateKey } = (await getUnlockedWallet()) || {};
-      const caHash = caInfo?.caHash;
-      const { caContractAddress, peerUrl } = currChainNetworkConfig || {};
-      if (!caHash || !caContractAddress || !peerUrl || !address || loading || !managerAddress) {
+      if (loading || !managerAddress) {
         CommonToast.warn('params error:');
-        console.log('params error:', caHash, caContractAddress, peerUrl, address, loading, managerAddress);
+        console.log('params error:', loading, managerAddress);
         return;
       }
       if (targetClientId) {
@@ -55,20 +49,9 @@ export default function ScanLogin(props: ScanToLoginProps) {
           setLoading(false);
           return;
         }
-        const contractInstance = await getContractBasic({
-          contractAddress: caContractAddress,
-          rpcUrl: peerUrl,
-          account: AElfWeb3SDK.getWalletByPrivateKey(privateKey),
-        });
         const deviceInfo = getDeviceInfoFromQR(qrExtraData, deviceType);
         const extraData = await extraDataEncode(deviceInfo || {}, true);
-        const req = await addManager({
-          contract: contractInstance,
-          caHash,
-          address,
-          managerAddress,
-          extraData,
-        });
+        const req = await callAddManagerMethod(managerAddress, extraData);
         if (req?.error) throw req?.error;
         socket.doOpen({
           url: `${await PortkeyConfig.endPointUrl()}/ca`,
@@ -81,6 +64,7 @@ export default function ScanLogin(props: ScanToLoginProps) {
       }
     } catch (e) {
       console.error(e);
+      CommonToast.fail('Login failed');
     }
     setLoading(false);
   };
