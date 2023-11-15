@@ -8,7 +8,10 @@ import { TempStorage } from 'service/storage';
 const NETWORK_TOKEN_IDENTIFIER = 'network-token-identifier';
 const EXPIRE_TIME_IDENTIFIER = 'expire-time-identifier';
 
+export let networkTokenSwitch = false;
+
 export const getCachedNetworkToken = async (): Promise<string> => {
+  networkTokenSwitch = true;
   if (!(await isWalletUnlocked())) throw new Error('wallet is locked');
   const chainId = await PortkeyConfig.currChainId();
   const cached = await TempStorage.getString(`${NETWORK_TOKEN_IDENTIFIER}-${chainId}`);
@@ -32,5 +35,6 @@ export const getCachedNetworkToken = async (): Promise<string> => {
   });
   TempStorage.set(`${NETWORK_TOKEN_IDENTIFIER}-${chainId}`, access_token);
   TempStorage.set(`${EXPIRE_TIME_IDENTIFIER}-${chainId}`, `${Date.now() + expires_in * 1000}`);
+  networkTokenSwitch = false;
   return access_token;
 };

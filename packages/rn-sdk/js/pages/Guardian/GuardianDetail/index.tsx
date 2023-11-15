@@ -23,7 +23,7 @@ import { GuardianConfig } from 'model/verify/guardian';
 import { PortkeyConfig } from 'global/constants';
 import useEffectOnce from 'hooks/useEffectOnce';
 import { getContractInstance } from 'model/contract/handler';
-import { guardianEnumToTypeStr, guardianTypeStrToEnum, parseGuardianInfo } from 'model/global';
+import { guardianEnumToTypeStr, guardianTypeStrToEnum, isReacptchaOpen, parseGuardianInfo } from 'model/global';
 import { AccountOriginalType } from 'model/verify/after-verify';
 import { getUnlockedWallet } from 'model/wallet';
 import { NetworkController } from 'network/controller';
@@ -31,6 +31,7 @@ import { ModifyGuardianProps, checkIsTheLastLoginGuardian } from '../GuardianMan
 import { handlePhoneOrEmailGuardianVerify } from 'model/verify/entry/hooks';
 import useBaseContainer from 'model/container/UseBaseContainer';
 import { PortkeyEntries } from 'config/entries';
+import { verifyHumanMachine } from 'components/VerifyHumanMachine';
 
 export default function GuardianDetail(config: { info: string }) {
   const { t } = useLanguage();
@@ -58,6 +59,7 @@ export default function GuardianDetail(config: { info: string }) {
   );
 
   useEffectOnce(async () => {
+    Loading.show();
     const { particularGuardianInfo, originalGuardianItem } = JSON.parse(config.info) as ModifyGuardianProps;
     console.log('GuardianDetail info: ', config.info);
     particularGuardianInfo && setEditGuardian(particularGuardianInfo);
@@ -79,12 +81,14 @@ export default function GuardianDetail(config: { info: string }) {
     });
     console.log('guardians:', JSON.stringify(parsedGuardians));
     parsedGuardians && setUserGuardiansList(parsedGuardians);
+    Loading.hide();
   });
 
   const onCancelLoginAccount = useCallback(async () => {
     if (!guardian) return;
     Loading.show();
     try {
+      Loading.show();
       const {
         address: managerAddress,
         caInfo: { caHash },
@@ -98,9 +102,11 @@ export default function GuardianDetail(config: { info: string }) {
       const req = await cancelLoginAccount(caContract, managerAddress, caHash, guardian);
       if (req && !req.error) {
         changeLoginAccountStatus(false);
+        CommonToast.success('Cancel login account successfully');
       } else {
         CommonToast.fail(req?.error?.message || '');
       }
+      Loading.hide();
     } catch (error) {
       CommonToast.failError(error);
     }
@@ -110,6 +116,7 @@ export default function GuardianDetail(config: { info: string }) {
   const onSetLoginAccount = useCallback(async () => {
     try {
       if (!guardian) return;
+      Loading.show();
       const {
         address: managerAddress,
         caInfo: { caHash },
@@ -122,9 +129,11 @@ export default function GuardianDetail(config: { info: string }) {
       const req = await setLoginAccount(caContract, managerAddress, caHash, guardian);
       if (req && !req.error) {
         changeLoginAccountStatus(true);
+        CommonToast.success('Set login account successfully');
       } else {
         CommonToast.fail(req?.error?.message || '');
       }
+      Loading.hide();
     } catch (error) {
       CommonToast.failError(error);
     }
@@ -135,19 +144,34 @@ export default function GuardianDetail(config: { info: string }) {
     try {
       const originChainId = await PortkeyConfig.currChainId();
       Loading.show();
-      const req = await NetworkController.sendVerifyCode({
-        type: guardianEnumToTypeStr(guardian.guardianType),
-        guardianIdentifier: guardian.guardianAccount || '',
-        verifierId: guardian.verifier?.id || '',
-        chainId: originChainId,
-        operationType: OperationTypeEnum.addGuardian,
-      });
+      const needRecaptcha = await isReacptchaOpen(OperationTypeEnum.setLoginAccount);
+      let token: string | undefined;
+      if (needRecaptcha) {
+        token = (await verifyHumanMachine('en')) as string;
+      }
+      const req = await NetworkController.sendVerifyCode(
+        {
+          type: guardianEnumToTypeStr(guardian.guardianType),
+          guardianIdentifier: guardian.guardianAccount || '',
+          verifierId: guardian.verifier?.id || '',
+          chainId: originChainId,
+          operationType: OperationTypeEnum.setLoginAccount,
+        },
+        {
+          reCaptchaToken: token,
+        },
+      );
       if (req.verifierSessionId) {
         const guardianVerifyResult = await handlePhoneOrEmailGuardianVerify({
           verificationType: VerificationType.addGuardian,
           accountIdentifier: guardian.guardianAccount,
           accountOriginalType: AccountOriginalType.Email,
-          deliveredGuardianInfo: JSON.stringify(editGuardian),
+          deliveredGuardianInfo: JSON.stringify(
+            Object.assign({}, editGuardian, {
+              alreadySent: true,
+              verifySessionId: req.verifierSessionId,
+            } as Partial<GuardianConfig>),
+          ),
         });
         if (!guardianVerifyResult?.verifiedData) throw new Error('verify fail');
         await onSetLoginAccount();

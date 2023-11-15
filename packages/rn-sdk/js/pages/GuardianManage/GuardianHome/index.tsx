@@ -35,18 +35,20 @@ export default function GuardianHome() {
   const verifierList = useMemo(() => (verifierMap ? Object.values(verifierMap) : []), [verifierMap]);
 
   useEffectOnce(async () => {
+    Loading.show();
     const { data } = await callGetVerifiersMethod();
     const { verifierServers: verifiers } = data || {};
     console.log('verifiers', JSON.stringify(verifiers));
     verifiers && setVerifierMap(verifiers);
-    refreshGuardianInfo();
+    await refreshGuardianInfo();
+    Loading.hide();
   });
 
   const { navigationTo, navigateForResult } = useBaseContainer({
     entryName: PortkeyEntries.GUARDIAN_HOME_ENTRY,
     onNewIntent: async (intent: OnGuardianHomeNewIntent) => {
       Loading.show();
-      refreshGuardianInfo();
+      await refreshGuardianInfo();
       await sleep(500);
       Loading.hide();
       console.log('GuardianHome onNewIntent', intent);

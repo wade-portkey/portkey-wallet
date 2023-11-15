@@ -27,7 +27,7 @@ import {
   RequestSocialRecoveryParams,
 } from 'network/dto/wallet';
 import { sleep } from '@portkey-wallet/utils';
-import { getCachedNetworkToken } from 'network/token';
+import { getCachedNetworkToken, networkTokenSwitch } from 'network/token';
 import { BackEndNetWorkMap } from '@portkey-wallet/constants/constants-ca/backend-network';
 import { isWalletUnlocked } from 'model/verify/after-verify';
 
@@ -48,10 +48,11 @@ export class NetworkControllerEntity {
       });
     }
     headers = Object.assign({}, headers ?? {}, { Version: 'v1.4.8' });
-    if ((await isWalletUnlocked()) && url.indexOf(APIPaths.REFRESH_NETWORK_TOKEN) === -1) {
+    if ((await isWalletUnlocked()) && !networkTokenSwitch) {
       const access_token = await getCachedNetworkToken();
       headers = Object.assign({}, headers, { Authorization: `Bearer ${access_token}` });
     }
+
     const result = nativeFetch<T>(url, method, params, headers, extraOptions);
     return result;
   };
