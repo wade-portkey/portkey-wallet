@@ -27,6 +27,7 @@ export default class GuardianApprovalEntryPage extends BaseContainer<
     this.onFinish({
       status: result.isVerified ? 'success' : 'fail',
       data: result,
+      animated: false,
     });
   };
 
