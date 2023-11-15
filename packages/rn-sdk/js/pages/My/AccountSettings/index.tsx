@@ -1,7 +1,7 @@
-import React, { useCallback, useEffect, useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import PageContainer from 'components/PageContainer';
 import useBiometricsReady from 'hooks/useBiometrics';
-import { StyleSheet, Modal, NativeModules, DeviceEventEmitter } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { defaultColors } from 'assets/theme';
 import { useLanguage } from 'i18n/hooks';
 import MenuItem from '../components/MenuItem';
@@ -11,12 +11,21 @@ import { PortkeyEntries } from 'config/entries';
 import useBaseContainer from 'model/container/UseBaseContainer';
 import { CheckPinProps } from 'pages/Pin/CheckPin';
 import useEffectOnce from 'hooks/useEffectOnce';
+import { getTempWalletConfig, isWalletUnlocked } from 'model/verify/after-verify';
+import { PortkeyModulesEntity } from 'service/native-modules';
 import CommonToast from 'components/CommonToast';
 
 export default function AccountSettings() {
   const biometricsReady = useBiometricsReady();
-  const { navigationTo, onNewIntent } = useBaseContainer({
+  const { navigationTo, onFinish } = useBaseContainer({
     entryName: PortkeyEntries.ACCOUNT_SETTING_ENTRY,
+    onNewIntent: (params: { modified: boolean }) => {
+      console.log('params.modified', params.modified);
+      if (params.modified) {
+        console.log('params.modified if');
+        CommonToast.success(t('Modified Successfully'));
+      }
+    },
   });
   const { t } = useLanguage();
 
@@ -53,11 +62,22 @@ export default function AccountSettings() {
     [navigationTo],
   );
   useEffectOnce(() => {
-    onNewIntent((params: { modified: boolean }) => {
-      console.log('params.modified', params.modified);
-      if (params.modified) {
-        console.log('params.modified if');
-        CommonToast.success(t('Modified Successfully'));
+    (async () => {
+      const tempWalletConfig = await getTempWalletConfig();
+      console.log('tempWalletConfig', tempWalletConfig);
+    })();
+    isWalletUnlocked().then(status => {
+      if (!status) {
+        onFinish({
+          status: 'fail',
+          data: { msg: 'wallet is not unlocked' },
+        });
+        console.log('wallet is not unlocked');
+        PortkeyModulesEntity.NativeWrapperModule.onError(
+          PortkeyEntries.ACCOUNT_SETTING_ENTRY,
+          'wallet is not unlocked',
+          {},
+        );
       }
     });
   });

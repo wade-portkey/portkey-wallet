@@ -16,7 +16,7 @@ import useEffectOnce from 'hooks/useEffectOnce';
 import Touchable from 'components/Touchable';
 import ActionSheet from 'components/ActionSheet';
 import { GuardiansStatus, GuardiansStatusItem } from '../types';
-import { GuardianVerifyConfig } from 'model/verify/social-recovery';
+import { GuardianVerifyConfig, GuardianVerifyType } from 'model/verify/social-recovery';
 import { GuardianConfig } from 'model/verify/guardian';
 import { UserGuardianItem } from '@portkey-wallet/store/store-ca/guardians/type';
 import { GuardianApprovalPageResult } from 'pages/entries/GuardianApproval';
@@ -36,18 +36,51 @@ import { ApprovedGuardianInfo } from 'network/dto/wallet';
 import { AppleAccountInfo, GoogleAccountInfo, isAppleLogin } from 'model/verify/third-party-account';
 import { useAppleAuthentication, useGoogleAuthentication } from 'model/hooks/authentication';
 import { getBottomSpace } from 'utils/screen';
+import { callAddGuardianMethod, callEditGuardianMethod, callRemoveGuardianMethod } from 'model/contract/handler';
 
 export default function GuardianApproval({
-  guardianListConfig,
+  guardianVerifyConfig: guardianListConfig,
   verifiedTime,
   onPageFinish,
 }: {
-  guardianListConfig: GuardianVerifyConfig;
+  guardianVerifyConfig: GuardianVerifyConfig;
   verifiedTime: number;
   onPageFinish: (result: GuardianApprovalPageResult) => void;
 }) {
-  const { guardians, accountIdentifier, accountOriginalType, thirdPartyAccountInfo } = guardianListConfig;
+  const {
+    guardians,
+    accountIdentifier,
+    accountOriginalType,
+    thirdPartyAccountInfo,
+    guardianVerifyType,
+    particularGuardian,
+    pastGuardian,
+  } = guardianListConfig;
   const { t } = useLanguage();
+
+  let operationType = OperationTypeEnum.communityRecovery;
+  switch (guardianVerifyType) {
+    case GuardianVerifyType.ADD_GUARDIAN: {
+      operationType = OperationTypeEnum.addGuardian;
+      break;
+    }
+    case GuardianVerifyType.REMOVE_GUARDIAN: {
+      operationType = OperationTypeEnum.deleteGuardian;
+      break;
+    }
+    case GuardianVerifyType.CHANGE_LOGIN_GUARDIAN: {
+      operationType = OperationTypeEnum.setLoginAccount;
+      break;
+    }
+    case GuardianVerifyType.MODIFY_GUARDIAN: {
+      operationType = OperationTypeEnum.editGuardian;
+      break;
+    }
+    case GuardianVerifyType.CREATE_WALLET:
+    default: {
+      operationType = OperationTypeEnum.communityRecovery;
+    }
+  }
 
   const { navigateForResult } = useBaseContainer({
     entryName: PortkeyEntries.GUARDIAN_APPROVAL_ENTRY,
@@ -152,10 +185,48 @@ export default function GuardianApproval({
 
   const onFinish = async () => {
     const pageData = await getVerifiedData();
-    onPageFinish({
-      isVerified: true,
-      deliveredVerifiedData: JSON.stringify(pageData),
-    });
+    switch (guardianVerifyType) {
+      case GuardianVerifyType.ADD_GUARDIAN: {
+        if (!particularGuardian) throw new Error('guardian info is null!');
+        Loading.show();
+        const result = await callAddGuardianMethod(particularGuardian, getVerifiedGuardianInfo());
+        Loading.hide();
+        onPageFinish({
+          isVerified: result?.error ? false : true,
+        });
+        break;
+      }
+
+      case GuardianVerifyType.REMOVE_GUARDIAN: {
+        if (!particularGuardian) throw new Error('guardian info is null!');
+        Loading.show();
+        const result = await callRemoveGuardianMethod(particularGuardian, getVerifiedGuardianInfo());
+        Loading.hide();
+        onPageFinish({
+          isVerified: result?.error ? false : true,
+        });
+        break;
+      }
+
+      case GuardianVerifyType.MODIFY_GUARDIAN: {
+        if (!particularGuardian || !pastGuardian) throw new Error('guardian info is null!');
+        Loading.show();
+        const result = await callEditGuardianMethod(particularGuardian, pastGuardian, getVerifiedGuardianInfo());
+        Loading.hide();
+        onPageFinish({
+          isVerified: result?.error ? false : true,
+        });
+        break;
+      }
+
+      case GuardianVerifyType.CREATE_WALLET:
+      default: {
+        onPageFinish({
+          isVerified: true,
+          deliveredVerifiedData: JSON.stringify(pageData),
+        });
+      }
+    }
   };
 
   const particularButton = (guardian: GuardianConfig, key: string) => {
@@ -217,13 +288,13 @@ export default function GuardianApproval({
               verifierId: guardian.sendVerifyCodeParams.verifierId,
               accessToken: thirdPartyAccount.identityToken,
               chainId: await PortkeyConfig.currChainId(),
-              operationType: OperationTypeEnum.communityRecovery,
+              operationType,
             })
           : await NetworkController.verifyGoogleGuardianInfo({
               verifierId: guardian.sendVerifyCodeParams.verifierId,
               accessToken: thirdPartyAccount.accessToken,
               chainId: await PortkeyConfig.currChainId(),
-              operationType: OperationTypeEnum.communityRecovery,
+              operationType,
             });
         Loading.hide();
         if (verifyResult) {
@@ -301,9 +372,12 @@ export default function GuardianApproval({
                 if (needRecaptcha) {
                   token = (await verifyHumanMachine('en')) as string;
                 }
-                const sendResult = await NetworkController.sendVerifyCode(guardian.sendVerifyCodeParams, {
-                  reCaptchaToken: token ?? '',
-                });
+                const sendResult = await NetworkController.sendVerifyCode(
+                  Object.assign({}, guardian.sendVerifyCodeParams, { operationType }),
+                  {
+                    reCaptchaToken: token ?? '',
+                  },
+                );
                 Loading.hide();
                 if (sendResult) {
                   setSentGuardianKeys(preGuardianKeys => {

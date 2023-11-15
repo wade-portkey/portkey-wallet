@@ -23,6 +23,7 @@ import { ThirdPartyAccountInfo } from 'model/verify/third-party-account';
 import { GlobalStorage } from 'service/storage';
 import { ChainId } from '@portkey-wallet/types';
 import { UserGuardianItem } from '@portkey-wallet/store/store-ca/guardians/type';
+import { LoginType } from '@portkey-wallet/types/types-ca/wallet';
 
 export const COUNTRY_CODE_DATA_KEY = 'countryCodeData';
 export const CURRENT_USING_COUNTRY_CODE = 'currentUsingCountryCode';
@@ -107,7 +108,7 @@ export const getSocialRecoveryPageData = async (
   accountOriginalType: AccountOriginalType,
   thirdPartyAccountInfo?: ThirdPartyAccountInfo,
 ): Promise<GuardianVerifyConfig> => {
-  const guardians = await NetworkController.getGuardianInfo(await PortkeyConfig.currChainId(), accountIdentifier);
+  const guardians = await NetworkController.getGuardianInfo(accountIdentifier);
   const chainId = await PortkeyConfig.currChainId();
   return {
     accountIdentifier,
@@ -124,6 +125,7 @@ export const parseGuardianInfo = (
   verifiedData?: CheckVerifyCodeResultDTO,
   accountIdentifier = '',
   accountOriginalType = AccountOriginalType.Email,
+  operationType = OperationTypeEnum.communityRecovery,
 ): GuardianConfig => {
   return {
     ...guardianOriginalInfo,
@@ -137,8 +139,9 @@ export const parseGuardianInfo = (
       guardianIdentifier: guardianOriginalInfo.guardianIdentifier,
       verifierId: guardianOriginalInfo.verifierId,
       chainId,
-      operationType: OperationTypeEnum.communityRecovery,
+      operationType: operationType,
     },
+    identifierHash: guardianOriginalInfo.identifierHash,
     verifiedDoc: verifiedData,
   };
 };
@@ -210,7 +213,7 @@ export const getCaInfoByAccountIdentifierOrSessionId = async (
   sessionId?: string,
 ): Promise<{ caHash: string; caAddress: string }> => {
   if (accountIdentifier) {
-    const result = await NetworkController.getGuardianInfo(originalChainId, accountIdentifier);
+    const result = await NetworkController.getGuardianInfo(accountIdentifier);
     return result;
   } else if (sessionId) {
     const result = fromRecovery
@@ -241,6 +244,23 @@ export const guardianTypeStrToEnum = (guardianType: AccountOrGuardianOriginalTyp
       return GuardianType.Google;
     case 'Apple':
       return GuardianType.Apple;
+    default:
+      throw new Error('invalid guardian type');
+  }
+};
+
+export const guardianEnumToTypeStr = (
+  guardianType: LoginType | GuardianType | AccountOriginalType,
+): AccountOrGuardianOriginalTypeStr => {
+  switch (guardianType) {
+    case GuardianType.Email:
+      return 'Email';
+    case GuardianType.Phone:
+      return 'Phone';
+    case GuardianType.Google:
+      return 'Google';
+    case GuardianType.Apple:
+      return 'Apple';
     default:
       throw new Error('invalid guardian type');
   }

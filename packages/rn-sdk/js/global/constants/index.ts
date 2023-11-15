@@ -4,6 +4,7 @@ import { GlobalStorage } from 'service/storage';
 export enum EndPoints {
   MAIN_NET = 'https://did-portkey.portkey.finance',
   TEST_NET = 'https://did-portkey-test.portkey.finance',
+  TEST1 = 'https://localtest-applesign.portkey.finance',
 }
 
 enum ConfigIdentifier {
@@ -18,7 +19,7 @@ export interface PortkeyConfigInterface {
 
 export const PortkeyConfig: PortkeyConfigInterface = {
   endPointUrl: async () => {
-    return (await getConfigStr(ConfigIdentifier.END_POINT)) || EndPoints.TEST_NET;
+    return (await getConfigStr(ConfigIdentifier.END_POINT)) || EndPoints.MAIN_NET;
   },
   currChainId: async () => {
     return ((await getConfigStr(ConfigIdentifier.CURR_CHAIN_ID)) as ChainId) || 'AELF';

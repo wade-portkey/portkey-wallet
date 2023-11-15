@@ -149,6 +149,8 @@ export default function GuardianDetail() {
           const guardiansInfo = await getGuardiansInfo({ guardianIdentifier: guardian.guardianAccount });
           if (guardiansInfo?.guardianList?.guardians?.length) {
             throw { code: '20004' };
+          } else {
+            throw { code: '3002' };
           }
         } catch (error: any) {
           if (error.code === '20004') {
@@ -161,10 +163,6 @@ export default function GuardianDetail() {
                 },
               ],
             });
-            return;
-          }
-          if (error.code !== '3002') {
-            CommonToast.fail('Setup failed');
             return;
           }
         } finally {

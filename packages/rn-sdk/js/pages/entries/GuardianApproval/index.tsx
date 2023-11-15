@@ -36,7 +36,7 @@ export default class GuardianApprovalEntryPage extends BaseContainer<
     return (
       <>
         <GuardianApproval
-          guardianListConfig={socialRecoveryConfig}
+          guardianVerifyConfig={socialRecoveryConfig}
           verifiedTime={verifiedTime}
           onPageFinish={this.onPageFinish}
         />
@@ -46,7 +46,7 @@ export default class GuardianApprovalEntryPage extends BaseContainer<
 }
 
 export interface GuardianApprovalPageProps extends BaseContainerProps {
-  deliveredGuardianListInfo: string; // SocialRecoveryConfig
+  deliveredGuardianListInfo: string; // GuardianVerifyConfig
 }
 
 export interface GuardianApprovalPageState {

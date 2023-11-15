@@ -16,6 +16,7 @@ import appleAuth, { appleAuthAndroid } from '@invertase/react-native-apple-authe
 import { OperationTypeEnum } from '@portkey-wallet/types/verifier';
 import NetworkContext, { NetworkContextState } from 'pages/Login/context/NetworkContext';
 import { appleLogin } from './apple-login';
+import { NetworkController } from 'network/controller';
 
 if (!isIOS) {
   GoogleSignin.configure({
@@ -198,6 +199,7 @@ export function useAppleAuthentication() {
       console.log(appleInfo, '======appleInfo');
       if (appleInfo.user?.name?.lastName) {
         try {
+          // TODO replace this
           await request.verify.sendAppleUserExtraInfo({
             params: {
               identityToken: appleInfo.id_token,
@@ -274,8 +276,10 @@ export function useVerifyGoogleToken() {
         accessToken = userInfo?.accessToken;
         if (userInfo.user.id !== params.id) throw new Error('Account does not match your guardian');
       }
-      const rst = await request.verify.verifyGoogleToken({
-        params: { ...params, accessToken },
+      const rst = await NetworkController.verifyGoogleGuardianInfo({
+        ...params,
+        accessToken: accessToken || '',
+        verifierId: params.verifierId || '',
       });
 
       return {
@@ -300,8 +304,10 @@ export function useVerifyAppleToken() {
       const { userId } = parseAppleIdentityToken(accessToken) || {};
       if (userId !== params.id) throw new Error('Account does not match your guardian');
 
-      const rst = await request.verify.verifyAppleToken({
-        params: { ...params, accessToken },
+      const rst = await NetworkController.verifyAppleGuardianInfo({
+        ...params,
+        accessToken: accessToken || '',
+        verifierId: params.verifierId || '',
       });
 
       return {

@@ -6,7 +6,6 @@ import com.facebook.react.bridge.Arguments
 import com.facebook.react.bridge.Callback
 import com.facebook.react.bridge.WritableMap
 import io.aelf.portkey.components.activities.BasePortkeyReactActivity
-import io.aelf.portkey.components.activities.DefaultReactActivity
 import io.aelf.portkey.config.NO_CALLBACK_METHOD
 import io.aelf.portkey.config.StorageIdentifiers
 import java.lang.ref.WeakReference
