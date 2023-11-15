@@ -19,8 +19,6 @@ import Biometric from 'pages/My/Biometric';
 import AddGuardian from 'pages/Guardian/GuardianManage/AddGuardian';
 import ModifyGuardian from 'pages/Guardian/GuardianManage/ModifyGuardian';
 import GuardianDetail from 'pages/Guardian/GuardianDetail';
-import { isWalletUnlocked } from 'model/verify/after-verify';
-import { getUnlockedWallet } from 'model/wallet';
 
 type AcceptableComponentType = ComponentProvider;
 
@@ -68,14 +66,6 @@ export enum LaunchMode {
   SINGLE_TASK = 'single_task',
   SINGLE_TOP = 'single_top',
 }
-
-isWalletUnlocked().then(unlocked => {
-  if (unlocked) {
-    getUnlockedWallet().then(wallet => {
-      console.log('wallet', wallet);
-    });
-  }
-});
 
 const registerLaunchMode = () => {
   LaunchModeSet.set(PortkeyEntries.ACCOUNT_SETTING_ENTRY, LaunchMode.SINGLE_TASK.toString());
