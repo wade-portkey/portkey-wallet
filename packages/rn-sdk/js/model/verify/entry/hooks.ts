@@ -92,7 +92,8 @@ const checkGuardiansApprovalConfig = (config: GuardianVerifyConfig): boolean => 
     case GuardianVerifyType.CREATE_WALLET: {
       return !particularGuardian;
     }
-    case GuardianVerifyType.ADD_GUARDIAN: {
+    case GuardianVerifyType.ADD_GUARDIAN:
+    case GuardianVerifyType.MODIFY_GUARDIAN: {
       return true;
     }
     default:

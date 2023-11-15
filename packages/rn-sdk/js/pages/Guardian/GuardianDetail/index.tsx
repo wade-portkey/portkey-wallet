@@ -328,11 +328,13 @@ export default function GuardianDetail(config: { info: string }) {
         <CommonButton
           type="primary"
           onPress={() => {
-            navigationTo<ModifyGuardianProps>(PortkeyEntries.MODIFY_GUARDIAN_ENTRY, {
+            navigationTo(PortkeyEntries.MODIFY_GUARDIAN_ENTRY, {
               closeCurrentScreen: false,
               params: {
-                particularGuardianInfo: editGuardian,
-                originalGuardianItem: guardian,
+                info: JSON.stringify({
+                  particularGuardianInfo: editGuardian,
+                  originalGuardianItem: guardian,
+                }),
               },
             });
           }}>

@@ -64,30 +64,34 @@ const ModifyGuardian = (config: { info: string }) => {
   const thirdPartyInfoRef = useRef<thirdPartyInfoType>();
 
   useEffectOnce(async () => {
-    const { particularGuardianInfo, originalGuardianItem } = JSON.parse(config.info) as ModifyGuardianProps;
-    particularGuardianInfo && setEditGuardian(particularGuardianInfo);
-    originalGuardianItem && setOriginalGuardianItem(originalGuardianItem);
-    const { data } = await callGetVerifiersMethod();
-    const { verifierServers: verifiers } = data || {};
-    console.log('verifiers', JSON.stringify(verifiers));
-    verifiers && setVerifierMap(verifiers);
-    const {
-      caInfo: { caHash },
-    } = await getUnlockedWallet();
-    const chainId = await PortkeyConfig.currChainId();
-    const guardiansInfo = await NetworkController.getGuardianInfo('', caHash);
-    const parsedGuardians = guardiansInfo?.guardianList?.guardians?.map(guardian => {
-      return parseGuardianInfo(
-        guardian,
-        chainId,
-        undefined,
-        undefined,
-        AccountOriginalType.Email,
-        OperationTypeEnum.editGuardian,
-      );
-    });
-    console.log('guardians:', JSON.stringify(parsedGuardians));
-    parsedGuardians && setUserGuardiansList(parsedGuardians);
+    try {
+      const { particularGuardianInfo, originalGuardianItem } = JSON.parse(config.info) as ModifyGuardianProps;
+      particularGuardianInfo && setEditGuardian(particularGuardianInfo);
+      originalGuardianItem && setOriginalGuardianItem(originalGuardianItem);
+      const { data } = await callGetVerifiersMethod();
+      const { verifierServers: verifiers } = data || {};
+      console.log('verifiers', JSON.stringify(verifiers));
+      verifiers && setVerifierMap(verifiers);
+      const {
+        caInfo: { caHash },
+      } = await getUnlockedWallet();
+      const chainId = await PortkeyConfig.currChainId();
+      const guardiansInfo = await NetworkController.getGuardianInfo('', caHash);
+      const parsedGuardians = guardiansInfo?.guardianList?.guardians?.map(guardian => {
+        return parseGuardianInfo(
+          guardian,
+          chainId,
+          undefined,
+          undefined,
+          AccountOriginalType.Email,
+          OperationTypeEnum.editGuardian,
+        );
+      });
+      console.log('guardians:', JSON.stringify(parsedGuardians));
+      parsedGuardians && setUserGuardiansList(parsedGuardians);
+    } catch (e) {
+      console.log('error', e);
+    }
   });
 
   useEffect(() => {
@@ -149,6 +153,7 @@ const ModifyGuardian = (config: { info: string }) => {
     const _guardianError = checkCurGuardianRepeat();
     setGuardianError(_guardianError);
     if (_guardianError.isError || !editGuardian || !selectedVerifier) return;
+    Loading.show();
     handleGuardiansApproval({
       particularGuardian: editGuardian,
       guardianVerifyType: GuardianVerifyType.MODIFY_GUARDIAN,
