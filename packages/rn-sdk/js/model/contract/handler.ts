@@ -49,7 +49,7 @@ export const callGetVerifiersMethod = async (): Promise<{
   const cached = await TempStorage.getString(`${GET_VERIFIERS_METHOD}_${chainId}_${endPoint}`);
   if (cached) return JSON.parse(cached);
   const contractInstance = await getContractInstance();
-  const result = contractInstance.callViewMethod('GetVerifierServers');
+  const result = await contractInstance.callViewMethod('GetVerifierServers');
   result && TempStorage.set(`${GET_VERIFIERS_METHOD}_${chainId}_${endPoint}`, JSON.stringify(result));
   return result;
 };
