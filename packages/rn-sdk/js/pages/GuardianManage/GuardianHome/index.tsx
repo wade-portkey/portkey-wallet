@@ -39,6 +39,7 @@ export default function GuardianHome() {
     const { verifierServers: verifiers } = data || {};
     console.log('verifiers', JSON.stringify(verifiers));
     verifiers && setVerifierMap(verifiers);
+    refreshGuardianInfo();
   });
 
   const { navigationTo, navigateForResult } = useBaseContainer({
@@ -84,10 +85,6 @@ export default function GuardianHome() {
       })
       .reverse();
   }, [guardianList, verifierList]);
-
-  useEffectOnce(() => {
-    refreshGuardianInfo();
-  });
 
   const refreshGuardianInfo = useCallback(async () => {
     const config: RecoverWalletConfig = await getTempWalletConfig();
