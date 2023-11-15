@@ -3,7 +3,7 @@ import PageContainer from 'components/PageContainer';
 import { useLanguage } from 'i18n/hooks';
 import React, { useCallback, useMemo, useRef, useState } from 'react';
 import { GUARDIAN_EXPIRED_TIME, VERIFIER_EXPIRATION } from '@portkey-wallet/constants/misc';
-import { ScrollView, StyleSheet, View, Text, Platform } from 'react-native';
+import { ScrollView, StyleSheet, View, Text } from 'react-native';
 import GStyles from 'assets/theme/GStyles';
 import CommonButton from 'components/CommonButton';
 import { BorderStyles, FontStyles } from 'assets/theme/styles';
@@ -35,6 +35,7 @@ import { PortkeyConfig } from 'global/constants';
 import { ApprovedGuardianInfo } from 'network/dto/wallet';
 import { AppleAccountInfo, GoogleAccountInfo, isAppleLogin } from 'model/verify/third-party-account';
 import { useAppleAuthentication, useGoogleAuthentication } from 'model/hooks/authentication';
+import { getBottomSpace } from 'utils/screen';
 
 export default function GuardianApproval({
   guardianListConfig,
@@ -432,7 +433,6 @@ export default function GuardianApproval({
         </View>
       </View>
       {!isExpired && <CommonButton onPress={onFinish} disabled={!isSuccess} type="primary" title={'Confirm'} />}
-      {Platform.OS === 'android' && <View style={styles.bottomPadding} />}
     </PageContainer>
   );
 }
@@ -442,9 +442,9 @@ const { primaryColor } = defaultColors;
 const styles = StyleSheet.create({
   containerStyle: {
     paddingTop: 8,
-    paddingBottom: 16,
+    paddingBottom: 16 + getBottomSpace(),
     paddingHorizontal: 16,
-    height: '100%',
+    flex: 1,
     justifyContent: 'space-between',
   },
   activityButton: {
@@ -493,9 +493,5 @@ const styles = StyleSheet.create({
   },
   approvalTitle: {
     marginRight: pTd(7),
-  },
-  bottomPadding: {
-    height: 60,
-    width: '100%',
   },
 });
