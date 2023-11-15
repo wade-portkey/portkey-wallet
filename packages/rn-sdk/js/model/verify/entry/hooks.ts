@@ -98,6 +98,6 @@ const checkGuardiansApprovalConfig = (config: GuardianVerifyConfig): boolean => 
       return !!particularGuardian;
     }
     default:
-      return false;
+      return true;
   }
 };

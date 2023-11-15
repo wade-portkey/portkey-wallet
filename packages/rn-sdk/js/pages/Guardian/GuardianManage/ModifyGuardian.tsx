@@ -224,9 +224,14 @@ const ModifyGuardian = (config: { info: string }) => {
       }
     }
 
+    const thisGuardian = Object.assign({}, editGuardian);
+    if (selectedVerifier) {
+      thisGuardian.sendVerifyCodeParams.verifierId = selectedVerifier.id;
+    }
     handleGuardiansApproval({
       guardianVerifyType: GuardianVerifyType.REMOVE_GUARDIAN,
-      particularGuardian: editGuardian,
+      particularGuardian: thisGuardian,
+      pastGuardian: editGuardian,
       accountIdentifier: editGuardian.accountIdentifier ?? '',
       accountOriginalType: editGuardian.accountOriginalType ?? AccountOriginalType.Email,
       guardians: userGuardiansList.map(it => {
@@ -234,7 +239,7 @@ const ModifyGuardian = (config: { info: string }) => {
         return it;
       }),
     });
-  }, [editGuardian, onFinish, t, userGuardiansList]);
+  }, [editGuardian, onFinish, selectedVerifier, t, userGuardiansList]);
 
   const isApprovalDisable = useMemo(
     () => selectedVerifier?.id === editGuardian?.sendVerifyCodeParams?.verifierId,
