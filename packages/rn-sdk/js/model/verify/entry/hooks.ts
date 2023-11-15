@@ -63,9 +63,9 @@ export const handleGuardiansApproval = async (config: GuardianVerifyConfig) => {
     config.guardians = (config.guardians ?? [])?.filter(
       it =>
         !particularGuardian ||
-        (it.sendVerifyCodeParams.guardianIdentifier !== particularGuardian.sendVerifyCodeParams.guardianIdentifier &&
-          it.sendVerifyCodeParams.verifierId !== particularGuardian.sendVerifyCodeParams.verifierId &&
-          it.sendVerifyCodeParams.type !== particularGuardian.sendVerifyCodeParams.type),
+        it.sendVerifyCodeParams.guardianIdentifier !== particularGuardian.sendVerifyCodeParams.guardianIdentifier ||
+        it.sendVerifyCodeParams.verifierId !== particularGuardian.sendVerifyCodeParams.verifierId ||
+        it.sendVerifyCodeParams.type !== particularGuardian.sendVerifyCodeParams.type,
     );
   } catch (e) {
     console.error(e);
