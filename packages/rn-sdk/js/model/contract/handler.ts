@@ -63,13 +63,29 @@ export const callAddGuardianMethod = async (
     address,
     caInfo: { caHash },
   } = (await getUnlockedWallet()) || {};
-  console.log('callAddGuardianMethod', particularGuardian, guardianList);
   return await contractInstance.callSendMethod('AddGuardian', address, {
     caHash,
     guardianToAdd: parseGuardianConfigInfoToCaType(particularGuardian),
     guardiansApproved: guardianList.map(item => parseVerifiedGuardianInfoToCaType(item)),
   });
 };
+
+export const callRemoveGuardianMethod = async (
+  particularGuardian: GuardianConfig,
+  guardianList: Array<ApprovedGuardianInfo>,
+) => {
+  const contractInstance = await getContractInstance();
+  const {
+    address,
+    caInfo: { caHash },
+  } = (await getUnlockedWallet()) || {};
+  return await contractInstance.callSendMethod('RemoveGuardian', address, {
+    caHash,
+    guardianToRemove: parseGuardianConfigInfoToCaType(particularGuardian),
+    guardiansApproved: guardianList.map(item => parseVerifiedGuardianInfoToCaType(item)),
+  });
+};
+
 export const callCancelLoginGuardianMethod = async (particularGuardian: GuardianConfig) => {
   const contractInstance = await getContractInstance();
   const { guardianIdentifier } = handleVerificationDoc(particularGuardian.verifiedDoc?.verificationDoc ?? '');

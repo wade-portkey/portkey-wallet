@@ -35,7 +35,7 @@ import { PortkeyConfig } from 'global/constants';
 import { ApprovedGuardianInfo } from 'network/dto/wallet';
 import { AppleAccountInfo, GoogleAccountInfo, isAppleLogin } from 'model/verify/third-party-account';
 import { useAppleAuthentication, useGoogleAuthentication } from 'model/hooks/authentication';
-import { callAddGuardianMethod } from 'model/contract/handler';
+import { callAddGuardianMethod, callRemoveGuardianMethod } from 'model/contract/handler';
 
 export default function GuardianApproval({
   guardianVerifyConfig: guardianListConfig,
@@ -188,6 +188,17 @@ export default function GuardianApproval({
         if (!particularGuardian) throw new Error('guardian info is null!');
         Loading.show();
         const result = await callAddGuardianMethod(particularGuardian, getVerifiedGuardianInfo());
+        Loading.hide();
+        onPageFinish({
+          isVerified: result?.error ? false : true,
+        });
+        break;
+      }
+
+      case GuardianVerifyType.REMOVE_GUARDIAN: {
+        if (!particularGuardian) throw new Error('guardian info is null!');
+        Loading.show();
+        const result = await callRemoveGuardianMethod(particularGuardian, getVerifiedGuardianInfo());
         Loading.hide();
         onPageFinish({
           isVerified: result?.error ? false : true,

@@ -93,8 +93,9 @@ const checkGuardiansApprovalConfig = (config: GuardianVerifyConfig): boolean => 
       return !particularGuardian;
     }
     case GuardianVerifyType.ADD_GUARDIAN:
-    case GuardianVerifyType.MODIFY_GUARDIAN: {
-      return true;
+    case GuardianVerifyType.MODIFY_GUARDIAN:
+    case GuardianVerifyType.REMOVE_GUARDIAN: {
+      return !!particularGuardian;
     }
     default:
       return false;

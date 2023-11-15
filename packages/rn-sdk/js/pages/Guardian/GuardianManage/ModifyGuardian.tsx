@@ -5,13 +5,12 @@ import Svg from 'components/Svg';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { View } from 'react-native';
 import { pTd } from 'utils/unit';
-import navigationService from 'utils/navigationService';
 import PageContainer from 'components/PageContainer';
 import { pageStyles } from './style';
 import ListItem from 'components/ListItem';
 import { useLanguage } from 'i18n/hooks';
 import { LOGIN_TYPE_LIST } from '@portkey-wallet/constants/verifier';
-import { ApprovalType, OperationTypeEnum, VerifierItem } from '@portkey-wallet/types/verifier';
+import { OperationTypeEnum, VerifierItem } from '@portkey-wallet/types/verifier';
 import { INIT_HAS_ERROR, INIT_NONE_ERROR } from 'constants/common';
 import VerifierSelectOverlay from '../components/VerifierSelectOverlay';
 import ActionSheet from 'components/ActionSheet';
@@ -225,9 +224,15 @@ const ModifyGuardian = (config: { info: string }) => {
       }
     }
 
-    navigationService.navigate('GuardianApproval', {
-      approvalType: ApprovalType.deleteGuardian,
-      guardianItem: editGuardian,
+    handleGuardiansApproval({
+      guardianVerifyType: GuardianVerifyType.REMOVE_GUARDIAN,
+      particularGuardian: editGuardian,
+      accountIdentifier: editGuardian.accountIdentifier ?? '',
+      accountOriginalType: editGuardian.accountOriginalType ?? AccountOriginalType.Email,
+      guardians: userGuardiansList.map(it => {
+        it.sendVerifyCodeParams.operationType = OperationTypeEnum.deleteGuardian;
+        return it;
+      }),
     });
   }, [editGuardian, onFinish, t, userGuardiansList]);
 
