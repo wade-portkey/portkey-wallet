@@ -16,4 +16,6 @@ export enum APIPaths {
   CHECK_REGISTER_STATUS = '/api/app/search/accountregisterindex',
   CHECK_CHAIN_STATUS = '/api/app/search/chainsinfoindex',
   CHECK_QR_CODE_STATUS = '/api/app/qrcode',
+
+  REFRESH_NETWORK_TOKEN = '/connect/token',
 }

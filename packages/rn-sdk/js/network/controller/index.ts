@@ -27,6 +27,9 @@ import {
   RequestSocialRecoveryParams,
 } from 'network/dto/wallet';
 import { sleep } from '@portkey-wallet/utils';
+import { getCachedNetworkToken } from 'network/token';
+import { BackEndNetWorkMap } from '@portkey-wallet/constants/constants-ca/backend-network';
+import { isWalletUnlocked } from 'model/verify/after-verify';
 
 const DEFAULT_MAX_POLLING_TIMES = 50;
 
@@ -45,6 +48,10 @@ export class NetworkControllerEntity {
       });
     }
     headers = Object.assign({}, headers ?? {}, { Version: 'v1.4.8' });
+    if (await isWalletUnlocked()) {
+      const access_token = await getCachedNetworkToken();
+      headers = Object.assign({}, headers, { Authorization: `Bearer ${access_token}` });
+    }
     const result = nativeFetch<T>(url, method, params, headers, extraOptions);
     return result;
   };
@@ -132,6 +139,9 @@ export class NetworkControllerEntity {
       'POST',
       Object.assign(params, { platformType: getPlatformType() }),
       headers,
+      {
+        maxWaitingTime: 10000,
+      },
     );
     if (!res?.result) throw new Error('network failure');
     return res.result;
@@ -227,6 +237,28 @@ export class NetworkControllerEntity {
     return res.result;
   };
 
+  refreshNetworkToken = async (
+    params: CustomNetworkTokenConfig,
+  ): Promise<{ access_token: string; expires_in: number }> => {
+    const endPointUrl = await PortkeyConfig.endPointUrl();
+    const getAuthUrl = () => {
+      const url = Object.values(BackEndNetWorkMap).find(value => endPointUrl === value.apiUrl)?.connectUrl;
+      return `${url}${APIPaths.REFRESH_NETWORK_TOKEN}`;
+    };
+    const res = await this.realExecute<{ access_token: string; expires_in: number }>(
+      getAuthUrl(),
+      'POST',
+      Object.assign({}, params, {
+        grant_type: 'signature',
+        client_id: 'CAServer_App',
+        scope: 'CAServer',
+      }),
+      { 'Content-Type': 'application/x-www-form-urlencoded' },
+    );
+    if (!res?.result) throw new Error('network failure');
+    return res.result;
+  };
+
   getCountryCodeInfo = async (): Promise<CountryCodeDataDTO> => {
     const res = await this.realExecute<CountryCodeDataDTO>(await this.parseUrl(APIPaths.GET_PHONE_COUNTRY_CODE), 'GET');
     if (!res?.result) throw new Error('network failure');
@@ -287,4 +319,12 @@ export type RequestPollingConfig<T> = {
   timeGap?: number;
   verifyResult?: (result: T) => boolean;
   declareFatalFail?: (result: T) => boolean;
+};
+
+export type CustomNetworkTokenConfig = {
+  signature: string;
+  pubkey: string;
+  timestamp: number | string;
+  ca_hash: string;
+  chain_id: ChainId;
 };

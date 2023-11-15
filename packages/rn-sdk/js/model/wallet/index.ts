@@ -20,7 +20,6 @@ export const getUnlockedWallet = async (): Promise<UnlockedWallet> => {
     const chainInfo = await NetworkController.getRegisterResult(accountIdentifier);
     checkedOriginalChainId = chainInfo.result?.originChainId || originalChainId;
   }
-  console.warn('current chainId : ', checkedOriginalChainId);
   setCurrChainId(checkedOriginalChainId as any);
   PortkeyConfig;
   const caInfo =
