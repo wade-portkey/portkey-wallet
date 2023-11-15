@@ -48,7 +48,7 @@ export class NetworkControllerEntity {
       });
     }
     headers = Object.assign({}, headers ?? {}, { Version: 'v1.4.8' });
-    if ((await isWalletUnlocked()) && !url.includes(APIPaths.REFRESH_NETWORK_TOKEN)) {
+    if ((await isWalletUnlocked()) && url.indexOf(APIPaths.REFRESH_NETWORK_TOKEN) === -1) {
       const access_token = await getCachedNetworkToken();
       headers = Object.assign({}, headers, { Authorization: `Bearer ${access_token}` });
     }
