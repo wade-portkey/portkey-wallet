@@ -66,6 +66,7 @@ export enum LaunchMode {
   SINGLE_TASK = 'single_task',
   SINGLE_TOP = 'single_top',
 }
+
 const registerLaunchMode = () => {
   LaunchModeSet.set(PortkeyEntries.ACCOUNT_SETTING_ENTRY, LaunchMode.SINGLE_TASK.toString());
 };

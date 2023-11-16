@@ -63,7 +63,9 @@ export const handleGuardiansApproval = async (config: GuardianVerifyConfig) => {
     config.guardians = (config.guardians ?? [])?.filter(
       it =>
         !particularGuardian ||
-        it.sendVerifyCodeParams.guardianIdentifier !== particularGuardian.sendVerifyCodeParams.guardianIdentifier,
+        it.sendVerifyCodeParams.guardianIdentifier !== particularGuardian.sendVerifyCodeParams.guardianIdentifier ||
+        it.sendVerifyCodeParams.verifierId !== particularGuardian.sendVerifyCodeParams.verifierId ||
+        it.sendVerifyCodeParams.type !== particularGuardian.sendVerifyCodeParams.type,
     );
   } catch (e) {
     console.error(e);
@@ -90,10 +92,12 @@ const checkGuardiansApprovalConfig = (config: GuardianVerifyConfig): boolean => 
     case GuardianVerifyType.CREATE_WALLET: {
       return !particularGuardian;
     }
-    case GuardianVerifyType.ADD_GUARDIAN: {
-      return true;
+    case GuardianVerifyType.ADD_GUARDIAN:
+    case GuardianVerifyType.MODIFY_GUARDIAN:
+    case GuardianVerifyType.REMOVE_GUARDIAN: {
+      return !!particularGuardian;
     }
     default:
-      return false;
+      return true;
   }
 };

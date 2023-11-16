@@ -94,6 +94,7 @@ export interface AElfWeb3SDK {
   getWalletByMnemonic: (mnemonic: string) => AElfWalletInstance;
   createNewWallet: () => AElfWalletInstance;
   getAddressFromPubKey: (pubKey: string) => string;
+  sign: (content: string, keyPair: AElfKeyPair) => Signed;
 }
 
 export interface AElfWalletInstance {
@@ -101,6 +102,10 @@ export interface AElfWalletInstance {
   mnemonic: string;
   privateKey: string;
   keyPair: AElfKeyPair;
+}
+
+export interface Signed {
+  toString: (enc: 'hex') => string;
 }
 
 export interface AElfKeyPair {

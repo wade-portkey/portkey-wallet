@@ -65,10 +65,6 @@ export default function SetPin({ deliveredSetPinInfo, oldPin }: SetPinPageProps)
         ref={digitInput}
         title={oldPin ? 'Please enter a new pin' : 'Enter pin to protect your device'}
         onFinish={pin => {
-          if (pin === oldPin) {
-            setErrorMessage('The same pin!');
-            return;
-          }
           navigateForResult<ConfirmPinPageProps>(
             PortkeyEntries.CONFIRM_PIN,
             {

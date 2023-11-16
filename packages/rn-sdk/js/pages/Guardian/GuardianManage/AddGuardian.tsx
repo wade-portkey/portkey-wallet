@@ -311,7 +311,7 @@ const AddGuardian: React.FC = () => {
                       guardianIdentifier: guardianAccount || '',
                       verifierId: selectedVerifier.id,
                       chainId: originalChainId,
-                      operationType: OperationTypeEnum.communityRecovery,
+                      operationType: OperationTypeEnum.addGuardian,
                     },
                     alreadySent: true,
                     accountIdentifier,
@@ -341,6 +341,7 @@ const AddGuardian: React.FC = () => {
                     accountOriginalType,
                     guardians: userGuardiansList.map(it => {
                       it.accountIdentifier = accountIdentifier;
+                      it.sendVerifyCodeParams.operationType = OperationTypeEnum.addGuardian;
                       return it;
                     }),
                     particularGuardian: Object.assign({}, thisGuardian, {
@@ -353,6 +354,7 @@ const AddGuardian: React.FC = () => {
               }
             } catch (error) {
               CommonToast.failError(error);
+              console.error(error);
             }
             Loading.hide();
           },

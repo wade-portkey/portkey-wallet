@@ -9,6 +9,7 @@ import com.google.gson.JsonArray
 import com.google.gson.JsonElement
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
+import okhttp3.FormBody
 import okhttp3.Headers
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.OkHttpClient
@@ -125,7 +126,7 @@ internal object NetworkConnector {
             val request = okhttp3.Request.Builder()
                 .url(url)
                 .headers(header.toHeaders())
-                .post(body.toRequestBody())
+                .post(body.toRequestBody(header.getString("Content-Type") ?: "application/json"))
                 .tag<TimeOutConfig>(
                     TimeOutConfig(
                         options?.getDouble("maxWaitingTime")?.toInt() ?: 5000
@@ -162,9 +163,18 @@ internal object NetworkConnector {
         return headers.build()
     }
 
-    private fun ReadableMap.toRequestBody(): okhttp3.RequestBody {
-        val json = this.toJson().toString()
-        return json.toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
+    private fun ReadableMap.toRequestBody(contentType: String = "application/json"): okhttp3.RequestBody {
+        if (contentType == "application/json") {
+            val json = this.toJson().toString()
+            return json.toRequestBody(contentType.toMediaTypeOrNull())
+        } else {
+            val formBody = FormBody.Builder()
+            this.toHashMap().forEach {
+                val (key, value) = it
+                formBody.add(key, "$value")
+            }
+            return formBody.build()
+        }
     }
 
 
