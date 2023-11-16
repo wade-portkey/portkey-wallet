@@ -88,7 +88,8 @@ RCT_EXPORT_METHOD(fetch:(NSString *)url
                 NSString *resultString = [[NSString alloc] initWithData:resultData encoding:NSUTF8StringEncoding];
                 resolve(resultString);
             } else {
-                resolve([self resultWrapperWithStatus:1 errCode:[@(res.statusCode) stringValue] result:nil]);
+                NSString *resultStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                resolve([self resultWrapperWithStatus:1 errCode:[@(res.statusCode) stringValue] result:resultStr]);
             }
         } else {
             resolve([self resultWrapperWithStatus:-1 errCode:[@(error.code) stringValue] result:nil]);
@@ -99,10 +100,10 @@ RCT_EXPORT_METHOD(fetch:(NSString *)url
 
 - (NSString *)resultWrapperWithStatus:(NSInteger)status
                                   errCode:(NSString *)errCode
-                                   result:(NSDictionary *)result {
+                                   result:(id)result {
     NSDictionary *resultDict = @{
         @"status": @(status),
-        @"result": result ?: @{},
+        @"result": result ?: @"",
         @"errCode": errCode ?: @"0"
     };
     NSData *resultData = [NSJSONSerialization dataWithJSONObject:resultDict options:0 error:nil];
