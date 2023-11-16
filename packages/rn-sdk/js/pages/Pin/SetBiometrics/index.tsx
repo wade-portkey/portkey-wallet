@@ -64,7 +64,6 @@ export default function SetBiometrics({ pin, deliveredSetPinInfo }: SetBiometric
       return;
     }
     try {
-      await setSecureStoreItem('Pin', pin);
       const res = await touchAuth();
       if (!res?.success) {
         CommonToast.failError('Failed To Verify');
@@ -122,13 +121,14 @@ export default function SetBiometrics({ pin, deliveredSetPinInfo }: SetBiometric
 
 const styles = StyleSheet.create({
   containerStyles: {
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
     paddingBottom: 52,
     paddingTop: '25%',
     alignItems: 'center',
+    flex: 1,
   },
   tipText: {
-    marginTop: -38,
+    marginTop: 16,
   },
   errorText: {
     marginTop: 16,
@@ -136,6 +136,7 @@ const styles = StyleSheet.create({
   },
   biometricIcon: {
     width: pTd(124),
+    height: pTd(124),
   },
 });
 
