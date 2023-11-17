@@ -36,7 +36,7 @@ import {
 } from 'model/hooks/authentication';
 import { PortkeyConfig } from 'global/constants';
 import useEffectOnce from 'hooks/useEffectOnce';
-import { callGetVerifiersMethod } from 'model/contract/handler';
+import { Verifier, getOrReadCachedVerifierData } from 'model/contract/handler';
 import { NetworkController } from 'network/controller';
 import { getUnlockedWallet } from 'model/wallet';
 import {
@@ -74,7 +74,7 @@ const AddGuardian: React.FC = () => {
   const [verifierMap, setVerifierMap] = useState<{
     [key: string]: any;
   }>([] as any);
-  const verifierList = useMemo(() => (verifierMap ? Object.values(verifierMap) : []), [verifierMap]);
+  const verifierList: Array<Verifier> = useMemo(() => (verifierMap ? Object.values(verifierMap) : []), [verifierMap]);
 
   const [selectedType, setSelectedType] = useState<TypeItemType>();
   const [selectedVerifier, setSelectedVerifier] = useState<VerifierItem>();
@@ -100,7 +100,7 @@ const AddGuardian: React.FC = () => {
 
   useEffectOnce(async () => {
     await checkMMKVStorage();
-    const { data } = await callGetVerifiersMethod();
+    const { data } = await getOrReadCachedVerifierData();
     const { verifierServers: verifiers } = data || {};
     console.log('verifiers', JSON.stringify(verifiers));
     verifiers && setVerifierMap(verifiers);

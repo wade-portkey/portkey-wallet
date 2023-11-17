@@ -1,11 +1,17 @@
 import { LoginType } from '@portkey-wallet/types/types-ca/wallet';
-import { LOGIN_TYPE_LABEL_MAP } from '@portkey-wallet/constants/verifier';
 
 export const LoginGuardianTypeIcon: any = {
   [LoginType.Email]: 'email',
   [LoginType.Phone]: 'phone',
   [LoginType.Google]: 'google-icon',
   [LoginType.Apple]: 'apple-icon',
+};
+
+const LOGIN_TYPE_LABEL_MAP: { [key in LoginType]: string } = {
+  [LoginType.Email]: 'Email',
+  [LoginType.Phone]: 'Phone',
+  [LoginType.Apple]: 'Apple',
+  [LoginType.Google]: 'Google',
 };
 export const LOGIN_TYPE_LIST = [
   {

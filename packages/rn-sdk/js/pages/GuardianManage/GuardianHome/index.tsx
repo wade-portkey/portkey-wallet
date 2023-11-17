@@ -23,7 +23,7 @@ import Loading from 'components/Loading';
 import { ModifyGuardianProps } from 'pages/Guardian/GuardianManage/ModifyGuardian';
 import { PortkeyConfig } from 'global/constants';
 import { OperationTypeEnum } from '@portkey-wallet/types/verifier';
-import { callGetVerifiersMethod } from 'model/contract/handler';
+import { Verifier, getOrReadCachedVerifierData } from 'model/contract/handler';
 
 export default function GuardianHome({ containerId }: { containerId: any }) {
   const { t } = useLanguage();
@@ -31,11 +31,11 @@ export default function GuardianHome({ containerId }: { containerId: any }) {
   const [verifierMap, setVerifierMap] = useState<{
     [key: string]: any;
   }>([] as any);
-  const verifierList = useMemo(() => (verifierMap ? Object.values(verifierMap) : []), [verifierMap]);
+  const verifierList: Array<Verifier> = useMemo(() => (verifierMap ? Object.values(verifierMap) : []), [verifierMap]);
 
   useEffectOnce(async () => {
     Loading.show();
-    const { data } = await callGetVerifiersMethod();
+    const { data } = await getOrReadCachedVerifierData();
     const { verifierServers: verifiers } = data || {};
     console.log('verifiers', JSON.stringify(verifiers));
     verifiers && setVerifierMap(verifiers);
@@ -95,11 +95,7 @@ export default function GuardianHome({ containerId }: { containerId: any }) {
           isLoginAccount: item.isLoginGuardian,
           guardianType: guardianTypeStrToEnum(item.type as 'Apple' | 'Google' | 'Email' | 'Phone'),
           key: `${index}`,
-          verifier: {
-            id: item.verifierId,
-            name: item.name ?? verifier?.name,
-            imageUrl: item.imageUrl,
-          },
+          verifier,
         } as UserGuardianItem;
         return parsedItem;
       })

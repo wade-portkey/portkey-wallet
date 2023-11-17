@@ -21,6 +21,7 @@ import { defaultColors } from 'assets/theme';
 import { PageLoginType, PageType } from '../types';
 import { useVerifyEntry } from 'model/verify/entry';
 import { isIOS } from '@portkey-wallet/utils/mobile/device';
+import { getOrReadCachedVerifierData } from 'model/contract/handler';
 
 const TitleMap = {
   [PageType.login]: {
@@ -83,6 +84,7 @@ export default function Referral({
 
   useEffectOnce(() => {
     baseCheck();
+    getOrReadCachedVerifierData();
   });
 
   const baseCheck = async () => {
