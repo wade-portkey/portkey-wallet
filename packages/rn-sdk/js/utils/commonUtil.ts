@@ -14,3 +14,16 @@ export function myThrottle(fn: Function, delay: number) {
     }
   };
 }
+
+export const doubleClick = (fun: (params: any) => void, params: any, interval = 200): void => {
+  let isCalled = false;
+  let timer: NodeJS.Timeout;
+  if (!isCalled) {
+    isCalled = true;
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      isCalled = false;
+    }, interval);
+    return fun(params);
+  }
+};
