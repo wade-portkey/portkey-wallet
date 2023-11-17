@@ -1,6 +1,6 @@
 import { PortkeyEntries } from '../../../config/entries';
 import BaseContainer, { BaseContainerProps, BaseContainerState } from '../../../model/container/BaseContainer';
-import SigninPortkey from 'pages/Login/LoginPortkey';
+import SignInPortkey from 'pages/Login/LoginPortkey';
 import React from 'react';
 import BaseContainerContext from 'model/container/BaseContainerContext';
 import { CountryCodeItem } from 'types/wallet';
@@ -27,10 +27,6 @@ export default class SignInEntryPage extends BaseContainer<SignInPageProps, Sign
       });
   };
 
-  onShow(_rootTag?: any): void {
-    console.log('ReferralEntryPage onShow');
-  }
-
   updateCountryCode = (countryCode: CountryCodeItem) => {
     this.setState({
       currentCountryCodeItem: countryCode,
@@ -43,7 +39,7 @@ export default class SignInEntryPage extends BaseContainer<SignInPageProps, Sign
     return (
       <>
         <BaseContainerContext.Provider value={{ entryName: this.getEntryName() }}>
-          <SigninPortkey
+          <SignInPortkey
             selectedCountryCode={this.state.currentCountryCodeItem}
             updateCountryCode={this.updateCountryCode}
           />
