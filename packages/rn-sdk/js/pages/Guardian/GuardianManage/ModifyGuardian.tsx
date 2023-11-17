@@ -153,8 +153,13 @@ const ModifyGuardian = (config: { info: string }) => {
     setGuardianError(_guardianError);
     if (_guardianError.isError || !editGuardian || !selectedVerifier) return;
     Loading.show();
+    const thisGuardian = Object.assign({}, editGuardian);
+    if (selectedVerifier) {
+      thisGuardian.sendVerifyCodeParams.verifierId = selectedVerifier.id;
+    }
     handleGuardiansApproval({
       particularGuardian: editGuardian,
+      pastGuardian: thisGuardian,
       guardianVerifyType: GuardianVerifyType.MODIFY_GUARDIAN,
       accountIdentifier: editGuardian.accountIdentifier ?? '',
       accountOriginalType: editGuardian.accountOriginalType ?? AccountOriginalType.Email,
@@ -224,14 +229,9 @@ const ModifyGuardian = (config: { info: string }) => {
       }
     }
 
-    const thisGuardian = Object.assign({}, editGuardian);
-    if (selectedVerifier) {
-      thisGuardian.sendVerifyCodeParams.verifierId = selectedVerifier.id;
-    }
     handleGuardiansApproval({
       guardianVerifyType: GuardianVerifyType.REMOVE_GUARDIAN,
-      particularGuardian: thisGuardian,
-      pastGuardian: editGuardian,
+      particularGuardian: editGuardian,
       accountIdentifier: editGuardian.accountIdentifier ?? '',
       accountOriginalType: editGuardian.accountOriginalType ?? AccountOriginalType.Email,
       guardians: userGuardiansList.map(it => {
@@ -239,7 +239,7 @@ const ModifyGuardian = (config: { info: string }) => {
         return it;
       }),
     });
-  }, [editGuardian, onFinish, selectedVerifier, t, userGuardiansList]);
+  }, [editGuardian, onFinish, t, userGuardiansList]);
 
   const isApprovalDisable = useMemo(
     () => selectedVerifier?.id === editGuardian?.sendVerifyCodeParams?.verifierId,

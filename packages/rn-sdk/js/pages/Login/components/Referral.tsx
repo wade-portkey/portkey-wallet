@@ -44,7 +44,9 @@ export default function Referral({
 }) {
   // eslint-disable-next-line @typescript-eslint/no-empty-function
 
-  const { onFinish, navigateForResult, getEntryName } = useBaseContainer({});
+  const { onFinish, navigateForResult, getEntryName } = useBaseContainer({
+    entryName: PortkeyEntries.SIGN_IN_ENTRY,
+  });
 
   const setErrorMessage = (msg?: string) => {
     if (msg) {
@@ -53,13 +55,13 @@ export default function Referral({
   };
 
   const { thirdPartyLogin } = useVerifyEntry({
-    type: PageType.login, // keep it
+    type,
     accountOriginalType: AccountOriginalType.Apple,
     entryName: getEntryName() as PortkeyEntries,
     setErrorMessage,
   });
 
-  const onSuccess = (text = 'You have already logged in, page close in 5 seconds') => {
+  const onSuccess = (text = 'You have already logged in, page close in 3 seconds') => {
     CommonToast.success(text);
     setTimeout(() => {
       onFinish({
@@ -68,7 +70,7 @@ export default function Referral({
           finished: true,
         },
       });
-    }, 5000);
+    }, 3000);
   };
 
   const pushToSignUp = () => {
@@ -86,7 +88,7 @@ export default function Referral({
   const baseCheck = async () => {
     if (await isWalletExists()) {
       if (await isWalletUnlocked()) {
-        onSuccess('wallet is unlocked already, this page will close in 5 seconds');
+        onSuccess('wallet is unlocked already, this page will close in 3 seconds');
       } else {
         const tryToUnlock = async () => {
           navigateForResult<CheckPinResult, CheckPinProps>(PortkeyEntries.CHECK_PIN, {}, res => {

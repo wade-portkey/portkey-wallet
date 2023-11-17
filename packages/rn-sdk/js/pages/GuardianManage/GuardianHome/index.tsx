@@ -20,13 +20,12 @@ import { GuardianVerifyType } from 'model/verify/social-recovery';
 import useEffectOnce from 'hooks/useEffectOnce';
 import CommonToast from 'components/CommonToast';
 import Loading from 'components/Loading';
-import { sleep } from '@portkey-wallet/utils';
 import { ModifyGuardianProps } from 'pages/Guardian/GuardianManage/ModifyGuardian';
 import { PortkeyConfig } from 'global/constants';
 import { OperationTypeEnum } from '@portkey-wallet/types/verifier';
 import { callGetVerifiersMethod } from 'model/contract/handler';
 
-export default function GuardianHome() {
+export default function GuardianHome({ containerId }: { containerId: any }) {
   const { t } = useLanguage();
 
   const [verifierMap, setVerifierMap] = useState<{
@@ -47,10 +46,6 @@ export default function GuardianHome() {
   const { navigationTo, navigateForResult } = useBaseContainer({
     entryName: PortkeyEntries.GUARDIAN_HOME_ENTRY,
     onNewIntent: async (intent: OnGuardianHomeNewIntent) => {
-      Loading.show();
-      await refreshGuardianInfo();
-      await sleep(500);
-      Loading.hide();
       console.log('GuardianHome onNewIntent', intent);
       switch (intent.type) {
         case GuardianVerifyType.ADD_GUARDIAN: {
@@ -59,9 +54,32 @@ export default function GuardianHome() {
           } else {
             CommonToast.fail('Add guardian fail');
           }
+          break;
+        }
+        case GuardianVerifyType.MODIFY_GUARDIAN: {
+          if (intent.result === 'success') {
+            CommonToast.success('Edit guardian success', 1000);
+          } else {
+            CommonToast.fail('Edit guardian fail');
+          }
+          break;
+        }
+        case GuardianVerifyType.REMOVE_GUARDIAN: {
+          if (intent.result === 'success') {
+            CommonToast.success('Remove guardian success', 1000);
+          } else {
+            CommonToast.fail('Remove guardian fail');
+          }
+          break;
         }
       }
     },
+    onShow: async () => {
+      Loading.show();
+      await refreshGuardianInfo();
+      Loading.hide();
+    },
+    containerId,
   });
 
   const [guardianList, setGuardianList] = useState<GuardianInfo[]>([]);

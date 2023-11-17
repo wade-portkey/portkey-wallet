@@ -121,34 +121,42 @@ export const callCancelLoginGuardianMethod = async (particularGuardian: Guardian
   });
 };
 
-const parseGuardianConfigInfoToCaType = (guardianConfig: GuardianConfig) => {
+const parseGuardianConfigInfoToCaType = (guardianConfig: GuardianConfig, withoutVerifyData = false) => {
   const { guardianIdentifier } = handleVerificationDoc(guardianConfig.verifiedDoc?.verificationDoc ?? '');
   const { signature, verificationDoc } = guardianConfig.verifiedDoc || {};
-  if (!signature || !verificationDoc)
+  if (withoutVerifyData && (!signature || !verificationDoc))
     throw new Error('parseGuardianConfigInfoToCaType:verify data is invalid! ' + JSON.stringify(guardianConfig));
   return {
     identifierHash: guardianIdentifier,
     type: guardianTypeStrToEnum(guardianConfig.sendVerifyCodeParams.type),
-    verificationInfo: {
-      id: guardianConfig.sendVerifyCodeParams.verifierId,
-      signature: Object.values(Buffer.from(signature as any, 'hex')),
-      verificationDoc,
-    },
+    verificationInfo: withoutVerifyData
+      ? {
+          id: guardianConfig.sendVerifyCodeParams.verifierId,
+          signature: Object.values(Buffer.from(signature as any, 'hex')),
+          verificationDoc,
+        }
+      : {
+          id: guardianConfig.sendVerifyCodeParams?.verifierId,
+        },
   };
 };
 
-const parseVerifiedGuardianInfoToCaType = (guardianConfig: ApprovedGuardianInfo) => {
+const parseVerifiedGuardianInfoToCaType = (guardianConfig: ApprovedGuardianInfo, withoutVerifyData = false) => {
   const { guardianIdentifier } = handleVerificationDoc(guardianConfig?.verificationDoc ?? '');
   const { signature, verificationDoc } = guardianConfig || {};
-  if (!signature || !verificationDoc)
+  if (withoutVerifyData && (!signature || !verificationDoc))
     throw new Error('parseVerifiedGuardianInfoToCaType:verify data is invalid! ' + JSON.stringify(guardianConfig));
   return {
     identifierHash: guardianIdentifier,
     type: guardianConfig.type,
-    verificationInfo: {
-      id: guardianConfig.verifierId,
-      signature: Object.values(Buffer.from(signature as any, 'hex')),
-      verificationDoc,
-    },
+    verificationInfo: withoutVerifyData
+      ? {
+          id: guardianConfig.verifierId,
+          signature: Object.values(Buffer.from(signature as any, 'hex')),
+          verificationDoc,
+        }
+      : {
+          id: guardianConfig.verifierId,
+        },
   };
 };

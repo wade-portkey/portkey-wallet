@@ -80,7 +80,7 @@ export const handleGuardiansApproval = async (config: GuardianVerifyConfig) => {
   console.log('handleGuardiansApproval', option);
   Loading.hide();
   returnToGuardianHome({
-    type: GuardianVerifyType.ADD_GUARDIAN,
+    type: config.guardianVerifyType,
     result: option ? 'success' : 'fail',
   });
 };

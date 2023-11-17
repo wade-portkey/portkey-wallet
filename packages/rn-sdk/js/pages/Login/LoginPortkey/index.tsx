@@ -13,7 +13,7 @@ import Phone from '../components/Phone';
 import QRCode from '../components/QRCode';
 import Referral from '../components/Referral';
 import SwitchNetwork from '../components/SwitchNetwork';
-import { PageLoginType } from '../types';
+import { PageLoginType, PageType } from '../types';
 import GStyles from 'assets/theme/GStyles';
 import fonts from 'assets/theme/fonts';
 import { defaultColors } from 'assets/theme';
@@ -57,7 +57,7 @@ export default function LoginPortKey({
           updateCountryCode={updateCountryCode}
         />
       ),
-      [PageLoginType.referral]: <Referral setLoginType={setLoginType} />,
+      [PageLoginType.referral]: <Referral setLoginType={setLoginType} type={PageType.login} />,
     }),
     [selectedCountryCode, updateCountryCode],
   );

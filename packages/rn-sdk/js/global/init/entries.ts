@@ -35,7 +35,7 @@ const initEntries = () => {
   entryConfig.set(PortkeyEntries.VERIFIER_DETAIL_ENTRY, () => VerifierDetailsEntryPage);
   entryConfig.set(PortkeyEntries.GUARDIAN_APPROVAL_ENTRY, () => GuardianApprovalEntryPage);
 
-  // pin service stage
+  // config stage
   entryConfig.set(PortkeyEntries.CHECK_PIN, () => CheckPin);
   entryConfig.set(PortkeyEntries.SET_PIN, () => SetPin);
   entryConfig.set(PortkeyEntries.CONFIRM_PIN, () => ConfirmPin);
