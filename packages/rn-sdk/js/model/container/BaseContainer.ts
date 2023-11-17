@@ -7,7 +7,7 @@ import {
 } from '../../service/native-modules';
 import { PortkeyEntries } from '../../config/entries';
 import { VoidResult } from './UseBaseContainer';
-import { LanuchMode, LaunchModeSet } from 'global/init/entries';
+import { LaunchMode, LaunchModeSet } from 'global/init/entries';
 
 export default abstract class BaseContainer<
   P extends BaseContainerProps,
@@ -19,6 +19,7 @@ export default abstract class BaseContainer<
   }
 
   private onShowEventListener: any = null;
+  private onNewIntentEventListener: any = null;
 
   componentDidMount(): void {
     this.onShow();
@@ -28,18 +29,24 @@ export default abstract class BaseContainer<
         this.onShow();
       }
     });
+    this.onNewIntentEventListener = PortkeyDeviceEventEmitter.addListener('onNewIntent', params => {
+      this.onNewIntent(params);
+    });
   }
 
   componentWillUnmount() {
     if (this.onShowEventListener != null) {
       this.onShowEventListener.remove();
     }
+    if (this.onNewIntentEventListener != null) {
+      this.onNewIntentEventListener.remove();
+    }
   }
 
   navigationTo = (entry: PortkeyEntries, targetScene?: string, closeCurrentScreen?: boolean, params?: any) => {
     PortkeyModulesEntity.RouterModule.navigateTo(
       entry,
-      LaunchModeSet.get(entry) || LanuchMode.STANDARD,
+      LaunchModeSet.get(entry) || LaunchMode.STANDARD,
       this.getEntryName(),
       targetScene ?? 'none',
       closeCurrentScreen ?? false,
@@ -55,7 +62,7 @@ export default abstract class BaseContainer<
     const { params, closeCurrentScreen, navigationAnimation, navigationAnimationDuration, targetScene } = options;
     PortkeyModulesEntity.RouterModule.navigateToWithOptions(
       entry,
-      LaunchModeSet.get(entry) || LanuchMode.STANDARD,
+      LaunchModeSet.get(entry) || LaunchMode.STANDARD,
       this.getEntryName(),
       {
         params: params ?? ({} as any),
@@ -70,6 +77,9 @@ export default abstract class BaseContainer<
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   onShow() {}
+
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  onNewIntent<T>(_params: T) {}
 
   onFinish = (res: EntryResult<R>) => {
     PortkeyModulesEntity.RouterModule.navigateBack(res);
