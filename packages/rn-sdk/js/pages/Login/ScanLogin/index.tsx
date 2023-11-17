@@ -51,7 +51,7 @@ export default function ScanLogin(props: ScanToLoginProps) {
         }
         const deviceInfo = getDeviceInfoFromQR(qrExtraData, deviceType);
         const extraData = await extraDataEncode(deviceInfo || {}, true);
-        const req = await callAddManagerMethod(managerAddress, extraData);
+        const req = await callAddManagerMethod(extraData, managerAddress);
         if (req?.error) throw req?.error;
         socket.doOpen({
           url: `${await PortkeyConfig.endPointUrl()}/ca`,

@@ -5,13 +5,12 @@ import Svg from 'components/Svg';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { View } from 'react-native';
 import { pTd } from 'utils/unit';
-import navigationService from 'utils/navigationService';
 import PageContainer from 'components/PageContainer';
 import { pageStyles } from './style';
 import ListItem from 'components/ListItem';
 import { useLanguage } from 'i18n/hooks';
 import { LOGIN_TYPE_LIST } from '@portkey-wallet/constants/verifier';
-import { ApprovalType, OperationTypeEnum, VerifierItem } from '@portkey-wallet/types/verifier';
+import { OperationTypeEnum, VerifierItem } from '@portkey-wallet/types/verifier';
 import { INIT_HAS_ERROR, INIT_NONE_ERROR } from 'constants/common';
 import VerifierSelectOverlay from '../components/VerifierSelectOverlay';
 import ActionSheet from 'components/ActionSheet';
@@ -64,30 +63,34 @@ const ModifyGuardian = (config: { info: string }) => {
   const thirdPartyInfoRef = useRef<thirdPartyInfoType>();
 
   useEffectOnce(async () => {
-    const { particularGuardianInfo, originalGuardianItem } = JSON.parse(config.info) as ModifyGuardianProps;
-    particularGuardianInfo && setEditGuardian(particularGuardianInfo);
-    originalGuardianItem && setOriginalGuardianItem(originalGuardianItem);
-    const { data } = await callGetVerifiersMethod();
-    const { verifierServers: verifiers } = data || {};
-    console.log('verifiers', JSON.stringify(verifiers));
-    verifiers && setVerifierMap(verifiers);
-    const {
-      caInfo: { caHash },
-    } = await getUnlockedWallet();
-    const chainId = await PortkeyConfig.currChainId();
-    const guardiansInfo = await NetworkController.getGuardianInfo('', caHash);
-    const parsedGuardians = guardiansInfo?.guardianList?.guardians?.map(guardian => {
-      return parseGuardianInfo(
-        guardian,
-        chainId,
-        undefined,
-        undefined,
-        AccountOriginalType.Email,
-        OperationTypeEnum.editGuardian,
-      );
-    });
-    console.log('guardians:', JSON.stringify(parsedGuardians));
-    parsedGuardians && setUserGuardiansList(parsedGuardians);
+    try {
+      const { particularGuardianInfo, originalGuardianItem } = JSON.parse(config.info) as ModifyGuardianProps;
+      particularGuardianInfo && setEditGuardian(particularGuardianInfo);
+      originalGuardianItem && setOriginalGuardianItem(originalGuardianItem);
+      const { data } = await callGetVerifiersMethod();
+      const { verifierServers: verifiers } = data || {};
+      console.log('verifiers', JSON.stringify(verifiers));
+      verifiers && setVerifierMap(verifiers);
+      const {
+        caInfo: { caHash },
+      } = await getUnlockedWallet();
+      const chainId = await PortkeyConfig.currChainId();
+      const guardiansInfo = await NetworkController.getGuardianInfo('', caHash);
+      const parsedGuardians = guardiansInfo?.guardianList?.guardians?.map(guardian => {
+        return parseGuardianInfo(
+          guardian,
+          chainId,
+          undefined,
+          undefined,
+          AccountOriginalType.Email,
+          OperationTypeEnum.editGuardian,
+        );
+      });
+      console.log('guardians:', JSON.stringify(parsedGuardians));
+      parsedGuardians && setUserGuardiansList(parsedGuardians);
+    } catch (e) {
+      console.log('error', e);
+    }
   });
 
   useEffect(() => {
@@ -149,6 +152,7 @@ const ModifyGuardian = (config: { info: string }) => {
     const _guardianError = checkCurGuardianRepeat();
     setGuardianError(_guardianError);
     if (_guardianError.isError || !editGuardian || !selectedVerifier) return;
+    Loading.show();
     handleGuardiansApproval({
       particularGuardian: editGuardian,
       guardianVerifyType: GuardianVerifyType.MODIFY_GUARDIAN,
@@ -220,11 +224,22 @@ const ModifyGuardian = (config: { info: string }) => {
       }
     }
 
-    navigationService.navigate('GuardianApproval', {
-      approvalType: ApprovalType.deleteGuardian,
-      guardianItem: editGuardian,
+    const thisGuardian = Object.assign({}, editGuardian);
+    if (selectedVerifier) {
+      thisGuardian.sendVerifyCodeParams.verifierId = selectedVerifier.id;
+    }
+    handleGuardiansApproval({
+      guardianVerifyType: GuardianVerifyType.REMOVE_GUARDIAN,
+      particularGuardian: thisGuardian,
+      pastGuardian: editGuardian,
+      accountIdentifier: editGuardian.accountIdentifier ?? '',
+      accountOriginalType: editGuardian.accountOriginalType ?? AccountOriginalType.Email,
+      guardians: userGuardiansList.map(it => {
+        it.sendVerifyCodeParams.operationType = OperationTypeEnum.deleteGuardian;
+        return it;
+      }),
     });
-  }, [editGuardian, onFinish, t, userGuardiansList]);
+  }, [editGuardian, onFinish, selectedVerifier, t, userGuardiansList]);
 
   const isApprovalDisable = useMemo(
     () => selectedVerifier?.id === editGuardian?.sendVerifyCodeParams?.verifierId,

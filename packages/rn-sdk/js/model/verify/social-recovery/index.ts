@@ -10,6 +10,7 @@ export interface GuardianVerifyConfig {
   guardians: Array<GuardianConfig>;
   particularGuardian?: GuardianConfig;
   thirdPartyAccountInfo?: ThirdPartyAccountInfo;
+  pastGuardian?: GuardianConfig;
 }
 
 export enum GuardianVerifyType {
