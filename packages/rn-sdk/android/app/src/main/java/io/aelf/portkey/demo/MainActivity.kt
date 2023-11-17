@@ -20,6 +20,7 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -57,6 +58,9 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             MyRNApplicationTheme {
+                var devModeStatus = remember {
+                    mutableStateOf(DemoStorage.isDevMode())
+                }
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
@@ -118,6 +122,11 @@ class MainActivity : ComponentActivity() {
                         }
                         BigButton("Sign out?") {
                             signOut()
+                        }
+                        BigButton(if(devModeStatus.value) "DevMode On" else "DevMode Off") {
+
+                            DemoStorage.setDevMode(!(devModeStatus.value))
+                            devModeStatus.value = !(devModeStatus.value)
                         }
                     }
                     PortkeyTest.UsePortkeyViewStub()

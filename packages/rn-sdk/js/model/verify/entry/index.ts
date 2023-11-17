@@ -103,11 +103,25 @@ export const useVerifyEntry = (verifyConfig: VerifyConfig): VerifyEntryHooks => 
       if (accountCheckResult.hasRegistered) {
         dealWithSignIn(accountIdentifier, thirdPartyInfo);
       } else {
-        dealWithSignUp(accountIdentifier, thirdPartyInfo);
+        ActionSheet.alert({
+          title: 'Continue with this account?',
+          message: `This account has not been registered yet. Click "Confirm" to complete the registration.`,
+          buttons: [
+            { title: 'Cancel', type: 'outline' },
+            {
+              title: 'Confirm',
+              onPress: () => {
+                // dealWithSignUp(accountIdentifier, thirdPartyAccountInfo);
+                dealWithSignUp(accountIdentifier, thirdPartyInfo);
+              },
+            },
+          ],
+        });
       }
     } catch (e) {
       console.error(e);
       setErrorMessage('login failed.');
+    } finally {
       Loading.hide();
     }
   };
