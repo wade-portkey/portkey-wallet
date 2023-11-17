@@ -186,7 +186,7 @@ export default function GuardianDetail(config: { info: string }) {
 
   const onLoginAccountChange = useCallback(
     async (value: boolean) => {
-      if (guardian === undefined || !editGuardian || userGuardiansList === undefined) return;
+      if (!guardian || !editGuardian || userGuardiansList === undefined) return;
 
       if (!value) {
         const isLastLoginAccount = checkIsTheLastLoginGuardian(userGuardiansList, editGuardian);
@@ -216,6 +216,7 @@ export default function GuardianDetail(config: { info: string }) {
         Loading.show();
         try {
           const guardiansInfo = await NetworkController.getGuardianInfo(guardian.guardianAccount);
+          console.log('guardiansInfo check:', guardiansInfo);
           if (guardiansInfo?.guardianList?.guardians?.length) {
             throw { code: '20004' };
           }

@@ -156,7 +156,7 @@ export interface VoidResult {}
 export interface BaseContainerHookedProps {
   containerId?: any;
   entryName?: string;
-  onShow?: () => void;
+  onShow?: (() => void) | (() => Promise<void>);
   onNewIntent?: (params: any) => Promise<void> | void;
 }
 
