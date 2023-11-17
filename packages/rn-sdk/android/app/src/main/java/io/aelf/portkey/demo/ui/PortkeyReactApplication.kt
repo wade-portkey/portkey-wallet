@@ -2,8 +2,10 @@ package io.aelf.portkey.demo.ui
 
 import android.app.Activity
 import android.app.Application
+import android.content.res.Resources
 import android.graphics.Color
 import android.os.Bundle
+import android.util.TypedValue
 import android.view.ViewGroup
 import android.widget.TextView
 import com.facebook.react.ReactActivity
@@ -15,7 +17,6 @@ import io.aelf.portkey.components.logic.PortkeyReactNativeHost
 import io.aelf.portkey.components.logic.hostInstance
 import io.aelf.portkey.config.StorageIdentifiers
 import io.aelf.portkey.demo.DemoStorage
-import io.aelf.portkey.tools.dp
 
 class PortkeyReactApplication : Application(), ReactApplication {
 
@@ -81,3 +82,8 @@ class PortkeyReactApplication : Application(), ReactApplication {
     }
 
 }
+
+val Float.dp
+    get() = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, this, Resources.getSystem().displayMetrics)
+val Int.dp
+    get() = this.toFloat().dp.toInt()

@@ -2,9 +2,7 @@ package io.aelf.portkey.tools
 
 import android.content.Context
 import android.content.Intent
-import android.content.res.Resources
 import android.os.Bundle
-import android.util.TypedValue
 import android.widget.Toast
 import io.aelf.portkey.components.activities.entered
 import io.aelf.portkey.components.logic.JSEventBus
@@ -43,7 +41,3 @@ fun startJSBackgroundTaskTest(applicationContext: Context, callback: (JSMethodDa
 data class JSMethodData(
     val data: Any
 )
-val Float.dp
-    get() = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, this, Resources.getSystem().displayMetrics)
-val Int.dp
-    get() = this.toFloat().dp.toInt()
