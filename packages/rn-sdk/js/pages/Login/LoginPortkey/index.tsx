@@ -12,7 +12,6 @@ import Email from '../components/Email';
 import Phone from '../components/Phone';
 import QRCode from '../components/QRCode';
 import Referral from '../components/Referral';
-import SwitchNetwork from '../components/SwitchNetwork';
 import { PageLoginType, PageType } from '../types';
 import GStyles from 'assets/theme/GStyles';
 import fonts from 'assets/theme/fonts';
@@ -30,7 +29,7 @@ import { CountryCodeItem } from 'types/wallet';
 const scrollViewProps = { extraHeight: 120 };
 const safeAreaColor: SafeAreaColorMapKeyUnit[] = ['transparent', 'transparent'];
 
-export default function LoginPortKey({
+export default function LogInPortKey({
   selectedCountryCode,
   updateCountryCode,
 }: {
@@ -124,7 +123,7 @@ export default function LoginPortKey({
             <TextXXXL style={[styles.titleStyle, FontStyles.font11]}>{t('Log In To Portkey')}</TextXXXL>
           </View>
           {loginMap[loginType]}
-          <SwitchNetwork />
+          {/* <SwitchNetwork /> */}
         </PageContainer>
       </ImageBackground>
     </NetworkContext.Provider>
