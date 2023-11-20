@@ -3,10 +3,8 @@ import { PortkeyEntries } from '../../../config/entries';
 import BaseContainer, { BaseContainerProps } from '../../../model/container/BaseContainer';
 import VerifierDetails from 'pages/Guardian/VerifierDetails';
 import React from 'react';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { AccountOriginalType } from 'model/verify/after-verify';
 import { GuardianConfig } from 'model/verify/guardian';
-import GStyles from 'assets/theme/GStyles';
 
 export default class VerifierDetailsEntryPage extends BaseContainer<
   VerifierDetailsPageProps,
@@ -28,13 +26,11 @@ export default class VerifierDetailsEntryPage extends BaseContainer<
     const { guardianConfig } = this.state;
     const { accountIdentifier, accountOriginalType } = guardianConfig;
     return (
-      <SafeAreaProvider style={GStyles.whiteBackgroundColor}>
-        <VerifierDetails
-          accountIdentifier={accountIdentifier}
-          accountOriginalType={accountOriginalType}
-          guardianConfig={guardianConfig}
-        />
-      </SafeAreaProvider>
+      <VerifierDetails
+        accountIdentifier={accountIdentifier}
+        accountOriginalType={accountOriginalType}
+        guardianConfig={guardianConfig}
+      />
     );
   }
 }

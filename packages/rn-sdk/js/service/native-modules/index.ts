@@ -35,6 +35,7 @@ export interface EntryResult<R> {
   data?: R;
   status: 'success' | 'fail' | 'cancel' | 'system'; // never use system status, only for system
   extraMsg?: { [x: string]: any };
+  animated?: boolean;
 }
 
 export interface RouterOptions<T> {

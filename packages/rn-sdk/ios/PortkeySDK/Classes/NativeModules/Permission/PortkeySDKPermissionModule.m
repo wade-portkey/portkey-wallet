@@ -48,7 +48,9 @@ RCT_EXPORT_METHOD(requestPermission:(NSString *)permission
     } else {
         status = [PHPhotoLibrary authorizationStatus];
     }
-    if (status == PHAuthorizationStatusRestricted || status == PHAuthorizationStatusDenied) {
+    if (status == PHAuthorizationStatusNotDetermined ||
+        status == PHAuthorizationStatusRestricted ||
+        status == PHAuthorizationStatusDenied) {
         resolve(@NO);
     } else {
         resolve(@YES);
@@ -57,7 +59,9 @@ RCT_EXPORT_METHOD(requestPermission:(NSString *)permission
 
 - (void)isCameraPermissionGranted:(RCTPromiseResolveBlock)resolve {
     AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
-    if (authStatus == AVAuthorizationStatusRestricted || authStatus ==AVAuthorizationStatusDenied) {
+    if (authStatus == AVAuthorizationStatusNotDetermined ||
+        authStatus == AVAuthorizationStatusRestricted ||
+        authStatus ==AVAuthorizationStatusDenied) {
         resolve(@NO);
     } else {
         resolve(@YES);

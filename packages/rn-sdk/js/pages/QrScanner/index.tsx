@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import { View, Text, SafeAreaView, StyleSheet, TouchableOpacity, Platform } from 'react-native';
 import Svg from 'components/Svg';
@@ -34,6 +34,7 @@ const QrScanner: React.FC = () => {
   const canScan = useRef<boolean>(true);
   // const jumpToWebview = useDiscoverJumpWithNetWork();
   const [refresh, setRefresh] = useState<boolean>();
+  const [permissionGranted, setPermissionGranted] = useState<boolean>(false);
   const { onFinish, navigateForResult, navigationTo } = useBaseContainer({
     entryName: PortkeyEntries.SCAN_QR_CODE,
   });
@@ -41,9 +42,10 @@ const QrScanner: React.FC = () => {
     onFinish(res);
   };
 
-  useEffectOnce(() => {
+  useEffectOnce(async () => {
     setRefresh(false);
-    ensurePermission('camera', withoutPermissionWarning);
+    const isOpen = await ensurePermission('camera', withoutPermissionWarning);
+    setPermissionGranted(isOpen);
   });
 
   const withoutPermissionWarning = (fatal = true) => {
@@ -154,40 +156,64 @@ const QrScanner: React.FC = () => {
     }
   };
 
-  return (
-    <View style={PageStyle.wrapper}>
-      {refresh ? null : (
-        <Camera
-          ratio={'16:9'}
-          style={[PageStyle.barCodeScanner, !isIOS && PageStyle.barCodeScannerAndroid]}
-          // barCodeScannerSettings={{
-          //   interval: 3000,
-          //   barCodeTypes: [BarCodeScanner.Constants.BarCodeType.qr],
-          // }}
-          onBarCodeScanned={handleBarCodeScanned}>
-          <SafeAreaView style={PageStyle.innerView}>
-            <View style={PageStyle.iconWrap}>
-              <Text style={PageStyle.leftBlock} />
-              <TouchableOpacity
-                style={PageStyle.svgWrap}
-                onPress={() => {
-                  navigateBack({ status: 'cancel', data: {} });
-                }}>
-                <Svg icon="close1" size={pTd(14)} iconStyle={PageStyle.icon} />
-              </TouchableOpacity>
-            </View>
-            <Svg icon="scan-square" size={pTd(240)} iconStyle={PageStyle.scan} />
-            <TextM style={PageStyle.tips}>{t('only support Login code by now')}</TextM>
-
-            <TouchableOpacity style={[PageStyle.albumWrap, GStyles.alignCenter]} onPress={selectImage}>
-              <Svg icon="album" size={pTd(48)} />
-              <TextM style={[FontStyles.font2, PageStyle.albumText]}>{t('Album')}</TextM>
+  const cameraView = () => {
+    return (
+      <Camera
+        ratio={'16:9'}
+        style={[PageStyle.barCodeScanner, !isIOS && PageStyle.barCodeScannerAndroid]}
+        // barCodeScannerSettings={{
+        //   interval: 3000,
+        //   barCodeTypes: [BarCodeScanner.Constants.BarCodeType.qr],
+        // }}
+        onBarCodeScanned={handleBarCodeScanned}>
+        <SafeAreaView style={PageStyle.innerView}>
+          <View style={PageStyle.iconWrap}>
+            <Text style={PageStyle.leftBlock} />
+            <TouchableOpacity
+              style={PageStyle.svgWrap}
+              onPress={() => {
+                navigateBack({ status: 'cancel', data: {} });
+              }}>
+              <Svg icon="close1" size={pTd(14)} iconStyle={PageStyle.icon} />
             </TouchableOpacity>
-          </SafeAreaView>
-        </Camera>
-      )}
-    </View>
-  );
+          </View>
+          <Svg icon="scan-square" size={pTd(240)} iconStyle={PageStyle.scan} />
+          <TextM style={PageStyle.tips}>{t('only support Login code by now')}</TextM>
+
+          <TouchableOpacity style={[PageStyle.albumWrap, GStyles.alignCenter]} onPress={selectImage}>
+            <Svg icon="album" size={pTd(48)} />
+            <TextM style={[FontStyles.font2, PageStyle.albumText]}>{t('Album')}</TextM>
+          </TouchableOpacity>
+        </SafeAreaView>
+      </Camera>
+    );
+  };
+
+  const emptyView = () => {
+    return (
+      <SafeAreaView style={[PageStyle.innerView, PageStyle.blackBg]}>
+        <View style={PageStyle.iconWrap}>
+          <Text style={PageStyle.leftBlock} />
+          <TouchableOpacity
+            style={PageStyle.svgWrap}
+            onPress={() => {
+              navigateBack({ status: 'cancel', data: {} });
+            }}>
+            <Svg icon="close1" size={pTd(14)} iconStyle={PageStyle.icon} />
+          </TouchableOpacity>
+        </View>
+        <Svg icon="scan-square" size={pTd(240)} iconStyle={PageStyle.scan} />
+        <TextM style={PageStyle.tips}>{t('only support Login code by now')}</TextM>
+
+        <TouchableOpacity style={[PageStyle.albumWrap, GStyles.alignCenter]} onPress={selectImage}>
+          <Svg icon="album" size={pTd(48)} />
+          <TextM style={[FontStyles.font2, PageStyle.albumText]}>{t('Album')}</TextM>
+        </TouchableOpacity>
+      </SafeAreaView>
+    );
+  };
+
+  return <View style={PageStyle.wrapper}>{refresh ? null : permissionGranted ? cameraView() : emptyView()}</View>;
 };
 
 export default QrScanner;
@@ -257,6 +283,10 @@ export const PageStyle = StyleSheet.create({
   },
   leftBlock: {
     flex: 1,
+  },
+  blackBg: {
+    backgroundColor: 'black',
+    opacity: 0.85,
   },
 });
 export interface RouteInfoType {
