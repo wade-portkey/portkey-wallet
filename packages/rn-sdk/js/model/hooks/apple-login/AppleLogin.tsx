@@ -1,6 +1,6 @@
 import React from 'react';
 import { forwardRef, useMemo, useState, useCallback, useRef, useImperativeHandle, ReactNode } from 'react';
-import { StyleSheet, View, ViewStyle, StyleProp } from 'react-native';
+import { StyleSheet, View, ViewStyle, StyleProp, TouchableOpacity } from 'react-native';
 import WebView, { WebViewMessageEvent, WebViewProps } from 'react-native-webview';
 
 export declare type AppleLoginInterface = {
@@ -11,7 +11,7 @@ export declare type AppleLoginInterface = {
 const styles = StyleSheet.create({
   webView: {
     flex: 1,
-    backgroundColor: 'transparent',
+    backgroundColor: 'white',
   },
   loadingContainer: {
     position: 'absolute',
@@ -21,6 +21,11 @@ const styles = StyleSheet.create({
     right: 0,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  transparentHeader: {
+    height: '20%',
+    width: '100%',
+    backgroundColor: 'transparent',
   },
 });
 
@@ -134,6 +139,7 @@ const AppleLogin = forwardRef(function AppleLogin(
 
   return (
     <>
+      <TouchableOpacity style={styles.transparentHeader} onPress={onClose} />
       <WebView
         ref={webViewRef}
         source={{ uri: baseUrl }}

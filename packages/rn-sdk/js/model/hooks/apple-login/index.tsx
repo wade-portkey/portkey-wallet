@@ -1,7 +1,7 @@
 import React from 'react';
 import AppleLogin from './AppleLogin';
 import OverlayModal from 'components/OverlayModal';
-import { screenWidth, screenHeight } from '@portkey-wallet/utils/mobile/device';
+import { screenWidth } from '@portkey-wallet/utils/mobile/device';
 import { clearBackgroundTimeout, setBackgroundTimeout } from 'utils/backgroundTimer';
 
 const TIME_OUT = 120000; // timeout 20 seconds
@@ -45,8 +45,8 @@ async function appleLogin() {
         position: 'bottom',
         containerStyle: {
           width: screenWidth,
-          height: screenHeight * 0.8,
-          backgroundColor: 'white',
+          height: '100%',
+          backgroundColor: 'transparent',
         },
       },
     );

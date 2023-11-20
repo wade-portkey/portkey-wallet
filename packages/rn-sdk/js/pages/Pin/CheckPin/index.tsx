@@ -55,12 +55,11 @@ export default function CheckPin(props: CheckPinProps) {
     [errorMessage, navigationTo, onFinish, targetScene],
   );
 
-  const useBiometrics = async () => {
+  const handleBiometrics = async () => {
     const res = await touchAuth();
     if (res?.success) {
       Loading.show();
       await unLockTempWallet('use-bio', true);
-      myEvents.openBiometrics.emit('use-bio');
       Loading.hide();
       onFinish<CheckPinResult>({
         status: 'success',
@@ -80,6 +79,9 @@ export default function CheckPin(props: CheckPinProps) {
     }
     getUseBiometric().then(res => {
       setCanUseBiometrics(res);
+      if (res) {
+        handleBiometrics();
+      }
     });
   });
 
@@ -103,7 +105,7 @@ export default function CheckPin(props: CheckPinProps) {
         errorMessage={errorMessage}
         onChangeText={onChangeText}
         isBiometrics={canUseBiometrics}
-        onBiometricsPress={useBiometrics}
+        onBiometricsPress={handleBiometrics}
       />
     </PageContainer>
   );
