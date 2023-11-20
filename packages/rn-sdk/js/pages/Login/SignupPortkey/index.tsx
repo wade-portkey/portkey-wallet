@@ -12,7 +12,6 @@ import Email from '../components/Email';
 import Phone from '../components/Phone';
 import QRCode from '../components/QRCode';
 import Referral from '../components/Referral';
-import SwitchNetwork from '../components/SwitchNetwork';
 import { PageLoginType, PageType } from '../types';
 import GStyles from 'assets/theme/GStyles';
 import fonts from 'assets/theme/fonts';
@@ -125,7 +124,7 @@ export default function SignupPortkey({
             <TextXXXL style={[styles.titleStyle, FontStyles.font11]}>{t('Sign up Portkey')}</TextXXXL>
           </View>
           {loginMap[loginType]}
-          <SwitchNetwork />
+          {/* <SwitchNetwork /> */}
         </PageContainer>
       </ImageBackground>
     </NetworkContext.Provider>
