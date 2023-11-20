@@ -22,6 +22,7 @@ import { PageLoginType, PageType } from '../types';
 import { useVerifyEntry } from 'model/verify/entry';
 import { isIOS } from '@portkey-wallet/utils/mobile/device';
 import { getOrReadCachedVerifierData } from 'model/contract/handler';
+import Loading from 'components/Loading';
 
 const TitleMap = {
   [PageType.login]: {
@@ -82,9 +83,13 @@ export default function Referral({
     });
   };
 
-  useEffectOnce(() => {
+  useEffectOnce(async () => {
     baseCheck();
-    getOrReadCachedVerifierData();
+    Loading.show();
+    try {
+      await getOrReadCachedVerifierData();
+    } catch (_) {}
+    Loading.hide();
   });
 
   const baseCheck = async () => {
