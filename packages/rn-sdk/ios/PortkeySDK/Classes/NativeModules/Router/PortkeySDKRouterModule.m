@@ -98,7 +98,7 @@ RCT_EXPORT_METHOD(navigateToWithOptions:(NSString *)entry
     });
 }
 
-RCT_EXPORT_METHOD(navigateBack:(id)result)
+RCT_EXPORT_METHOD(navigateBack:(NSDictionary *)result)
 {
     dispatch_async(dispatch_get_main_queue(), ^{
         UIViewController *topViewController = [self topViewController];
@@ -109,10 +109,14 @@ RCT_EXPORT_METHOD(navigateBack:(id)result)
                 ((PortkeySDKRNViewController *)topViewController).navigateCallback = nil;
             }
         }
+        BOOL animated = YES;
+        if ([result[@"animated"] isKindOfClass:NSNumber.class]) {
+            animated = [result[@"animated"] boolValue];
+        }
         if ([self isModal:topViewController]) {
-            [topViewController dismissViewControllerAnimated:YES completion:nil];
+            [topViewController dismissViewControllerAnimated:animated completion:nil];
         } else {
-            [topViewController.navigationController popViewControllerAnimated:YES];
+            [topViewController.navigationController popViewControllerAnimated:animated];
         }
     });
 }
