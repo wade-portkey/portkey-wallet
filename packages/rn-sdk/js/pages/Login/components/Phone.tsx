@@ -16,6 +16,7 @@ import { AccountOriginalType } from 'model/verify/after-verify';
 import useBaseContainer from 'model/container/UseBaseContainer';
 import TermsServiceButton from './TermsServiceButton';
 import { useVerifyEntry } from 'model/verify/entry';
+import { doubleClick } from 'utils/commonUtil';
 
 const TitleMap = {
   [PageType.login]: {
@@ -96,7 +97,10 @@ export default function Phone({
           disabled={!loginAccount}
           type="primary"
           loading={loading}
-          onPress={() => verifyEntry(getWrappedPhoneNumber())}>
+          onPress={() => {
+            // verifyEntry(getWrappedPhoneNumber());
+            doubleClick(verifyEntry, getWrappedPhoneNumber());
+          }}>
           {t(TitleMap[type].button)}
         </CommonButton>
       </View>

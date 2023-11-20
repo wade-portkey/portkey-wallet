@@ -13,6 +13,7 @@ import { AccountOriginalType } from 'model/verify/after-verify';
 import { PortkeyEntries } from 'config/entries';
 import TermsServiceButton from './TermsServiceButton';
 import { useVerifyEntry } from 'model/verify/entry';
+import { doubleClick } from 'utils/commonUtil';
 
 const TitleMap = {
   [PageType.login]: {
@@ -72,7 +73,9 @@ export default function Email({
           disabled={!email}
           type="primary"
           loading={loading}
-          onPress={() => verifyEntry(email ?? '')}>
+          onPress={() => {
+            doubleClick(verifyEntry, email ?? '');
+          }}>
           {t(TitleMap[type].button)}
         </CommonButton>
       </View>

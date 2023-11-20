@@ -11,6 +11,7 @@ export interface GuardianVerifyConfig {
   particularGuardian?: GuardianConfig;
   thirdPartyAccountInfo?: ThirdPartyAccountInfo;
   pastGuardian?: GuardianConfig;
+  failHandler?: () => void;
 }
 
 export enum GuardianVerifyType {
