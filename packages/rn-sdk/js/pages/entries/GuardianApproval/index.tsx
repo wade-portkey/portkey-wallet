@@ -3,6 +3,9 @@ import { PortkeyEntries } from '../../../config/entries';
 import BaseContainer, { BaseContainerProps } from '../../../model/container/BaseContainer';
 import GuardianApproval from 'pages/Guardian/GuardianApproval';
 import React from 'react';
+import { AfterVerifiedConfig } from 'model/verify/after-verify';
+import { SetPinPageProps, SetPinPageResult } from 'pages/Pin/SetPin';
+import CommonToast from 'components/CommonToast';
 
 export default class GuardianApprovalEntryPage extends BaseContainer<
   GuardianApprovalPageProps,
@@ -24,12 +27,36 @@ export default class GuardianApprovalEntryPage extends BaseContainer<
   getEntryName = (): string => PortkeyEntries.GUARDIAN_APPROVAL_ENTRY;
 
   onPageFinish = (result: GuardianApprovalPageResult) => {
-    this.onFinish({
-      status: result.isVerified ? 'success' : 'fail',
-      data: result,
-    });
+    const { deliveredVerifiedData, isVerified } = result || {};
+    if (!deliveredVerifiedData || !isVerified) {
+      CommonToast.fail('verification failed, please try again.');
+      return;
+    } else {
+      this.dealWithSetPin(deliveredVerifiedData);
+    }
   };
-
+  dealWithSetPin = (afterVerifiedData: AfterVerifiedConfig | string) => {
+    this.navigateForResult<SetPinPageResult, SetPinPageProps>(
+      PortkeyEntries.SET_PIN,
+      {
+        params: {
+          deliveredSetPinInfo:
+            typeof afterVerifiedData === 'string' ? afterVerifiedData : JSON.stringify(afterVerifiedData),
+        },
+      },
+      res => {
+        const { data } = res;
+        if (data?.finished) {
+          this.onFinish({
+            status: 'success',
+            data: {
+              isVerified: true,
+            },
+          });
+        }
+      },
+    );
+  };
   render() {
     const { config: socialRecoveryConfig, verifiedTime } = this.state;
     return (

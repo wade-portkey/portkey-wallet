@@ -235,7 +235,12 @@ export const useVerifyEntry = (verifyConfig: VerifyConfig): VerifyEntryHooks => 
               setErrorMessage('verification failed, please try again.');
               return;
             } else {
-              dealWithSetPin(deliveredVerifiedData);
+              onFinish({
+                status: 'success',
+                data: {
+                  finished: true,
+                },
+              });
             }
           },
         );
