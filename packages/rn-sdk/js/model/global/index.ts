@@ -134,11 +134,8 @@ export const parseGuardianInfo = (
   accountOriginalType = AccountOriginalType.Email,
   operationType = OperationTypeEnum.communityRecovery,
 ): GuardianConfig => {
-  if (!cachedVerifierData) throw new Error('verifierServers is not initialized');
-  console.log('parseGuardianInfo', cachedVerifierData);
   const verifierData = cachedVerifierData.find(it => it.id === guardianOriginalInfo.verifierId);
-  if (!verifierData) throw new Error('verifierData is not found');
-  const { id: verifierId, name, imageUrl } = verifierData;
+  const { name = 'Portkey', imageUrl = '' } = verifierData || {};
   return {
     ...guardianOriginalInfo,
     accountIdentifier,
@@ -149,7 +146,7 @@ export const parseGuardianInfo = (
     sendVerifyCodeParams: {
       type: guardianOriginalInfo.type as any,
       guardianIdentifier: guardianOriginalInfo.guardianIdentifier,
-      verifierId,
+      verifierId: guardianOriginalInfo.verifierId,
       chainId,
       operationType: operationType,
     },
