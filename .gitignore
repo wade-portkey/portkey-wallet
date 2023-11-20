@@ -32,3 +32,5 @@ Pods
 packages/rn-sdk/ios/App/build/
 /**/*.apk
 /**/output-metadata.json
+
+out/**/*
