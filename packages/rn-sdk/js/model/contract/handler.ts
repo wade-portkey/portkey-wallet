@@ -17,6 +17,8 @@ export interface Verifier {
   imageUrl: string;
 }
 
+export let cachedVerifierData: Array<Verifier> = [];
+
 export const getContractInstance = async (allowTemplateWallet = false): Promise<ContractBasic> => {
   let privateKey = '';
   if (allowTemplateWallet && !(await isWalletUnlocked())) {
@@ -63,6 +65,7 @@ export const getOrReadCachedVerifierData = async (): Promise<{
   if (cached) return JSON.parse(cached);
   const contractInstance = await getContractInstance(true);
   const result = await contractInstance.callViewMethod('GetVerifierServers');
+  cachedVerifierData = Object.values(result?.data?.verifierServers ?? {});
   result && TempStorage.set(`${GET_VERIFIERS_METHOD}_${chainId}_${endPoint}`, JSON.stringify(result));
   return result;
 };
