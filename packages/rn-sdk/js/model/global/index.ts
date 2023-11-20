@@ -24,16 +24,10 @@ import { GlobalStorage } from 'service/storage';
 import { ChainId } from '@portkey-wallet/types';
 import { UserGuardianItem } from '@portkey-wallet/store/store-ca/guardians/type';
 import { LoginType } from '@portkey-wallet/types/types-ca/wallet';
-import { Verifier, getOrReadCachedVerifierData } from 'model/contract/handler';
+import { cachedVerifierData } from 'model/contract/handler';
 
 export const COUNTRY_CODE_DATA_KEY = 'countryCodeData';
 export const CURRENT_USING_COUNTRY_CODE = 'currentUsingCountryCode';
-
-let cachedVerifierData: Array<Verifier> = [];
-
-getOrReadCachedVerifierData().then(option => {
-  cachedVerifierData = Object.values(option?.data?.verifierServers ?? {});
-});
 
 export const attemptAccountCheck = async (accountIdentifier: string): Promise<AccountCheckResult> => {
   const registerResultDTO = await NetworkController.getRegisterResult(accountIdentifier);
@@ -134,11 +128,8 @@ export const parseGuardianInfo = (
   accountOriginalType = AccountOriginalType.Email,
   operationType = OperationTypeEnum.communityRecovery,
 ): GuardianConfig => {
-  if (!cachedVerifierData) throw new Error('verifierServers is not initialized');
-  console.log('parseGuardianInfo', cachedVerifierData);
   const verifierData = cachedVerifierData.find(it => it.id === guardianOriginalInfo.verifierId);
-  if (!verifierData) throw new Error('verifierData is not found');
-  const { id: verifierId, name, imageUrl } = verifierData;
+  const { name = 'Portkey', imageUrl = '' } = verifierData || {};
   return {
     ...guardianOriginalInfo,
     accountIdentifier,
@@ -149,7 +140,7 @@ export const parseGuardianInfo = (
     sendVerifyCodeParams: {
       type: guardianOriginalInfo.type as any,
       guardianIdentifier: guardianOriginalInfo.guardianIdentifier,
-      verifierId,
+      verifierId: guardianOriginalInfo.verifierId,
       chainId,
       operationType: operationType,
     },
