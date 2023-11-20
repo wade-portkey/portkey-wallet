@@ -56,6 +56,7 @@ export default function GuardianApproval({
     particularGuardian,
     pastGuardian,
   } = guardianListConfig;
+
   const { t } = useLanguage();
 
   let operationType = OperationTypeEnum.communityRecovery;
@@ -485,6 +486,11 @@ export default function GuardianApproval({
                   guardianType: guardianTypeStrToEnum(item.sendVerifyCodeParams.type) as any,
                   key: `${index}`,
                   identifierHash: '',
+                  verifier: {
+                    id: item.verifierId,
+                    name: item.name,
+                    imageUrl: item.imageUrl,
+                  },
                 } as UserGuardianItem;
                 return (
                   <GuardianItem
