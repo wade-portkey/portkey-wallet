@@ -83,7 +83,7 @@ export default function GuardianApproval({
     }
   }
 
-  const { navigateForResult } = useBaseContainer({
+  const { navigateForResult, onFinish: onBackPage } = useBaseContainer({
     entryName: PortkeyEntries.GUARDIAN_APPROVAL_ENTRY,
   });
 
@@ -149,8 +149,11 @@ export default function GuardianApproval({
   });
 
   const onBack = () => {
-    onPageFinish({
-      isVerified: false,
+    onBackPage({
+      status: 'cancel',
+      data: {
+        isVerified: false,
+      },
     });
   };
 
