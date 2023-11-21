@@ -320,6 +320,9 @@ export const checkIsTheLastLoginGuardian = (
   guardianList: Array<GuardianConfig>,
   thisGuardian: GuardianConfig,
 ): boolean => {
+  if (!thisGuardian.isLoginGuardian) {
+    return false;
+  }
   return !guardianList
     .filter(
       it =>

@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface PortkeySDKNativeWrapperModule : RCTEventEmitter <RCTBridgeModule>
 
-+ (void)sendOnShowEventWithModuleName:(NSString *)moduleName bridge:(RCTBridge *)bridge reactTag:(NSNumber *)reactTag;
++ (void)sendOnShowEventWithModuleName:(NSString *)moduleName bridge:(RCTBridge *)bridge containerId:(NSString *)containerId;
 
 + (void)sendOnNewIntentWithParams:(NSDictionary *)params bridge:(RCTBridge *)bridge;
 
