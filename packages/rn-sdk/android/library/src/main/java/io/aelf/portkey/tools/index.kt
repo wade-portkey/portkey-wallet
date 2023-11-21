@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
+import com.google.gson.JsonElement
 import io.aelf.portkey.components.activities.entered
 import io.aelf.portkey.components.logic.JSEventBus
 import io.aelf.portkey.components.services.GeneralJSMethodService
@@ -22,22 +23,22 @@ fun startJSBackgroundTaskTest(applicationContext: Context, callback: (JSMethodDa
         ).show()
         return
     }
-    val methodName = "callContractMethod"
     val service = Intent(applicationContext, GeneralJSMethodService::class.java)
     val bundle = Bundle()
+    bundle.putString("taskName", "callCaContractMethod")
     val callbackId = generateUniqueCallbackID()
-    bundle.putString("methodName", methodName)
+    bundle.putString("contractMethodName", "GetVerifierServers")
     bundle.putString("eventId", callbackId)
     bundle.putBoolean("isViewMethod", false)
-    bundle.putBundle("params", Bundle().apply {
-        putString("contractAddress", "2.0.0")
-        putString("methodName", "GetBlockHeight")
-    })
     service.putExtras(bundle)
     JSEventBus.registerCallback(callbackId, callback, JSMethodData::class.java)
     applicationContext.startService(service)
 }
 
 data class JSMethodData(
-    val data: Any
+    val status: String, //  'success' | 'fail'
+    val transactionId: String,
+    val data: JsonElement,
+    val error: JsonElement
 )
+

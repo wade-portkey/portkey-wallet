@@ -182,7 +182,7 @@ const lockWallet = async (pinValue: string, config: RecoverWalletConfig): Promis
   GlobalStorage.set(PIN_KEY, pinValue);
   GlobalStorage.set(WALLET_CONFIG_KEY, JSON.stringify(config));
 
-  // then set temp wallet
+  // then set the temp wallet
   TempStorage.set(WALLET_CONFIG_KEY, JSON.stringify(config));
 };
 
