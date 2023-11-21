@@ -101,22 +101,42 @@ export const useVerifyEntry = (verifyConfig: VerifyConfig): VerifyEntryHooks => 
         ? { apple: thirdPartyAccountInfo }
         : { google: thirdPartyAccountInfo };
       if (accountCheckResult.hasRegistered) {
-        dealWithSignIn(accountIdentifier, thirdPartyInfo);
-      } else {
-        ActionSheet.alert({
-          title: 'Continue with this account?',
-          message: `This account has not been registered yet. Click "Confirm" to complete the registration.`,
-          buttons: [
-            { title: 'Cancel', type: 'outline' },
-            {
-              title: 'Confirm',
-              onPress: () => {
-                // dealWithSignUp(accountIdentifier, thirdPartyAccountInfo);
-                dealWithSignUp(accountIdentifier, thirdPartyInfo);
+        if (type === PageType.signup) {
+          ActionSheet.alert({
+            title: 'Continue with this account?',
+            message: `This account already exists. Click "Confirm" to log in.`,
+            buttons: [
+              { title: 'Cancel', type: 'outline' },
+              {
+                title: 'Confirm',
+                onPress: () => {
+                  dealWithSignIn(accountIdentifier, thirdPartyInfo);
+                },
               },
-            },
-          ],
-        });
+            ],
+          });
+        } else {
+          dealWithSignIn(accountIdentifier, thirdPartyInfo);
+        }
+      } else {
+        if (type === PageType.login) {
+          ActionSheet.alert({
+            title: 'Continue with this account?',
+            message: `This account has not been registered yet. Click "Confirm" to complete the registration.`,
+            buttons: [
+              { title: 'Cancel', type: 'outline' },
+              {
+                title: 'Confirm',
+                onPress: () => {
+                  // dealWithSignUp(accountIdentifier, thirdPartyAccountInfo);
+                  dealWithSignUp(accountIdentifier, thirdPartyInfo);
+                },
+              },
+            ],
+          });
+        } else {
+          dealWithSignUp(accountIdentifier, thirdPartyInfo);
+        }
       }
     } catch (e) {
       console.error(e);
