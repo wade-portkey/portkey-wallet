@@ -56,9 +56,11 @@ RCT_EXPORT_METHOD(emitJSMethodResult:(NSString *)eventId result:(NSString *)resu
     [[PortkeySDKJSCallModule sharedInstance] callCallbackWithEventId:eventId result:result];
 }
 
-+ (void)sendOnShowEventWithModuleName:(NSString *)moduleName bridge:(RCTBridge *)bridge reactTag:(NSNumber *)reactTag {
++ (void)sendOnShowEventWithModuleName:(NSString *)moduleName bridge:(RCTBridge *)bridge containerId:(NSString *)containerId {
     PortkeySDKNativeWrapperModule *module = [bridge moduleForClass:self];
-    return [module sendOnShowEvent:reactTag];
+    return [module sendOnShowEvent:@{
+        @"containerId": containerId ?: @""
+    }];
 }
 
 + (void)sendOnNewIntentWithParams:(NSDictionary *)params bridge:(RCTBridge *)bridge {
@@ -66,8 +68,8 @@ RCT_EXPORT_METHOD(emitJSMethodResult:(NSString *)eventId result:(NSString *)resu
     [module sendEventWithName:@"onNewIntent" body:params];
 }
 
-- (void)sendOnShowEvent:(NSNumber *)reactTag {
-    [self sendEventWithName:@"onShow" body:reactTag];
+- (void)sendOnShowEvent:(NSDictionary *)body {
+    [self sendEventWithName:@"onShow" body:body];
 }
 
 @end

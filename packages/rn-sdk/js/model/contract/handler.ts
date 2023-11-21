@@ -1,6 +1,5 @@
 import { getContractBasic } from '@portkey-wallet/contracts/utils';
 import { ContractBasic } from '@portkey-wallet/contracts/utils/ContractBasic';
-import { VerifierInfo } from '@portkey-wallet/types/verifier';
 import { handleVerificationDoc } from '@portkey-wallet/utils/guardian';
 import { PortkeyConfig } from 'global/constants';
 import { getCachedNetworkConfig } from 'model/chain';
@@ -12,8 +11,22 @@ import { AElfWeb3SDK, ApprovedGuardianInfo } from 'network/dto/wallet';
 import { TempStorage } from 'service/storage';
 import { addManager } from 'utils/wallet';
 
-export const getContractInstance = async (): Promise<ContractBasic> => {
-  const { privateKey } = (await getUnlockedWallet()) || {};
+export interface Verifier {
+  id: string;
+  name: string;
+  imageUrl: string;
+}
+
+export let cachedVerifierData: Array<Verifier> = [];
+
+export const getContractInstance = async (allowTemplateWallet = false): Promise<ContractBasic> => {
+  let privateKey = '';
+  if (allowTemplateWallet && !(await isWalletUnlocked())) {
+    privateKey = '6167c717e781099c8ee77cbf0c3f6e7c8315fc581eb7daa891c872c026359c84';
+  } else {
+    const { privateKey: pk } = (await getUnlockedWallet()) || {};
+    privateKey = pk;
+  }
   const { caContractAddress, peerUrl } = (await getCachedNetworkConfig()) || {};
   return await getContractBasic({
     contractAddress: caContractAddress,
@@ -38,9 +51,11 @@ export const callAddManagerMethod = async (extraData: string, managerAddress: st
   });
 };
 
-export const callGetVerifiersMethod = async (): Promise<{
+export const getOrReadCachedVerifierData = async (): Promise<{
   data?: {
-    verifierServers: { [key: string]: VerifierInfo };
+    verifierServers: {
+      [key: string | number]: Verifier;
+    };
   };
 }> => {
   const GET_VERIFIERS_METHOD = 'GetVerifierServers';
@@ -48,8 +63,9 @@ export const callGetVerifiersMethod = async (): Promise<{
   const endPoint = await PortkeyConfig.endPointUrl();
   const cached = await TempStorage.getString(`${GET_VERIFIERS_METHOD}_${chainId}_${endPoint}`);
   if (cached) return JSON.parse(cached);
-  const contractInstance = await getContractInstance();
+  const contractInstance = await getContractInstance(true);
   const result = await contractInstance.callViewMethod('GetVerifierServers');
+  cachedVerifierData = Object.values(result?.data?.verifierServers ?? {});
   result && TempStorage.set(`${GET_VERIFIERS_METHOD}_${chainId}_${endPoint}`, JSON.stringify(result));
   return result;
 };
@@ -81,7 +97,7 @@ export const callRemoveGuardianMethod = async (
   } = (await getUnlockedWallet()) || {};
   return await contractInstance.callSendMethod('RemoveGuardian', address, {
     caHash,
-    guardianToRemove: parseGuardianConfigInfoToCaType(particularGuardian),
+    guardianToRemove: parseGuardianConfigInfoToCaType(particularGuardian, true),
     guardiansApproved: guardianList.map(item => parseVerifiedGuardianInfoToCaType(item)),
   });
 };
@@ -98,8 +114,8 @@ export const callEditGuardianMethod = async (
   } = (await getUnlockedWallet()) || {};
   return await contractInstance.callSendMethod('UpdateGuardian', address, {
     caHash,
-    guardianToUpdatePre: parseGuardianConfigInfoToCaType(pastGuardian),
-    guardianToUpdateNew: parseGuardianConfigInfoToCaType(thisGuardian),
+    guardianToUpdatePre: parseGuardianConfigInfoToCaType(pastGuardian, true),
+    guardianToUpdateNew: parseGuardianConfigInfoToCaType(thisGuardian, true),
     guardiansApproved: guardianList.map(item => parseVerifiedGuardianInfoToCaType(item)),
   });
 };
@@ -121,19 +137,25 @@ export const callCancelLoginGuardianMethod = async (particularGuardian: Guardian
   });
 };
 
-const parseGuardianConfigInfoToCaType = (guardianConfig: GuardianConfig) => {
-  const { guardianIdentifier } = handleVerificationDoc(guardianConfig.verifiedDoc?.verificationDoc ?? '');
+const parseGuardianConfigInfoToCaType = (guardianConfig: GuardianConfig, withoutVerifyData = false) => {
   const { signature, verificationDoc } = guardianConfig.verifiedDoc || {};
-  if (!signature || !verificationDoc)
+  if (!withoutVerifyData && (!signature || !verificationDoc))
     throw new Error('parseGuardianConfigInfoToCaType:verify data is invalid! ' + JSON.stringify(guardianConfig));
+  const identifierHash = withoutVerifyData
+    ? guardianConfig.identifierHash
+    : handleVerificationDoc(guardianConfig.verifiedDoc?.verificationDoc ?? '')?.guardianIdentifier;
   return {
-    identifierHash: guardianIdentifier,
+    identifierHash,
     type: guardianTypeStrToEnum(guardianConfig.sendVerifyCodeParams.type),
-    verificationInfo: {
-      id: guardianConfig.sendVerifyCodeParams.verifierId,
-      signature: Object.values(Buffer.from(signature as any, 'hex')),
-      verificationDoc,
-    },
+    verificationInfo: withoutVerifyData
+      ? {
+          id: guardianConfig.sendVerifyCodeParams?.verifierId,
+        }
+      : {
+          id: guardianConfig.sendVerifyCodeParams.verifierId,
+          signature: Object.values(Buffer.from(signature as any, 'hex')),
+          verificationDoc,
+        },
   };
 };
 

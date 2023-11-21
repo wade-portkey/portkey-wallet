@@ -24,6 +24,7 @@ import { GlobalStorage } from 'service/storage';
 import { ChainId } from '@portkey-wallet/types';
 import { UserGuardianItem } from '@portkey-wallet/store/store-ca/guardians/type';
 import { LoginType } from '@portkey-wallet/types/types-ca/wallet';
+import { cachedVerifierData } from 'model/contract/handler';
 
 export const COUNTRY_CODE_DATA_KEY = 'countryCodeData';
 export const CURRENT_USING_COUNTRY_CODE = 'currentUsingCountryCode';
@@ -127,12 +128,14 @@ export const parseGuardianInfo = (
   accountOriginalType = AccountOriginalType.Email,
   operationType = OperationTypeEnum.communityRecovery,
 ): GuardianConfig => {
+  const verifierData = cachedVerifierData.find(it => it.id === guardianOriginalInfo.verifierId);
+  const { name = 'Portkey', imageUrl = '' } = verifierData || {};
   return {
     ...guardianOriginalInfo,
     accountIdentifier,
     accountOriginalType,
-    name: guardianOriginalInfo.name ?? 'Portkey',
-    imageUrl: guardianOriginalInfo.imageUrl ?? '',
+    name,
+    imageUrl,
     thirdPartyEmail: guardianOriginalInfo.thirdPartyEmail ?? '',
     sendVerifyCodeParams: {
       type: guardianOriginalInfo.type as any,

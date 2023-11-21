@@ -136,6 +136,7 @@ export interface GuardianConfig {
   thirdPartyEmail?: string;
   verifiedDoc?: CheckVerifyCodeResultDTO;
   identifierHash?: string;
+  verifierId: string;
 }
 
 export enum GuardianStatus {

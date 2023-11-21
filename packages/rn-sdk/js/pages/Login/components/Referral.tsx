@@ -21,6 +21,8 @@ import { defaultColors } from 'assets/theme';
 import { PageLoginType, PageType } from '../types';
 import { useVerifyEntry } from 'model/verify/entry';
 import { isIOS } from '@portkey-wallet/utils/mobile/device';
+import { getOrReadCachedVerifierData } from 'model/contract/handler';
+import Loading from 'components/Loading';
 
 const TitleMap = {
   [PageType.login]: {
@@ -44,7 +46,9 @@ export default function Referral({
 }) {
   // eslint-disable-next-line @typescript-eslint/no-empty-function
 
-  const { onFinish, navigateForResult, getEntryName } = useBaseContainer({});
+  const { onFinish, navigateForResult, getEntryName } = useBaseContainer({
+    entryName: PortkeyEntries.SIGN_IN_ENTRY,
+  });
 
   const setErrorMessage = (msg?: string) => {
     if (msg) {
@@ -53,13 +57,13 @@ export default function Referral({
   };
 
   const { thirdPartyLogin } = useVerifyEntry({
-    type: PageType.login, // keep it
+    type,
     accountOriginalType: AccountOriginalType.Apple,
     entryName: getEntryName() as PortkeyEntries,
     setErrorMessage,
   });
 
-  const onSuccess = (text = 'You have already logged in, page close in 5 seconds') => {
+  const onSuccess = (text = 'You have already logged in, page close in 3 seconds') => {
     CommonToast.success(text);
     setTimeout(() => {
       onFinish({
@@ -68,7 +72,7 @@ export default function Referral({
           finished: true,
         },
       });
-    }, 5000);
+    }, 3000);
   };
 
   const pushToSignUp = () => {
@@ -79,14 +83,19 @@ export default function Referral({
     });
   };
 
-  useEffectOnce(() => {
+  useEffectOnce(async () => {
     baseCheck();
+    Loading.show();
+    try {
+      await getOrReadCachedVerifierData();
+    } catch (_) {}
+    Loading.hide();
   });
 
   const baseCheck = async () => {
     if (await isWalletExists()) {
       if (await isWalletUnlocked()) {
-        onSuccess('wallet is unlocked already, this page will close in 5 seconds');
+        onSuccess('wallet is unlocked already, this page will close in 3 seconds');
       } else {
         const tryToUnlock = async () => {
           navigateForResult<CheckPinResult, CheckPinProps>(PortkeyEntries.CHECK_PIN, {}, res => {
