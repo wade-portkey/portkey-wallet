@@ -76,10 +76,12 @@ const ModifyGuardian = (config: { info: string }) => {
       } = await getUnlockedWallet();
       const chainId = await PortkeyConfig.currChainId();
       const guardiansInfo = await NetworkController.getGuardianInfo('', caHash);
+      const cachedVerifierData = Object.values((await getOrReadCachedVerifierData()).data?.verifierServers ?? {});
       const parsedGuardians = guardiansInfo?.guardianList?.guardians?.map(guardian => {
         return parseGuardianInfo(
           guardian,
           chainId,
+          cachedVerifierData,
           undefined,
           undefined,
           AccountOriginalType.Email,

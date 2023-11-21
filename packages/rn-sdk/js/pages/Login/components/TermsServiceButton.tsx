@@ -13,13 +13,13 @@ import useEffectOnce from 'hooks/useEffectOnce';
 
 export default function TermsServiceButton() {
   const { navigateForResult } = useBaseContainer({});
-  const [prefix, setPrifix] = useState<string>('By proceeding, you agree to the');
+  const [prefix, setPrefix] = useState<string>('By proceeding, you agree to the');
   const [title, setTitle] = useState<string>('Terms of Service.');
   useEffectOnce(() => {
     (async () => {
       const storagePrefix = await GlobalStorage.getString('PortkeySDKTermsOfServicePrefix');
       const storageTitle = await GlobalStorage.getString('PortkeySDKTermsOfServiceTitle');
-      if (storagePrefix) setPrifix(storagePrefix);
+      if (storagePrefix) setPrefix(storagePrefix);
       if (storageTitle) setTitle(storageTitle);
     })();
   });

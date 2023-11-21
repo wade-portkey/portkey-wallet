@@ -22,7 +22,7 @@ import { UserGuardianItem } from '@portkey-wallet/store/store-ca/guardians/type'
 import { GuardianConfig } from 'model/verify/guardian';
 import { PortkeyConfig } from 'global/constants';
 import useEffectOnce from 'hooks/useEffectOnce';
-import { getContractInstance } from 'model/contract/handler';
+import { getContractInstance, getOrReadCachedVerifierData } from 'model/contract/handler';
 import { guardianEnumToTypeStr, guardianTypeStrToEnum, isReacptchaOpen, parseGuardianInfo } from 'model/global';
 import { AccountOriginalType } from 'model/verify/after-verify';
 import { getUnlockedWallet } from 'model/wallet';
@@ -69,10 +69,12 @@ export default function GuardianDetail(config: { info: string }) {
     } = await getUnlockedWallet();
     const chainId = await PortkeyConfig.currChainId();
     const guardiansInfo = await NetworkController.getGuardianInfo('', caHash);
+    const cachedVerifierData = Object.values((await getOrReadCachedVerifierData()).data?.verifierServers ?? {});
     const parsedGuardians = guardiansInfo?.guardianList?.guardians?.map(it => {
       return parseGuardianInfo(
         it,
         chainId,
+        cachedVerifierData,
         undefined,
         undefined,
         AccountOriginalType.Email,
