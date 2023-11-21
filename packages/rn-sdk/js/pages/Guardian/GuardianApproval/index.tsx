@@ -487,7 +487,7 @@ export default function GuardianApproval({
                   key: `${index}`,
                   identifierHash: '',
                   verifier: {
-                    id: item.verifierId,
+                    id: item.sendVerifyCodeParams.verifierId,
                     name: item.name,
                     imageUrl: item.imageUrl,
                   },
