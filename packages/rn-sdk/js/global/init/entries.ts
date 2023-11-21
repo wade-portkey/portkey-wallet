@@ -60,6 +60,7 @@ const initEntries = () => {
   for (const [key, value] of entryConfig) {
     AppRegistry.registerComponent(key, value);
   }
+  registerLaunchMode();
 };
 export enum LaunchMode {
   STANDARD = 'standard',
@@ -71,4 +72,4 @@ const registerLaunchMode = () => {
   LaunchModeSet.set(PortkeyEntries.ACCOUNT_SETTING_ENTRY, LaunchMode.SINGLE_TASK.toString());
 };
 export const LaunchModeSet = new Map();
-export { initEntries, registerLaunchMode };
+export { initEntries };

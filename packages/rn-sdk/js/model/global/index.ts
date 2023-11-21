@@ -24,7 +24,7 @@ import { GlobalStorage } from 'service/storage';
 import { ChainId } from '@portkey-wallet/types';
 import { UserGuardianItem } from '@portkey-wallet/store/store-ca/guardians/type';
 import { LoginType } from '@portkey-wallet/types/types-ca/wallet';
-import { cachedVerifierData } from 'model/contract/handler';
+import { Verifier, getOrReadCachedVerifierData } from 'model/contract/handler';
 
 export const COUNTRY_CODE_DATA_KEY = 'countryCodeData';
 export const CURRENT_USING_COUNTRY_CODE = 'currentUsingCountryCode';
@@ -111,11 +111,14 @@ export const getSocialRecoveryPageData = async (
 ): Promise<GuardianVerifyConfig> => {
   const guardians = await NetworkController.getGuardianInfo(accountIdentifier);
   const chainId = await PortkeyConfig.currChainId();
+  const cachedVerifierData = Object.values((await getOrReadCachedVerifierData()).data?.verifierServers ?? {});
   return {
     accountIdentifier,
     accountOriginalType,
     guardianVerifyType: GuardianVerifyType.CREATE_WALLET,
-    guardians: (guardians?.guardianList?.guardians ?? []).map(guardian => parseGuardianInfo(guardian, chainId)),
+    guardians: (guardians?.guardianList?.guardians ?? []).map(guardian =>
+      parseGuardianInfo(guardian, chainId, cachedVerifierData),
+    ),
     thirdPartyAccountInfo,
   };
 };
@@ -123,6 +126,7 @@ export const getSocialRecoveryPageData = async (
 export const parseGuardianInfo = (
   guardianOriginalInfo: GuardianInfo,
   chainId: ChainId,
+  cachedVerifierData: Array<Verifier>,
   verifiedData?: CheckVerifyCodeResultDTO,
   accountIdentifier = '',
   accountOriginalType = AccountOriginalType.Email,

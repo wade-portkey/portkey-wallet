@@ -10,6 +10,7 @@ import { OnGuardianHomeNewIntent } from 'pages/GuardianManage/GuardianHome';
 import { GuardianApprovalPageProps, GuardianApprovalPageResult } from 'pages/entries/GuardianApproval';
 import { VerifierDetailsPageProps, VerifierDetailsPageResult } from 'pages/entries/VerifierDetails';
 import { getUnlockedWallet } from 'model/wallet';
+import { getOrReadCachedVerifierData } from 'model/contract/handler';
 
 const navigateToForResult = async <P, R>(entryName: string, props: P, from = 'UNKNOWN'): Promise<R | null> => {
   return new Promise<R | null>((resolve, _) => {
@@ -59,8 +60,9 @@ export const handleGuardiansApproval = async (config: GuardianVerifyConfig) => {
         caInfo: { caHash },
       } = await getUnlockedWallet();
       const guardiansInfo = await NetworkController.getGuardianInfo('', caHash);
+      const cachedVerifierData = Object.values((await getOrReadCachedVerifierData()).data?.verifierServers ?? {});
       const parsedGuardians = guardiansInfo?.guardianList?.guardians?.map(guardian => {
-        return parseGuardianInfo(guardian, chainId);
+        return parseGuardianInfo(guardian, chainId, cachedVerifierData);
       });
       if (parsedGuardians?.length > 0) config.guardians = parsedGuardians;
     }
