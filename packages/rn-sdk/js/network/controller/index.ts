@@ -30,6 +30,7 @@ import { sleep } from '@portkey-wallet/utils';
 import { getCachedNetworkToken, networkTokenSwitch } from 'network/token';
 import { BackEndNetWorkMap } from '@portkey-wallet/constants/constants-ca/backend-network';
 import { isWalletUnlocked } from 'model/verify/after-verify';
+import { SymbolImages } from 'model/symbolImage';
 
 const DEFAULT_MAX_POLLING_TIMES = 50;
 
@@ -61,6 +62,9 @@ export class NetworkControllerEntity {
     return await this.realExecute<RegisterStatusDTO>(await this.parseUrl(APIPaths.GET_REGISTER_INFO), 'GET', {
       loginGuardianIdentifier: accountIdentifier,
     });
+  };
+  getSymbolImage = async (): Promise<ResultWrapper<SymbolImages>> => {
+    return await this.realExecute<SymbolImages>(await this.parseUrl(APIPaths.GET_SYMBOL_IMAGE), 'GET', {});
   };
 
   getAccountIdentifierResult = async (

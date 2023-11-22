@@ -19,6 +19,7 @@ import Biometric from 'pages/My/Biometric';
 import AddGuardian from 'pages/Guardian/GuardianManage/AddGuardian';
 import ModifyGuardian from 'pages/Guardian/GuardianManage/ModifyGuardian';
 import GuardianDetail from 'pages/Guardian/GuardianDetail';
+import ReceiveTokenPage from 'pages/Assets/ReceiveToken';
 
 type AcceptableComponentType = ComponentProvider;
 
@@ -56,6 +57,8 @@ const initEntries = () => {
 
   entryConfig.set(PortkeyEntries.ACCOUNT_SETTING_ENTRY, () => AccountSettings);
   entryConfig.set(PortkeyEntries.BIOMETRIC_SWITCH_ENTRY, () => Biometric);
+
+  entryConfig.set(PortkeyEntries.RECEIVE_TOKEN_ENTRY, () => ReceiveTokenPage);
 
   for (const [key, value] of entryConfig) {
     AppRegistry.registerComponent(key, value);

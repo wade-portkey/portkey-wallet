@@ -23,6 +23,8 @@ export enum PortkeyEntries {
   SCAN_QR_CODE = 'scan_qr_code_entry',
   SCAN_LOG_IN = 'scan_log_in_entry',
   VIEW_ON_WEBVIEW = 'view_on_webview',
+
+  RECEIVE_TOKEN_ENTRY = 'receive_token_entry',
 }
 
 export function isPortkeyEntries(variable: any): boolean {
