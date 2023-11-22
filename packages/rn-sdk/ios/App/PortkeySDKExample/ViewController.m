@@ -15,6 +15,8 @@
 #import "TermsOfServiceViewController.h"
 #import <PortkeySDK/PortkeySDKJSCallModule.h>
 #import "BundleConfigViewController.h"
+#import <PortkeySDK/PortkeySDKContractModule.h>
+#import <PortkeySDK/NSDictionary+PortkeySDK.h>
 
 @interface ViewController ()
 
@@ -36,6 +38,8 @@
 
 @property (nonatomic, strong) UIButton *termsButton;
 @property (nonatomic, strong) UIButton *bundleConfigButton;
+@property (nonatomic, strong) UIButton *contractCallButton;
+@property (nonatomic, strong) PortkeySDKContractModule *contractModule;
 
 @end
 
@@ -135,7 +139,24 @@
         [self.navigationController pushViewController:[BundleConfigViewController new] animated:YES];
     }];
     [self.view addSubview:self.bundleConfigButton];
-    
+ 
+    self.contractCallButton = [self createButtonWithTitle:@"Contract Call"];
+    self.contractCallButton.frame = self.bundleConfigButton.frame;
+    self.contractCallButton.top = self.bundleConfigButton.bottom + 5;
+    [self.contractCallButton addBlockForControlEvents:UIControlEventTouchUpInside block:^(id  _Nonnull sender) {
+        @strongify(self)
+        PortkeySDKContractCallParam *callParam = [PortkeySDKContractCallParam new];
+        callParam.contractMethodName = @"GetVerifierServers";
+        callParam.isViewMethod = NO;
+        [self.contractModule callCaContractMethodWithParam:callParam callback:^(NSError * _Nullable error, NSDictionary * _Nullable result) {
+            if (error) {
+                [self.view makeToast:@"call contract [GetVerifierServers] error"];
+            } else {
+                [self.view makeToast:[result portkey_jsonString]];
+            }
+        }];
+    }];
+    [self.view addSubview:self.contractCallButton];
 }
 
 - (void)didReceiveMemoryWarning
@@ -244,6 +265,13 @@
     button.titleLabel.font = [UIFont boldSystemFontOfSize:18];
     [button setBackgroundColor:[UIColor lightGrayColor]];
     return button;
+}
+
+- (PortkeySDKContractModule *)contractModule {
+    if (!_contractModule) {
+        _contractModule = [PortkeySDKContractModule new];
+    }
+    return _contractModule;
 }
 
 @end
