@@ -239,8 +239,8 @@ export class NetworkControllerEntity {
     return res.result;
   };
 
-  checkUserTokenAssets = async (config: FetchUserTokenConfig): Promise<GetUserTokenListResult | null | undefined> => {
-    const { chainIdArray, keyword } = config;
+  checkUserTokenAssets = async (config?: FetchUserTokenConfig): Promise<GetUserTokenListResult | null | undefined> => {
+    const { chainIdArray = ['AELF', 'tDVV', 'tDVW'], keyword = '' } = config || {};
     const chainIdSearchLanguage = chainIdArray.map(chainId => `token.chainId:${chainId}`).join(' OR ');
 
     const filterKeywords =

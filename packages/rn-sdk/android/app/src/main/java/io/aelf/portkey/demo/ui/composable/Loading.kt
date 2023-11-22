@@ -111,9 +111,15 @@ internal object Loading {
         )
     }
 
-    internal fun showLoading(text: String = DEFAULT_LOADING_TEXT) {
+    internal fun showLoading(text: String = DEFAULT_LOADING_TEXT, duration: Long = 10 * 1000L) {
         loadingState.isShow = true
         loadingState.loadingText = text
+        if (duration > 0L) {
+            CoroutineScope(Dispatchers.IO).launch {
+                delay(duration)
+                hideLoading()
+            }
+        }
     }
 
     internal fun hideLoading(duration: Long = 0L) {
@@ -175,10 +181,10 @@ private fun LoadingComponentPreview() {
             Text("Hide loading")
         }
         UseEffect(loadingState.isShow) {
-            Log.e("Portkey.Loading","useEffect")
+            Log.e("Portkey.Loading", "useEffect")
         }
         UseComponentWillUnmount {
-            Log.e("Portkey.Loading","useComponentWillUnmount")
+            Log.e("Portkey.Loading", "useComponentWillUnmount")
         }
     }
 }

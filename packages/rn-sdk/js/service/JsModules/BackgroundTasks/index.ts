@@ -7,8 +7,10 @@ import { JsModuleEntries } from '../BatchedBridges';
  * Remember that headless tasks have no module name.
  */
 const initHeadlessTasks = () => {
-  Object.entries(JsModuleEntries).forEach(([_, module]) => {
+  Object.entries(JsModuleEntries).forEach(([name, module]) => {
+    console.log('initHeadlessTasks : ', `initHeadlessTasks called, module name: ${name}`);
     Object.entries(module).forEach(([key, value]) => {
+      console.log('initHeadlessTasks : ', `initHeadlessTasks called, key: ${key}`);
       AppRegistry.registerHeadlessTask(key, () => value);
     });
   });

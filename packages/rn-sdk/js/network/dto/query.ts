@@ -1,8 +1,8 @@
 import { ChainId } from '@portkey-wallet/types';
 
 export interface FetchUserTokenConfig {
-  keyword: string;
-  chainIdArray: string[];
+  keyword?: string; // used to filter token list, can be empty
+  chainIdArray?: string[]; // if not provided, it's ['AELF', 'tDVV','tDVW']
 }
 
 export type GetUserTokenListResult = {
@@ -25,5 +25,4 @@ export type IUserTokenItem = {
 
 export type FetchTokenPriceResult = {
   items: Array<{ symbol: string; priceInUsd: number }>;
-  totalRecordCount: number;
 };

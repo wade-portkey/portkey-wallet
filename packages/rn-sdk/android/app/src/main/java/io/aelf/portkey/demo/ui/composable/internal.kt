@@ -37,12 +37,14 @@ open class Style {
     var textColor: Color = Color.Black
     var bgImage: String = "undefined"
 }
+
 enum class ZIndexConfig(private val z: Float) {
     Loading(100f),
     Dialog(50f),
     SubIcon(18f),
     MainIcon(15f),
     Modal(10f);
+
     internal fun getZIndex(): Float {
         return z
     }
@@ -51,6 +53,11 @@ enum class ZIndexConfig(private val z: Float) {
 @Composable
 internal fun dynamicWidth(paddingHorizontal: Int = 0): Dp {
     return (LocalConfiguration.current.screenWidthDp - 2 * paddingHorizontal).dp
+}
+
+@Composable
+internal fun dynamicHeight(times: Double = 1.0): Dp {
+    return (LocalConfiguration.current.screenHeightDp * times).dp
 }
 
 
