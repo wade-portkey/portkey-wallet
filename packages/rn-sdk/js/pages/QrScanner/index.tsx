@@ -27,7 +27,7 @@ import useEffectOnce from 'hooks/useEffectOnce';
 import { ScanToLoginProps } from 'pages/Login/ScanLogin';
 import { isWalletUnlocked } from 'model/verify/after-verify';
 import { checkIsPortKeyUrl, isEntryScheme } from 'utils/scheme';
-import { myThrottle } from 'utils/commonUtil';
+import { getCurrentNetwork, myThrottle } from 'utils/commonUtil';
 
 const QrScanner: React.FC = () => {
   const { t } = useLanguage();
@@ -91,7 +91,7 @@ const QrScanner: React.FC = () => {
         if (entry !== undefined && isPortkeyEntries(entry)) {
           navigationTo(entry as PortkeyEntries, { params: params });
         } else {
-          CommonToast.fail('It looks like you want to jump to the page, but you don’t have the entry parameter');
+          CommonToast.fail('It looks like you want to jump to the page, but you don’t have the right entry parameter');
         }
       }
     },
@@ -103,7 +103,7 @@ const QrScanner: React.FC = () => {
     }
     canScan.current = false;
     if (typeof data !== 'string') return invalidQRCode(InvalidQRCodeText.INVALID_QR_CODE);
-    const currentNetwork = await determineCurrentNetwork();
+    const currentNetwork = await getCurrentNetwork();
     try {
       const str = data.replace(/("|'|\s)/g, '');
       if (checkIsUrl(str)) {
@@ -306,10 +306,6 @@ export enum InvalidQRCodeText {
 }
 
 export interface ScanQRCodeResult {}
-
-const determineCurrentNetwork = async (): Promise<NetworkType> => {
-  return (await PortkeyConfig.endPointUrl()) === EndPoints.MAIN_NET ? 'MAIN' : 'TESTNET';
-};
 
 const ensurePermission = async (
   permission: PermissionType,
