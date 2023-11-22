@@ -217,8 +217,9 @@ export default function GuardianApproval({
         Loading.show();
         const result = await callEditGuardianMethod(particularGuardian, pastGuardian, getVerifiedGuardianInfo());
         Loading.hide();
+        console.log('MODIFY_GUARDIAN result', result.error);
         onPageFinish({
-          isVerified: result?.error ? false : true,
+          isVerified: result.error ? false : true,
         });
         break;
       }

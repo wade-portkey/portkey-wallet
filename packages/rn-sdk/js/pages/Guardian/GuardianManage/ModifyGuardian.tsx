@@ -63,6 +63,7 @@ const ModifyGuardian = (config: { info: string }) => {
   const thirdPartyInfoRef = useRef<thirdPartyInfoType>();
 
   useEffectOnce(async () => {
+    Loading.show();
     try {
       const { particularGuardianInfo, originalGuardianItem } = JSON.parse(config.info) as ModifyGuardianProps;
       particularGuardianInfo && setEditGuardian(particularGuardianInfo);
@@ -93,6 +94,7 @@ const ModifyGuardian = (config: { info: string }) => {
     } catch (e) {
       console.log('error', e);
     }
+    Loading.hide();
   });
 
   useEffect(() => {
@@ -164,7 +166,10 @@ const ModifyGuardian = (config: { info: string }) => {
     thisGuardian.name = selectedVerifier.name;
     thisGuardian.imageUrl = selectedVerifier.imageUrl;
     const guardianList = userGuardiansList.filter(
-      it => it.sendVerifyCodeParams.verifierId !== editGuardian.sendVerifyCodeParams.verifierId,
+      it =>
+        it.sendVerifyCodeParams.verifierId !== editGuardian.sendVerifyCodeParams.verifierId ||
+        it.sendVerifyCodeParams.guardianIdentifier !== editGuardian.sendVerifyCodeParams.guardianIdentifier ||
+        it.sendVerifyCodeParams.type !== editGuardian.sendVerifyCodeParams.type,
     );
     guardianList.push(thisGuardian);
     handleGuardiansApproval({
