@@ -156,15 +156,24 @@ const ModifyGuardian = (config: { info: string }) => {
     setGuardianError(_guardianError);
     if (_guardianError.isError || !editGuardian || !selectedVerifier) return;
     Loading.show();
-    const thisGuardian = JSON.parse(JSON.stringify(editGuardian));
-    thisGuardian.sendVerifyCodeParams.verifierId = selectedVerifier.id;
+    const thisGuardian = JSON.parse(JSON.stringify(editGuardian)) as GuardianConfig;
+    thisGuardian.sendVerifyCodeParams = {
+      ...thisGuardian.sendVerifyCodeParams,
+      verifierId: selectedVerifier.id,
+    };
+    thisGuardian.name = selectedVerifier.name;
+    thisGuardian.imageUrl = selectedVerifier.imageUrl;
+    const guardianList = userGuardiansList.filter(
+      it => it.sendVerifyCodeParams.verifierId !== editGuardian.sendVerifyCodeParams.verifierId,
+    );
+    guardianList.push(thisGuardian);
     handleGuardiansApproval({
       particularGuardian: thisGuardian,
       pastGuardian: editGuardian,
       guardianVerifyType: GuardianVerifyType.MODIFY_GUARDIAN,
       accountIdentifier: editGuardian.accountIdentifier ?? '',
       accountOriginalType: editGuardian.accountOriginalType ?? AccountOriginalType.Email,
-      guardians: userGuardiansList,
+      guardians: guardianList,
       failHandler: () => {
         CommonToast.fail('Edit guardian fail');
       },
