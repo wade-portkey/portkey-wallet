@@ -164,7 +164,10 @@ const ModifyGuardian = (config: { info: string }) => {
     thisGuardian.name = selectedVerifier.name;
     thisGuardian.imageUrl = selectedVerifier.imageUrl;
     const guardianList = userGuardiansList.filter(
-      it => it.sendVerifyCodeParams.verifierId !== editGuardian.sendVerifyCodeParams.verifierId,
+      it =>
+        it.sendVerifyCodeParams.verifierId !== editGuardian.sendVerifyCodeParams.verifierId ||
+        it.sendVerifyCodeParams.guardianIdentifier !== editGuardian.sendVerifyCodeParams.guardianIdentifier ||
+        it.sendVerifyCodeParams.type !== editGuardian.sendVerifyCodeParams.type,
     );
     guardianList.push(thisGuardian);
     handleGuardiansApproval({
