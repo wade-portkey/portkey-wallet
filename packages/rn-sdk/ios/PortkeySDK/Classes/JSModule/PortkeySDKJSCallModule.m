@@ -34,18 +34,20 @@
              callback:(PortkeySDKJSMethodCallback)callback {
     NSString *eventId = [[NSUUID UUID] UUIDString] ?: @"";
     [self setMethodEventCallback:callback eventId:eventId];
-    NSDictionary *args = @{
+    NSMutableDictionary *args = [[NSMutableDictionary alloc] initWithDictionary:@{
         @"eventId" : eventId,
-        @"params": params ?: [NSNull null],
-    };
+    }];
+    [args addEntriesFromDictionary:params];
     [self.bridge enqueueJSCall:moduleName method:method args:@[args] completion:^{}];
 }
 
 - (void)callCallbackWithEventId:(NSString *)eventId result:(NSString *)result {
     PortkeySDKJSMethodCallback callback = [self getMethodEventCallback:eventId];
     if (callback) {
-        callback(result);
-        [self removeMethodEventCallback:eventId];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            callback(result);
+            [self removeMethodEventCallback:eventId];
+        });
     }
 }
 

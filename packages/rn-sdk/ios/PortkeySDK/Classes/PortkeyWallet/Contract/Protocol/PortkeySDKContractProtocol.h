@@ -6,10 +6,14 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <PortkeySDK/PortkeySDKContractCallParam.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol PortkeySDKContractProtocol <NSObject>
+
+- (void)callCaContractMethodWithParam:(PortkeySDKContractCallParam *)param
+                             callback:(void(^)(NSError * _Nullable, NSDictionary * _Nullable))callback;
 
 @end
 
