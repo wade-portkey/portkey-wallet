@@ -32,9 +32,11 @@ RCT_EXPORT_METHOD(navigateTo:(NSString *)entry
 {
     if (entry.length <= 0) return;
     dispatch_async(dispatch_get_main_queue(), ^{
+        NSString *containerId = [[NSUUID UUID] UUIDString] ?: @"";
         NSMutableDictionary *props = [[NSMutableDictionary alloc] initWithDictionary:@{
             @"from": from ?: @"",
-            @"targetScene": targetScene ?: @""
+            @"targetScene": targetScene ?: @"",
+            @"containerId": containerId,
         }];
         if (params) {
             [props addEntriesFromDictionary:params];
@@ -46,6 +48,7 @@ RCT_EXPORT_METHOD(navigateTo:(NSString *)entry
             return;
         }
         PortkeySDKRNViewController *vc = [[PortkeySDKRNViewController alloc] initWithModuleName:entry initialProperties:props];
+        vc.containerId = containerId;
         if (launchMode.length) vc.launchMode = launchMode;
         [navigationController pushViewController:vc animated:YES];
     });
@@ -67,7 +70,11 @@ RCT_EXPORT_METHOD(navigateToWithOptions:(NSString *)entry
             return;
         }
         
-        NSDictionary *props = [params valueForKey:@"params"];
+        NSMutableDictionary *props = [[NSMutableDictionary alloc] initWithDictionary:[params valueForKey:@"params"]];
+        NSString *containerId = [[NSUUID UUID] UUIDString] ?: @"";
+        [props addEntriesFromDictionary:@{
+            @"containerId": containerId,
+        }];
         PortkeySDKRNViewController *vc = [[PortkeySDKRNViewController alloc] initWithModuleName:entry initialProperties:props];
         if (callback) {
             vc.navigateCallback = callback;

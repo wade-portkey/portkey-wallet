@@ -126,17 +126,16 @@ export interface GuardianEntity {
 export interface GuardianConfig {
   accountIdentifier: string;
   accountOriginalType: AccountOriginalType;
-  readonly isLoginGuardian: boolean;
-  readonly name: string;
-  readonly imageUrl: string;
+  isLoginGuardian: boolean;
+  name: string;
+  imageUrl: string;
   sendVerifyCodeParams: SendVerifyCodeParams;
-  readonly salt?: string;
+  salt?: string;
   alreadySent?: boolean;
   verifySessionId?: string;
   thirdPartyEmail?: string;
   verifiedDoc?: CheckVerifyCodeResultDTO;
   identifierHash?: string;
-  verifierId: string;
 }
 
 export enum GuardianStatus {

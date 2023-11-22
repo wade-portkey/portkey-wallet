@@ -63,6 +63,7 @@ const ModifyGuardian = (config: { info: string }) => {
   const thirdPartyInfoRef = useRef<thirdPartyInfoType>();
 
   useEffectOnce(async () => {
+    Loading.show();
     try {
       const { particularGuardianInfo, originalGuardianItem } = JSON.parse(config.info) as ModifyGuardianProps;
       particularGuardianInfo && setEditGuardian(particularGuardianInfo);
@@ -76,10 +77,12 @@ const ModifyGuardian = (config: { info: string }) => {
       } = await getUnlockedWallet();
       const chainId = await PortkeyConfig.currChainId();
       const guardiansInfo = await NetworkController.getGuardianInfo('', caHash);
+      const cachedVerifierData = Object.values((await getOrReadCachedVerifierData()).data?.verifierServers ?? {});
       const parsedGuardians = guardiansInfo?.guardianList?.guardians?.map(guardian => {
         return parseGuardianInfo(
           guardian,
           chainId,
+          cachedVerifierData,
           undefined,
           undefined,
           AccountOriginalType.Email,
@@ -91,6 +94,7 @@ const ModifyGuardian = (config: { info: string }) => {
     } catch (e) {
       console.log('error', e);
     }
+    Loading.hide();
   });
 
   useEffect(() => {
@@ -154,15 +158,27 @@ const ModifyGuardian = (config: { info: string }) => {
     setGuardianError(_guardianError);
     if (_guardianError.isError || !editGuardian || !selectedVerifier) return;
     Loading.show();
-    const thisGuardian = JSON.parse(JSON.stringify(editGuardian));
-    thisGuardian.sendVerifyCodeParams.verifierId = selectedVerifier.id;
+    const thisGuardian = JSON.parse(JSON.stringify(editGuardian)) as GuardianConfig;
+    thisGuardian.sendVerifyCodeParams = {
+      ...thisGuardian.sendVerifyCodeParams,
+      verifierId: selectedVerifier.id,
+    };
+    thisGuardian.name = selectedVerifier.name;
+    thisGuardian.imageUrl = selectedVerifier.imageUrl;
+    const guardianList = userGuardiansList.filter(
+      it =>
+        it.sendVerifyCodeParams.verifierId !== editGuardian.sendVerifyCodeParams.verifierId ||
+        it.sendVerifyCodeParams.guardianIdentifier !== editGuardian.sendVerifyCodeParams.guardianIdentifier ||
+        it.sendVerifyCodeParams.type !== editGuardian.sendVerifyCodeParams.type,
+    );
+    guardianList.push(thisGuardian);
     handleGuardiansApproval({
       particularGuardian: thisGuardian,
       pastGuardian: editGuardian,
       guardianVerifyType: GuardianVerifyType.MODIFY_GUARDIAN,
       accountIdentifier: editGuardian.accountIdentifier ?? '',
       accountOriginalType: editGuardian.accountOriginalType ?? AccountOriginalType.Email,
-      guardians: userGuardiansList,
+      guardians: guardianList,
       failHandler: () => {
         CommonToast.fail('Edit guardian fail');
       },
@@ -320,6 +336,9 @@ export const checkIsTheLastLoginGuardian = (
   guardianList: Array<GuardianConfig>,
   thisGuardian: GuardianConfig,
 ): boolean => {
+  if (!thisGuardian.isLoginGuardian) {
+    return false;
+  }
   return !guardianList
     .filter(
       it =>

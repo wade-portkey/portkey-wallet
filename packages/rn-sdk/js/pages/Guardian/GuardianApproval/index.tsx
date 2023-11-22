@@ -83,7 +83,7 @@ export default function GuardianApproval({
     }
   }
 
-  const { navigateForResult } = useBaseContainer({
+  const { navigateForResult, onFinish: onBackPage } = useBaseContainer({
     entryName: PortkeyEntries.GUARDIAN_APPROVAL_ENTRY,
   });
 
@@ -149,8 +149,11 @@ export default function GuardianApproval({
   });
 
   const onBack = () => {
-    onPageFinish({
-      isVerified: false,
+    onBackPage({
+      status: 'cancel',
+      data: {
+        isVerified: false,
+      },
     });
   };
 
@@ -214,8 +217,9 @@ export default function GuardianApproval({
         Loading.show();
         const result = await callEditGuardianMethod(particularGuardian, pastGuardian, getVerifiedGuardianInfo());
         Loading.hide();
+        console.log('MODIFY_GUARDIAN result', result.error);
         onPageFinish({
-          isVerified: result?.error ? false : true,
+          isVerified: result.error ? false : true,
         });
         break;
       }
@@ -374,7 +378,10 @@ export default function GuardianApproval({
                   token = (await verifyHumanMachine('en')) as string;
                 }
                 const sendResult = await NetworkController.sendVerifyCode(
-                  Object.assign({}, guardian.sendVerifyCodeParams, { operationType }),
+                  {
+                    ...guardian.sendVerifyCodeParams,
+                    operationType,
+                  },
                   {
                     reCaptchaToken: token ?? '',
                   },
@@ -487,7 +494,7 @@ export default function GuardianApproval({
                   key: `${index}`,
                   identifierHash: '',
                   verifier: {
-                    id: item.verifierId,
+                    id: item.sendVerifyCodeParams.verifierId,
                     name: item.name,
                     imageUrl: item.imageUrl,
                   },

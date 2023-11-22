@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
+import com.google.gson.JsonElement
 import io.aelf.portkey.components.activities.entered
 import io.aelf.portkey.components.logic.JSEventBus
 import io.aelf.portkey.components.services.GeneralJSMethodService
@@ -13,7 +14,24 @@ internal fun generateUniqueCallbackID(): String {
 }
 
 
-fun startJSBackgroundTaskTest(applicationContext: Context, callback: (JSMethodData) -> Unit = {}) {
+fun callCaContractMethodTest(applicationContext: Context, callback: (JSMethodData) -> Unit = {}) {
+    val bundle = Bundle()
+    bundle.putString("contractMethodName", "GetVerifierServers")
+    bundle.putBoolean("isViewMethod", false)
+    callJsMethod(applicationContext, "callCaContractMethod", bundle, callback)
+}
+
+fun runTestCases(applicationContext: Context, callback: (JSMethodData) -> Unit = {}) {
+    val bundle = Bundle()
+    callJsMethod(applicationContext, "runTestCases", bundle, callback)
+}
+
+internal fun callJsMethod(
+    applicationContext: Context,
+    taskName: String,
+    bundle: Bundle = Bundle(),
+    callback: (JSMethodData) -> Unit = {}
+) {
     if (!entered) {
         Toast.makeText(
             applicationContext,
@@ -22,22 +40,19 @@ fun startJSBackgroundTaskTest(applicationContext: Context, callback: (JSMethodDa
         ).show()
         return
     }
-    val methodName = "callContractMethod"
-    val service = Intent(applicationContext, GeneralJSMethodService::class.java)
-    val bundle = Bundle()
+    bundle.putString("taskName", taskName)
     val callbackId = generateUniqueCallbackID()
-    bundle.putString("methodName", methodName)
     bundle.putString("eventId", callbackId)
-    bundle.putBoolean("isViewMethod", false)
-    bundle.putBundle("params", Bundle().apply {
-        putString("contractAddress", "2.0.0")
-        putString("methodName", "GetBlockHeight")
-    })
-    service.putExtras(bundle)
     JSEventBus.registerCallback(callbackId, callback, JSMethodData::class.java)
+    val service = Intent(applicationContext, GeneralJSMethodService::class.java)
+    service.putExtras(bundle)
     applicationContext.startService(service)
 }
 
 data class JSMethodData(
-    val data: Any
+    val status: String, //  'success' | 'fail'
+    val transactionId: String,
+    val data: JsonElement,
+    val error: JsonElement
 )
+

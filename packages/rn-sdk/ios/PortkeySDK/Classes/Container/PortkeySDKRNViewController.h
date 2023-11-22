@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy, readonly) NSString *moduleName;
 @property (nonatomic, copy, nullable) RCTResponseSenderBlock navigateCallback;
 @property (nonatomic, copy) NSString *launchMode;
+@property (nonatomic, copy) NSString *containerId;
 
 - (instancetype)initWithModuleName:(NSString *)moduleName;
 
