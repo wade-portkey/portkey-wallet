@@ -1,4 +1,4 @@
-import { GuardianVerifyConfig } from 'model/verify/social-recovery';
+import { GuardianVerifyConfig, GuardianVerifyType } from 'model/verify/social-recovery';
 import { PortkeyEntries } from '../../../config/entries';
 import BaseContainer, { BaseContainerProps } from '../../../model/container/BaseContainer';
 import GuardianApproval from 'pages/Guardian/GuardianApproval';
@@ -27,12 +27,20 @@ export default class GuardianApprovalEntryPage extends BaseContainer<
   getEntryName = (): string => PortkeyEntries.GUARDIAN_APPROVAL_ENTRY;
 
   onPageFinish = (result: GuardianApprovalPageResult) => {
+    const { guardianVerifyType } = this.state.config;
     const { deliveredVerifiedData, isVerified } = result || {};
-    if (!deliveredVerifiedData || !isVerified) {
-      CommonToast.fail('verification failed, please try again.');
-      return;
+    if (guardianVerifyType === GuardianVerifyType.CREATE_WALLET) {
+      if (!deliveredVerifiedData || !isVerified) {
+        CommonToast.fail('verification failed, please try again.');
+        return;
+      } else {
+        this.dealWithSetPin(deliveredVerifiedData);
+      }
     } else {
-      this.dealWithSetPin(deliveredVerifiedData);
+      this.onFinish({
+        status: isVerified ? 'success' : 'fail',
+        data: result,
+      });
     }
   };
   dealWithSetPin = (afterVerifiedData: AfterVerifiedConfig | string) => {

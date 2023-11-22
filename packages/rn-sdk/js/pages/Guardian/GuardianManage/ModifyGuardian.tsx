@@ -63,6 +63,7 @@ const ModifyGuardian = (config: { info: string }) => {
   const thirdPartyInfoRef = useRef<thirdPartyInfoType>();
 
   useEffectOnce(async () => {
+    Loading.show();
     try {
       const { particularGuardianInfo, originalGuardianItem } = JSON.parse(config.info) as ModifyGuardianProps;
       particularGuardianInfo && setEditGuardian(particularGuardianInfo);
@@ -93,6 +94,7 @@ const ModifyGuardian = (config: { info: string }) => {
     } catch (e) {
       console.log('error', e);
     }
+    Loading.hide();
   });
 
   useEffect(() => {
