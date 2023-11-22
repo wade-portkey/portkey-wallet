@@ -377,7 +377,10 @@ export default function GuardianApproval({
                   token = (await verifyHumanMachine('en')) as string;
                 }
                 const sendResult = await NetworkController.sendVerifyCode(
-                  Object.assign({}, guardian.sendVerifyCodeParams, { operationType }),
+                  {
+                    ...guardian.sendVerifyCodeParams,
+                    operationType,
+                  },
                   {
                     reCaptchaToken: token ?? '',
                   },
