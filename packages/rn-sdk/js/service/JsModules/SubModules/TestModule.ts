@@ -1,5 +1,5 @@
-import { addNetworkTestCases } from 'tests/network';
-import { BaseJSModule, BaseMethodParams } from '../types';
+import { NetworkTestCases } from 'tests/network';
+import { BaseJSModule, BaseMethodParams, TestCase, TestContext, TestReport } from '../types';
 import { emitJSMethodResult } from './WalletModule';
 
 export const TestCases: Array<TestCase> = [];
@@ -13,34 +13,8 @@ export const addTestCases = (testCase: TestCase | Array<TestCase>) => {
 };
 
 if (__DEV__) {
-  addNetworkTestCases();
+  addTestCases(NetworkTestCases);
 }
-
-export interface TestCase {
-  run: (context: TestContext) => void | Promise<void>;
-  describe: string;
-}
-
-export interface TestContext {
-  log: (msg: string) => void;
-  warn: (msg: string) => void;
-  error: (msg: string, error?: any) => void;
-  assert: (condition: boolean, msg: string) => void;
-}
-
-export type TestReport = {
-  testAmount: number;
-  testsAccepted: number;
-  testsFailed: number;
-  details: Array<{
-    describe: string;
-    logs: Array<{
-      level: 'log' | 'warn' | 'error';
-      msg: string;
-    }>;
-    status: 'success' | 'fail';
-  }>;
-};
 
 export const testRunner = async (): Promise<TestReport> => {
   const testReport: TestReport = {
@@ -53,10 +27,11 @@ export const testRunner = async (): Promise<TestReport> => {
   console.log('testServices amount : ', testServices.length);
   for (const testService of testServices) {
     const testContext: TestContext = {
-      log: (msg: string) => {
+      log: (msg?: string | object | null, tag?: string) => {
         testReport.details[testReport.details.length - 1].logs.push({
           level: 'log',
           msg,
+          tag,
         });
       },
       warn: (msg: string) => {
