@@ -7,6 +7,7 @@ import React, { memo } from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { formatChainInfoToShow } from '@portkey-wallet/utils';
 import { pTd } from 'utils/unit';
+// import { useIsTestnet } from '@portkey-wallet/hooks/hooks-ca/network';
 import { CommonInfo } from '../TokenOverlay/hook';
 interface TokenListItemType {
   noBalanceShow?: boolean;

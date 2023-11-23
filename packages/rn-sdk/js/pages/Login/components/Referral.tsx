@@ -14,7 +14,7 @@ import { AccountOriginalType, isWalletExists, isWalletUnlocked } from 'model/ver
 import CommonToast from 'components/CommonToast';
 import useEffectOnce from 'hooks/useEffectOnce';
 import { CheckPinProps, CheckPinResult } from 'pages/Pin/CheckPin';
-import { SignInPageProps, SignInPageResult } from 'pages/entries/SignIn';
+import { SignInPageProps, SignInPageResult } from 'pages/Entries/SignIn';
 import TermsServiceButton from './TermsServiceButton';
 import Divider from 'components/Divider';
 import { defaultColors } from 'assets/theme';
