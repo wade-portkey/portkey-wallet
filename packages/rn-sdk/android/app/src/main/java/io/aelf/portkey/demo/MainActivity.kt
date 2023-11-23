@@ -185,10 +185,12 @@ class MainActivity : ComponentActivity() {
             }
         }
         usePortkeyEntryWithParams(entryName, params) {
-            showWarnDialog(
-                mainTitle = "Entry Result",
-                subTitle = "$it",
-            )
+            if (it.getString("status") != "cancel") {
+                showWarnDialog(
+                    mainTitle = "Entry Result",
+                    subTitle = "$it",
+                )
+            }
         }
     }
 
