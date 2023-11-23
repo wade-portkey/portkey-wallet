@@ -3,7 +3,7 @@ export const MOCK_DATA = {
     {
       isDisplay: true,
       isDefault: true,
-      id: 'id',
+      id: 'id1',
       symbol: 'ELF',
 
       token: {
@@ -17,7 +17,7 @@ export const MOCK_DATA = {
     {
       isDisplay: true,
       isDefault: true,
-      id: 'id',
+      id: 'id2',
       symbol: 'CPU',
       token: {
         chainId: 'AELF',
@@ -30,7 +30,7 @@ export const MOCK_DATA = {
     {
       isDisplay: true,
       isDefault: true,
-      id: 'id',
+      id: 'id3',
       token: {
         chainId: 'AELF',
         decimals: 8,
@@ -42,7 +42,7 @@ export const MOCK_DATA = {
     {
       isDisplay: true,
       isDefault: true,
-      id: 'id',
+      id: 'id4',
       token: {
         chainId: 'AELF',
         decimals: 8,
@@ -54,7 +54,7 @@ export const MOCK_DATA = {
     {
       isDisplay: true,
       isDefault: true,
-      id: 'id',
+      id: 'id5',
       symbol: 'BNB',
       token: {
         chainId: 'AELF',

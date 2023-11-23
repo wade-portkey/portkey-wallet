@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect, useMemo } from 'react';
+import React, { useState, useCallback, useEffect, useMemo, useRef } from 'react';
 import OverlayModal from 'components/OverlayModal';
 import { FlatList, StyleSheet } from 'react-native';
 import { ModalBody } from 'components/ModalBody';
@@ -10,17 +10,14 @@ import { defaultColors } from 'assets/theme';
 import fonts from 'assets/theme/fonts';
 import { pTd } from 'utils/unit';
 import { useLanguage } from 'i18n/hooks';
-// import { useAppCommonDispatch } from '@portkey-wallet/hooks';
 import useDebounce from 'hooks/useDebounce';
-// import useEffectOnce from 'hooks/useEffectOnce';
-// import { useChainIdList } from '@portkey-wallet/hooks/hooks-ca/wallet';
-// import { fetchAllTokenListAsync } from '@portkey-wallet/store/store-ca/tokenManagement/action';
 import NoData from 'components/NoData';
 import { useGStyles } from 'assets/theme/useGStyles';
 import myEvents from '../../utils/deviceEvent';
-import { MOCK_DATA } from './data';
-import useEffectOnce from 'hooks/useEffectOnce';
 import { getCachedAllChainInfo } from 'model/chain';
+import { useCommonInfo } from './hook';
+import { NetworkController } from 'network/controller';
+import { IUserTokenItem } from 'network/dto/query';
 
 type onFinishSelectTokenType = (tokenItem: TokenItemShowType) => void;
 type TokenListProps = {
@@ -30,18 +27,9 @@ type TokenListProps = {
 
 const TokenList = ({ onFinishSelectToken }: TokenListProps) => {
   const { t } = useLanguage();
-  const [chainIdList, setChainIdList] = useState<string[]>(['AELF']);
-  const { tokenDataShowInMarket } = MOCK_DATA;
-  // const dispatch = useAppCommonDispatch();
-  // const chainIdList = useChainIdList();
-  useEffectOnce(() => {
-    getCachedAllChainInfo().then(chainInfo => {
-      const localChainIdList = chainInfo.map(chainInfoItem => {
-        return chainInfoItem.chainId;
-      });
-      setChainIdList(localChainIdList);
-    });
-  });
+  const commonInfo = useCommonInfo();
+  const chainIdList = useRef<string[] | undefined>(undefined);
+  const [tokenDataShowInMarket, setTokenDataShowInMarket] = useState<IUserTokenItem[]>();
   const gStyles = useGStyles;
 
   const [keyword, setKeyword] = useState('');
@@ -58,19 +46,30 @@ const TokenList = ({ onFinishSelectToken }: TokenListProps) => {
           OverlayModal.hide();
           onFinishSelectToken?.(item);
         }}
+        commonInfo={commonInfo}
       />
     ),
-    [onFinishSelectToken],
+    [onFinishSelectToken, commonInfo],
   );
 
-  // useEffect(() => {
-  //   dispatch(fetchAllTokenListAsync({ chainIdArray: chainIdList, keyword: debounceKeyword }));
-  // }, [chainIdList, debounceKeyword, dispatch]);
-
-  // useEffectOnce(() => {
-  //   if (tokenDataShowInMarket.length !== 0) return;
-  //   dispatch(fetchAllTokenListAsync({ chainIdArray: chainIdList, keyword: debounceKeyword }));
-  // });
+  useEffect(() => {
+    async function fetchData() {
+      if (chainIdList.current === undefined) {
+        const chainInfo = await getCachedAllChainInfo();
+        chainIdList.current = chainInfo.map(chainInfoItem => {
+          return chainInfoItem.chainId;
+        });
+      }
+      const tokenAssets = await NetworkController.checkUserTokenAssets({
+        chainIdArray: chainIdList.current ?? 'AELF',
+        keyword: debounceKeyword,
+      });
+      return tokenAssets?.items;
+    }
+    fetchData().then(result => {
+      result && setTokenDataShowInMarket(result);
+    });
+  }, [debounceKeyword]);
 
   const noData = useMemo(() => {
     return debounceKeyword ? <NoData noPic message={t('There is no search result.')} /> : null;

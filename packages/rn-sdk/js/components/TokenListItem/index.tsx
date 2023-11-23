@@ -3,40 +3,22 @@ import { defaultColors } from 'assets/theme';
 import { FontStyles } from 'assets/theme/styles';
 import CommonAvatar from 'components/CommonAvatar';
 import { TextL, TextS } from 'components/CommonText';
-import { useWallet } from '@portkey-wallet/hooks/hooks-ca/wallet';
-import React, { memo, useMemo, useState } from 'react';
+import React, { memo } from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { formatChainInfoToShow } from '@portkey-wallet/utils';
 import { pTd } from 'utils/unit';
-// import { useIsTestnet } from '@portkey-wallet/hooks/hooks-ca/network';
-import { useGetCurrentAccountTokenPrice, useIsTokenHasPrice } from '@portkey-wallet/hooks/hooks-ca/useTokensPrice';
-import { useDefaultToken } from '@portkey-wallet/hooks/hooks-ca/chainList';
-import { getCurrentNetwork } from 'utils/commonUtil';
-import { NetworkType } from '@portkey-wallet/types';
-import useEffectOnce from 'hooks/useEffectOnce';
-import { Token, getCachedNetworkConfig } from 'model/chain';
-import { DEFAULT_TOKEN } from '@portkey-wallet/constants/constants-ca/wallet';
-import { useSymbolImages } from './hook';
+import { CommonInfo } from '../TokenOverlay/hook';
 interface TokenListItemType {
   noBalanceShow?: boolean;
   item?: any;
   onPress?: (item: any) => void;
+  commonInfo: CommonInfo;
 }
 
 const TokenListItem: React.FC<TokenListItemType> = props => {
   const { noBalanceShow = false, onPress, item } = props;
-  const [currentNetwork, setCurrentNetwork] = useState<NetworkType>('MAIN');
-  const [defaultToken, setDefaultToken] = useState<Token>(DEFAULT_TOKEN);
-  useEffectOnce(async () => {
-    setCurrentNetwork(await getCurrentNetwork());
-    const { defaultToken: cachedDefaultToken } = await getCachedNetworkConfig();
-    setDefaultToken(cachedDefaultToken);
-    console.log('cachedDefaultToken', cachedDefaultToken);
-  });
-  const symbolImages = useSymbolImages();
+  const { symbolImages, currentNetwork, defaultToken } = props.commonInfo;
 
-  // const [tokenPriceObject] = useGetCurrentAccountTokenPrice();
-  // const isTokenHasPrice = useIsTokenHasPrice(item?.symbol);
   const isTokenHasPrice = true;
   const tokenPriceObject: never[] = [];
 
@@ -57,7 +39,7 @@ const TokenListItem: React.FC<TokenListItemType> = props => {
             {item?.token?.symbol}
           </TextL>
           <TextS numberOfLines={1} style={[FontStyles.font3, itemStyle.chainInfo]}>
-            {formatChainInfoToShow(item?.chainId, currentNetwork)}
+            {formatChainInfoToShow(item?.token?.chainId, currentNetwork)}
           </TextS>
         </View>
 
@@ -81,7 +63,9 @@ const TokenListItem: React.FC<TokenListItemType> = props => {
   );
 };
 
-export default memo(TokenListItem);
+export default memo(TokenListItem, _prev => {
+  return true;
+});
 
 const itemStyle = StyleSheet.create({
   wrap: {
