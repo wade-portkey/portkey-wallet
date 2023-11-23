@@ -1,32 +1,30 @@
 package io.aelf.portkey
 
+import android.app.Activity
 import android.app.Application
+import android.content.res.Resources
+import android.graphics.Color
+import android.os.Bundle
+import android.util.TypedValue
+import android.view.ViewGroup
+import android.widget.TextView
+import com.facebook.react.ReactActivity
 import com.facebook.react.ReactApplication
 import com.facebook.react.ReactNativeHost
 import com.tencent.mmkv.MMKV
+import io.aelf.core.PortKeySDKHolder
 import io.aelf.portkey.components.logic.PortkeyReactNativeHost
 import io.aelf.portkey.components.logic.hostInstance
+import io.aelf.portkey.config.StorageIdentifiers
 
-class PortkeyReactApplication : Application(), ReactApplication {
-
+open class PortkeyReactApplication : Application(), ReactApplication {
     override fun onCreate() {
         super.onCreate()
-        MMKV.initialize(this)
-        reactNativeHost
+        PortKeySDKHolder.initialize(this)
     }
-
 
     override fun getReactNativeHost(): ReactNativeHost {
-            return hostInstance ?: createNewHost()
-    }
-
-    private fun createNewHost(): PortkeyReactNativeHost {
-        val nativeHost = PortkeyReactNativeHost(
-            application = this,
-            isDebug = BuildConfig.IS_DEBUG
-        )
-        nativeHost.reactInstanceManager.createReactContextInBackground()
-        return  nativeHost
+        return PortKeySDKHolder.obtainNavHost(this)
     }
 
 }
