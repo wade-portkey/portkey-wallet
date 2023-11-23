@@ -5,7 +5,6 @@ import WebView from 'react-native-webview';
 import CustomHeader from 'components/CustomHeader';
 import SafeAreaBox from 'components/SafeAreaBox';
 import { pTd } from 'utils/unit';
-import navigationService from 'utils/navigationService';
 import { ACH_REDIRECT_URL, ACH_WITHDRAW_URL } from 'constants/common';
 import CommonToast from 'components/CommonToast';
 import Progressbar, { IProgressbar } from 'components/Progressbar';
@@ -50,16 +49,9 @@ const ViewOnWebView = ({
   const handleNavigationStateChange = useCallback(
     (navState: any) => {
       if (webViewPageType === 'default') return;
-      if (webViewPageType === 'ach') {
-        if (navState.url.startsWith(ACH_REDIRECT_URL)) {
-          navigationService.navigate('Tab');
-        }
-        return;
-      }
       if (webViewPageType === 'achSell') {
         if (navState.url.startsWith(ACH_WITHDRAW_URL) && !isAchSellHandled.current) {
           isAchSellHandled.current = true;
-          navigationService.navigate('Tab');
           const { orderNo } = (params as AchSellParams) || {};
           if (!orderNo) {
             CommonToast.failError('Transaction failed.');

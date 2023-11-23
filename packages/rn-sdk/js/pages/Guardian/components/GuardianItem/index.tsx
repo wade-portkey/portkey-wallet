@@ -6,7 +6,6 @@ import Svg from 'components/Svg';
 import React, { useCallback, useMemo } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { pTd } from 'utils/unit';
-import navigationService from 'utils/navigationService';
 import fonts from 'assets/theme/fonts';
 import { UserGuardianItem } from '@portkey-wallet/store/store-ca/guardians/type';
 import Loading from 'components/Loading';
@@ -14,7 +13,7 @@ import CommonToast from 'components/CommonToast';
 import { sleep } from '@portkey-wallet/utils';
 import { ApprovalType, VerificationType, OperationTypeEnum, VerifyStatus } from '@portkey-wallet/types/verifier';
 import { BGStyles, FontStyles } from 'assets/theme/styles';
-import { isIOS } from '@rneui/base';
+import { isIOS } from '@portkey-wallet/utils/mobile/device';
 import { LoginType } from '@portkey-wallet/types/types-ca/wallet';
 import { VerifierImage } from '../VerifierImage';
 import { GuardiansStatus, GuardiansStatusItem } from 'pages/Guardian/types';
@@ -99,10 +98,6 @@ function GuardianItemButton({
           requestCodeResult: req,
           status: VerifyStatus.Verifying,
         });
-        navigationService.push('VerifierDetails', {
-          ...guardianInfo,
-          requestCodeResult: req,
-        });
       } else {
         throw new Error('send fail');
       }
@@ -124,11 +119,6 @@ function GuardianItemButton({
         onVerifierAuth();
         break;
       default: {
-        navigationService.push('VerifierDetails', {
-          ...guardianInfo,
-          requestCodeResult,
-          startResend: true,
-        });
         break;
       }
     }
