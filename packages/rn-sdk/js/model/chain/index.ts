@@ -14,16 +14,16 @@ export interface Token {
 export const getCachedNetworkConfig = async (
   targetChainId?: string,
 ): Promise<{ peerUrl: string; caContractAddress: string; defaultToken: Token }> => {
+  const chain = targetChainId || (await PortkeyConfig.currChainId());
   return await handleCachedValue({
     target: 'TEMP',
     getIdentifier: async () => {
       const portkeyEndPointUrl = await PortkeyConfig.endPointUrl();
-      const chain = targetChainId || (await PortkeyConfig.currChainId());
       return `${NETWORK_CONFIG_KEY}#${portkeyEndPointUrl}#${chain}`;
     },
     getValueIfNonExist: async () => {
       const networkInfo = await NetworkController.getNetworkInfo();
-      const chainInfo = networkInfo.items.find(it => it.chainId === targetChainId);
+      const chainInfo = networkInfo.items.find(it => it.chainId === chain);
       if (!chainInfo) throw new Error('network failure');
       const config = {
         peerUrl: chainInfo.endPoint,

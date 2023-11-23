@@ -1,8 +1,8 @@
 import { GlobalStorage, TempStorage } from './index';
 
 export interface CacheStrategy<T> {
-  getIdentifier: () => string | Promise<string>;
-  getValueIfNonExist: () => T | Promise<T>;
+  getIdentifier: () => Promise<string>;
+  getValueIfNonExist: () => Promise<T>;
   valueExpireStrategy?: () => Promise<boolean>;
   target: 'PERMANENT' | 'TEMP';
 }
