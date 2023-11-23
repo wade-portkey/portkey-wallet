@@ -1,5 +1,6 @@
 import { getContractBasic } from '@portkey-wallet/contracts/utils';
 import { ContractBasic } from '@portkey-wallet/contracts/utils/ContractBasic';
+import { timesDecimals } from '@portkey-wallet/utils/converter';
 import { handleVerificationDoc } from '@portkey-wallet/utils/guardian';
 import { PortkeyConfig } from 'global/constants';
 import { getCachedNetworkConfig } from 'model/chain';
@@ -8,7 +9,8 @@ import { isWalletUnlocked } from 'model/verify/after-verify';
 import { GuardianConfig } from 'model/verify/guardian';
 import { getUnlockedWallet } from 'model/wallet';
 import { AElfWeb3SDK, ApprovedGuardianInfo } from 'network/dto/wallet';
-import { TempStorage } from 'service/storage';
+import { handleCachedValue } from 'service/storage/cache';
+import { selectCurrentBackendConfig } from 'utils/commonUtil';
 import { addManager } from 'utils/wallet';
 
 export interface Verifier {
@@ -56,15 +58,19 @@ export const getOrReadCachedVerifierData = async (): Promise<{
     };
   };
 }> => {
-  const GET_VERIFIERS_METHOD = 'GetVerifierServers';
-  const chainId = await PortkeyConfig.currChainId();
-  const endPoint = await PortkeyConfig.endPointUrl();
-  const cached = await TempStorage.getString(`${GET_VERIFIERS_METHOD}_${chainId}_${endPoint}`);
-  if (cached) return JSON.parse(cached);
-  const contractInstance = await getContractInstance(true);
-  const result = await contractInstance.callViewMethod('GetVerifierServers');
-  result && TempStorage.set(`${GET_VERIFIERS_METHOD}_${chainId}_${endPoint}`, JSON.stringify(result));
-  return result;
+  return handleCachedValue({
+    target: 'TEMP',
+    getIdentifier: async () => {
+      const chainId = await PortkeyConfig.currChainId();
+      const endPoint = await PortkeyConfig.endPointUrl();
+      return `GetVerifierServers_${chainId}_${endPoint}`;
+    },
+    getValueIfNonExist: async () => {
+      const contractInstance = await getContractInstance(true);
+      const result = await contractInstance.callViewMethod('GetVerifierServers');
+      return result;
+    },
+  });
 };
 
 export const callAddGuardianMethod = async (
@@ -130,6 +136,24 @@ export const callCancelLoginGuardianMethod = async (particularGuardian: Guardian
       type: guardianTypeStrToEnum(particularGuardian.sendVerifyCodeParams.type),
       verifierId: particularGuardian.sendVerifyCodeParams.verifierId,
       identifierHash: guardianIdentifier,
+    },
+  });
+};
+
+export const callFaucetMethod = async (amount = 100) => {
+  const contractInstance = await getContractInstance();
+  const {
+    address,
+    caInfo: { caHash },
+  } = (await getUnlockedWallet()) || {};
+  const endPointUrl = await PortkeyConfig.endPointUrl();
+  return await contractInstance.callSendMethod('ManagerForwardCall', address, {
+    caHash: caHash,
+    contractAddress: selectCurrentBackendConfig(endPointUrl).tokenClaimContractAddress,
+    methodName: 'ClaimToken',
+    args: {
+      symbol: 'ELF',
+      amount: timesDecimals(amount, 8).toString(),
     },
   });
 };

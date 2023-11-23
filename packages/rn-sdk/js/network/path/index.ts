@@ -19,6 +19,7 @@ export enum APIPaths {
 
   // verify qrcode status
   CHECK_QR_CODE_STATUS = '/api/app/qrcode',
+  GET_SYMBOL_IMAGE = '/api/app/user/assets/symbolImages',
 
   // connect token for portkey backend service
   REFRESH_NETWORK_TOKEN = '/connect/token',

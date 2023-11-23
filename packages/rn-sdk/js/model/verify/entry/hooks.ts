@@ -7,8 +7,8 @@ import { parseGuardianInfo } from 'model/global';
 import { PortkeyConfig } from 'global/constants';
 import Loading from 'components/Loading';
 import { OnGuardianHomeNewIntent } from 'pages/GuardianManage/GuardianHome';
-import { GuardianApprovalPageProps, GuardianApprovalPageResult } from 'pages/entries/GuardianApproval';
-import { VerifierDetailsPageProps, VerifierDetailsPageResult } from 'pages/entries/VerifierDetails';
+import { GuardianApprovalPageProps, GuardianApprovalPageResult } from 'pages/Entries/GuardianApproval';
+import { VerifierDetailsPageProps, VerifierDetailsPageResult } from 'pages/Entries/VerifierDetails';
 import { getUnlockedWallet } from 'model/wallet';
 import { getOrReadCachedVerifierData } from 'model/contract/handler';
 

@@ -11,9 +11,11 @@ import { PortkeyEntries } from 'config/entries';
 import useBaseContainer from 'model/container/UseBaseContainer';
 import { CheckPinProps } from 'pages/Pin/CheckPin';
 import useEffectOnce from 'hooks/useEffectOnce';
-import { getTempWalletConfig, isWalletUnlocked } from 'model/verify/after-verify';
+import { isWalletUnlocked } from 'model/verify/after-verify';
 import { PortkeyModulesEntity } from 'service/native-modules';
 import CommonToast from 'components/CommonToast';
+import TokenOverlay from 'components/TokenOverlay';
+import { TokenItemShowType } from '@portkey-wallet/types/types-eoa/token';
 
 export default function AccountSettings() {
   const biometricsReady = useBiometricsReady();
@@ -56,16 +58,17 @@ export default function AccountSettings() {
       if (menuName === 'CheckPin') {
         navigationTo<CheckPinProps>(PortkeyEntries.CHECK_PIN, { targetScene: 'changePin' });
       } else if (menuName === 'Biometric') {
-        navigationTo(PortkeyEntries.BIOMETRIC_SWITCH_ENTRY, {});
+        // navigationTo(PortkeyEntries.BIOMETRIC_SWITCH_ENTRY, {});
+        TokenOverlay.showTokenList({
+          onFinishSelectToken: (tokenInfo: TokenItemShowType) => {
+            navigationTo(PortkeyEntries.RECEIVE_TOKEN_ENTRY, { params: tokenInfo });
+          },
+        });
       }
     },
     [navigationTo],
   );
   useEffectOnce(() => {
-    (async () => {
-      const tempWalletConfig = await getTempWalletConfig();
-      console.log('tempWalletConfig', tempWalletConfig);
-    })();
     isWalletUnlocked().then(status => {
       if (!status) {
         onFinish({

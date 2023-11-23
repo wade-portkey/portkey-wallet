@@ -1,3 +1,10 @@
+import { NetworkType } from '@portkey-wallet/types';
+import CommonToast from 'components/CommonToast';
+import { EndPoints, PortkeyConfig } from 'global/constants';
+import { setStringAsync } from 'expo-clipboard';
+import i18n from 'i18n';
+import { BackEndNetWorkMap } from '@portkey-wallet/constants/constants-ca/backend-network';
+
 // eslint-disable-next-line @typescript-eslint/ban-types
 export function myThrottle(fn: Function, delay: number) {
   let timer: NodeJS.Timeout | null;
@@ -17,13 +24,36 @@ export function myThrottle(fn: Function, delay: number) {
 
 export const doubleClick = (fun: (params: any) => void, params: any, interval = 200): void => {
   let isCalled = false;
-  let timer: NodeJS.Timeout;
+  let timer: NodeJS.Timeout | undefined;
   if (!isCalled) {
     isCalled = true;
-    clearTimeout(timer);
+    timer && clearTimeout(timer);
     timer = setTimeout(() => {
       isCalled = false;
     }, interval);
     return fun(params);
+  }
+};
+
+export const checkIsSvgUrl = (imgUrl: string) => {
+  return /.svg$/.test(imgUrl);
+};
+
+export const getCurrentNetwork = async (): Promise<NetworkType> => {
+  return (await PortkeyConfig.endPointUrl()) === EndPoints.MAIN_NET ? 'MAIN' : 'TESTNET';
+};
+
+export const selectCurrentBackendConfig = (endPointUrl: string) => {
+  const value = Object.values(BackEndNetWorkMap).find(it => endPointUrl === it.apiUrl);
+  if (!value) throw new Error('invalid endPointUrl');
+  return value;
+};
+
+export const copyText = async (text: string) => {
+  try {
+    const isCopy = await setStringAsync(text);
+    isCopy && CommonToast.success(i18n.t('Copy Success'));
+  } catch {
+    CommonToast.success(i18n.t('Copy Fail'));
   }
 };

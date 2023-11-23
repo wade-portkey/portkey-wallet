@@ -27,12 +27,31 @@ import {
   RequestSocialRecoveryParams,
 } from 'network/dto/wallet';
 import { sleep } from '@portkey-wallet/utils';
-import { getCachedNetworkToken, networkTokenSwitch } from 'network/token';
-import { BackEndNetWorkMap } from '@portkey-wallet/constants/constants-ca/backend-network';
+import { getCachedNetworkToken } from 'network/token';
 import { isWalletUnlocked } from 'model/verify/after-verify';
+import { SymbolImages } from 'model/symbolImage';
 import { FetchTokenPriceResult, FetchUserTokenConfig, GetUserTokenListResult } from 'network/dto/query';
+import { selectCurrentBackendConfig } from 'utils/commonUtil';
 
 const DEFAULT_MAX_POLLING_TIMES = 50;
+
+const {
+  CHECK_REGISTER_STATUS,
+  CHECK_SOCIAL_RECOVERY_STATUS,
+  GET_GUARDIAN_INFO,
+  GET_REGISTER_INFO,
+  GET_RECOMMEND_GUARDIAN,
+  REFRESH_NETWORK_TOKEN,
+} = APIPaths;
+
+const NETWORK_TOKEN_BLACKLIST = [
+  CHECK_REGISTER_STATUS,
+  CHECK_SOCIAL_RECOVERY_STATUS,
+  GET_GUARDIAN_INFO,
+  GET_REGISTER_INFO,
+  GET_RECOMMEND_GUARDIAN,
+  REFRESH_NETWORK_TOKEN,
+];
 
 export class NetworkControllerEntity {
   private realExecute = async <T>(
@@ -49,7 +68,7 @@ export class NetworkControllerEntity {
       });
     }
     headers = Object.assign({}, headers ?? {}, { Version: 'v1.4.8' });
-    if ((await isWalletUnlocked()) && !networkTokenSwitch) {
+    if ((await isWalletUnlocked()) && !this.isUrlInBlackList(url)) {
       const access_token = await getCachedNetworkToken();
       headers = Object.assign({}, headers, { Authorization: `Bearer ${access_token}` });
     }
@@ -58,10 +77,17 @@ export class NetworkControllerEntity {
     return result;
   };
 
+  private isUrlInBlackList = (url: string): boolean => {
+    return NETWORK_TOKEN_BLACKLIST.some(path => url.includes(path));
+  };
+
   getRegisterResult = async (accountIdentifier: string): Promise<ResultWrapper<RegisterStatusDTO>> => {
     return await this.realExecute<RegisterStatusDTO>(await this.parseUrl(APIPaths.GET_REGISTER_INFO), 'GET', {
       loginGuardianIdentifier: accountIdentifier,
     });
+  };
+  getSymbolImage = async (): Promise<ResultWrapper<SymbolImages>> => {
+    return await this.realExecute<SymbolImages>(await this.parseUrl(APIPaths.GET_SYMBOL_IMAGE), 'GET', {});
   };
 
   getAccountIdentifierResult = async (
@@ -267,7 +293,7 @@ export class NetworkControllerEntity {
   ): Promise<{ access_token: string; expires_in: number }> => {
     const endPointUrl = await PortkeyConfig.endPointUrl();
     const getAuthUrl = () => {
-      const url = Object.values(BackEndNetWorkMap).find(value => endPointUrl === value.apiUrl)?.connectUrl;
+      const url = selectCurrentBackendConfig(endPointUrl).connectUrl;
       return `${url}${APIPaths.REFRESH_NETWORK_TOKEN}`;
     };
     const res = await this.realExecute<{ access_token: string; expires_in: number }>(

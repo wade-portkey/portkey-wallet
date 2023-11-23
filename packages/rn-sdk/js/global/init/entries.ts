@@ -1,9 +1,9 @@
 import TestPage from 'components/TestPage';
-import GuardianApprovalEntryPage from 'pages/entries/GuardianApproval';
-import SignInEntryPage from 'pages/entries/SignIn';
-import SelectCountryPage from 'pages/entries/SelectCountry';
-import SignUpEntryPage from 'pages/entries/SignUp';
-import VerifierDetailsEntryPage from 'pages/entries/VerifierDetails';
+import GuardianApprovalEntryPage from 'pages/Entries/GuardianApproval';
+import SignInEntryPage from 'pages/Entries/SignIn';
+import SelectCountryPage from 'pages/Entries/SelectCountry';
+import SignUpEntryPage from 'pages/Entries/SignUp';
+import VerifierDetailsEntryPage from 'pages/Entries/VerifierDetails';
 import { PortkeyEntries } from 'config/entries';
 import ViewOnWebView from 'pages/Activity/ViewOnWebView';
 import AccountSettings from 'pages/My/AccountSettings';
@@ -19,6 +19,7 @@ import Biometric from 'pages/My/Biometric';
 import AddGuardian from 'pages/Guardian/GuardianManage/AddGuardian';
 import ModifyGuardian from 'pages/Guardian/GuardianManage/ModifyGuardian';
 import GuardianDetail from 'pages/Guardian/GuardianDetail';
+import ReceiveTokenPage from 'pages/Assets/ReceiveToken';
 
 type AcceptableComponentType = ComponentProvider;
 
@@ -56,6 +57,8 @@ const initEntries = () => {
 
   entryConfig.set(PortkeyEntries.ACCOUNT_SETTING_ENTRY, () => AccountSettings);
   entryConfig.set(PortkeyEntries.BIOMETRIC_SWITCH_ENTRY, () => Biometric);
+
+  entryConfig.set(PortkeyEntries.RECEIVE_TOKEN_ENTRY, () => ReceiveTokenPage);
 
   for (const [key, value] of entryConfig) {
     AppRegistry.registerComponent(key, value);
