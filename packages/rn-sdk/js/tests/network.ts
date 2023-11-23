@@ -1,11 +1,7 @@
 import { NetworkController } from 'network/controller';
-import { TestCase, addTestCases } from 'service/JsModules/SubModules/TestModule';
+import { TestCase } from 'service/JsModules/types';
 
-export const addNetworkTestCases = () => {
-  addTestCases(NetworkTestCases);
-};
-
-const NetworkTestCases: Array<TestCase> = [
+export const NetworkTestCases: Array<TestCase> = [
   {
     describe: 'GetNetworkInfo',
     run: async testContext => {
@@ -18,7 +14,7 @@ const NetworkTestCases: Array<TestCase> = [
     run: async testContext => {
       const it = await NetworkController.checkELFTokenPrice();
       testContext.assert(it !== null, 'it should not be null');
-      testContext.log(`it: ${JSON.stringify(it)}`);
+      testContext.log(it, 'getTokenPrice result');
     },
   },
   {
@@ -26,7 +22,7 @@ const NetworkTestCases: Array<TestCase> = [
     run: async testContext => {
       const it = await NetworkController.checkUserTokenAssets();
       testContext.assert(it !== null, 'it should not be null');
-      testContext.log(`it: ${JSON.stringify(it)}`);
+      testContext.log(it, 'getTokenInfo result');
     },
   },
 ];
