@@ -1,9 +1,10 @@
 import { StorageModule, PortkeyModulesEntity } from 'service/native-modules';
 
 export const GlobalStorage: StorageModule & {
-  set: (key: string, value: string | number | boolean | null | undefined) => void;
+  set: (key: string, value: string | number | boolean | null | undefined, allowSharpSymbol?: boolean) => void;
 } = Object.assign({}, PortkeyModulesEntity.StorageModule, {
-  set(key: string, value: string | number | boolean | null | undefined) {
+  set(key: string, value: string | number | boolean | null | undefined, allowSharpSymbol = false) {
+    !allowSharpSymbol && verifyStorageKey(key);
     switch (typeof value) {
       case 'boolean': {
         GlobalStorage.setBoolean(key, value);
@@ -21,12 +22,18 @@ export const GlobalStorage: StorageModule & {
   },
 });
 
+const verifyStorageKey = (key: string) => {
+  if (key.includes('#')) {
+    throw new Error('Internal Storage key should not contain sharp symbol since it will be erased');
+  }
+};
+
 export const TempStorage = {
   wrapKey(key: string) {
     return `${key}#${PortkeyModulesEntity.NativeWrapperModule.tempStorageIdentifier}`;
   },
   set(key: string, value: any) {
-    GlobalStorage.set(this.wrapKey(key), value);
+    GlobalStorage.set(this.wrapKey(key), value, true);
   },
   getString(key: string) {
     return GlobalStorage.getString(this.wrapKey(key));

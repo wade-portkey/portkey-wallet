@@ -8,7 +8,7 @@ import { isWalletUnlocked } from 'model/verify/after-verify';
 import { GuardianConfig } from 'model/verify/guardian';
 import { getUnlockedWallet } from 'model/wallet';
 import { AElfWeb3SDK, ApprovedGuardianInfo } from 'network/dto/wallet';
-import { TempStorage } from 'service/storage';
+import { handleCachedValue } from 'service/storage/cache';
 import { addManager } from 'utils/wallet';
 
 export interface Verifier {
@@ -56,15 +56,19 @@ export const getOrReadCachedVerifierData = async (): Promise<{
     };
   };
 }> => {
-  const GET_VERIFIERS_METHOD = 'GetVerifierServers';
-  const chainId = await PortkeyConfig.currChainId();
-  const endPoint = await PortkeyConfig.endPointUrl();
-  const cached = await TempStorage.getString(`${GET_VERIFIERS_METHOD}_${chainId}_${endPoint}`);
-  if (cached) return JSON.parse(cached);
-  const contractInstance = await getContractInstance(true);
-  const result = await contractInstance.callViewMethod('GetVerifierServers');
-  result && TempStorage.set(`${GET_VERIFIERS_METHOD}_${chainId}_${endPoint}`, JSON.stringify(result));
-  return result;
+  return handleCachedValue({
+    target: 'TEMP',
+    getIdentifier: async () => {
+      const chainId = await PortkeyConfig.currChainId();
+      const endPoint = await PortkeyConfig.endPointUrl();
+      return `GetVerifierServers_${chainId}_${endPoint}`;
+    },
+    getValueIfNonExist: async () => {
+      const contractInstance = await getContractInstance(true);
+      const result = await contractInstance.callViewMethod('GetVerifierServers');
+      return result;
+    },
+  });
 };
 
 export const callAddGuardianMethod = async (
