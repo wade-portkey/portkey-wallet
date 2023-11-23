@@ -1,9 +1,9 @@
 import TestPage from 'components/TestPage';
-import GuardianApprovalEntryPage from 'pages/entries/GuardianApproval';
-import SignInEntryPage from 'pages/entries/SignIn';
-import SelectCountryPage from 'pages/entries/SelectCountry';
-import SignUpEntryPage from 'pages/entries/SignUp';
-import VerifierDetailsEntryPage from 'pages/entries/VerifierDetails';
+import GuardianApprovalEntryPage from 'pages/Entries/GuardianApproval';
+import SignInEntryPage from 'pages/Entries/SignIn';
+import SelectCountryPage from 'pages/Entries/SelectCountry';
+import SignUpEntryPage from 'pages/Entries/SignUp';
+import VerifierDetailsEntryPage from 'pages/Entries/VerifierDetails';
 import { PortkeyEntries } from 'config/entries';
 import ViewOnWebView from 'pages/Activity/ViewOnWebView';
 import AccountSettings from 'pages/My/AccountSettings';

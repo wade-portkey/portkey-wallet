@@ -1,5 +1,6 @@
 import { getContractBasic } from '@portkey-wallet/contracts/utils';
 import { ContractBasic } from '@portkey-wallet/contracts/utils/ContractBasic';
+import { timesDecimals } from '@portkey-wallet/utils/converter';
 import { handleVerificationDoc } from '@portkey-wallet/utils/guardian';
 import { PortkeyConfig } from 'global/constants';
 import { getCachedNetworkConfig } from 'model/chain';
@@ -9,6 +10,7 @@ import { GuardianConfig } from 'model/verify/guardian';
 import { getUnlockedWallet } from 'model/wallet';
 import { AElfWeb3SDK, ApprovedGuardianInfo } from 'network/dto/wallet';
 import { handleCachedValue } from 'service/storage/cache';
+import { selectCurrentBackendConfig } from 'utils/commonUtil';
 import { addManager } from 'utils/wallet';
 
 export interface Verifier {
@@ -134,6 +136,24 @@ export const callCancelLoginGuardianMethod = async (particularGuardian: Guardian
       type: guardianTypeStrToEnum(particularGuardian.sendVerifyCodeParams.type),
       verifierId: particularGuardian.sendVerifyCodeParams.verifierId,
       identifierHash: guardianIdentifier,
+    },
+  });
+};
+
+export const callFaucetMethod = async (amount = 100) => {
+  const contractInstance = await getContractInstance();
+  const {
+    address,
+    caInfo: { caHash },
+  } = (await getUnlockedWallet()) || {};
+  const endPointUrl = await PortkeyConfig.endPointUrl();
+  return await contractInstance.callSendMethod('ManagerForwardCall', address, {
+    caHash: caHash,
+    contractAddress: selectCurrentBackendConfig(endPointUrl).tokenClaimContractAddress,
+    methodName: 'ClaimToken',
+    args: {
+      symbol: 'ELF',
+      amount: timesDecimals(amount, 8).toString(),
     },
   });
 };

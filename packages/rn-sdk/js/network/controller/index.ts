@@ -28,10 +28,10 @@ import {
 } from 'network/dto/wallet';
 import { sleep } from '@portkey-wallet/utils';
 import { getCachedNetworkToken } from 'network/token';
-import { BackEndNetWorkMap } from '@portkey-wallet/constants/constants-ca/backend-network';
 import { isWalletUnlocked } from 'model/verify/after-verify';
 import { SymbolImages } from 'model/symbolImage';
 import { FetchTokenPriceResult, FetchUserTokenConfig, GetUserTokenListResult } from 'network/dto/query';
+import { selectCurrentBackendConfig } from 'utils/commonUtil';
 
 const DEFAULT_MAX_POLLING_TIMES = 50;
 
@@ -293,7 +293,7 @@ export class NetworkControllerEntity {
   ): Promise<{ access_token: string; expires_in: number }> => {
     const endPointUrl = await PortkeyConfig.endPointUrl();
     const getAuthUrl = () => {
-      const url = Object.values(BackEndNetWorkMap).find(value => endPointUrl === value.apiUrl)?.connectUrl;
+      const url = selectCurrentBackendConfig(endPointUrl).connectUrl;
       return `${url}${APIPaths.REFRESH_NETWORK_TOKEN}`;
     };
     const res = await this.realExecute<{ access_token: string; expires_in: number }>(

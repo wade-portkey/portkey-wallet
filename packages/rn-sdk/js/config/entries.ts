@@ -24,6 +24,7 @@ export enum PortkeyEntries {
   SCAN_LOG_IN = 'scan_log_in_entry',
   VIEW_ON_WEBVIEW = 'view_on_webview',
 
+  ASSETS_HOME_ENTRY = 'assets_home_entry',
   RECEIVE_TOKEN_ENTRY = 'receive_token_entry',
 }
 
