@@ -1,20 +1,27 @@
 package io.aelf.portkey.demo.ui.composable
 
+import android.content.Context
 import android.util.Log
 import android.widget.Toast
 import androidx.compose.animation.core.FastOutLinearInEasing
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -28,7 +35,10 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.ClipboardManager
+import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -47,13 +57,14 @@ internal object PortkeyDialog {
     private var isActive by mutableStateOf(false)
     private var dialogProps by mutableStateOf(DialogProps())
 
-    internal fun isBusy(): Boolean {
+    private fun isBusy(): Boolean {
         return isActive
     }
 
     internal fun show(dialogProps: DialogProps) {
         if (isBusy()) {
-            Log.e("Portkey.Dialog",
+            Log.e(
+                "Portkey.Dialog",
                 "Dialog is busy, and we have to override your last operation," +
                         " better check it by isBusy() first."
             )
@@ -91,6 +102,9 @@ internal object PortkeyDialog {
 
     @Composable
     private fun DialogBody() {
+        val scrollState = rememberScrollState()
+        val clipboardManager: ClipboardManager = LocalClipboardManager.current
+        val context: Context = LocalContext.current
         Column(
             modifier = Modifier
                 .width(wrapperStyle.width)
@@ -104,7 +118,7 @@ internal object PortkeyDialog {
                 modifier = Modifier
                     .padding(
                         top = 24.dp,
-                        bottom = 32.dp
+                        bottom = 16.dp
                     )
                     .width(288.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
@@ -123,18 +137,44 @@ internal object PortkeyDialog {
                     maxLines = 2,
                     overflow = TextOverflow.Ellipsis
                 )
-                Text(
-                    text = dialogProps.subTitle,
-                    style = TextStyle(
-                        fontSize = 14.sp,
-                        color = Color(0xFF414852),
-                        lineHeight = 22.sp,
-                        textAlign = TextAlign.Center,
-                        fontWeight = FontWeight(400)
-                    ),
-                    maxLines = 20,
-                    overflow = TextOverflow.Ellipsis
-                )
+                BoxWithConstraints(
+                    modifier = Modifier
+                        .padding(top = 8.dp, bottom = 8.dp)
+                        .width(dynamicWidth())
+                        .background(Color.LightGray)
+                        .wrapContentHeight(Alignment.CenterVertically),
+                ) {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .heightIn(max = dynamicHeight(0.5))
+                            .verticalScroll(
+                                state = scrollState
+                            )
+                            .pointerInput(Unit) {
+                                detectTapGestures(
+                                    onLongPress = {
+                                        clipboardManager.setText(AnnotatedString(dialogProps.subTitle))
+                                        Toast
+                                            .makeText(context, "text copied.", Toast.LENGTH_LONG)
+                                            .show()
+                                    }
+                                )
+                            }
+                    ) {
+                        Text(
+                            text = dialogProps.subTitle,
+                            style = TextStyle(
+                                fontSize = 14.sp,
+                                color = Color(0xFF414852),
+                                lineHeight = 22.sp,
+                                textAlign = TextAlign.Center,
+                                fontWeight = FontWeight(400),
+                            ),
+                            overflow = TextOverflow.Visible,
+                        )
+                    }
+                }
             }
             Buttons()
         }
@@ -202,12 +242,13 @@ open class DialogProps {
 @Composable
 private fun DialogPreview() {
     val context = LocalContext.current
-    val scope= rememberCoroutineScope()
+    val scope = rememberCoroutineScope()
     fun showToast(msg: String) {
         scope.launch(Dispatchers.Main) {
             Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
         }
     }
+
     val dialogProps = remember {
         DialogProps().apply {
             positiveCallback = {

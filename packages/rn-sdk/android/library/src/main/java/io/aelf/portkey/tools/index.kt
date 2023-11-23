@@ -14,7 +14,24 @@ internal fun generateUniqueCallbackID(): String {
 }
 
 
-fun startJSBackgroundTaskTest(applicationContext: Context, callback: (JSMethodData) -> Unit = {}) {
+fun callCaContractMethodTest(applicationContext: Context, callback: (JSMethodData) -> Unit = {}) {
+    val bundle = Bundle()
+    bundle.putString("contractMethodName", "GetVerifierServers")
+    bundle.putBoolean("isViewMethod", false)
+    callJsMethod(applicationContext, "callCaContractMethod", bundle, callback)
+}
+
+fun runTestCases(applicationContext: Context, callback: (JSMethodData) -> Unit = {}) {
+    val bundle = Bundle()
+    callJsMethod(applicationContext, "runTestCases", bundle, callback)
+}
+
+internal fun callJsMethod(
+    applicationContext: Context,
+    taskName: String,
+    bundle: Bundle = Bundle(),
+    callback: (JSMethodData) -> Unit = {}
+) {
     if (!entered) {
         Toast.makeText(
             applicationContext,
@@ -23,15 +40,12 @@ fun startJSBackgroundTaskTest(applicationContext: Context, callback: (JSMethodDa
         ).show()
         return
     }
-    val service = Intent(applicationContext, GeneralJSMethodService::class.java)
-    val bundle = Bundle()
-    bundle.putString("taskName", "callCaContractMethod")
+    bundle.putString("taskName", taskName)
     val callbackId = generateUniqueCallbackID()
-    bundle.putString("contractMethodName", "GetVerifierServers")
     bundle.putString("eventId", callbackId)
-    bundle.putBoolean("isViewMethod", false)
-    service.putExtras(bundle)
     JSEventBus.registerCallback(callbackId, callback, JSMethodData::class.java)
+    val service = Intent(applicationContext, GeneralJSMethodService::class.java)
+    service.putExtras(bundle)
     applicationContext.startService(service)
 }
 

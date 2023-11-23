@@ -30,6 +30,7 @@ import { sleep } from '@portkey-wallet/utils';
 import { getCachedNetworkToken, networkTokenSwitch } from 'network/token';
 import { BackEndNetWorkMap } from '@portkey-wallet/constants/constants-ca/backend-network';
 import { isWalletUnlocked } from 'model/verify/after-verify';
+import { FetchTokenPriceResult, FetchUserTokenConfig, GetUserTokenListResult } from 'network/dto/query';
 
 const DEFAULT_MAX_POLLING_TIMES = 50;
 
@@ -235,6 +236,29 @@ export class NetworkControllerEntity {
       {},
       options,
     );
+    return res.result;
+  };
+
+  checkUserTokenAssets = async (config?: FetchUserTokenConfig): Promise<GetUserTokenListResult | null | undefined> => {
+    const { chainIdArray = ['AELF', 'tDVV', 'tDVW'], keyword = '' } = config || {};
+    const chainIdSearchLanguage = chainIdArray.map(chainId => `token.chainId:${chainId}`).join(' OR ');
+
+    const filterKeywords =
+      keyword.length < 10 ? `token.symbol: *${keyword.toUpperCase().trim()}*` : `token.address:${keyword}`;
+
+    const res = await this.realExecute<GetUserTokenListResult>(await this.parseUrl(APIPaths.GET_TOKEN_INFO), 'GET', {
+      filter: `${filterKeywords} AND (${chainIdSearchLanguage})`,
+      sort: 'sortWeight desc,isDisplay  desc,token.symbol  acs,token.chainId acs',
+      skipCount: 0,
+      maxResultCount: 1000,
+    });
+    return res.result;
+  };
+
+  checkELFTokenPrice = async (): Promise<FetchTokenPriceResult | null | undefined> => {
+    const res = await this.realExecute<FetchTokenPriceResult>(await this.parseUrl(APIPaths.GET_TOKEN_PRICES), 'GET', {
+      symbols: ['ELF'],
+    });
     return res.result;
   };
 

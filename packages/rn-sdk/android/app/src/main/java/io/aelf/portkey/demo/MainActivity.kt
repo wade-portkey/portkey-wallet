@@ -38,7 +38,8 @@ import io.aelf.portkey.demo.ui.composable.SimpleChoiceMaker
 import io.aelf.portkey.demo.ui.theme.MyRNApplicationTheme
 import io.aelf.portkey.demo.ui.theme.Purple40
 import io.aelf.portkey.entry.usePortkeyEntryWithParams
-import io.aelf.portkey.tools.startJSBackgroundTaskTest
+import io.aelf.portkey.tools.callCaContractMethodTest
+import io.aelf.portkey.tools.runTestCases
 import io.aelf.portkey.wallet.isWalletUnlocked
 import java.security.InvalidKeyException
 
@@ -108,15 +109,24 @@ class MainActivity : ComponentActivity() {
                             changeEndPointUrl(it)
                         }
                         BigButton(text = "Call CA Contract Method") {
-                            startJSBackgroundTaskTest(this@MainActivity) {
+                            callCaContractMethodTest(this@MainActivity) {
                                 Loading.hideLoading()
                                 showWarnDialog(
-                                    mainTitle = "Background Service Call",
-                                    subTitle =
-                                    "data: $it",
+                                    mainTitle = "Contract Result",
+                                    subTitle = "$it",
                                 )
                             }
-                            Loading.showLoading()
+                            Loading.showLoading("Calling CA Contract Method...")
+                        }
+                        BigButton(text = "Run Test Cases") {
+                            runTestCases(this@MainActivity) {
+                                Loading.hideLoading()
+                                showWarnDialog(
+                                    mainTitle = "Test Result ".plus(if (it.status == "success") "😊" else "😅"),
+                                    subTitle = "$it",
+                                )
+                            }
+                            Loading.showLoading("Running Test Cases...")
                         }
                         BigButton("Sign out?") {
                             signOut()

@@ -17,10 +17,11 @@ const WalletModule: BaseJSModule = {
     }
     const contract = await getContractInstance();
     const { address } = await getUnlockedWallet();
+    const isParamsEmpty = Object.values(params ?? {}).length === 0;
     try {
       const result: ViewResult | SendResult = isViewMethod
-        ? await contract.callSendMethod(methodName, address, params)
-        : await contract.callViewMethod(methodName, params);
+        ? await contract.callSendMethod(methodName, address, isParamsEmpty ? null : params)
+        : await contract.callViewMethod(methodName, isParamsEmpty ? null : params);
       if (!result) throw new Error('result is null');
       const { data, error } = result;
       let jsData: BaseMethodResult = {
@@ -71,7 +72,7 @@ export const emitJSMethodResult = (eventId: string, result: BaseMethodResult) =>
 export interface CallCaMethodProps extends BaseMethodParams {
   contractMethodName: string;
   isViewMethod: boolean;
-  params: { [key: string | symbol]: any };
+  params?: { [key: string | symbol]: any };
 }
 
 export { WalletModule };
