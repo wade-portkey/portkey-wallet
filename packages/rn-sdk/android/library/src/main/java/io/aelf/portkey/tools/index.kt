@@ -5,8 +5,11 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import com.google.gson.JsonElement
+import io.aelf.core.PortKeySDKHolder
+import io.aelf.portkey.BuildConfig
 import io.aelf.portkey.components.activities.entered
 import io.aelf.portkey.components.logic.JSEventBus
+import io.aelf.portkey.components.logic.PortkeyReactNativeHost
 import io.aelf.portkey.components.services.GeneralJSMethodService
 
 internal fun generateUniqueCallbackID(): String {
@@ -32,13 +35,13 @@ internal fun callJsMethod(
     bundle: Bundle = Bundle(),
     callback: (JSMethodData) -> Unit = {}
 ) {
-    if (!entered) {
-        Toast.makeText(
-            applicationContext,
-            "Enter a react-native page at least once.",
-            Toast.LENGTH_LONG
-        ).show()
-        return
+    if(!PortKeySDKHolder.initialized){
+        if(BuildConfig.DEBUG)
+            Toast.makeText(
+                applicationContext,
+                "sdk is initializing...",
+                Toast.LENGTH_LONG
+            ).show()
     }
     bundle.putString("taskName", taskName)
     val callbackId = generateUniqueCallbackID()
