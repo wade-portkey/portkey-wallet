@@ -4,23 +4,25 @@ import { styles } from './style';
 import ReceiveButton from 'components/ReceiveButton';
 import ActivityButton from 'pages/Home/ActivityButton';
 import { TextM } from 'components/CommonText';
-import { useWallet } from '@portkey-wallet/hooks/hooks-ca/wallet';
-import { useIsMainnet } from '@portkey-wallet/hooks/hooks-ca/network';
-import { useAccountBalanceUSD } from '@portkey-wallet/hooks/hooks-ca/balances';
 import FaucetButton from 'components/FaucetButton';
+import { useWalletBalanceUSD } from 'model/hooks/balance';
+import { useUnlockedWallet } from 'model/wallet';
+import { useCurrentNetworkType } from 'model/hooks/network';
 
-const Card: React.FC = () => {
-  const isMainnet = useIsMainnet();
-  const { walletName } = useWallet();
-  const accountBalanceUSD = useAccountBalanceUSD();
+const AssetsHome: React.FC = () => {
+  const { wallet } = useUnlockedWallet();
+  const networkType = useCurrentNetworkType();
+  const { balanceUSD } = useWalletBalanceUSD();
+
+  const isMainnet = networkType === 'MAIN';
 
   return (
     <View style={styles.cardWrap}>
       <View style={styles.refreshWrap}>
         <Text style={styles.block} />
       </View>
-      <Text style={styles.usdtBalance}>{isMainnet ? `$${accountBalanceUSD}` : 'Dev Mode'}</Text>
-      <TextM style={styles.accountName}>{walletName}</TextM>
+      <Text style={styles.usdtBalance}>{isMainnet ? `$${balanceUSD}` : 'Dev Mode'}</Text>
+      <TextM style={styles.accountName}>{wallet?.name}</TextM>
       <View style={styles.buttonGroupWrap}>
         {/* ramp is now available by now */}
         {/* {isBuyButtonShow && (
@@ -46,4 +48,4 @@ const Card: React.FC = () => {
   );
 };
 
-export default Card;
+export default AssetsHome;

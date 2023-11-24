@@ -89,6 +89,18 @@ export const callAddGuardianMethod = async (
   });
 };
 
+export const callGetHolderInfoMethod = async (caHash: string, caContractAddress: string, peerUrl: string) => {
+  const { privateKey } = (await getUnlockedWallet()) || {};
+  const contractInstance = await getContractBasic({
+    contractAddress: caContractAddress,
+    rpcUrl: peerUrl,
+    account: AElfWeb3SDK.getWalletByPrivateKey(privateKey),
+  });
+  return await contractInstance.callViewMethod('GetHolderInfo', {
+    caHash,
+  });
+};
+
 export const callRemoveGuardianMethod = async (
   particularGuardian: GuardianConfig,
   guardianList: Array<ApprovedGuardianInfo>,

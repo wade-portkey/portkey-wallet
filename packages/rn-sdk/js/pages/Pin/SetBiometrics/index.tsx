@@ -2,7 +2,6 @@ import React, { useCallback, useState, useMemo } from 'react';
 import { TextL, TextS } from 'components/CommonText';
 import PageContainer from 'components/PageContainer';
 import CommonButton from 'components/CommonButton';
-import { getSecureStoreItem, setSecureStoreItem } from '@portkey-wallet/utils/mobile/biometric';
 import { Image, StyleSheet } from 'react-native';
 import GStyles from 'assets/theme/GStyles';
 import { defaultColors } from 'assets/theme';

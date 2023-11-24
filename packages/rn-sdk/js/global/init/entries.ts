@@ -20,6 +20,7 @@ import AddGuardian from 'pages/Guardian/GuardianManage/AddGuardian';
 import ModifyGuardian from 'pages/Guardian/GuardianManage/ModifyGuardian';
 import GuardianDetail from 'pages/Guardian/GuardianDetail';
 import ReceiveTokenPage from 'pages/Assets/ReceiveToken';
+import AssetsHome from 'pages/Assets/Home/Card';
 
 type AcceptableComponentType = ComponentProvider;
 
@@ -55,9 +56,12 @@ const initEntries = () => {
   // webview
   entryConfig.set(PortkeyEntries.VIEW_ON_WEBVIEW, () => ViewOnWebView);
 
+  // account setting
   entryConfig.set(PortkeyEntries.ACCOUNT_SETTING_ENTRY, () => AccountSettings);
   entryConfig.set(PortkeyEntries.BIOMETRIC_SWITCH_ENTRY, () => Biometric);
 
+  // assets module
+  entryConfig.set(PortkeyEntries.ASSETS_HOME_ENTRY, () => AssetsHome);
   entryConfig.set(PortkeyEntries.RECEIVE_TOKEN_ENTRY, () => ReceiveTokenPage);
 
   for (const [key, value] of entryConfig) {

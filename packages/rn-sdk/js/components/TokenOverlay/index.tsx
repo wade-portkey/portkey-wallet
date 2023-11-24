@@ -60,7 +60,7 @@ const TokenList = ({ onFinishSelectToken }: TokenListProps) => {
           return chainInfoItem.chainId;
         });
       }
-      const tokenAssets = await NetworkController.checkUserTokenAssets({
+      const tokenAssets = await NetworkController.searchTokenList({
         chainIdArray: chainIdList.current ?? 'AELF',
         keyword: debounceKeyword,
       });

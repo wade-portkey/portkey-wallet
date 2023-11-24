@@ -26,5 +26,6 @@ export enum APIPaths {
 
   // assets service
   GET_TOKEN_INFO = '/api/app/search/usertokenindex',
+  GET_USER_TOKEN_STATUS = '/api/app/user/assets/token',
   GET_TOKEN_PRICES = '/api/app/tokens/prices',
 }

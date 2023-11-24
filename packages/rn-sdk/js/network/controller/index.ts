@@ -30,7 +30,13 @@ import { sleep } from '@portkey-wallet/utils';
 import { getCachedNetworkToken } from 'network/token';
 import { isWalletUnlocked } from 'model/verify/after-verify';
 import { SymbolImages } from 'model/symbolImage';
-import { FetchTokenPriceResult, FetchUserTokenConfig, GetUserTokenListResult } from 'network/dto/query';
+import {
+  FetchTokenPriceResult,
+  SearchTokenListParams,
+  GetUserTokenListResult,
+  FetchBalanceConfig,
+  FetchBalanceResult,
+} from 'network/dto/query';
 import { selectCurrentBackendConfig } from 'utils/commonUtil';
 
 const DEFAULT_MAX_POLLING_TIMES = 50;
@@ -265,7 +271,7 @@ export class NetworkControllerEntity {
     return res.result;
   };
 
-  checkUserTokenAssets = async (config?: FetchUserTokenConfig): Promise<GetUserTokenListResult | null | undefined> => {
+  searchTokenList = async (config?: SearchTokenListParams): Promise<GetUserTokenListResult> => {
     const { chainIdArray = ['AELF', 'tDVV', 'tDVW'], keyword = '' } = config || {};
     const chainIdSearchLanguage = chainIdArray.map(chainId => `token.chainId:${chainId}`).join(' OR ');
 
@@ -278,9 +284,26 @@ export class NetworkControllerEntity {
       skipCount: 0,
       maxResultCount: 1000,
     });
+    if (!res?.result) throw new Error('network failure');
     return res.result;
   };
 
+  fetchUserTokenBalance = async (config: FetchBalanceConfig): Promise<FetchBalanceResult> => {
+    const { caAddressInfos, skipCount = 0, maxResultCount = 100 } = config;
+    const res = await this.realExecute<FetchBalanceResult>(
+      await this.parseUrl(APIPaths.GET_USER_TOKEN_STATUS),
+      'POST',
+      {
+        caAddressInfos,
+        skipCount,
+        maxResultCount,
+      },
+    );
+    if (!res?.result) throw new Error('network failure');
+    return res.result;
+  };
+
+  // at current version, only ELF tokens have price
   checkELFTokenPrice = async (): Promise<FetchTokenPriceResult | null | undefined> => {
     const res = await this.realExecute<FetchTokenPriceResult>(await this.parseUrl(APIPaths.GET_TOKEN_PRICES), 'GET', {
       symbols: ['ELF'],

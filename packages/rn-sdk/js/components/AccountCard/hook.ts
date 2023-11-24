@@ -1,7 +1,7 @@
 import { ChainType, NetworkType } from '@portkey-wallet/types';
 import useEffectOnce from 'hooks/useEffectOnce';
+import { getCurrentNetworkType } from 'model/hooks/network';
 import { useState } from 'react';
-import { getCurrentNetwork } from 'utils/commonUtil';
 
 export function useDefaultChainType() {
   return 'aelf' as ChainType;
@@ -9,7 +9,7 @@ export function useDefaultChainType() {
 export function useCurrentNetworkInfo() {
   const [currentNetwork, setCurrentNetwork] = useState<NetworkType>('MAIN');
   useEffectOnce(async () => {
-    setCurrentNetwork(await getCurrentNetwork());
+    setCurrentNetwork(await getCurrentNetworkType());
   });
   return currentNetwork;
 }

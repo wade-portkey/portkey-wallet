@@ -10,13 +10,14 @@ import CommonAvatar from 'components/CommonAvatar';
 import GStyles from 'assets/theme/GStyles';
 import { formatChainInfoToShow } from '@portkey-wallet/utils';
 import AccountCard from 'components/AccountCard';
-import { copyText, getCurrentNetwork } from 'utils/commonUtil';
+import { copyText } from 'utils/commonUtil';
 import { Token, getCachedNetworkConfig } from 'model/chain';
 import { NetworkType } from '@portkey-wallet/types';
 import { DEFAULT_TOKEN } from '@portkey-wallet/constants/constants-ca/wallet';
 import useEffectOnce from 'hooks/useEffectOnce';
 import { useSymbolImages } from 'components/TokenOverlay/hook';
 import { getTempWalletConfig } from 'model/verify/after-verify';
+import { getCurrentNetworkType } from 'model/hooks/network';
 
 export default function ReceiveTokenPage(props: { token: string }) {
   const { t } = useLanguage();
@@ -24,7 +25,7 @@ export default function ReceiveTokenPage(props: { token: string }) {
   const [defaultToken, setDefaultToken] = useState<Token>(DEFAULT_TOKEN);
   const [currentCaAddress, setCurrentCaAddress] = useState<string>('');
   useEffectOnce(async () => {
-    setCurrentNetwork(await getCurrentNetwork());
+    setCurrentNetwork(await getCurrentNetworkType());
     const { defaultToken: cachedDefaultToken } = await getCachedNetworkConfig();
     setDefaultToken(cachedDefaultToken);
     const wallet = await getTempWalletConfig();

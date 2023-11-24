@@ -1,6 +1,4 @@
-import { NetworkType } from '@portkey-wallet/types';
 import CommonToast from 'components/CommonToast';
-import { EndPoints, PortkeyConfig } from 'global/constants';
 import { setStringAsync } from 'expo-clipboard';
 import i18n from 'i18n';
 import { BackEndNetWorkMap } from '@portkey-wallet/constants/constants-ca/backend-network';
@@ -37,10 +35,6 @@ export const doubleClick = (fun: (params: any) => void, params: any, interval = 
 
 export const checkIsSvgUrl = (imgUrl: string) => {
   return /.svg$/.test(imgUrl);
-};
-
-export const getCurrentNetwork = async (): Promise<NetworkType> => {
-  return (await PortkeyConfig.endPointUrl()) === EndPoints.MAIN_NET ? 'MAIN' : 'TESTNET';
 };
 
 export const selectCurrentBackendConfig = (endPointUrl: string) => {

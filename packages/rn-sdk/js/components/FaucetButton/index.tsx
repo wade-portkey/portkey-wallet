@@ -9,9 +9,9 @@ import { useLanguage } from 'i18n/hooks';
 import { pTd } from 'utils/unit';
 import GStyles from 'assets/theme/GStyles';
 import CommonToast from 'components/CommonToast';
-import { getCurrentNetwork } from 'utils/commonUtil';
 import { callFaucetMethod } from 'model/contract/handler';
 import { isWalletUnlocked } from 'model/verify/after-verify';
+import { getCurrentNetworkType } from 'model/hooks/network';
 interface SendButtonType {
   themeType?: 'dashBoard' | 'innerPage';
   sentToken?: TokenItemShowType;
@@ -48,7 +48,7 @@ const FaucetButton = (props: SendButtonType) => {
       <TouchableOpacity
         style={[styles.iconWrapStyle, GStyles.alignCenter]}
         onPress={async () => {
-          const networkType = await getCurrentNetwork();
+          const networkType = await getCurrentNetworkType();
           if (networkType !== 'TESTNET') return;
           claimToken();
         }}>

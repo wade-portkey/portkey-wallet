@@ -88,7 +88,8 @@ class MainActivity : ComponentActivity() {
                                 "Login",
                                 "Scan",
                                 "AccountingSettings",
-                                "GuardianHome"
+                                "GuardianHome",
+                                "AssetsHome"
                             )
                         ) {
                             gotoPage(it)
@@ -161,6 +162,14 @@ class MainActivity : ComponentActivity() {
 
             "GuardianHome" -> {
                 jumpToActivity(PortkeyEntries.GUARDIAN_HOME_ENTRY.entryName)
+            }
+
+            "AssetsHome" -> {
+                jumpToActivity(PortkeyEntries.ASSETS_HOME_ENTRY.entryName)
+            }
+
+            else -> {
+                Toast.makeText(this, "Unknown page", Toast.LENGTH_SHORT).show()
             }
         }
     }

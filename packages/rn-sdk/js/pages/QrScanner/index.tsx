@@ -18,8 +18,6 @@ import Loading from 'components/Loading';
 import CommonToast from 'components/CommonToast';
 import { QRData, isLoginQRData } from '@portkey-wallet/types/types-ca/qrcode';
 import { isAddress } from '@portkey-wallet/utils';
-import { NetworkType } from '@portkey-wallet/types';
-import { EndPoints, PortkeyConfig } from 'global/constants';
 import useBaseContainer, { VoidResult } from 'model/container/UseBaseContainer';
 import { PortkeyEntries, isPortkeyEntries } from 'config/entries';
 import { EntryResult, PermissionType, chooseImageAndroid, PortkeyModulesEntity } from 'service/native-modules';
@@ -27,7 +25,8 @@ import useEffectOnce from 'hooks/useEffectOnce';
 import { ScanToLoginProps } from 'pages/Login/ScanLogin';
 import { isWalletUnlocked } from 'model/verify/after-verify';
 import { checkIsPortKeyUrl, isEntryScheme } from 'utils/scheme';
-import { getCurrentNetwork, myThrottle } from 'utils/commonUtil';
+import { myThrottle } from 'utils/commonUtil';
+import { getCurrentNetworkType } from 'model/hooks/network';
 
 const QrScanner: React.FC = () => {
   const { t } = useLanguage();
@@ -103,7 +102,7 @@ const QrScanner: React.FC = () => {
     }
     canScan.current = false;
     if (typeof data !== 'string') return invalidQRCode(InvalidQRCodeText.INVALID_QR_CODE);
-    const currentNetwork = await getCurrentNetwork();
+    const currentNetwork = await getCurrentNetworkType();
     try {
       const str = data.replace(/("|'|\s)/g, '');
       if (checkIsUrl(str)) {
