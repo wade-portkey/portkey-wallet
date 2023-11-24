@@ -12,17 +12,17 @@ import com.facebook.react.ReactActivity
 import com.facebook.react.ReactApplication
 import com.facebook.react.ReactNativeHost
 import com.tencent.mmkv.MMKV
+import io.aelf.core.PortKeySDKHolder
 import io.aelf.portkey.BuildConfig
+import io.aelf.portkey.PortkeyReactApplication
 import io.aelf.portkey.components.logic.PortkeyReactNativeHost
-import io.aelf.portkey.components.logic.hostInstance
 import io.aelf.portkey.config.StorageIdentifiers
 import io.aelf.portkey.demo.DemoStorage
 
-class PortkeyReactApplication : Application(), ReactApplication {
-
+class DemoApplication : PortkeyReactApplication() {
+    private lateinit var navHost: PortkeyReactNativeHost
     override fun onCreate() {
         super.onCreate()
-        MMKV.initialize(this)
         registerActivityLifecycleCallbacks(object : ActivityLifecycleCallbacks{
             override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
                 if(!DemoStorage.isDevMode()){
@@ -66,19 +66,6 @@ class PortkeyReactApplication : Application(), ReactApplication {
         textView.textSize = 10f.dp
         textView.setBackgroundColor(Color.parseColor("#6680D8FF"))
         (activity.window.decorView as ViewGroup).addView(textView, layoutParams)
-    }
-
-    override fun getReactNativeHost(): ReactNativeHost {
-            return hostInstance ?: createNewHost()
-    }
-
-    private fun createNewHost(): PortkeyReactNativeHost {
-        val nativeHost = PortkeyReactNativeHost(
-            application = this,
-            isDebug = BuildConfig.IS_DEBUG
-        )
-        nativeHost.reactInstanceManager.createReactContextInBackground()
-        return  nativeHost
     }
 
 }

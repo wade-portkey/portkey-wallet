@@ -8,10 +8,10 @@ import { BackEndNetWorkMap } from '@portkey-wallet/constants/constants-ca/backen
 // eslint-disable-next-line @typescript-eslint/ban-types
 export function myThrottle(fn: Function, delay: number) {
   let timer: NodeJS.Timeout | null;
-  return function () {
+  return function ({ data }: { data: string }) {
     if (!timer) {
       // eslint-disable-next-line prefer-rest-params
-      fn.apply(this, arguments);
+      fn.apply(this, data);
       timer = setTimeout(() => {
         if (timer) {
           clearTimeout(timer);
@@ -21,7 +21,6 @@ export function myThrottle(fn: Function, delay: number) {
     }
   };
 }
-
 export const doubleClick = (fun: (params: any) => void, params: any, interval = 200): void => {
   let isCalled = false;
   let timer: NodeJS.Timeout | undefined;

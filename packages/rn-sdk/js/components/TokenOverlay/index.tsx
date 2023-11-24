@@ -18,6 +18,7 @@ import { getCachedAllChainInfo } from 'model/chain';
 import { useCommonInfo } from './hook';
 import { NetworkController } from 'network/controller';
 import { IUserTokenItem } from 'network/dto/query';
+import Loading from 'components/Loading';
 
 type onFinishSelectTokenType = (tokenItem: TokenItemShowType) => void;
 type TokenListProps = {
@@ -44,6 +45,9 @@ const TokenList = ({ onFinishSelectToken }: TokenListProps) => {
         item={item}
         onPress={() => {
           OverlayModal.hide();
+          item.currentNetwork = commonInfo.currentNetwork;
+          item.currentCaAddress = commonInfo.currentCaAddress;
+          item.defaultToken = commonInfo.defaultToken;
           onFinishSelectToken?.(item);
         }}
         commonInfo={commonInfo}
@@ -53,6 +57,7 @@ const TokenList = ({ onFinishSelectToken }: TokenListProps) => {
   );
 
   useEffect(() => {
+    Loading.show();
     async function fetchData() {
       if (chainIdList.current === undefined) {
         const chainInfo = await getCachedAllChainInfo();
@@ -66,9 +71,13 @@ const TokenList = ({ onFinishSelectToken }: TokenListProps) => {
       });
       return tokenAssets?.items;
     }
-    fetchData().then(result => {
-      result && setTokenDataShowInMarket(result);
-    });
+    fetchData()
+      .then(result => {
+        result && setTokenDataShowInMarket(result);
+      })
+      .finally(() => {
+        Loading.hide();
+      });
   }, [debounceKeyword]);
 
   const noData = useMemo(() => {

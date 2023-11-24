@@ -16,7 +16,6 @@ import { PortkeyModulesEntity } from 'service/native-modules';
 import CommonToast from 'components/CommonToast';
 import TokenOverlay from 'components/TokenOverlay';
 import { TokenItemShowType } from '@portkey-wallet/types/types-eoa/token';
-
 export default function AccountSettings() {
   const biometricsReady = useBiometricsReady();
   const { navigationTo, onFinish } = useBaseContainer({
@@ -61,6 +60,7 @@ export default function AccountSettings() {
         // navigationTo(PortkeyEntries.BIOMETRIC_SWITCH_ENTRY, {});
         TokenOverlay.showTokenList({
           onFinishSelectToken: (tokenInfo: TokenItemShowType) => {
+            console.log('tokenInfotokenInfo', tokenInfo);
             navigationTo(PortkeyEntries.RECEIVE_TOKEN_ENTRY, { params: tokenInfo });
           },
         });
