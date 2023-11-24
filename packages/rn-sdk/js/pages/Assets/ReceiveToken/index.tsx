@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PageContainer from 'components/PageContainer';
 import { TextL, TextM, TextXL, TextS } from 'components/CommonText';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
@@ -10,29 +10,22 @@ import CommonAvatar from 'components/CommonAvatar';
 import GStyles from 'assets/theme/GStyles';
 import { formatChainInfoToShow } from '@portkey-wallet/utils';
 import AccountCard from 'components/AccountCard';
-import { copyText, getCurrentNetwork } from 'utils/commonUtil';
-import { Token, getCachedNetworkConfig } from 'model/chain';
-import { NetworkType } from '@portkey-wallet/types';
-import { DEFAULT_TOKEN } from '@portkey-wallet/constants/constants-ca/wallet';
-import useEffectOnce from 'hooks/useEffectOnce';
+import { copyText } from 'utils/commonUtil';
 import { useSymbolImages } from 'components/TokenOverlay/hook';
-import { getTempWalletConfig } from 'model/verify/after-verify';
+import { NetworkType } from '@portkey-wallet/types';
 
-export default function ReceiveTokenPage(props: { token: string }) {
+export default function ReceiveTokenPage(props: {
+  token: string;
+  currentNetwork: NetworkType;
+  currentCaAddress: string;
+  defaultToken: string;
+}) {
   const { t } = useLanguage();
-  const [currentNetwork, setCurrentNetwork] = useState<NetworkType>('MAIN');
-  const [defaultToken, setDefaultToken] = useState<Token>(DEFAULT_TOKEN);
-  const [currentCaAddress, setCurrentCaAddress] = useState<string>('');
-  useEffectOnce(async () => {
-    setCurrentNetwork(await getCurrentNetwork());
-    const { defaultToken: cachedDefaultToken } = await getCachedNetworkConfig();
-    setDefaultToken(cachedDefaultToken);
-    const wallet = await getTempWalletConfig();
-    setCurrentCaAddress(wallet.caInfo?.caAddress ?? '');
-  });
-  const tokenObj = JSON.parse(props.token);
-  const { chainId, symbol } = tokenObj;
+  const { token, currentNetwork, currentCaAddress, defaultToken: defaultTokenJSONStr } = props;
 
+  const tokenObj = JSON.parse(token);
+  const defaultToken = JSON.parse(defaultTokenJSONStr);
+  const { chainId, symbol } = tokenObj;
   const symbolImages = useSymbolImages();
 
   return (
