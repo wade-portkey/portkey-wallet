@@ -20,7 +20,7 @@ import AddGuardian from 'pages/Guardian/GuardianManage/AddGuardian';
 import ModifyGuardian from 'pages/Guardian/GuardianManage/ModifyGuardian';
 import GuardianDetail from 'pages/Guardian/GuardianDetail';
 import ReceiveTokenPage from 'pages/Assets/ReceiveToken';
-import AssetsHome from 'pages/Assets/Home/Card';
+import AssetsHome from 'pages/Assets/Home/AssetsHome';
 
 type AcceptableComponentType = ComponentProvider;
 

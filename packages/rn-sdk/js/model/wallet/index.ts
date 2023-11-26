@@ -41,8 +41,13 @@ export const getUnlockedWallet = async ({
     for (const item of items) {
       if (item.chainId === originalChainId) continue;
       const res = await callGetHolderInfoMethod(caHash, item.caContractAddress, item.endPoint);
-      if (res?.error) continue;
-      multiCaAddresses[item.chainId] = res?.data?.ca_address;
+      if (res?.error) {
+        console.log('getMultiCaAddresses error', res?.error);
+        continue;
+      } else {
+        console.log('getMultiCaAddresses success', res?.data);
+      }
+      multiCaAddresses[item.chainId] = res?.data?.caAddress;
     }
   }
   return {

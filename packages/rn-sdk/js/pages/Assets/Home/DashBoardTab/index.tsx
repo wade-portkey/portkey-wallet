@@ -1,29 +1,33 @@
 import React, { useMemo } from 'react';
 import TokenSection from '../TokenSection';
 import NFTSection from '../NFTSection/index';
-import CommonTopTab from 'components/CommonTopTab';
 
 import { useLanguage } from 'i18n/hooks';
-type DashBoardTabProps = {
-  getAccountBalance?: () => void;
-};
+import { RNTabView } from 'model/hooks/tabs';
+import { View } from 'react-native';
 
-const DashBoardTab: React.FC<DashBoardTabProps> = (props: DashBoardTabProps) => {
+export enum DashBoardTabEnum {
+  TOKENS = 'tokens',
+  NFTS = 'nfts',
+}
+
+const DashBoardTab: React.FC = () => {
   const { t } = useLanguage();
-
-  const tabList = useMemo(() => {
+  const DashBoardTabConfig = useMemo(() => {
     return [
       {
-        name: t('Tokens'),
-        tabItemDom: <TokenSection {...props} />,
+        key: DashBoardTabEnum.TOKENS,
+        title: t('Tokens'),
+        component: TokenSection,
       },
       {
-        name: t('NFTs'),
-        tabItemDom: <NFTSection />,
+        key: DashBoardTabEnum.NFTS,
+        title: t('NFTs'),
+        component: () => <View />,
       },
     ];
-  }, [props, t]);
-
-  return <CommonTopTab hasTabBarBorderRadius tabList={tabList} />;
+  }, [t]);
+  return <RNTabView tabs={DashBoardTabConfig} defaultTab={DashBoardTabEnum.TOKENS} />;
 };
+
 export default DashBoardTab;

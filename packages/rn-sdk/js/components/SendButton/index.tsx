@@ -1,16 +1,14 @@
 import React, { memo } from 'react';
 import Svg from 'components/Svg';
 import { dashBoardBtnStyle, innerPageStyles } from './style';
-import navigationService from 'utils/navigationService';
+// import navigationService from 'utils/navigationService';
 import { TokenItemShowType } from '@portkey-wallet/types/types-ca/token';
-import { IToSendHomeParamsType } from '@portkey-wallet/types/types-ca/routeParams';
-
 import { View, TouchableOpacity } from 'react-native';
 import { TextM } from 'components/CommonText';
 import { useLanguage } from 'i18n/hooks';
 import { pTd } from 'utils/unit';
-import AssetsOverlay from 'pages/Home/AssetsOverlay';
 import GStyles from 'assets/theme/GStyles';
+import CommonToast from 'components/CommonToast';
 
 interface SendButtonType {
   themeType?: 'dashBoard' | 'innerPage';
@@ -18,7 +16,7 @@ interface SendButtonType {
 }
 
 const SendButton = (props: SendButtonType) => {
-  const { themeType = 'dashBoard', sentToken } = props;
+  const { themeType = 'dashBoard' } = props;
   const styles = themeType === 'dashBoard' ? dashBoardBtnStyle : innerPageStyles;
 
   const { t } = useLanguage();
@@ -28,18 +26,7 @@ const SendButton = (props: SendButtonType) => {
       <TouchableOpacity
         style={[styles.iconWrapStyle, GStyles.alignCenter]}
         onPress={async () => {
-          if (themeType === 'innerPage')
-            return navigationService.navigate('SendHome', {
-              sendType: 'token',
-              assetInfo: sentToken,
-              toInfo: {
-                name: '',
-                address: '',
-              },
-            } as unknown as IToSendHomeParamsType);
-          // if (currentTokenList.length === 1)
-          // return navigationService.navigate('SendHome', { tokenItem: currentTokenList?.[0] });
-          AssetsOverlay.showAssetList();
+          CommonToast.fail('Send is not available by now');
         }}>
         <Svg icon={themeType === 'dashBoard' ? 'send' : 'send1'} size={pTd(46)} />
       </TouchableOpacity>

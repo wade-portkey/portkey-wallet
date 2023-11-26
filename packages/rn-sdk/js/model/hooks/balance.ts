@@ -24,17 +24,24 @@ export const useWalletBalanceUSD = () => {
 export const useTokenPrices = () => {
   const [tokenPrices, setTokenPrices] = useState<Array<{ symbol: string; priceInUsd: number }>>([]);
   useEffectOnce(async () => {
+    await updateTokenPrices();
+  });
+  const updateTokenPrices = async () => {
     const result = await NetworkController.checkELFTokenPrice();
     result && setTokenPrices(result.items);
-  });
+  };
   return {
     tokenPrices,
+    updateTokenPrices,
   };
 };
 
 export const useAccountTokenBalanceList = () => {
   const [balanceList, setBalanceList] = useState<Array<ITokenItemResponse>>([]);
   useEffectOnce(async () => {
+    await updateBalanceList();
+  });
+  const updateBalanceList = async () => {
     const { multiCaAddresses } = await getUnlockedWallet({ getMultiCaAddresses: true });
     const result = await NetworkController.fetchUserTokenBalance({
       maxResultCount: 100,
@@ -45,19 +52,24 @@ export const useAccountTokenBalanceList = () => {
       })),
     });
     result && setBalanceList(result.data);
-  });
+  };
   return {
     balanceList,
+    updateBalanceList,
   };
 };
 
 export const useSearchTokenList = () => {
   const [tokenList, setTokenList] = useState<IUserTokenItem[]>([]);
   useEffectOnce(async () => {
+    await updateTokensList();
+  });
+  const updateTokensList = async () => {
     const result = await NetworkController.searchTokenList();
     result && setTokenList(result.items);
-  });
+  };
   return {
     tokenList,
+    updateTokensList,
   };
 };

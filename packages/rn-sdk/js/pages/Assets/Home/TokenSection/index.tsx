@@ -1,95 +1,94 @@
-import React, { useCallback, useState, useEffect, useRef } from 'react';
+import React, { useCallback, useState, useEffect, useRef, useContext, useMemo } from 'react';
 import { StyleSheet } from 'react-native';
-import navigationService from 'utils/navigationService';
-import { useAppCASelector, useAppCommonDispatch } from '@portkey-wallet/hooks/index';
-import { View, TouchableOpacity, FlatList } from 'react-native';
-import Svg from 'components/Svg';
+import { View, FlatList } from 'react-native';
 import { TokenItemShowType } from '@portkey-wallet/types/types-ca/token';
-import { TextM } from 'components/CommonText';
 import { defaultColors } from 'assets/theme';
 import { pTd } from 'utils/unit';
 import TokenListItem from 'components/TokenListItem';
-import { useLanguage } from 'i18n/hooks';
-import { useCaAddressInfoList, useCurrentWallet } from '@portkey-wallet/hooks/hooks-ca/wallet';
-import { fetchTokenListAsync } from '@portkey-wallet/store/store-ca/assets/slice';
 import { REFRESH_TIME } from '@portkey-wallet/constants/constants-ca/assets';
-import { useGetCurrentAccountTokenPrice } from '@portkey-wallet/hooks/hooks-ca/useTokensPrice';
+import { useCommonInfo } from 'components/TokenOverlay/hook';
+import AssetsContext, { AssetsContextType } from 'global/context/assets/AssetsContext';
 
 export interface TokenSectionProps {
   getAccountBalance?: () => void;
 }
 
-export default function TokenSection({ getAccountBalance }: TokenSectionProps) {
-  const { t } = useLanguage();
-  const dispatch = useAppCommonDispatch();
-  const {
-    accountToken: { accountTokenList },
-  } = useAppCASelector(state => state.assets);
-  const caAddressInfoList = useCaAddressInfoList();
-  const {
-    walletInfo: { caAddressList },
-  } = useCurrentWallet();
-  const [, getTokenPrice] = useGetCurrentAccountTokenPrice();
+const tokenItemFilterWhiteList = ['ELF'];
+
+export default function TokenSection() {
+  const commonInfo = useCommonInfo();
   const [isFetching] = useState(false);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
+  const { balanceList, updateBalanceList } = useContext<AssetsContextType>(AssetsContext);
 
-  const onNavigate = useCallback((tokenItem: TokenItemShowType) => {
-    navigationService.navigate('TokenDetail', { tokenInfo: tokenItem });
+  const itemData: Array<TokenItemShowType> = useMemo(() => {
+    return balanceList.map(item => {
+      return {
+        ...item,
+        chainId: item.chainId as any,
+        currentNetwork: commonInfo.currentNetwork,
+        currentCaAddress: commonInfo.currentCaAddress,
+        defaultToken: commonInfo.defaultToken,
+        address: 'fake',
+        name: item.symbol,
+      };
+    });
+  }, [balanceList, commonInfo.currentCaAddress, commonInfo.currentNetwork, commonInfo.defaultToken]);
+
+  const onNavigate = useCallback((_: TokenItemShowType) => {
+    // item's onclick function is not used by now
   }, []);
 
   const renderItem = useCallback(
     ({ item }: { item: TokenItemShowType }) => {
-      return <TokenListItem key={item.symbol} item={item} onPress={() => onNavigate(item)} />;
+      return <TokenListItem key={item.symbol} item={item} onPress={() => onNavigate(item)} commonInfo={commonInfo} />;
     },
-    [onNavigate],
+    [commonInfo, onNavigate],
   );
-
-  const getAccountTokenList = useCallback(() => {
-    if (caAddressList?.length === 0) return;
-
-    dispatch(fetchTokenListAsync({ caAddresses: caAddressList || [], caAddressInfos: caAddressInfoList || [] }));
-  }, [caAddressInfoList, caAddressList, dispatch]);
-
-  useEffect(() => {
-    getAccountTokenList();
-  }, [caAddressList, getAccountTokenList]);
 
   useEffect(() => {
     if (timerRef.current) clearInterval(timerRef.current);
     timerRef.current = setInterval(() => {
-      getAccountTokenList();
+      updateBalanceList();
     }, REFRESH_TIME);
     return () => {
       if (timerRef.current) clearInterval(timerRef.current);
     };
-  }, [getAccountTokenList]);
+  }, [updateBalanceList]);
+
+  const onRefresh = useCallback(() => {
+    updateBalanceList();
+  }, [updateBalanceList]);
 
   return (
     <View style={styles.tokenListPageWrap}>
       <FlatList
         refreshing={isFetching}
-        data={accountTokenList || []}
+        data={handleTokenFilter(itemData) || []}
         renderItem={renderItem}
         keyExtractor={(item: TokenItemShowType) => item.symbol + item.chainId}
-        onRefresh={() => {
-          getAccountBalance?.();
-          getAccountTokenList();
-          getTokenPrice();
-        }}
-        ListFooterComponent={
-          <TouchableOpacity
-            style={styles.addWrap}
-            onPress={() => {
-              navigationService.navigate('ManageTokenList');
-            }}>
-            <Svg icon="add-token" size={20} />
-            <TextM style={styles.addTokenText}>{t('Add Tokens')}</TextM>
-          </TouchableOpacity>
-        }
+        onRefresh={onRefresh}
+        // addToken not available by now
+        // ListFooterComponent={
+        //   <TouchableOpacity
+        //     style={styles.addWrap}
+        //     onPress={() => {
+        //       navigationService.navigate('ManageTokenList');
+        //     }}>
+        //     <Svg icon="add-token" size={20} />
+        //     <TextM style={styles.addTokenText}>{t('Add Tokens')}</TextM>
+        //   </TouchableOpacity>
+        // }
       />
     </View>
   );
 }
+
+const handleTokenFilter = (tokenList: TokenItemShowType[]) => {
+  return tokenList.filter(item => {
+    return (item.balance && item.balance !== '0') || tokenItemFilterWhiteList.some(symbol => symbol === item.symbol);
+  });
+};
 
 const styles = StyleSheet.create({
   tokenListPageWrap: {
