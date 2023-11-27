@@ -19,7 +19,6 @@ interface TokenListItemType {
 
 const TokenListItem: React.FC<TokenListItemType> = props => {
   const { noBalanceShow = false, onPress, item } = props;
-  console.log('after item', item);
   const { symbolImages, currentNetwork, defaultToken } = props.commonInfo;
   const symbol = item?.token?.symbol ?? item.symbol;
   const chainId = item?.token?.chainId ?? item.chainId;

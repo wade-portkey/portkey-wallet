@@ -1,6 +1,5 @@
 import React, { useMemo } from 'react';
 import TokenSection from '../TokenSection';
-import NFTSection from '../NFTSection/index';
 
 import { useLanguage } from 'i18n/hooks';
 import { RNTabView } from 'model/hooks/tabs';

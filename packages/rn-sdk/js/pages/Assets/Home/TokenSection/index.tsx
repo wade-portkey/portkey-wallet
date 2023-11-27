@@ -28,7 +28,6 @@ export default function TokenSection() {
         const balanceItem = balanceList.find(
           it => it.symbol === item.token.symbol && it.chainId === item.token.chainId,
         );
-        console.log(typeof balanceItem?.balance);
         return {
           balance: balanceItem?.balance ?? '0',
           decimals: item.token.decimals,
@@ -47,7 +46,6 @@ export default function TokenSection() {
 
   const renderItem = useCallback(
     ({ item }: { item: TokenItemShowType }) => {
-      console.log('before item', item);
       return <TokenListItem key={item.symbol} item={item} onPress={undefined} commonInfo={commonInfo} />;
     },
     [commonInfo],
