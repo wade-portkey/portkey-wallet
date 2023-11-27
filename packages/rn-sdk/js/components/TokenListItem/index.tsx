@@ -3,12 +3,13 @@ import { defaultColors } from 'assets/theme';
 import { FontStyles } from 'assets/theme/styles';
 import CommonAvatar from 'components/CommonAvatar';
 import { TextL, TextS } from 'components/CommonText';
-import React, { memo } from 'react';
+import React, { useContext } from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { formatChainInfoToShow } from '@portkey-wallet/utils';
 import { pTd } from 'utils/unit';
 // import { useIsTestnet } from '@portkey-wallet/hooks/hooks-ca/network';
 import { CommonInfo } from '../TokenOverlay/hook';
+import AssetsContext, { AssetsContextType } from 'global/context/assets/AssetsContext';
 interface TokenListItemType {
   noBalanceShow?: boolean;
   item?: any;
@@ -18,29 +19,33 @@ interface TokenListItemType {
 
 const TokenListItem: React.FC<TokenListItemType> = props => {
   const { noBalanceShow = false, onPress, item } = props;
+  console.log('after item', item);
   const { symbolImages, currentNetwork, defaultToken } = props.commonInfo;
+  const symbol = item?.token?.symbol ?? item.symbol;
+  const chainId = item?.token?.chainId ?? item.chainId;
 
   const isTokenHasPrice = true;
-  const tokenPriceObject: never[] = [];
+
+  const { tokenPrices } = useContext<AssetsContextType>(AssetsContext);
 
   return (
-    <TouchableOpacity style={itemStyle.wrap} onPress={() => onPress?.(item)}>
+    <TouchableOpacity style={itemStyle.wrap} onPress={() => onPress?.(item)} disabled={!onPress}>
       <CommonAvatar
         hasBorder
         style={itemStyle.left}
-        title={item?.token?.symbol}
+        title={symbol}
         avatarSize={pTd(48)}
         // elf token icon is fixed , only use white background color
-        svgName={item?.token?.symbol === defaultToken.symbol ? 'testnet' : undefined}
-        imageUrl={symbolImages[item?.token?.symbol]}
+        svgName={symbol === defaultToken.symbol ? 'testnet' : undefined}
+        imageUrl={symbolImages[symbol]}
       />
       <View style={itemStyle.right}>
         <View style={itemStyle.infoWrap}>
           <TextL numberOfLines={1} ellipsizeMode={'tail'} style={itemStyle.tokenName}>
-            {item?.token?.symbol}
+            {symbol}
           </TextL>
           <TextS numberOfLines={1} style={[FontStyles.font3, itemStyle.chainInfo]}>
-            {formatChainInfoToShow(item?.token?.chainId, currentNetwork)}
+            {formatChainInfoToShow(chainId, currentNetwork)}
           </TextS>
         </View>
 
@@ -53,7 +58,9 @@ const TokenListItem: React.FC<TokenListItemType> = props => {
               {!(currentNetwork === 'TESTNET') &&
                 isTokenHasPrice &&
                 `$ ${formatAmountShow(
-                  divDecimals(item?.balance, item.decimals).multipliedBy(tokenPriceObject[item?.symbol]),
+                  divDecimals(item?.balance, item.decimals).multipliedBy(
+                    tokenPrices[symbol ?? item.symbol]?.priceInUsd ?? 0,
+                  ),
                   2,
                 )}`}
             </TextS>
@@ -64,9 +71,7 @@ const TokenListItem: React.FC<TokenListItemType> = props => {
   );
 };
 
-export default memo(TokenListItem, _prev => {
-  return true;
-});
+export default TokenListItem;
 
 const itemStyle = StyleSheet.create({
   wrap: {

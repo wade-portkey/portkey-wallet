@@ -8,63 +8,77 @@ import TokenListItem from 'components/TokenListItem';
 import { REFRESH_TIME } from '@portkey-wallet/constants/constants-ca/assets';
 import { useCommonInfo } from 'components/TokenOverlay/hook';
 import AssetsContext, { AssetsContextType } from 'global/context/assets/AssetsContext';
+import Loading from 'components/Loading';
 
 export interface TokenSectionProps {
   getAccountBalance?: () => void;
 }
 
-const tokenItemFilterWhiteList = ['ELF'];
-
 export default function TokenSection() {
   const commonInfo = useCommonInfo();
   const [isFetching] = useState(false);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
-  const { balanceList, updateBalanceList } = useContext<AssetsContextType>(AssetsContext);
+  const { balanceList, updateBalanceList, allOfTokensList, updateTokensList } =
+    useContext<AssetsContextType>(AssetsContext);
 
   const itemData: Array<TokenItemShowType> = useMemo(() => {
-    return balanceList.map(item => {
-      return {
-        ...item,
-        chainId: item.chainId as any,
-        currentNetwork: commonInfo.currentNetwork,
-        currentCaAddress: commonInfo.currentCaAddress,
-        defaultToken: commonInfo.defaultToken,
-        address: 'fake',
-        name: item.symbol,
-      };
-    });
-  }, [balanceList, commonInfo.currentCaAddress, commonInfo.currentNetwork, commonInfo.defaultToken]);
+    return allOfTokensList
+      .filter(item => item.isDisplay)
+      .map(item => {
+        const balanceItem = balanceList.find(
+          it => it.symbol === item.token.symbol && it.chainId === item.token.chainId,
+        );
+        console.log(typeof balanceItem?.balance);
+        return {
+          balance: balanceItem?.balance ?? '0',
+          decimals: item.token.decimals,
+          chainId: item.token.chainId,
+          address: item.token.address,
+          symbol: item.token.symbol,
+          name: item.token.symbol,
+          isDisplay: item.isDisplay,
+        };
+      }, []);
+  }, [allOfTokensList, balanceList]);
 
-  const onNavigate = useCallback((_: TokenItemShowType) => {
-    // item's onclick function is not used by now
-  }, []);
+  // const onNavigate = useCallback((_: TokenItemShowType) => {
+  //   // item's onclick function is not used by now
+  // }, []);
 
   const renderItem = useCallback(
     ({ item }: { item: TokenItemShowType }) => {
-      return <TokenListItem key={item.symbol} item={item} onPress={() => onNavigate(item)} commonInfo={commonInfo} />;
+      console.log('before item', item);
+      return <TokenListItem key={item.symbol} item={item} onPress={undefined} commonInfo={commonInfo} />;
     },
-    [commonInfo, onNavigate],
+    [commonInfo],
   );
+
+  const onRefresh = useCallback(async () => {
+    Loading.show();
+    try {
+      await updateTokensList();
+      await updateBalanceList();
+    } catch (e) {
+      console.warn('updateBalanceList or updateTokensList failed! ', e);
+    }
+    Loading.hide();
+  }, [updateBalanceList, updateTokensList]);
 
   useEffect(() => {
     if (timerRef.current) clearInterval(timerRef.current);
     timerRef.current = setInterval(() => {
-      updateBalanceList();
+      onRefresh();
     }, REFRESH_TIME);
     return () => {
       if (timerRef.current) clearInterval(timerRef.current);
     };
-  }, [updateBalanceList]);
-
-  const onRefresh = useCallback(() => {
-    updateBalanceList();
-  }, [updateBalanceList]);
+  }, [onRefresh, updateBalanceList, updateTokensList]);
 
   return (
     <View style={styles.tokenListPageWrap}>
       <FlatList
         refreshing={isFetching}
-        data={handleTokenFilter(itemData) || []}
+        data={itemData || []}
         renderItem={renderItem}
         keyExtractor={(item: TokenItemShowType) => item.symbol + item.chainId}
         onRefresh={onRefresh}
@@ -83,12 +97,6 @@ export default function TokenSection() {
     </View>
   );
 }
-
-const handleTokenFilter = (tokenList: TokenItemShowType[]) => {
-  return tokenList.filter(item => {
-    return (item.balance && item.balance !== '0') || tokenItemFilterWhiteList.some(symbol => symbol === item.symbol);
-  });
-};
 
 const styles = StyleSheet.create({
   tokenListPageWrap: {
