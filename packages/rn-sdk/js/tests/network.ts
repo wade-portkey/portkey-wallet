@@ -1,3 +1,4 @@
+import { getUnlockedWallet } from 'model/wallet';
 import { NetworkController } from 'network/controller';
 import { TestCase } from 'service/JsModules/types';
 
@@ -20,9 +21,17 @@ export const NetworkTestCases: Array<TestCase> = [
   {
     describe: 'run getTokenInfo well',
     run: async testContext => {
-      const it = await NetworkController.checkUserTokenAssets();
+      const it = await NetworkController.searchTokenList();
       testContext.assert(!!it, 'it should not be falsy');
       testContext.log(it, 'getTokenInfo result');
+    },
+  },
+  {
+    describe: 'call getHolderInfo method',
+    run: async testContext => {
+      const wallet = await getUnlockedWallet({ getMultiCaAddresses: true });
+      testContext.assert(!!wallet, 'wallet should not be falsy');
+      testContext.log(wallet, 'wallet');
     },
   },
 ];

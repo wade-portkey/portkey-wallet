@@ -5,6 +5,7 @@ import { handleVerificationDoc } from '@portkey-wallet/utils/guardian';
 import { PortkeyConfig } from 'global/constants';
 import { getCachedNetworkConfig } from 'model/chain';
 import { guardianTypeStrToEnum } from 'model/global';
+import { getCurrentNetworkType } from 'model/hooks/network';
 import { isWalletUnlocked } from 'model/verify/after-verify';
 import { GuardianConfig } from 'model/verify/guardian';
 import { getUnlockedWallet } from 'model/wallet';
@@ -89,6 +90,18 @@ export const callAddGuardianMethod = async (
   });
 };
 
+export const callGetHolderInfoMethod = async (caHash: string, caContractAddress: string, peerUrl: string) => {
+  const { privateKey } = (await getUnlockedWallet()) || {};
+  const contractInstance = await getContractBasic({
+    contractAddress: caContractAddress,
+    rpcUrl: peerUrl,
+    account: AElfWeb3SDK.getWalletByPrivateKey(privateKey),
+  });
+  return await contractInstance.callViewMethod('GetHolderInfo', {
+    caHash,
+  });
+};
+
 export const callRemoveGuardianMethod = async (
   particularGuardian: GuardianConfig,
   guardianList: Array<ApprovedGuardianInfo>,
@@ -142,6 +155,9 @@ export const callCancelLoginGuardianMethod = async (particularGuardian: Guardian
 
 export const callFaucetMethod = async (amount = 100) => {
   const contractInstance = await getContractInstance();
+  if ((await getCurrentNetworkType()) === 'MAIN') {
+    throw new Error('faucet is not supported on mainnet');
+  }
   const {
     address,
     caInfo: { caHash },

@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import Svg from 'components/Svg';
 import { dashBoardBtnStyle, innerPageStyles } from 'components/SendButton/style';
-import navigationService from 'utils/navigationService';
+// import navigationService from 'utils/navigationService';
 
 import { View, TouchableOpacity } from 'react-native';
 import { TextM } from 'components/CommonText';
@@ -23,7 +23,7 @@ const ActivityButton = (props: ActivityButtonProps) => {
       <TouchableOpacity
         style={[styles.iconWrapStyle, GStyles.alignCenter]}
         onPress={() => {
-          return navigationService.navigate('ActivityListPage');
+          // return navigationService.navigate('ActivityListPage');
         }}>
         <Svg icon={'activity'} size={pTd(46)} />
       </TouchableOpacity>

@@ -2,10 +2,10 @@ import { DEFAULT_TOKEN } from '@portkey-wallet/constants/constants-ca/wallet';
 import { NetworkType } from '@portkey-wallet/types';
 import useEffectOnce from 'hooks/useEffectOnce';
 import { Token, getCachedNetworkConfig } from 'model/chain';
+import { getCurrentNetworkType } from 'model/hooks/network';
 import { getTempWalletConfig } from 'model/verify/after-verify';
 import { NetworkController } from 'network/controller';
 import { useState } from 'react';
-import { getCurrentNetwork } from 'utils/commonUtil';
 
 export function useSymbolImages() {
   const [symbolImages, setSymbolImages] = useState<Record<string, string>>({});
@@ -23,7 +23,7 @@ export function useCommonInfo() {
   const [defaultToken, setDefaultToken] = useState<Token>(DEFAULT_TOKEN);
   const [currentCaAddress, setCurrentCaAddress] = useState<string>();
   useEffectOnce(async () => {
-    const n = await getCurrentNetwork();
+    const n = await getCurrentNetworkType();
     setCurrentNetwork(n);
     const { defaultToken: cachedDefaultToken } = await getCachedNetworkConfig();
     setDefaultToken(cachedDefaultToken);
