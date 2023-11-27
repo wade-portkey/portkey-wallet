@@ -76,17 +76,13 @@ const AssetsHome: React.FC = () => {
             <View style={styles.spacerStyle} />
           </>
         )} */}
-          {/* send token is not available by now */}
-          {/* <SendButton themeType="dashBoard" />
-        <View style={styles.spacerStyle} /> */}
-          <ReceiveButton themeType="dashBoard" />
+          <SendButton themeType="dashBoard" />
           <View style={styles.spacerStyle} />
-          {isMainnet ? (
+          <ReceiveButton themeType="dashBoard" />
+          {/* currently we do not support ramp */}
+          {isMainnet && (
             <>
-              <SendButton themeType="dashBoard" />
-            </>
-          ) : (
-            <>
+              <View style={styles.spacerStyle} />
               <FaucetButton themeType="dashBoard" />
             </>
           )}

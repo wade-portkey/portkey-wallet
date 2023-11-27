@@ -22,7 +22,6 @@ export default function ReceiveTokenPage(props: {
 }) {
   const { t } = useLanguage();
   const { token, currentNetwork, currentCaAddress, defaultToken: defaultTokenJSONStr } = props;
-
   let tokenObj;
   if (typeof token === 'string') {
     tokenObj = JSON.parse(token);

@@ -1,5 +1,7 @@
+import { AELFColors } from 'assets/theme';
 import React, { FC, useMemo, useState } from 'react';
-import { TabView, SceneMap } from 'react-native-tab-view';
+import { StyleSheet } from 'react-native';
+import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
 
 export const RNTabView = (config: UseTabConfig) => {
   const { tabs } = config;
@@ -18,9 +20,48 @@ export const RNTabView = (config: UseTabConfig) => {
       renderScene={sceneMap}
       onIndexChange={setIndex}
       initialLayout={{ width: 0, height: 0 }}
+      renderTabBar={renderTabBar}
+      style={styles.containerStyle}
     />
   );
 };
+
+const renderTabBar = (props: any) => {
+  return (
+    <TabBar
+      {...props}
+      getLabelText={scene => {
+        return scene.route.title;
+      }}
+      activeColor={AELFColors.AELF}
+      inactiveColor="black"
+      tabStyle={styles.tabStyle}
+      labelStyle={styles.labelFocused}
+      indicatorStyle={styles.indicatorStyle}
+      indicatorContainerStyle={styles.indicatorContainerStyle}
+    />
+  );
+};
+
+const styles = StyleSheet.create({
+  containerStyle: {
+    marginTop: -10,
+    borderTopLeftRadius: 16,
+    borderTopRightRadius: 16,
+  },
+  labelFocused: {
+    fontWeight: '400',
+  },
+  indicatorStyle: {
+    backgroundColor: AELFColors.AELF,
+  },
+  indicatorContainerStyle: {
+    backgroundColor: AELFColors.AELF,
+  },
+  tabStyle: {
+    backgroundColor: 'white',
+  },
+});
 
 export interface UseTabConfig {
   tabs: TabProps[];
