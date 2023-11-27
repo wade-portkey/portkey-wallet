@@ -19,6 +19,8 @@ import { useCommonInfo } from './hook';
 import { NetworkController } from 'network/controller';
 import { IUserTokenItem } from 'network/dto/query';
 import Loading from 'components/Loading';
+import { UnlockedWallet, getUnlockedWallet } from 'model/wallet';
+import useEffectOnce from 'hooks/useEffectOnce';
 
 type onFinishSelectTokenType = (tokenItem: TokenItemShowType) => void;
 type TokenListProps = {
@@ -32,6 +34,11 @@ const TokenList = ({ onFinishSelectToken }: TokenListProps) => {
   const chainIdList = useRef<string[] | undefined>(undefined);
   const [tokenDataShowInMarket, setTokenDataShowInMarket] = useState<IUserTokenItem[]>();
   const gStyles = useGStyles;
+  const [wallet, setWallet] = useState<UnlockedWallet | null>(null);
+
+  useEffectOnce(async () => {
+    setWallet(await getUnlockedWallet({ getMultiCaAddresses: true }));
+  });
 
   const [keyword, setKeyword] = useState('');
 
@@ -43,17 +50,24 @@ const TokenList = ({ onFinishSelectToken }: TokenListProps) => {
         noBalanceShow
         key={`${item.symbol}${item.chainId}`}
         item={item}
-        onPress={() => {
+        onPress={async () => {
+          if (!wallet) {
+            throw new Error('wallet is not ready');
+          }
+          const { multiCaAddresses } = wallet;
           OverlayModal.hide();
+          console.log('select token', item);
+          const { chainId } = item.token;
+          const caAddress = multiCaAddresses[chainId];
           item.currentNetwork = commonInfo.currentNetwork;
-          item.currentCaAddress = commonInfo.currentCaAddress;
+          item.currentCaAddress = caAddress;
           item.defaultToken = commonInfo.defaultToken;
           onFinishSelectToken?.(item);
         }}
         commonInfo={commonInfo}
       />
     ),
-    [onFinishSelectToken, commonInfo],
+    [commonInfo, wallet, onFinishSelectToken],
   );
 
   useEffect(() => {
