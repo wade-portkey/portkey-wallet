@@ -1,25 +1,8 @@
-import { ZERO } from '@portkey-wallet/constants/misc';
-import { divDecimals } from '@portkey-wallet/utils/converter';
 import useEffectOnce from 'hooks/useEffectOnce';
 import { getUnlockedWallet } from 'model/wallet';
 import { NetworkController } from 'network/controller';
 import { ITokenItemResponse, IUserTokenItem } from 'network/dto/query';
-import { useMemo, useState } from 'react';
-
-export const useWalletBalanceUSD = () => {
-  const { tokenPrices } = useTokenPrices();
-  const { balanceList } = useAccountTokenBalanceList();
-  const balanceUSD = useMemo(() => {
-    return balanceList.reduce((acc, item) => {
-      const { symbol, balance, decimals } = item;
-      const price = tokenPrices.find(token => token.symbol === symbol)?.priceInUsd || 0;
-      return acc.plus(divDecimals(balance, decimals).times(price));
-    }, ZERO);
-  }, [balanceList, tokenPrices]);
-  return {
-    balanceUSD,
-  };
-};
+import { useState } from 'react';
 
 export const useTokenPrices = () => {
   const [tokenPrices, setTokenPrices] = useState<Array<{ symbol: string; priceInUsd: number }>>([]);

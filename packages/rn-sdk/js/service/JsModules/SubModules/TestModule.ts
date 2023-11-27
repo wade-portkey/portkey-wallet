@@ -75,6 +75,9 @@ export const testRunner = async (): Promise<TestReport> => {
       testReport.details[testReport.details.length - 1].status = 'fail';
     }
     testReport.testAmount += 1;
+    if (testService.ignoreReport && testReport.details[testReport.details.length - 1].status !== 'fail') {
+      testReport.details.pop();
+    }
   }
   return testReport;
 };

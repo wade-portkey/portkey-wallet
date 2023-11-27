@@ -79,7 +79,7 @@ export const getVerifiedAndLockWallet = async (
   try {
     const afterVerifiedConfig: AfterVerifiedConfig = JSON.parse(deliveredAfterVerifiedConfig);
     const { normalVerifyPathInfo, scanQRCodePathInfo } = afterVerifiedConfig || {};
-    console.log('normalVerifyPathInfo', normalVerifyPathInfo);
+    console.log('afterVerifiedConfig', afterVerifiedConfig);
     let walletConfig: RecoverWalletConfig | null = null;
     if (normalVerifyPathInfo) {
       walletConfig = await handleNormalVerify(normalVerifyPathInfo);

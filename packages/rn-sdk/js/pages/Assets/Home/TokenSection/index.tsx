@@ -18,27 +18,29 @@ export default function TokenSection() {
   const commonInfo = useCommonInfo();
   const [isFetching] = useState(false);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
-  const { balanceList, updateBalanceList, allOfTokensList, updateTokensList } =
+  const { balanceList, updateBalanceList, allOfTokensList, updateTokensList, tokenPrices, updateTokenPrices } =
     useContext<AssetsContextType>(AssetsContext);
 
   const itemData: Array<TokenItemShowType> = useMemo(() => {
     return allOfTokensList
-      .filter(item => item.isDisplay)
       .map(item => {
-        const balanceItem = balanceList.find(
-          it => it.symbol === item.token.symbol && it.chainId === item.token.chainId,
-        );
+        const { symbol, decimals, chainId, address } = item.token;
+        const balanceItem = balanceList.find(it => it.symbol === symbol && it.chainId === item.token.chainId);
+        const price = tokenPrices.find(it => it.symbol === symbol);
         return {
           balance: balanceItem?.balance ?? '0',
-          decimals: item.token.decimals,
-          chainId: item.token.chainId,
-          address: item.token.address,
-          symbol: item.token.symbol,
+          decimals,
+          chainId,
+          address,
+          symbol,
+          priceInUsd: price?.priceInUsd ?? 0,
           name: item.token.symbol,
           isDisplay: item.isDisplay,
+          isDefault: item.isDefault,
         };
-      }, []);
-  }, [allOfTokensList, balanceList]);
+      }, [])
+      .filter(melted => melted.balance !== '0' || melted.isDefault);
+  }, [allOfTokensList, balanceList, tokenPrices]);
 
   // const onNavigate = useCallback((_: TokenItemShowType) => {
   //   // item's onclick function is not used by now
@@ -56,11 +58,12 @@ export default function TokenSection() {
     try {
       await updateTokensList();
       await updateBalanceList();
+      await updateTokenPrices();
     } catch (e) {
       console.warn('updateBalanceList or updateTokensList failed! ', e);
     }
     Loading.hide();
-  }, [updateBalanceList, updateTokensList]);
+  }, [updateBalanceList, updateTokenPrices, updateTokensList]);
 
   useEffect(() => {
     if (timerRef.current) clearInterval(timerRef.current);

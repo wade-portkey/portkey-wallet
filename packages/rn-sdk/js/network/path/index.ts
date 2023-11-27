@@ -28,4 +28,5 @@ export enum APIPaths {
   GET_TOKEN_INFO = '/api/app/search/usertokenindex',
   GET_USER_TOKEN_STATUS = '/api/app/user/assets/token',
   GET_TOKEN_PRICES = '/api/app/tokens/prices',
+  FETCH_NFT_COLLECTIONS = '/api/app/user/assets/nftCollections',
 }

@@ -17,6 +17,7 @@ export const NetworkTestCases: Array<TestCase> = [
       testContext.assert(!!it, 'it should not be falsy');
       testContext.log(it, 'getTokenPrice result');
     },
+    ignoreReport: true,
   },
   {
     describe: 'run getTokenInfo well',
@@ -25,6 +26,7 @@ export const NetworkTestCases: Array<TestCase> = [
       testContext.assert(!!it, 'it should not be falsy');
       testContext.log(it, 'getTokenInfo result');
     },
+    ignoreReport: true,
   },
   {
     describe: 'call getHolderInfo method',
@@ -32,6 +34,22 @@ export const NetworkTestCases: Array<TestCase> = [
       const wallet = await getUnlockedWallet({ getMultiCaAddresses: true });
       testContext.assert(!!wallet, 'wallet should not be falsy');
       testContext.log(wallet, 'wallet');
+    },
+  },
+  {
+    describe: 'get account balance well',
+    run: async testContext => {
+      const wallet = await getUnlockedWallet({ getMultiCaAddresses: true });
+      const it = await NetworkController.fetchUserTokenBalance({
+        maxResultCount: 100,
+        skipCount: 0,
+        caAddressInfos: Object.entries(wallet.multiCaAddresses).map(([chainId, caAddress]) => ({
+          chainId,
+          caAddress,
+        })),
+      });
+      testContext.assert(!!it, 'it should not be falsy');
+      testContext.log(it, 'getAccountBalance result');
     },
   },
 ];
