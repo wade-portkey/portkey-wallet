@@ -80,7 +80,7 @@ const AssetsHome: React.FC = () => {
           <View style={styles.spacerStyle} />
           <ReceiveButton themeType="dashBoard" />
           {/* currently we do not support ramp */}
-          {isMainnet && (
+          {!isMainnet && (
             <>
               <View style={styles.spacerStyle} />
               <FaucetButton themeType="dashBoard" />
