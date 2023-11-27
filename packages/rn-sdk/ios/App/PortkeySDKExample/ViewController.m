@@ -33,6 +33,7 @@
 @property (nonatomic, strong) UIButton *scanQrcodeButton;
 @property (nonatomic, strong) UIButton *guardianHomeButton;
 @property (nonatomic, strong) UIButton *accountSettingButton;
+@property (nonatomic, strong) UIButton *assetsHomeButton;
 
 @property (nonatomic, strong) UIButton *exitButton;
 
@@ -131,9 +132,23 @@
     }];
     [self.view addSubview:self.accountSettingButton];
     
+    self.assetsHomeButton = [self createButtonWithTitle:@"Assets Home"];
+    self.assetsHomeButton.frame = self.accountSettingButton.frame;
+    self.assetsHomeButton.top = self.accountSettingButton.bottom + 5;
+    [self.assetsHomeButton addBlockForControlEvents:UIControlEventTouchUpInside block:^(id  _Nonnull sender) {
+        @strongify(self)
+        NSString *walletConfig = [PortkeySDKMMKVStorage readTempString:@"walletConfig"];
+        if ([walletConfig isKindOfClass:NSString.class] && walletConfig.length) {
+            [[PortkeySDKRouterModule sharedInstance] navigateTo:@"assets_home_entry" launchMode:@"" from:@"" targetScene:@"" closeCurrentScreen:NO params:@{}];
+        } else {
+            [self.view makeToast:@"Please login or unlock first"];
+        }
+    }];
+    [self.view addSubview:self.assetsHomeButton];
+    
     self.bundleConfigButton = [self createButtonWithTitle:@"Config Bundle"];
     self.bundleConfigButton.frame = self.guardianHomeButton.frame;
-    self.bundleConfigButton.top = self.accountSettingButton.bottom + 20;
+    self.bundleConfigButton.top = self.assetsHomeButton.bottom + 20;
     [self.bundleConfigButton addBlockForControlEvents:UIControlEventTouchUpInside block:^(id  _Nonnull sender) {
         @strongify(self)
         [self.navigationController pushViewController:[BundleConfigViewController new] animated:YES];

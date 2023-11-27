@@ -3,6 +3,7 @@ import { defaultColors } from 'assets/theme';
 import { pTd } from 'utils/unit';
 import { screenWidth } from '@portkey-wallet/utils/mobile/device';
 import fonts from 'assets/theme/fonts';
+import { getStatusBarHeight } from 'utils/screen';
 
 const { bg5, font2 } = defaultColors;
 
@@ -49,5 +50,11 @@ export const styles = StyleSheet.create({
   },
   spacerStyle: {
     width: pTd(32),
+  },
+  pagePaddingTop: {
+    paddingTop: getStatusBarHeight(true),
+  },
+  header: {
+    backgroundColor: bg5,
   },
 });

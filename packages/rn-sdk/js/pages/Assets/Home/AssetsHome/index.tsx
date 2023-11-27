@@ -9,6 +9,8 @@ import { useCurrentNetworkType } from 'model/hooks/network';
 import SendButton from 'components/SendButton';
 import DashBoardTab from '../DashBoardTab';
 import { useAccountTokenBalanceList, useSearchTokenList, useTokenPrices, useNftCollections } from 'model/hooks/balance';
+import CustomHeader from 'components/CustomHeader';
+import useBaseContainer from 'model/container/UseBaseContainer';
 import AssetsContext, { AssetsContextType } from 'global/context/assets/AssetsContext';
 import { divDecimals } from '@portkey-wallet/utils/converter';
 import { ZERO } from '@portkey-wallet/constants/misc';
@@ -44,9 +46,23 @@ const AssetsHome: React.FC = () => {
 
   const isMainnet = networkType === 'MAIN';
 
+  const { onFinish } = useBaseContainer({});
+
   return (
     <AssetsContext.Provider value={assetsContext}>
-      <View style={styles.cardWrap}>
+      <View style={[styles.cardWrap, styles.pagePaddingTop]}>
+        <CustomHeader
+          themeType={'blue'}
+          titleDom={''}
+          leftCallback={() => {
+            onFinish({
+              status: 'success',
+              data: {
+                finished: true,
+              },
+            });
+          }}
+        />
         <View style={styles.refreshWrap}>
           <Text style={styles.block} />
         </View>
