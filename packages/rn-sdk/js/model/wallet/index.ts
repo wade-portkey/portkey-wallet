@@ -4,8 +4,10 @@ import { callGetHolderInfoMethod } from 'model/contract/handler';
 import { getCaInfoByAccountIdentifierOrSessionId } from 'model/global';
 import { getTempWalletConfig } from 'model/verify/after-verify';
 import { NetworkController } from 'network/controller';
+import { CaInfo } from 'network/dto/guardian';
 import { WalletInfo } from 'network/dto/wallet';
 import { useState } from 'react';
+import { handleCachedValue } from 'service/storage/cache';
 
 export const getUnlockedWallet = async ({
   getMultiCaAddresses,
@@ -25,30 +27,19 @@ export const getUnlockedWallet = async ({
     const chainInfo = await NetworkController.getRegisterResult(accountIdentifier);
     checkedOriginalChainId = chainInfo.result?.originChainId || originalChainId;
   }
+  const endPointUrl = await PortkeyConfig.endPointUrl();
   setCurrChainId(checkedOriginalChainId as any);
   PortkeyConfig;
   const caInfo =
     originalCaInfo ??
     (await getCaInfoByAccountIdentifierOrSessionId(originalChainId, accountIdentifier, fromRecovery, sessionId));
   if (!caInfo) throw new Error('caInfo is not exist');
-  const multiCaAddresses: {
+  let multiCaAddresses: {
     [key: string]: string;
   } = {};
   multiCaAddresses[originalChainId] = caInfo.caAddress;
   if (getMultiCaAddresses) {
-    const { caHash } = caInfo;
-    const { items } = await NetworkController.getNetworkInfo();
-    for (const item of items) {
-      if (item.chainId === originalChainId) continue;
-      const res = await callGetHolderInfoMethod(caHash, item.caContractAddress, item.endPoint);
-      if (res?.error) {
-        console.log('getMultiCaAddresses error, chain: ', item.chainId, 'res: ', res?.error);
-        continue;
-      } else {
-        console.log('getMultiCaAddresses success, chain: ', item.chainId, 'res: ', res?.data);
-      }
-      multiCaAddresses[item.chainId] = res?.data?.caAddress;
-    }
+    multiCaAddresses = await getCachedCaAddress(endPointUrl, caInfo, originalChainId);
   }
   return {
     caInfo,
@@ -59,6 +50,35 @@ export const getUnlockedWallet = async ({
     multiCaAddresses,
     name: 'Wallet 01', // TODO will be changed later
   };
+};
+
+const getCachedCaAddress = async (endPoint: string, originalCaInfo: CaInfo, originalChainId: string) => {
+  return handleCachedValue({
+    getIdentifier: async () => {
+      const caHash = originalCaInfo.caHash;
+      return `${caHash}_${endPoint}`;
+    },
+    getValueIfNonExist: async () => {
+      const { items } = await NetworkController.getNetworkInfo();
+      const multiCaAddresses: {
+        [key: string]: string;
+      } = {};
+      multiCaAddresses[originalChainId] = originalCaInfo.caAddress;
+      for (const item of items) {
+        if (item.chainId === originalChainId) continue;
+        const res = await callGetHolderInfoMethod(originalCaInfo.caHash, item.caContractAddress, item.endPoint);
+        if (res?.error) {
+          console.log('getMultiCaAddresses error, chain: ', item.chainId, 'res: ', res?.error);
+          continue;
+        } else {
+          console.log('getMultiCaAddresses success, chain: ', item.chainId, 'res: ', res?.data);
+          multiCaAddresses[item.chainId] = res?.data?.caAddress;
+        }
+      }
+      return multiCaAddresses;
+    },
+    target: 'PERMANENT',
+  });
 };
 
 export const useUnlockedWallet = (config: GetWalletConfig = DefaultConfig) => {

@@ -22,9 +22,18 @@ export default function ReceiveTokenPage(props: {
 }) {
   const { t } = useLanguage();
   const { token, currentNetwork, currentCaAddress, defaultToken: defaultTokenJSONStr } = props;
-
-  const tokenObj = JSON.parse(token);
-  const defaultToken = JSON.parse(defaultTokenJSONStr);
+  let tokenObj;
+  if (typeof token === 'string') {
+    tokenObj = JSON.parse(token);
+  } else {
+    tokenObj = token;
+  }
+  let defaultToken;
+  if (typeof defaultTokenJSONStr === 'string') {
+    defaultToken = JSON.parse(defaultTokenJSONStr);
+  } else {
+    defaultToken = defaultTokenJSONStr;
+  }
   const { chainId, symbol } = tokenObj;
   const symbolImages = useSymbolImages();
 

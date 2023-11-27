@@ -1,20 +1,16 @@
-import React, { useState, useCallback, memo, useEffect } from 'react';
+import React, { useState, useCallback, memo, useContext } from 'react';
 import NoData from 'components/NoData';
 import { StyleSheet, View, FlatList } from 'react-native';
 import { defaultColors } from 'assets/theme';
 import { useLanguage } from 'i18n/hooks';
 import { pTd } from 'utils/unit';
 import NFTCollectionItem from './NFTCollectionItem';
-import { useCaAddresses, useCaAddressInfoList } from '@portkey-wallet/hooks/hooks-ca/wallet';
-import { fetchNFTAsync, fetchNFTCollectionsAsync } from '@portkey-wallet/store/store-ca/assets/slice';
-import { useAppCommonDispatch } from '@portkey-wallet/hooks';
-import { useAppCASelector } from '@portkey-wallet/hooks';
 import { NFTCollectionItemShowType } from '@portkey-wallet/types/types-ca/assets';
-import { useWallet } from '@portkey-wallet/hooks/hooks-ca/wallet';
 import Touchable from 'components/Touchable';
 import { ChainId } from '@portkey-wallet/types';
-import { useRoute } from '@react-navigation/native';
 import useLockCallback from '@portkey-wallet/hooks/useLockCallback';
+import AssetsContext, { AssetsContextType } from 'global/context/assets/AssetsContext';
+import Loading from 'components/Loading';
 
 export interface OpenCollectionObjType {
   // key = symbol+chainId
@@ -49,31 +45,13 @@ const NFTCollection: React.FC<NFTCollectionProps> = memo(function NFTCollection(
 
 export default function NFTSection() {
   const { t } = useLanguage();
-  const caAddresses = useCaAddresses();
-  const caAddressInfos = useCaAddressInfoList();
-  const { currentNetwork, walletInfo } = useWallet();
-  const dispatch = useAppCommonDispatch();
-
-  const {
-    accountNFT: { accountNFTList, totalRecordCount },
-  } = useAppCASelector(state => state.assets);
-
-  const [reFreshing] = useState(false);
   const [openCollectionObj, setOpenCollectionObj] = useState<OpenCollectionObjType>({});
-  const { clearType } = useRoute<any>();
+  const { nftCollections, updateNftCollections } = useContext<AssetsContextType>(AssetsContext);
+  const [refreshing] = useState<boolean>(false);
 
-  const fetchNFTList = useCallback(() => {
-    if (caAddresses.length === 0) return;
-    dispatch(fetchNFTCollectionsAsync({ caAddresses, caAddressInfos }));
-  }, [caAddressInfos, caAddresses, dispatch]);
-
-  useEffect(() => {
-    fetchNFTList();
-  }, [fetchNFTList]);
-
-  useEffect(() => {
-    if (clearType) setOpenCollectionObj({});
-  }, [clearType]);
+  // useEffect(() => {
+  //   updateNftCollections();
+  // }, [updateNftCollections]);
 
   const closeItem = useCallback((symbol: string, chainId: string) => {
     const key = `${symbol}${chainId}`;
@@ -87,20 +65,14 @@ export default function NFTSection() {
 
   const openItem = useLockCallback(
     async (symbol: string, chainId: ChainId, itemCount: number) => {
-      const currentCaAddress = walletInfo?.caInfo?.[currentNetwork]?.[chainId]?.caAddress;
-
       const key = `${symbol}${chainId}`;
-
-      await dispatch(
-        fetchNFTAsync({
+      Loading.show();
+      try {
+        await updateNftCollections({
           symbol,
-          chainId,
-          caAddresses: [currentCaAddress || ''],
-          caAddressInfos: caAddressInfos.filter(item => item.chainId === chainId),
-          pageNum: 0,
-        }),
-      );
-
+        });
+      } catch (ignored) {}
+      Loading.hide();
       setOpenCollectionObj(pre => ({
         ...pre,
         [key]: {
@@ -110,27 +82,35 @@ export default function NFTSection() {
         },
       }));
     },
-    [currentNetwork, dispatch, openCollectionObj, walletInfo?.caInfo],
+    [openCollectionObj],
   );
+
+  const onRefresh = useCallback(async () => {
+    Loading.show();
+    try {
+      await updateNftCollections();
+    } catch (e) {
+      console.log(e);
+    }
+    Loading.hide();
+  }, [updateNftCollections]);
 
   const loadMoreItem = useCallback(
     async (symbol: string, chainId: ChainId, pageNum = 0) => {
-      const currentCaAddress = walletInfo?.caInfo?.[currentNetwork]?.[chainId]?.caAddress;
-
       const key = `${symbol}${chainId}`;
       const currentOpenObj = openCollectionObj?.[key];
-      const currentCollectionObj = accountNFTList.find(item => item.symbol === symbol && item.chainId === chainId);
-      console.log('=====', pageNum, currentOpenObj, currentCollectionObj);
+      // const currentCollectionObj = accountNFTList.find(item => item.symbol === symbol && item.chainId === chainId);
+      // console.log('=====', pageNum, currentOpenObj, currentCollectionObj);
 
-      await dispatch(
-        fetchNFTAsync({
-          symbol,
-          chainId,
-          caAddressInfos: caAddressInfos.filter(item => item.chainId === chainId),
-          caAddresses: [currentCaAddress || ''],
-          pageNum: pageNum,
-        }),
-      );
+      // await dispatch(
+      //   fetchNFTAsync({
+      //     symbol,
+      //     chainId,
+      //     caAddressInfos: caAddressInfos.filter(item => item.chainId === chainId),
+      //     caAddresses: [currentCaAddress || ''],
+      //     pageNum: pageNum,
+      //   }),
+      // );
 
       setOpenCollectionObj(prev => ({
         ...prev,
@@ -140,14 +120,13 @@ export default function NFTSection() {
         },
       }));
     },
-    [accountNFTList, caAddressInfos, currentNetwork, dispatch, openCollectionObj, walletInfo?.caInfo],
+    [openCollectionObj],
   );
 
   return (
     <View style={styles.wrap}>
       <FlatList
-        refreshing={reFreshing}
-        data={totalRecordCount === 0 ? [] : accountNFTList || []}
+        data={nftCollections ?? []}
         ListEmptyComponent={() => (
           <Touchable>
             <NoData type="top" message={t('No NFTs yet ')} />
@@ -165,11 +144,9 @@ export default function NFTSection() {
             {...item}
           />
         )}
+        refreshing={refreshing}
         keyExtractor={(item: NFTCollectionItemShowType) => item?.symbol + item.chainId}
-        onRefresh={() => {
-          setOpenCollectionObj({});
-          fetchNFTList();
-        }}
+        onRefresh={onRefresh}
       />
     </View>
   );

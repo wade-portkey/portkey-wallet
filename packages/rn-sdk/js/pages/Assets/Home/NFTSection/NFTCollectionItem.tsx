@@ -1,7 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { defaultColors } from 'assets/theme';
-import navigationService from 'utils/navigationService';
 import { pTd } from 'utils/unit';
 import Collapsible from 'components/Collapsible';
 import NFTAvatar from 'components/NFTAvatar';
@@ -10,12 +9,12 @@ import CommonAvatar from 'components/CommonAvatar';
 import Svg from 'components/Svg';
 import { TextL, TextM, TextS, TextXL } from 'components/CommonText';
 import { FontStyles } from 'assets/theme/styles';
-import { useWallet } from '@portkey-wallet/hooks/hooks-ca/wallet';
 import { NFTCollectionItemShowType } from '@portkey-wallet/types/types-ca/assets';
 import Touchable from 'components/Touchable';
 import { OpenCollectionObjType } from './index';
 import { ChainId } from '@portkey-wallet/types';
 import { formatChainInfoToShow } from '@portkey-wallet/utils';
+import { useCurrentNetworkType } from 'model/hooks/network';
 
 export enum NoDataMessage {
   CustomNetWorkNoData = 'No transaction records accessible from the current custom network',
@@ -45,7 +44,8 @@ export default function NFTItem(props: NFTItemPropsType) {
     closeItem,
     loadMoreItem,
   } = props;
-  const { currentNetwork } = useWallet();
+
+  const currentNetwork = useCurrentNetworkType();
 
   const [open, setOpen] = useState<boolean>(false);
 
@@ -58,10 +58,8 @@ export default function NFTItem(props: NFTItemPropsType) {
     setOpen(!!children?.length && !collapsed);
   }, [children, collapsed, openCollectionInfo]);
 
-  const showChildren = useMemo(
-    () => (children.length > 9 ? children.slice(0, ((openCollectionInfo?.pageNum ?? 0) + 1) * 9) : children),
-    [children, openCollectionInfo?.pageNum],
-  );
+  const showChildren = children;
+  console.log('showChildren', showChildren);
 
   const hasMore = useMemo(
     () => showChildren?.length !== 0 && showChildren?.length < itemCount,
@@ -100,7 +98,7 @@ export default function NFTItem(props: NFTItemPropsType) {
       </Touchable>
       <Collapsible collapsed={!open}>
         <View style={[styles.listWrap]}>
-          {showChildren?.map((ele: any, index: number) => (
+          {(showChildren || []).map((ele: any, index: number) => (
             <NFTAvatar
               style={[
                 styles.itemAvatarStyle,
@@ -110,7 +108,7 @@ export default function NFTItem(props: NFTItemPropsType) {
               key={ele.symbol}
               data={ele}
               onPress={() => {
-                navigationService.navigate('NFTDetail', { ...ele, collectionInfo: { imageUrl, collectionName } });
+                // navigationService.navigate('NFTDetail', { ...ele, collectionInfo: { imageUrl, collectionName } });
               }}
             />
           ))}

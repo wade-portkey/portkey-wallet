@@ -50,3 +50,47 @@ export type IUserTokenItem = {
 export type FetchTokenPriceResult = {
   items: Array<{ symbol: string; priceInUsd: number }>;
 };
+export type FetchAccountNftCollectionListParams = {
+  skipCount?: number;
+  maxResultCount: number;
+  caAddressInfos: CaAddressInfosType;
+};
+
+export type FetchAccountNftCollectionItemListParams = {
+  symbol: string;
+  caAddressInfos: CaAddressInfosType;
+  skipCount?: number;
+  maxResultCount: number;
+};
+
+export type FetchAccountNftCollectionItemListResult = {
+  data: INftCollectionItem[];
+  totalRecordCount: number;
+};
+
+export type CaAddressInfosType = { chainId: string; caAddress: string }[];
+
+export type FetchAccountNftCollectionListResult = {
+  data: INftCollection[];
+  totalRecordCount: number;
+};
+
+export type INftCollection = {
+  chainId: ChainId;
+  collectionName: string;
+  imageUrl: string;
+  itemCount: number;
+  symbol: string;
+};
+
+export type INftCollectionItem = {
+  alias: string;
+  balance: string;
+  chainId: string;
+  imageLargeUrl: string;
+  imageUrl: string;
+  symbol: string;
+  tokenContractAddress: string;
+  tokenId: string;
+  totalSupply: string;
+};

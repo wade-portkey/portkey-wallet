@@ -1,15 +1,13 @@
+import React from 'react';
 import { divDecimals, formatAmountShow } from '@portkey-wallet/utils/converter';
 import { defaultColors } from 'assets/theme';
 import { FontStyles } from 'assets/theme/styles';
 import CommonAvatar from 'components/CommonAvatar';
 import { TextL, TextS } from 'components/CommonText';
-import React, { useContext } from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { formatChainInfoToShow } from '@portkey-wallet/utils';
 import { pTd } from 'utils/unit';
-// import { useIsTestnet } from '@portkey-wallet/hooks/hooks-ca/network';
 import { CommonInfo } from '../TokenOverlay/hook';
-import AssetsContext, { AssetsContextType } from 'global/context/assets/AssetsContext';
 interface TokenListItemType {
   noBalanceShow?: boolean;
   item?: any;
@@ -23,9 +21,9 @@ const TokenListItem: React.FC<TokenListItemType> = props => {
   const symbol = item?.token?.symbol ?? item.symbol;
   const chainId = item?.token?.chainId ?? item.chainId;
 
-  const isTokenHasPrice = true;
+  console.log('token item', item);
 
-  const { tokenPrices } = useContext<AssetsContextType>(AssetsContext);
+  const isTokenHasPrice = true;
 
   return (
     <TouchableOpacity style={itemStyle.wrap} onPress={() => onPress?.(item)} disabled={!onPress}>
@@ -56,12 +54,7 @@ const TokenListItem: React.FC<TokenListItemType> = props => {
             <TextS numberOfLines={1} ellipsizeMode={'tail'} style={itemStyle.dollar}>
               {!(currentNetwork === 'TESTNET') &&
                 isTokenHasPrice &&
-                `$ ${formatAmountShow(
-                  divDecimals(item?.balance, item.decimals).multipliedBy(
-                    tokenPrices[symbol ?? item.symbol]?.priceInUsd ?? 0,
-                  ),
-                  2,
-                )}`}
+                `$ ${formatAmountShow(divDecimals(item?.balance, item.decimals).multipliedBy(item?.priceInUsd), 2)}`}
             </TextS>
           </View>
         )}
