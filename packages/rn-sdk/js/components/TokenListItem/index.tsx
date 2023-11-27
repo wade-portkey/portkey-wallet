@@ -1,15 +1,13 @@
+import React from 'react';
 import { divDecimals, formatAmountShow } from '@portkey-wallet/utils/converter';
 import { defaultColors } from 'assets/theme';
 import { FontStyles } from 'assets/theme/styles';
 import CommonAvatar from 'components/CommonAvatar';
 import { TextL, TextS } from 'components/CommonText';
-import React, { useContext } from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { formatChainInfoToShow } from '@portkey-wallet/utils';
 import { pTd } from 'utils/unit';
-// import { useIsTestnet } from '@portkey-wallet/hooks/hooks-ca/network';
 import { CommonInfo } from '../TokenOverlay/hook';
-import AssetsContext, { AssetsContextType } from 'global/context/assets/AssetsContext';
 interface TokenListItemType {
   noBalanceShow?: boolean;
   item?: any;

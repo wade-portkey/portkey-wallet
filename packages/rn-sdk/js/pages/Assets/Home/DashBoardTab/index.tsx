@@ -1,9 +1,8 @@
 import React, { useMemo } from 'react';
 import TokenSection from '../TokenSection';
-
+import NFTSection from '../NFTSection';
 import { useLanguage } from 'i18n/hooks';
 import { RNTabView } from 'model/hooks/tabs';
-import { View } from 'react-native';
 
 export enum DashBoardTabEnum {
   TOKENS = 'tokens',
@@ -22,7 +21,7 @@ const DashBoardTab: React.FC = () => {
       {
         key: DashBoardTabEnum.NFTS,
         title: t('NFTs'),
-        component: () => <View />,
+        component: NFTSection,
       },
     ];
   }, [t]);

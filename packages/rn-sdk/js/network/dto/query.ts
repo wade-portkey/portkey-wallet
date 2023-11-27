@@ -51,14 +51,24 @@ export type FetchTokenPriceResult = {
   items: Array<{ symbol: string; priceInUsd: number }>;
 };
 export type FetchAccountNftCollectionListParams = {
-  skipCount: number;
+  skipCount?: number;
   maxResultCount: number;
   caAddressInfos: CaAddressInfosType;
-  width: number;
-  height: number;
 };
 
-export type CaAddressInfosType = { chainId: ChainId; caAddress: string }[];
+export type FetchAccountNftCollectionItemListParams = {
+  symbol: string;
+  caAddressInfos: CaAddressInfosType;
+  skipCount?: number;
+  maxResultCount: number;
+};
+
+export type FetchAccountNftCollectionItemListResult = {
+  data: INftCollectionItem[];
+  totalRecordCount: number;
+};
+
+export type CaAddressInfosType = { chainId: string; caAddress: string }[];
 
 export type FetchAccountNftCollectionListResult = {
   data: INftCollection[];

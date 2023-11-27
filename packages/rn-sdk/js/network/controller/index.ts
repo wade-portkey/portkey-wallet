@@ -38,6 +38,8 @@ import {
   FetchBalanceResult,
   FetchAccountNftCollectionListParams,
   FetchAccountNftCollectionListResult,
+  FetchAccountNftCollectionItemListParams,
+  FetchAccountNftCollectionItemListResult,
 } from 'network/dto/query';
 import { selectCurrentBackendConfig } from 'utils/commonUtil';
 
@@ -351,6 +353,24 @@ export class NetworkControllerEntity {
       {
         caAddressInfos,
         skipCount,
+        maxResultCount,
+        width: 16,
+        height: 16,
+      },
+    );
+    if (!res?.result) throw new Error('network failure');
+    return res.result;
+  };
+
+  fetchParticularNftItemList = async (config: FetchAccountNftCollectionItemListParams) => {
+    const { caAddressInfos, skipCount = 0, maxResultCount = 100, symbol } = config;
+    const res = await this.realExecute<FetchAccountNftCollectionItemListResult>(
+      await this.parseUrl(APIPaths.FETCH_NFT_COLLECTIONS_ITEM),
+      'POST',
+      {
+        caAddressInfos,
+        skipCount,
+        symbol,
         maxResultCount,
         width: 16,
         height: 16,

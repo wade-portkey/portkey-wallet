@@ -17,7 +17,6 @@ export const NetworkTestCases: Array<TestCase> = [
       testContext.assert(!!it, 'it should not be falsy');
       testContext.log(it, 'getTokenPrice result');
     },
-    ignoreReport: true,
   },
   {
     describe: 'run getTokenInfo well',
@@ -26,10 +25,9 @@ export const NetworkTestCases: Array<TestCase> = [
       testContext.assert(!!it, 'it should not be falsy');
       testContext.log(it, 'getTokenInfo result');
     },
-    ignoreReport: true,
   },
   {
-    describe: 'call getHolderInfo method',
+    describe: 'get multi ca addresses well',
     run: async testContext => {
       const wallet = await getUnlockedWallet({ getMultiCaAddresses: true });
       testContext.assert(!!wallet, 'wallet should not be falsy');
@@ -51,5 +49,34 @@ export const NetworkTestCases: Array<TestCase> = [
       testContext.assert(!!it, 'it should not be falsy');
       testContext.log(it, 'getAccountBalance result');
     },
+  },
+  {
+    describe: 'get nft collections well',
+    run: async testContext => {
+      const wallet = await getUnlockedWallet({ getMultiCaAddresses: true });
+      const it = await NetworkController.fetchNetCollections({
+        maxResultCount: 100,
+        skipCount: 0,
+        caAddressInfos: Object.entries(wallet.multiCaAddresses).map(([chainId, caAddress]) => ({
+          chainId,
+          caAddress,
+        })),
+      });
+      testContext.assert(!!it, 'it should not be falsy');
+      testContext.log(it, 'getNftCollections result');
+      const symbol = it.data[0].symbol;
+      const them = await NetworkController.fetchParticularNftItemList({
+        maxResultCount: 100,
+        skipCount: 0,
+        symbol,
+        caAddressInfos: Object.entries(wallet.multiCaAddresses).map(([chainId, caAddress]) => ({
+          chainId,
+          caAddress,
+        })),
+      });
+      testContext.assert(!!them, 'them should not be falsy');
+      testContext.log(them, 'getNftItems result');
+    },
+    useDetailsReport: true,
   },
 ];

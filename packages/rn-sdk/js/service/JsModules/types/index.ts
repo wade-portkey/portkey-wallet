@@ -16,7 +16,7 @@ export interface BaseMethodResult {
 export interface TestCase {
   run: (context: TestContext) => void | Promise<void>;
   describe: string;
-  ignoreReport?: boolean;
+  useDetailsReport?: boolean;
 }
 
 export interface TestContext {

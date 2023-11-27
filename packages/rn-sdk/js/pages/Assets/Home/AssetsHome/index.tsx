@@ -8,7 +8,7 @@ import { useUnlockedWallet } from 'model/wallet';
 import { useCurrentNetworkType } from 'model/hooks/network';
 import SendButton from 'components/SendButton';
 import DashBoardTab from '../DashBoardTab';
-import { useAccountTokenBalanceList, useSearchTokenList, useTokenPrices } from 'model/hooks/balance';
+import { useAccountTokenBalanceList, useSearchTokenList, useTokenPrices, useNftCollections } from 'model/hooks/balance';
 import AssetsContext, { AssetsContextType } from 'global/context/assets/AssetsContext';
 import { divDecimals } from '@portkey-wallet/utils/converter';
 import { ZERO } from '@portkey-wallet/constants/misc';
@@ -20,6 +20,7 @@ const AssetsHome: React.FC = () => {
   const { balanceList, updateBalanceList } = useAccountTokenBalanceList();
   const { tokenList, updateTokensList } = useSearchTokenList();
   const { tokenPrices, updateTokenPrices } = useTokenPrices();
+  const { nftCollections, updateNftCollections } = useNftCollections();
 
   const balanceUSD = useMemo(() => {
     return balanceList.reduce((acc, item) => {
@@ -37,6 +38,8 @@ const AssetsHome: React.FC = () => {
     updateTokensList,
     tokenPrices,
     updateTokenPrices,
+    nftCollections,
+    updateNftCollections,
   };
 
   const isMainnet = networkType === 'MAIN';
