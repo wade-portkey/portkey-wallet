@@ -9,7 +9,7 @@ export function myThrottle(fn: Function, delay: number) {
   return function ({ data }: { data: string }) {
     if (!timer) {
       // eslint-disable-next-line prefer-rest-params
-      fn.apply(this, data);
+      fn.call(this, { data });
       timer = setTimeout(() => {
         if (timer) {
           clearTimeout(timer);
