@@ -8,21 +8,21 @@ import io.aelf.portkey.components.logic.PortkeyReactNativeHost
 
 object PortKeySDKHolder {
     var initialized = false
-    private var navHost:PortkeyReactNativeHost? = null
-    private fun createNewHost(application :Application): PortkeyReactNativeHost {
+    private var navHost: PortkeyReactNativeHost? = null
+    private fun createNewHost(application: Application): PortkeyReactNativeHost {
         return PortkeyReactNativeHost(
             application = application,
             isDebug = BuildConfig.IS_DEBUG
         )
     }
 
-    fun initialize(application :Application) {
+    fun initialize(application: Application) {
         MMKV.initialize(application)
         navHost = createNewHost(application)
         navHost?.reactInstanceManager?.createReactContextInBackground();
         navHost?.reactInstanceManager?.addReactInstanceEventListener {
             initialized = true
-            if(BuildConfig.DEBUG)
+            if (BuildConfig.DEBUG)
                 Toast.makeText(
                     application,
                     "sdk initial successful!",
@@ -30,8 +30,9 @@ object PortKeySDKHolder {
                 ).show()
         }
     }
-    fun obtainNavHost(application :Application):PortkeyReactNativeHost{
-        if(navHost == null){
+
+    fun obtainNavHost(application: Application): PortkeyReactNativeHost {
+        if (navHost == null) {
             navHost = createNewHost(application)
         }
         return navHost!!
