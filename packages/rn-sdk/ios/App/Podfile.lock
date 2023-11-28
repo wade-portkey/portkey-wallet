@@ -31,7 +31,7 @@ PODS:
     - ExpoModulesCore
     - GoogleSignIn (~> 6.2)
     - React-Core
-  - ExpoClipboard (3.1.0):
+  - ExpoClipboard (4.5.0):
     - ExpoModulesCore
   - ExpoCrypto (12.6.0):
     - ExpoModulesCore
@@ -805,7 +805,7 @@ SPEC CHECKSUMS:
   EXImageLoader: 03063370bc06ea1825713d3f55fe0455f7c88d04
   Expo: e7d2116b947e2e6fdeb09ee4f2754f819426d1b6
   ExpoAdapterGoogleSignIn: b7792934ab1b5d559a3eee31334d752a73f0366e
-  ExpoClipboard: 7a5a26a3119bd1d0337ee065db3bf5d8a40e23a1
+  ExpoClipboard: d2f0e44d50e5ba07b02f5fb7bd280178b420e24e
   ExpoCrypto: 42485127a5968dda6f67ac5f2b42d3c0af31d7db
   ExpoDevice: 4b9825263a3f996fd5a89ec26426e22e6cbc32d6
   ExpoImagePicker: 9e5c745cb3e56ee00e1cfe5d6af59caab66ecf1a
