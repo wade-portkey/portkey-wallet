@@ -4,6 +4,7 @@ import { BackEndNetWorkMap } from './backend-network';
 export const NetworkList: NetworkItem[] = [
   BackEndNetWorkMap['back-end-mainnet'],
   BackEndNetWorkMap['back-end-testnet'],
+  BackEndNetWorkMap['back-end-test1'],
 ];
 
 export const DefaultChainId = 'AELF';

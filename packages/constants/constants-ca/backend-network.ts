@@ -8,7 +8,7 @@ export const BackEndNetWorkMap: {
   'back-end-test1': {
     name: 'aelf Testnet',
     walletType: 'aelf',
-    networkType: 'TESTNET',
+    networkType: 'TEST1',
     isActive: true,
     apiUrl: 'https://localtest-applesign.portkey.finance',
     graphqlUrl: 'http://192.168.67.172:8083/AElfIndexer_DApp/PortKeyIndexerCASchema/graphql',
