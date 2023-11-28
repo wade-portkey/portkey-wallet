@@ -1,10 +1,25 @@
+import { BackEndNetWorkMap } from '@portkey-wallet/constants/constants-ca/backend-network';
 import { NetworkType } from '@portkey-wallet/types';
-import { PortkeyConfig, EndPoints } from 'global/constants';
+import { PortkeyConfig } from 'global/constants';
 import useEffectOnce from 'hooks/useEffectOnce';
 import { useState } from 'react';
 
 export const getCurrentNetworkType = async (): Promise<NetworkType> => {
-  return (await PortkeyConfig.endPointUrl()) === EndPoints.MAIN_NET ? 'MAIN' : 'TESTNET';
+  const endPointUrl = await PortkeyConfig.endPointUrl();
+  switch (endPointUrl) {
+    case BackEndNetWorkMap['back-end-testnet'].apiUrl: {
+      return 'TESTNET';
+    }
+    case BackEndNetWorkMap['back-end-test1'].apiUrl: {
+      return 'TEST1';
+    }
+    case BackEndNetWorkMap['back-end-mainnet'].apiUrl: {
+      return 'MAIN';
+    }
+    default: {
+      return 'UNKNOWN';
+    }
+  }
 };
 
 export const useCurrentNetworkType = () => {

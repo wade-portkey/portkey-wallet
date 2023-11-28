@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import { View, Text, SafeAreaView, StyleSheet, TouchableOpacity, Platform } from 'react-native';
 import Svg from 'components/Svg';
@@ -90,7 +90,7 @@ const QrScanner: React.FC = () => {
         if (entry !== undefined && isPortkeyEntries(entry)) {
           navigationTo(entry as PortkeyEntries, { params: params });
         } else {
-          CommonToast.fail('It looks like you want to jump to the page, but you don’t have the right entry parameter');
+          CommonToast.fail("It looks like you want to jump to the page, but you don't have the right entry parameter");
         }
       }
     },
@@ -116,10 +116,21 @@ const QrScanner: React.FC = () => {
       }
       const qrCodeData = expandQrData(JSON.parse(data));
       // if not currentNetwork
-      if (currentNetwork !== qrCodeData.netWorkType)
-        return invalidQRCode(
-          currentNetwork === 'MAIN' ? InvalidQRCodeText.SWITCH_TO_TESTNET : InvalidQRCodeText.SWITCH_TO_MAINNET,
-        );
+      if (currentNetwork !== qrCodeData.netWorkType) {
+        let invalidText = InvalidQRCodeText.INVALID_QR_CODE;
+        switch (qrCodeData.netWorkType) {
+          case 'MAIN':
+            invalidText = InvalidQRCodeText.SWITCH_TO_MAINNET;
+            break;
+          case 'TESTNET':
+            invalidText = InvalidQRCodeText.SWITCH_TO_TESTNET;
+            break;
+          case 'TEST1':
+            invalidText = InvalidQRCodeText.SWITCH_TO_TEST1;
+            break;
+        }
+        return invalidQRCode(invalidText);
+      }
       handleQRCodeData(qrCodeData);
     } catch (error) {
       console.log(error);
@@ -300,6 +311,7 @@ export interface RouteInfoType {
 export enum InvalidQRCodeText {
   SWITCH_TO_MAINNET = 'Please switch to aelf Mainnet before scanning the QR code',
   SWITCH_TO_TESTNET = 'Please switch to aelf Testnet before scanning the QR code',
+  SWITCH_TO_TEST1 = 'Please switch to aelf Test1 before scanning the QR code',
   INVALID_QR_CODE = 'The QR code is invalid',
   DID_NOT_UNLOCK = 'Please unlock your wallet first',
 }
