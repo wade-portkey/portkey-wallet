@@ -21,8 +21,6 @@ const TokenListItem: React.FC<TokenListItemType> = props => {
   const symbol = item?.token?.symbol ?? item.symbol;
   const chainId = item?.token?.chainId ?? item.chainId;
 
-  console.log('token item', item);
-
   const isTokenHasPrice = true;
 
   return (

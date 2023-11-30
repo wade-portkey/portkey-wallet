@@ -59,7 +59,6 @@ export default function NFTItem(props: NFTItemPropsType) {
   }, [children, collapsed, openCollectionInfo]);
 
   const showChildren = children;
-  console.log('showChildren', showChildren);
 
   const hasMore = useMemo(
     () => showChildren?.length !== 0 && showChildren?.length < itemCount,
