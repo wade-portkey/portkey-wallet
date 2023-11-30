@@ -24,7 +24,7 @@ import GuardianAccountItem from '../components/GuardianAccountItem';
 import { GuardianConfig } from 'model/verify/guardian';
 import { PortkeyConfig } from 'global/constants';
 import useEffectOnce from 'hooks/useEffectOnce';
-import { callCancelLoginGuardianMethod, callGetVerifiersMethod } from 'model/contract/handler';
+import { Verifier, callCancelLoginGuardianMethod, getOrReadCachedVerifierData } from 'model/contract/handler';
 import { guardianTypeStrToEnum, parseGuardianInfo } from 'model/global';
 import { AccountOriginalType } from 'model/verify/after-verify';
 import { getUnlockedWallet } from 'model/wallet';
@@ -50,7 +50,7 @@ const ModifyGuardian = (config: { info: string }) => {
   const [verifierMap, setVerifierMap] = useState<{
     [key: string]: any;
   }>([] as any);
-  const verifierList = useMemo(() => (verifierMap ? Object.values(verifierMap) : []), [verifierMap]);
+  const verifierList: Array<Verifier> = useMemo(() => (verifierMap ? Object.values(verifierMap) : []), [verifierMap]);
 
   const [selectedType, setSelectedType] = useState<TypeItemType>();
   const [selectedVerifier, setSelectedVerifier] = useState<VerifierItem>();
@@ -63,11 +63,12 @@ const ModifyGuardian = (config: { info: string }) => {
   const thirdPartyInfoRef = useRef<thirdPartyInfoType>();
 
   useEffectOnce(async () => {
+    Loading.show();
     try {
       const { particularGuardianInfo, originalGuardianItem } = JSON.parse(config.info) as ModifyGuardianProps;
       particularGuardianInfo && setEditGuardian(particularGuardianInfo);
       originalGuardianItem && setOriginalGuardianItem(originalGuardianItem);
-      const { data } = await callGetVerifiersMethod();
+      const { data } = await getOrReadCachedVerifierData();
       const { verifierServers: verifiers } = data || {};
       console.log('verifiers', JSON.stringify(verifiers));
       verifiers && setVerifierMap(verifiers);
@@ -76,10 +77,12 @@ const ModifyGuardian = (config: { info: string }) => {
       } = await getUnlockedWallet();
       const chainId = await PortkeyConfig.currChainId();
       const guardiansInfo = await NetworkController.getGuardianInfo('', caHash);
+      const cachedVerifierData = Object.values((await getOrReadCachedVerifierData()).data?.verifierServers ?? {});
       const parsedGuardians = guardiansInfo?.guardianList?.guardians?.map(guardian => {
         return parseGuardianInfo(
           guardian,
           chainId,
+          cachedVerifierData,
           undefined,
           undefined,
           AccountOriginalType.Email,
@@ -91,6 +94,7 @@ const ModifyGuardian = (config: { info: string }) => {
     } catch (e) {
       console.log('error', e);
     }
+    Loading.hide();
   });
 
   useEffect(() => {
@@ -102,9 +106,10 @@ const ModifyGuardian = (config: { info: string }) => {
       } else {
         setAccount(editGuardian.sendVerifyCodeParams.guardianIdentifier);
       }
-      setSelectedVerifier(verifierList.find(item => item.verifierId === editGuardian.sendVerifyCodeParams.verifierId));
+      !selectedVerifier &&
+        setSelectedVerifier(verifierList.find(item => item.id === editGuardian.sendVerifyCodeParams.verifierId));
     }
-  }, [editGuardian, verifierList]);
+  }, [editGuardian, selectedVerifier, verifierList]);
 
   const onChooseVerifier = useCallback((item: VerifierItem) => {
     setGuardianError({ ...INIT_NONE_ERROR });
@@ -153,12 +158,30 @@ const ModifyGuardian = (config: { info: string }) => {
     setGuardianError(_guardianError);
     if (_guardianError.isError || !editGuardian || !selectedVerifier) return;
     Loading.show();
+    const thisGuardian = JSON.parse(JSON.stringify(editGuardian)) as GuardianConfig;
+    thisGuardian.sendVerifyCodeParams = {
+      ...thisGuardian.sendVerifyCodeParams,
+      verifierId: selectedVerifier.id,
+    };
+    thisGuardian.name = selectedVerifier.name;
+    thisGuardian.imageUrl = selectedVerifier.imageUrl;
+    const guardianList = userGuardiansList.filter(
+      it =>
+        it.sendVerifyCodeParams.verifierId !== editGuardian.sendVerifyCodeParams.verifierId ||
+        it.sendVerifyCodeParams.guardianIdentifier !== editGuardian.sendVerifyCodeParams.guardianIdentifier ||
+        it.sendVerifyCodeParams.type !== editGuardian.sendVerifyCodeParams.type,
+    );
+    guardianList.push(thisGuardian);
     handleGuardiansApproval({
-      particularGuardian: editGuardian,
+      particularGuardian: thisGuardian,
+      pastGuardian: editGuardian,
       guardianVerifyType: GuardianVerifyType.MODIFY_GUARDIAN,
       accountIdentifier: editGuardian.accountIdentifier ?? '',
       accountOriginalType: editGuardian.accountOriginalType ?? AccountOriginalType.Email,
-      guardians: userGuardiansList,
+      guardians: guardianList,
+      failHandler: () => {
+        CommonToast.fail('Edit guardian fail');
+      },
     });
   }, [checkCurGuardianRepeat, editGuardian, selectedVerifier, userGuardiansList]);
 
@@ -224,22 +247,20 @@ const ModifyGuardian = (config: { info: string }) => {
       }
     }
 
-    const thisGuardian = Object.assign({}, editGuardian);
-    if (selectedVerifier) {
-      thisGuardian.sendVerifyCodeParams.verifierId = selectedVerifier.id;
-    }
     handleGuardiansApproval({
       guardianVerifyType: GuardianVerifyType.REMOVE_GUARDIAN,
-      particularGuardian: thisGuardian,
-      pastGuardian: editGuardian,
+      particularGuardian: editGuardian,
       accountIdentifier: editGuardian.accountIdentifier ?? '',
       accountOriginalType: editGuardian.accountOriginalType ?? AccountOriginalType.Email,
       guardians: userGuardiansList.map(it => {
         it.sendVerifyCodeParams.operationType = OperationTypeEnum.deleteGuardian;
         return it;
       }),
+      failHandler: () => {
+        CommonToast.fail('Remove guardian fail');
+      },
     });
-  }, [editGuardian, onFinish, selectedVerifier, t, userGuardiansList]);
+  }, [editGuardian, onFinish, t, userGuardiansList]);
 
   const isApprovalDisable = useMemo(
     () => selectedVerifier?.id === editGuardian?.sendVerifyCodeParams?.verifierId,
@@ -315,11 +336,15 @@ export const checkIsTheLastLoginGuardian = (
   guardianList: Array<GuardianConfig>,
   thisGuardian: GuardianConfig,
 ): boolean => {
+  if (!thisGuardian.isLoginGuardian) {
+    return false;
+  }
   return !guardianList
     .filter(
       it =>
-        it.sendVerifyCodeParams.verifierId !== thisGuardian.sendVerifyCodeParams.verifierId &&
-        it.sendVerifyCodeParams.guardianIdentifier !== thisGuardian.sendVerifyCodeParams.guardianIdentifier,
+        it.sendVerifyCodeParams.verifierId !== thisGuardian.sendVerifyCodeParams.verifierId ||
+        it.sendVerifyCodeParams.guardianIdentifier !== thisGuardian.sendVerifyCodeParams.guardianIdentifier ||
+        it.sendVerifyCodeParams.type !== thisGuardian.sendVerifyCodeParams.type,
     )
     .find(it => it.isLoginGuardian);
 };

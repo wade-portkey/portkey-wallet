@@ -1,5 +1,6 @@
 package io.aelf.portkey.demo.ui.composable
 
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -24,10 +25,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import io.aelf.portkey.components.logic.PortkeyMMKVStorage
-import io.aelf.portkey.core.entry.PortkeyTest
 import io.aelf.portkey.demo.ui.theme.Purple40
-import io.aelf.portkey.ui.basic.Toast
-import io.aelf.portkey.ui.dialog.DialogProps
 
 @Composable
 internal fun ChoiceMaker(
@@ -49,7 +47,8 @@ internal fun ChoiceMaker(
             .fillMaxWidth()
             .padding(top = 2.dp, start = 10.dp, end = 10.dp)
             .background(Purple40, RoundedCornerShape(8.dp))
-            .height(50.dp).clickable {
+            .height(50.dp)
+            .clickable {
                 expand = !expand
             },
         contentAlignment = Alignment.Center
@@ -77,12 +76,13 @@ internal fun ChoiceMaker(
                             choice = it
                             if (useClearWallet) PortkeyMMKVStorage.clear()
                             afterChosen(it)
-                            Toast.showToast(
+                            Toast.makeText(
                                 context,
-                                "now choosing $it${if (useClearWallet) ", wallet is also cleared by now" else ""}."
-                            )
+                                "now choosing $it${if (useClearWallet) ", wallet is also cleared by now" else ""}.",
+                                Toast.LENGTH_LONG
+                            ).show()
                         }
-                        PortkeyTest.showDialogForTestOnly(
+                        PortkeyDialog.show(
                             DialogProps().apply {
                                 mainTitle = "Confirm"
                                 subTitle =

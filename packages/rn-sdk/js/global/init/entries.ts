@@ -1,9 +1,9 @@
 import TestPage from 'components/TestPage';
-import GuardianApprovalEntryPage from 'pages/entries/GuardianApproval';
-import SignInEntryPage from 'pages/entries/SignIn';
-import SelectCountryPage from 'pages/entries/SelectCountry';
-import SignUpEntryPage from 'pages/entries/SignUp';
-import VerifierDetailsEntryPage from 'pages/entries/VerifierDetails';
+import GuardianApprovalEntryPage from 'pages/Entries/GuardianApproval';
+import SignInEntryPage from 'pages/Entries/SignIn';
+import SelectCountryPage from 'pages/Entries/SelectCountry';
+import SignUpEntryPage from 'pages/Entries/SignUp';
+import VerifierDetailsEntryPage from 'pages/Entries/VerifierDetails';
 import { PortkeyEntries } from 'config/entries';
 import ViewOnWebView from 'pages/Activity/ViewOnWebView';
 import AccountSettings from 'pages/My/AccountSettings';
@@ -19,6 +19,8 @@ import Biometric from 'pages/My/Biometric';
 import AddGuardian from 'pages/Guardian/GuardianManage/AddGuardian';
 import ModifyGuardian from 'pages/Guardian/GuardianManage/ModifyGuardian';
 import GuardianDetail from 'pages/Guardian/GuardianDetail';
+import ReceiveTokenPage from 'pages/Assets/ReceiveToken';
+import AssetsHome from 'pages/Assets/Home/AssetsHome';
 
 type AcceptableComponentType = ComponentProvider;
 
@@ -35,7 +37,7 @@ const initEntries = () => {
   entryConfig.set(PortkeyEntries.VERIFIER_DETAIL_ENTRY, () => VerifierDetailsEntryPage);
   entryConfig.set(PortkeyEntries.GUARDIAN_APPROVAL_ENTRY, () => GuardianApprovalEntryPage);
 
-  // pin service stage
+  // config stage
   entryConfig.set(PortkeyEntries.CHECK_PIN, () => CheckPin);
   entryConfig.set(PortkeyEntries.SET_PIN, () => SetPin);
   entryConfig.set(PortkeyEntries.CONFIRM_PIN, () => ConfirmPin);
@@ -54,12 +56,18 @@ const initEntries = () => {
   // webview
   entryConfig.set(PortkeyEntries.VIEW_ON_WEBVIEW, () => ViewOnWebView);
 
+  // account setting
   entryConfig.set(PortkeyEntries.ACCOUNT_SETTING_ENTRY, () => AccountSettings);
   entryConfig.set(PortkeyEntries.BIOMETRIC_SWITCH_ENTRY, () => Biometric);
+
+  // assets module
+  entryConfig.set(PortkeyEntries.ASSETS_HOME_ENTRY, () => AssetsHome);
+  entryConfig.set(PortkeyEntries.RECEIVE_TOKEN_ENTRY, () => ReceiveTokenPage);
 
   for (const [key, value] of entryConfig) {
     AppRegistry.registerComponent(key, value);
   }
+  registerLaunchMode();
 };
 export enum LaunchMode {
   STANDARD = 'standard',
@@ -71,4 +79,4 @@ const registerLaunchMode = () => {
   LaunchModeSet.set(PortkeyEntries.ACCOUNT_SETTING_ENTRY, LaunchMode.SINGLE_TASK.toString());
 };
 export const LaunchModeSet = new Map();
-export { initEntries, registerLaunchMode };
+export { initEntries };

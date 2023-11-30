@@ -89,14 +89,13 @@ dependencies {
     debugImplementation 'androidx.compose.ui:ui-tooling'
     debugImplementation 'androidx.compose.ui:ui-test-manifest'
     implementation 'com.google.prefab:cli:2.0.0'
-    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.12'
+//    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.12'
     implementation(project(
             configuration: 'default', path: ':library'
     ))
     implementation "com.facebook.react:react-android:0.72.4"
+    implementation "com.airbnb.android:lottie:6.1.0"
 
-    // We use a local dependency to use dialog and loading components, it is not necessary for you to use it.
-    implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
 }
 
 apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"

@@ -11,10 +11,9 @@ import { PortkeyEntries } from 'config/entries';
 import useBaseContainer from 'model/container/UseBaseContainer';
 import { CheckPinProps } from 'pages/Pin/CheckPin';
 import useEffectOnce from 'hooks/useEffectOnce';
-import { getTempWalletConfig, isWalletUnlocked } from 'model/verify/after-verify';
+import { isWalletUnlocked } from 'model/verify/after-verify';
 import { PortkeyModulesEntity } from 'service/native-modules';
 import CommonToast from 'components/CommonToast';
-
 export default function AccountSettings() {
   const biometricsReady = useBiometricsReady();
   const { navigationTo, onFinish } = useBaseContainer({
@@ -62,10 +61,6 @@ export default function AccountSettings() {
     [navigationTo],
   );
   useEffectOnce(() => {
-    (async () => {
-      const tempWalletConfig = await getTempWalletConfig();
-      console.log('tempWalletConfig', tempWalletConfig);
-    })();
     isWalletUnlocked().then(status => {
       if (!status) {
         onFinish({

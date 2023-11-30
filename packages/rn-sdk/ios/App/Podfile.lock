@@ -31,6 +31,8 @@ PODS:
     - ExpoModulesCore
     - GoogleSignIn (~> 6.2)
     - React-Core
+  - ExpoClipboard (4.5.0):
+    - ExpoModulesCore
   - ExpoCrypto (12.6.0):
     - ExpoModulesCore
   - ExpoDevice (5.6.0):
@@ -378,6 +380,8 @@ PODS:
   - react-native-mmkv (2.10.2):
     - MMKV (>= 1.2.13)
     - React-Core
+  - react-native-pager-view (6.2.2):
+    - React-Core
   - react-native-safe-area-context (4.7.2):
     - React-Core
   - react-native-spinkit (1.4.1):
@@ -493,6 +497,12 @@ PODS:
     - React-Core
   - RNCAsyncStorage (1.17.10):
     - React-Core
+  - RNFastImage (8.6.3):
+    - React-Core
+    - SDWebImage (~> 5.11.1)
+    - SDWebImageWebPCoder (~> 0.8.4)
+  - RNGestureHandler (2.9.0):
+    - React-Core
   - RNGoogleSignin (8.2.2):
     - GoogleSignIn (~> 6.2)
     - React-Core
@@ -502,6 +512,14 @@ PODS:
     - React
   - RNSVG (13.3.0):
     - React-Core
+  - RNVectorIcons (9.2.0):
+    - React-Core
+  - SDWebImage (5.11.1):
+    - SDWebImage/Core (= 5.11.1)
+  - SDWebImage/Core (5.11.1)
+  - SDWebImageWebPCoder (0.8.5):
+    - libwebp (~> 1.0)
+    - SDWebImage/Core (~> 5.10)
   - SocketRocket (0.6.1)
   - Toast (4.0.0)
   - Yoga (1.14.0)
@@ -528,6 +546,7 @@ DEPENDENCIES:
   - EXImageLoader (from `../../node_modules/expo-image-loader/ios`)
   - Expo (from `../../node_modules/expo`)
   - "ExpoAdapterGoogleSignIn (from `../../node_modules/@react-native-google-signin/google-signin/expo/ios`)"
+  - ExpoClipboard (from `../../node_modules/expo-clipboard/ios`)
   - ExpoCrypto (from `../../node_modules/expo-crypto/ios`)
   - ExpoDevice (from `../../node_modules/expo-device/ios`)
   - ExpoImagePicker (from `../../node_modules/expo-image-picker/ios`)
@@ -562,6 +581,7 @@ DEPENDENCIES:
   - react-native-config (from `../../node_modules/react-native-config`)
   - react-native-get-random-values (from `../../node_modules/react-native-get-random-values`)
   - react-native-mmkv (from `../../node_modules/react-native-mmkv`)
+  - react-native-pager-view (from `../../node_modules/react-native-pager-view`)
   - react-native-safe-area-context (from `../../node_modules/react-native-safe-area-context`)
   - react-native-spinkit (from `../../node_modules/react-native-spinkit`)
   - react-native-webview (from `../../node_modules/react-native-webview`)
@@ -584,10 +604,13 @@ DEPENDENCIES:
   - ReactCommon/turbomodule/core (from `../../node_modules/react-native/ReactCommon`)
   - "RNAppleAuthentication (from `../../node_modules/@invertase/react-native-apple-authentication`)"
   - "RNCAsyncStorage (from `../../node_modules/@react-native-async-storage/async-storage`)"
+  - RNFastImage (from `../../node_modules/react-native-fast-image`)
+  - RNGestureHandler (from `../../node_modules/react-native-gesture-handler`)
   - "RNGoogleSignin (from `../../node_modules/@react-native-google-signin/google-signin`)"
   - RNLocalize (from `../../node_modules/react-native-localize`)
   - RNSpringScrollView (from `../../node_modules/react-native-spring-scrollview`)
   - RNSVG (from `../../node_modules/react-native-svg`)
+  - RNVectorIcons (from `../../node_modules/react-native-vector-icons`)
   - Toast (= 4.0.0)
   - Yoga (from `../../node_modules/react-native/ReactCommon/yoga`)
   - YYKit (from `https://github.com/SAGESSE-CN/YYKit.git`)
@@ -604,6 +627,8 @@ SPEC REPOS:
     - lottie-ios
     - MMKV
     - MMKVCore
+    - SDWebImage
+    - SDWebImageWebPCoder
     - SocketRocket
     - Toast
     - ZXingObjC
@@ -631,6 +656,8 @@ EXTERNAL SOURCES:
     :path: "../../node_modules/expo"
   ExpoAdapterGoogleSignIn:
     :path: "../../node_modules/@react-native-google-signin/google-signin/expo/ios"
+  ExpoClipboard:
+    :path: "../../node_modules/expo-clipboard/ios"
   ExpoCrypto:
     :path: "../../node_modules/expo-crypto/ios"
   ExpoDevice:
@@ -695,6 +722,8 @@ EXTERNAL SOURCES:
     :path: "../../node_modules/react-native-get-random-values"
   react-native-mmkv:
     :path: "../../node_modules/react-native-mmkv"
+  react-native-pager-view:
+    :path: "../../node_modules/react-native-pager-view"
   react-native-safe-area-context:
     :path: "../../node_modules/react-native-safe-area-context"
   react-native-spinkit:
@@ -739,6 +768,10 @@ EXTERNAL SOURCES:
     :path: "../../node_modules/@invertase/react-native-apple-authentication"
   RNCAsyncStorage:
     :path: "../../node_modules/@react-native-async-storage/async-storage"
+  RNFastImage:
+    :path: "../../node_modules/react-native-fast-image"
+  RNGestureHandler:
+    :path: "../../node_modules/react-native-gesture-handler"
   RNGoogleSignin:
     :path: "../../node_modules/@react-native-google-signin/google-signin"
   RNLocalize:
@@ -747,6 +780,8 @@ EXTERNAL SOURCES:
     :path: "../../node_modules/react-native-spring-scrollview"
   RNSVG:
     :path: "../../node_modules/react-native-svg"
+  RNVectorIcons:
+    :path: "../../node_modules/react-native-vector-icons"
   Yoga:
     :path: "../../node_modules/react-native/ReactCommon/yoga"
   YYKit:
@@ -770,6 +805,7 @@ SPEC CHECKSUMS:
   EXImageLoader: 03063370bc06ea1825713d3f55fe0455f7c88d04
   Expo: e7d2116b947e2e6fdeb09ee4f2754f819426d1b6
   ExpoAdapterGoogleSignIn: b7792934ab1b5d559a3eee31334d752a73f0366e
+  ExpoClipboard: d2f0e44d50e5ba07b02f5fb7bd280178b420e24e
   ExpoCrypto: 42485127a5968dda6f67ac5f2b42d3c0af31d7db
   ExpoDevice: 4b9825263a3f996fd5a89ec26426e22e6cbc32d6
   ExpoImagePicker: 9e5c745cb3e56ee00e1cfe5d6af59caab66ecf1a
@@ -811,6 +847,7 @@ SPEC CHECKSUMS:
   react-native-config: 7cd105e71d903104e8919261480858940a6b9c0e
   react-native-get-random-values: a6ea6a8a65dc93e96e24a11105b1a9c8cfe1d72a
   react-native-mmkv: 9ae7ca3977e8ef48dbf7f066974eb844c20b5fd7
+  react-native-pager-view: 02a5c4962530f7efc10dd51ee9cdabeff5e6c631
   react-native-safe-area-context: 7aa8e6d9d0f3100a820efb1a98af68aa747f9284
   react-native-spinkit: da294fd828216ad211fe36a5c14c1e09f09e62db
   react-native-webview: 669ae162965f629a8d6a4bdd3b99a304d36ef1f2
@@ -833,10 +870,15 @@ SPEC CHECKSUMS:
   ReactCommon: 1c4f8627709eb8be1e2eec92848d0333d12bf76a
   RNAppleAuthentication: 0571c08da8c327ae2afc0261b48b4a515b0286a6
   RNCAsyncStorage: 0c357f3156fcb16c8589ede67cc036330b6698ca
+  RNFastImage: 5c9c9fed9c076e521b3f509fe79e790418a544e8
+  RNGestureHandler: 071d7a9ad81e8b83fe7663b303d132406a7d8f39
   RNGoogleSignin: 81521697b2c8f97f9a586ac7257b1a1d9b51b115
   RNLocalize: 0df7970cfc60389f00eb62fd7c097dc75af3fb4f
   RNSpringScrollView: e354167d96f2c3d2f20b186990b2c3946987cb3c
   RNSVG: 1869ad9534459f24caaa0416a4764548c2aeedad
+  RNVectorIcons: fcc2f6cb32f5735b586e66d14103a74ce6ad61f8
+  SDWebImage: a7f831e1a65eb5e285e3fb046a23fcfbf08e696d
+  SDWebImageWebPCoder: 908b83b6adda48effe7667cd2b7f78c897e5111d
   SocketRocket: f32cd54efbe0f095c4d7594881e52619cfe80b17
   Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
   Yoga: 3efc43e0d48686ce2e8c60f99d4e6bd349aff981

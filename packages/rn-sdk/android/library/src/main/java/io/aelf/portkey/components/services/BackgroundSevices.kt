@@ -10,9 +10,9 @@ class GeneralJSMethodService : HeadlessJsTaskService() {
     override fun getTaskConfig(intent: Intent?): HeadlessJsTaskConfig? {
         val extras = intent!!.extras
         return if (extras != null) {
-            val methodName = extras.getString("methodName")
+            val taskName = extras.getString("taskName")
             HeadlessJsTaskConfig(
-                methodName,
+                taskName,
                 Arguments.fromBundle(extras),
                 5000,
                 false

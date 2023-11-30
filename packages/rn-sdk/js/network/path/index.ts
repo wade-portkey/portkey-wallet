@@ -1,4 +1,5 @@
 export enum APIPaths {
+  // create wallet or verify guardian
   CHECK_GOOGLE_RECAPTCHA = '/api/app/account/isGoogleRecaptchaOpen',
   GET_GUARDIAN_INFO = '/api/app/account/guardianIdentifiers',
   GET_REGISTER_INFO = '/api/app/account/registerInfo',
@@ -15,7 +16,18 @@ export enum APIPaths {
   CHECK_SOCIAL_RECOVERY_STATUS = '/api/app/search/accountrecoverindex',
   CHECK_REGISTER_STATUS = '/api/app/search/accountregisterindex',
   CHECK_CHAIN_STATUS = '/api/app/search/chainsinfoindex',
-  CHECK_QR_CODE_STATUS = '/api/app/qrcode',
 
+  // verify qrcode status
+  CHECK_QR_CODE_STATUS = '/api/app/qrcode',
+  GET_SYMBOL_IMAGE = '/api/app/user/assets/symbolImages',
+
+  // connect token for portkey backend service
   REFRESH_NETWORK_TOKEN = '/connect/token',
+
+  // assets service
+  GET_TOKEN_INFO = '/api/app/search/usertokenindex',
+  GET_USER_TOKEN_STATUS = '/api/app/user/assets/token',
+  GET_TOKEN_PRICES = '/api/app/tokens/prices',
+  FETCH_NFT_COLLECTIONS = '/api/app/user/assets/nftCollections',
+  FETCH_NFT_COLLECTIONS_ITEM = '/api/app/user/assets/nftItems',
 }

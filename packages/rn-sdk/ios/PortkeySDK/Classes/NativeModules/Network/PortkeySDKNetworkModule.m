@@ -34,20 +34,30 @@ RCT_EXPORT_METHOD(fetch:(NSString *)url
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:requestUrl];
     request.HTTPMethod = method;
     
-    // set body
-    if ([method isEqualToString:@"POST"] && params) {
-        NSData *jsonBodyData = [NSJSONSerialization dataWithJSONObject:params options:kNilOptions error:nil];
-        request.HTTPBody = jsonBodyData;
+    NSString *contentType = [headers objectForKey:@"Content-Type"];
+    if (contentType.length <= 0) {
+        contentType = @"application/json; charset=utf-8";
     }
-    
     // set header
-    [request setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    [request setValue:contentType forHTTPHeaderField:@"Content-Type"];
     if (headers) {
         [headers enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull value, BOOL * _Nonnull stop) {
             if (key && value) {
                 [request setValue:value forHTTPHeaderField:key];
             }
         }];
+    }
+    
+    // set body
+    if ([method isEqualToString:@"POST"] && params) {
+        if ([contentType containsString:@"application/json"]) {
+            NSData *jsonBodyData = [NSJSONSerialization dataWithJSONObject:params options:kNilOptions error:nil];
+            request.HTTPBody = jsonBodyData;
+        } else {
+            NSString *bodyString = [self bodyStringWithParams:params];
+            NSData *bodyData = [bodyString dataUsingEncoding:NSUTF8StringEncoding];
+            request.HTTPBody = bodyData;
+        }
     }
     
     // set other params
@@ -78,7 +88,8 @@ RCT_EXPORT_METHOD(fetch:(NSString *)url
                 NSString *resultString = [[NSString alloc] initWithData:resultData encoding:NSUTF8StringEncoding];
                 resolve(resultString);
             } else {
-                resolve([self resultWrapperWithStatus:1 errCode:[@(res.statusCode) stringValue] result:nil]);
+                NSString *resultStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                resolve([self resultWrapperWithStatus:1 errCode:[@(res.statusCode) stringValue] result:resultStr]);
             }
         } else {
             resolve([self resultWrapperWithStatus:-1 errCode:[@(error.code) stringValue] result:nil]);
@@ -89,15 +100,27 @@ RCT_EXPORT_METHOD(fetch:(NSString *)url
 
 - (NSString *)resultWrapperWithStatus:(NSInteger)status
                                   errCode:(NSString *)errCode
-                                   result:(NSDictionary *)result {
+                                   result:(id)result {
     NSDictionary *resultDict = @{
         @"status": @(status),
-        @"result": result ?: @{},
+        @"result": result ?: @"",
         @"errCode": errCode ?: @"0"
     };
     NSData *resultData = [NSJSONSerialization dataWithJSONObject:resultDict options:0 error:nil];
     NSString *resultString = [[NSString alloc] initWithData:resultData encoding:NSUTF8StringEncoding];
     return resultString;
+}
+
+- (NSString *)bodyStringWithParams:(NSDictionary *)params {
+    if (!params) return @"";
+    NSMutableString *result = [NSMutableString new];
+    [params enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull value, BOOL * _Nonnull stop) {
+        if (key && value) {
+            NSString *prefix = result.length > 0 ? @"&" : @"";
+            [result appendFormat:@"%@%@=%@", prefix, key, value];
+        }
+    }];
+    return [result copy];
 }
 
 @end

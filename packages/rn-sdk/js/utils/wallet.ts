@@ -17,6 +17,10 @@ export type IntervalGetResultParams = {
   onFail?: (message: string) => void;
 };
 
+export const wrapAddress = (address: string, chainId = 'AELF', tokenSymbol = 'ELF') => {
+  return `${tokenSymbol}_${address}_${chainId}`;
+};
+
 export function intervalGetResult({ managerInfo, onPass, onFail }: IntervalGetResultParams) {
   let timer = '',
     mark = false;

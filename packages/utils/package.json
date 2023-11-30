@@ -16,7 +16,8 @@
     "aws-sdk": "^2.1438.0",
     "dayjs": "^1.11.9",
     "is-url": "^1.2.4",
-    "query-string": "^7.1.1"
+    "query-string": "^7.1.1",
+    "web3-utils": "^1.8.0"
   },
   "devDependencies": {
     "@portkey/provider-types": "1.0.1-alpha.0",

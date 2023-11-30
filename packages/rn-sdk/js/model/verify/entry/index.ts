@@ -17,12 +17,12 @@ import { SendVerifyCodeResultDTO } from 'network/dto/guardian';
 import { OperationTypeEnum } from '@portkey-wallet/types/verifier';
 import { NetworkController } from 'network/controller';
 import { PortkeyConfig } from 'global/constants';
-import { VerifierDetailsPageProps } from 'pages/entries/VerifierDetails';
+import { VerifierDetailsPageProps } from 'pages/Entries/VerifierDetails';
 import { VerifyPageResult } from 'pages/Guardian/VerifierDetails';
 import { useCallback } from 'react';
 import { PageType } from 'pages/Login/types';
 import { ThirdPartyAccountInfo, isAppleLogin } from '../third-party-account';
-import { GuardianApprovalPageProps, GuardianApprovalPageResult } from 'pages/entries/GuardianApproval';
+import { GuardianApprovalPageProps, GuardianApprovalPageResult } from 'pages/Entries/GuardianApproval';
 import { useThirdPartyVerifyAtomic } from './atomic';
 
 export const useVerifyEntry = (verifyConfig: VerifyConfig): VerifyEntryHooks => {
@@ -101,13 +101,47 @@ export const useVerifyEntry = (verifyConfig: VerifyConfig): VerifyEntryHooks => 
         ? { apple: thirdPartyAccountInfo }
         : { google: thirdPartyAccountInfo };
       if (accountCheckResult.hasRegistered) {
-        dealWithSignIn(accountIdentifier, thirdPartyInfo);
+        if (type === PageType.signup) {
+          ActionSheet.alert({
+            title: 'Continue with this account?',
+            message: `This account already exists. Click "Confirm" to log in.`,
+            buttons: [
+              { title: 'Cancel', type: 'outline' },
+              {
+                title: 'Confirm',
+                onPress: () => {
+                  dealWithSignIn(accountIdentifier, thirdPartyInfo);
+                },
+              },
+            ],
+          });
+        } else {
+          dealWithSignIn(accountIdentifier, thirdPartyInfo);
+        }
       } else {
-        dealWithSignUp(accountIdentifier, thirdPartyInfo);
+        if (type === PageType.login) {
+          ActionSheet.alert({
+            title: 'Continue with this account?',
+            message: `This account has not been registered yet. Click "Confirm" to complete the registration.`,
+            buttons: [
+              { title: 'Cancel', type: 'outline' },
+              {
+                title: 'Confirm',
+                onPress: () => {
+                  // dealWithSignUp(accountIdentifier, thirdPartyAccountInfo);
+                  dealWithSignUp(accountIdentifier, thirdPartyInfo);
+                },
+              },
+            ],
+          });
+        } else {
+          dealWithSignUp(accountIdentifier, thirdPartyInfo);
+        }
       }
     } catch (e) {
       console.error(e);
       setErrorMessage('login failed.');
+    } finally {
       Loading.hide();
     }
   };
@@ -221,7 +255,12 @@ export const useVerifyEntry = (verifyConfig: VerifyConfig): VerifyEntryHooks => 
               setErrorMessage('verification failed, please try again.');
               return;
             } else {
-              dealWithSetPin(deliveredVerifiedData);
+              onFinish({
+                status: 'success',
+                data: {
+                  finished: true,
+                },
+              });
             }
           },
         );

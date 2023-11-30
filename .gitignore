@@ -34,3 +34,4 @@ packages/rn-sdk/ios/App/build/
 /**/output-metadata.json
 
 out/**/*
+/**/*.bundle

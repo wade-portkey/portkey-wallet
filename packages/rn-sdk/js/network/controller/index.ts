@@ -27,11 +27,43 @@ import {
   RequestSocialRecoveryParams,
 } from 'network/dto/wallet';
 import { sleep } from '@portkey-wallet/utils';
-import { getCachedNetworkToken, networkTokenSwitch } from 'network/token';
-import { BackEndNetWorkMap } from '@portkey-wallet/constants/constants-ca/backend-network';
+import { getCachedNetworkToken } from 'network/token';
 import { isWalletUnlocked } from 'model/verify/after-verify';
+import { SymbolImages } from 'model/symbolImage';
+import {
+  FetchTokenPriceResult,
+  SearchTokenListParams,
+  GetUserTokenListResult,
+  FetchBalanceConfig,
+  FetchBalanceResult,
+  FetchAccountNftCollectionListParams,
+  FetchAccountNftCollectionListResult,
+  FetchAccountNftCollectionItemListParams,
+  FetchAccountNftCollectionItemListResult,
+} from 'network/dto/query';
+import { selectCurrentBackendConfig } from 'utils/commonUtil';
 
 const DEFAULT_MAX_POLLING_TIMES = 50;
+
+const {
+  CHECK_REGISTER_STATUS,
+  CHECK_SOCIAL_RECOVERY_STATUS,
+  GET_GUARDIAN_INFO,
+  GET_REGISTER_INFO,
+  GET_RECOMMEND_GUARDIAN,
+  REFRESH_NETWORK_TOKEN,
+  GET_SYMBOL_IMAGE,
+} = APIPaths;
+
+const NETWORK_TOKEN_BLACKLIST = [
+  CHECK_REGISTER_STATUS,
+  CHECK_SOCIAL_RECOVERY_STATUS,
+  GET_GUARDIAN_INFO,
+  GET_REGISTER_INFO,
+  GET_RECOMMEND_GUARDIAN,
+  REFRESH_NETWORK_TOKEN,
+  GET_SYMBOL_IMAGE,
+];
 
 export class NetworkControllerEntity {
   private realExecute = async <T>(
@@ -48,7 +80,7 @@ export class NetworkControllerEntity {
       });
     }
     headers = Object.assign({}, headers ?? {}, { Version: 'v1.4.8' });
-    if ((await isWalletUnlocked()) && !networkTokenSwitch) {
+    if ((await isWalletUnlocked()) && !this.isUrlInBlackList(url)) {
       const access_token = await getCachedNetworkToken();
       headers = Object.assign({}, headers, { Authorization: `Bearer ${access_token}` });
     }
@@ -57,10 +89,17 @@ export class NetworkControllerEntity {
     return result;
   };
 
+  private isUrlInBlackList = (url: string): boolean => {
+    return NETWORK_TOKEN_BLACKLIST.some(path => url.includes(path));
+  };
+
   getRegisterResult = async (accountIdentifier: string): Promise<ResultWrapper<RegisterStatusDTO>> => {
     return await this.realExecute<RegisterStatusDTO>(await this.parseUrl(APIPaths.GET_REGISTER_INFO), 'GET', {
       loginGuardianIdentifier: accountIdentifier,
     });
+  };
+  getSymbolImage = async (): Promise<ResultWrapper<SymbolImages>> => {
+    return await this.realExecute<SymbolImages>(await this.parseUrl(APIPaths.GET_SYMBOL_IMAGE), 'GET', {});
   };
 
   getAccountIdentifierResult = async (
@@ -238,12 +277,52 @@ export class NetworkControllerEntity {
     return res.result;
   };
 
+  searchTokenList = async (config?: SearchTokenListParams): Promise<GetUserTokenListResult> => {
+    const { chainIdArray = ['AELF', 'tDVV', 'tDVW'], keyword = '' } = config || {};
+    const chainIdSearchLanguage = chainIdArray.map(chainId => `token.chainId:${chainId}`).join(' OR ');
+
+    const filterKeywords =
+      keyword.length < 10 ? `token.symbol: *${keyword.toUpperCase().trim()}*` : `token.address:${keyword}`;
+
+    const res = await this.realExecute<GetUserTokenListResult>(await this.parseUrl(APIPaths.GET_TOKEN_INFO), 'GET', {
+      filter: `${filterKeywords} AND (${chainIdSearchLanguage})`,
+      sort: 'sortWeight desc,isDisplay  desc,token.symbol  acs,token.chainId acs',
+      skipCount: 0,
+      maxResultCount: 1000,
+    });
+    if (!res?.result) throw new Error('network failure');
+    return res.result;
+  };
+
+  fetchUserTokenBalance = async (config: FetchBalanceConfig): Promise<FetchBalanceResult> => {
+    const { caAddressInfos, skipCount = 0, maxResultCount = 100 } = config;
+    const res = await this.realExecute<FetchBalanceResult>(
+      await this.parseUrl(APIPaths.GET_USER_TOKEN_STATUS),
+      'POST',
+      {
+        caAddresses: caAddressInfos.map(({ caAddress }) => caAddress),
+        skipCount,
+        maxResultCount,
+      },
+    );
+    if (!res?.result) throw new Error('network failure');
+    return res.result;
+  };
+
+  // at current version, only ELF tokens have price
+  checkELFTokenPrice = async (): Promise<FetchTokenPriceResult | null | undefined> => {
+    const res = await this.realExecute<FetchTokenPriceResult>(await this.parseUrl(APIPaths.GET_TOKEN_PRICES), 'GET', {
+      symbols: ['ELF'],
+    });
+    return res.result;
+  };
+
   refreshNetworkToken = async (
     params: CustomNetworkTokenConfig,
   ): Promise<{ access_token: string; expires_in: number }> => {
     const endPointUrl = await PortkeyConfig.endPointUrl();
     const getAuthUrl = () => {
-      const url = Object.values(BackEndNetWorkMap).find(value => endPointUrl === value.apiUrl)?.connectUrl;
+      const url = selectCurrentBackendConfig(endPointUrl).connectUrl;
       return `${url}${APIPaths.REFRESH_NETWORK_TOKEN}`;
     };
     const res = await this.realExecute<{ access_token: string; expires_in: number }>(
@@ -262,6 +341,41 @@ export class NetworkControllerEntity {
 
   getCountryCodeInfo = async (): Promise<CountryCodeDataDTO> => {
     const res = await this.realExecute<CountryCodeDataDTO>(await this.parseUrl(APIPaths.GET_PHONE_COUNTRY_CODE), 'GET');
+    if (!res?.result) throw new Error('network failure');
+    return res.result;
+  };
+
+  fetchNetCollections = async (config: FetchAccountNftCollectionListParams) => {
+    const { caAddressInfos, skipCount = 0, maxResultCount = 100 } = config;
+    const res = await this.realExecute<FetchAccountNftCollectionListResult>(
+      await this.parseUrl(APIPaths.FETCH_NFT_COLLECTIONS),
+      'POST',
+      {
+        caAddressInfos,
+        skipCount,
+        maxResultCount,
+        width: 16,
+        height: 16,
+      },
+    );
+    if (!res?.result) throw new Error('network failure');
+    return res.result;
+  };
+
+  fetchParticularNftItemList = async (config: FetchAccountNftCollectionItemListParams) => {
+    const { caAddressInfos, skipCount = 0, maxResultCount = 100, symbol } = config;
+    const res = await this.realExecute<FetchAccountNftCollectionItemListResult>(
+      await this.parseUrl(APIPaths.FETCH_NFT_COLLECTIONS_ITEM),
+      'POST',
+      {
+        caAddressInfos,
+        skipCount,
+        symbol,
+        maxResultCount,
+        width: 16,
+        height: 16,
+      },
+    );
     if (!res?.result) throw new Error('network failure');
     return res.result;
   };

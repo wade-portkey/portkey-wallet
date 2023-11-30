@@ -18,8 +18,6 @@ import Loading from 'components/Loading';
 import CommonToast from 'components/CommonToast';
 import { QRData, isLoginQRData } from '@portkey-wallet/types/types-ca/qrcode';
 import { isAddress } from '@portkey-wallet/utils';
-import { NetworkType } from '@portkey-wallet/types';
-import { EndPoints, PortkeyConfig } from 'global/constants';
 import useBaseContainer, { VoidResult } from 'model/container/UseBaseContainer';
 import { PortkeyEntries, isPortkeyEntries } from 'config/entries';
 import { EntryResult, PermissionType, chooseImageAndroid, PortkeyModulesEntity } from 'service/native-modules';
@@ -28,12 +26,14 @@ import { ScanToLoginProps } from 'pages/Login/ScanLogin';
 import { isWalletUnlocked } from 'model/verify/after-verify';
 import { checkIsPortKeyUrl, isEntryScheme } from 'utils/scheme';
 import { myThrottle } from 'utils/commonUtil';
+import { getCurrentNetworkType } from 'model/hooks/network';
 
 const QrScanner: React.FC = () => {
   const { t } = useLanguage();
   const canScan = useRef<boolean>(true);
   // const jumpToWebview = useDiscoverJumpWithNetWork();
   const [refresh, setRefresh] = useState<boolean>();
+  const [permissionGranted, setPermissionGranted] = useState<boolean>(false);
   const { onFinish, navigateForResult, navigationTo } = useBaseContainer({
     entryName: PortkeyEntries.SCAN_QR_CODE,
   });
@@ -41,9 +41,10 @@ const QrScanner: React.FC = () => {
     onFinish(res);
   };
 
-  useEffectOnce(() => {
+  useEffectOnce(async () => {
     setRefresh(false);
-    ensurePermission('camera', withoutPermissionWarning);
+    const isOpen = await ensurePermission('camera', withoutPermissionWarning);
+    setPermissionGranted(isOpen);
   });
 
   const withoutPermissionWarning = (fatal = true) => {
@@ -89,7 +90,7 @@ const QrScanner: React.FC = () => {
         if (entry !== undefined && isPortkeyEntries(entry)) {
           navigationTo(entry as PortkeyEntries, { params: params });
         } else {
-          CommonToast.fail('It looks like you want to jump to the page, but you don’t have the entry parameter');
+          CommonToast.fail("It looks like you want to jump to the page, but you don't have the right entry parameter");
         }
       }
     },
@@ -101,7 +102,7 @@ const QrScanner: React.FC = () => {
     }
     canScan.current = false;
     if (typeof data !== 'string') return invalidQRCode(InvalidQRCodeText.INVALID_QR_CODE);
-    const currentNetwork = await determineCurrentNetwork();
+    const currentNetwork = await getCurrentNetworkType();
     try {
       const str = data.replace(/("|'|\s)/g, '');
       if (checkIsUrl(str)) {
@@ -115,10 +116,21 @@ const QrScanner: React.FC = () => {
       }
       const qrCodeData = expandQrData(JSON.parse(data));
       // if not currentNetwork
-      if (currentNetwork !== qrCodeData.netWorkType)
-        return invalidQRCode(
-          currentNetwork === 'MAIN' ? InvalidQRCodeText.SWITCH_TO_TESTNET : InvalidQRCodeText.SWITCH_TO_MAINNET,
-        );
+      if (currentNetwork !== qrCodeData.netWorkType) {
+        let invalidText = InvalidQRCodeText.INVALID_QR_CODE;
+        switch (qrCodeData.netWorkType) {
+          case 'MAIN':
+            invalidText = InvalidQRCodeText.SWITCH_TO_MAINNET;
+            break;
+          case 'TESTNET':
+            invalidText = InvalidQRCodeText.SWITCH_TO_TESTNET;
+            break;
+          case 'TEST1':
+            invalidText = InvalidQRCodeText.SWITCH_TO_TEST1;
+            break;
+        }
+        return invalidQRCode(invalidText);
+      }
       handleQRCodeData(qrCodeData);
     } catch (error) {
       console.log(error);
@@ -154,40 +166,64 @@ const QrScanner: React.FC = () => {
     }
   };
 
-  return (
-    <View style={PageStyle.wrapper}>
-      {refresh ? null : (
-        <Camera
-          ratio={'16:9'}
-          style={[PageStyle.barCodeScanner, !isIOS && PageStyle.barCodeScannerAndroid]}
-          // barCodeScannerSettings={{
-          //   interval: 3000,
-          //   barCodeTypes: [BarCodeScanner.Constants.BarCodeType.qr],
-          // }}
-          onBarCodeScanned={handleBarCodeScanned}>
-          <SafeAreaView style={PageStyle.innerView}>
-            <View style={PageStyle.iconWrap}>
-              <Text style={PageStyle.leftBlock} />
-              <TouchableOpacity
-                style={PageStyle.svgWrap}
-                onPress={() => {
-                  navigateBack({ status: 'cancel', data: {} });
-                }}>
-                <Svg icon="close1" size={pTd(14)} iconStyle={PageStyle.icon} />
-              </TouchableOpacity>
-            </View>
-            <Svg icon="scan-square" size={pTd(240)} iconStyle={PageStyle.scan} />
-            <TextM style={PageStyle.tips}>{t('only support Login code by now')}</TextM>
-
-            <TouchableOpacity style={[PageStyle.albumWrap, GStyles.alignCenter]} onPress={selectImage}>
-              <Svg icon="album" size={pTd(48)} />
-              <TextM style={[FontStyles.font2, PageStyle.albumText]}>{t('Album')}</TextM>
+  const cameraView = () => {
+    return (
+      <Camera
+        ratio={'16:9'}
+        style={[PageStyle.barCodeScanner, !isIOS && PageStyle.barCodeScannerAndroid]}
+        // barCodeScannerSettings={{
+        //   interval: 3000,
+        //   barCodeTypes: [BarCodeScanner.Constants.BarCodeType.qr],
+        // }}
+        onBarCodeScanned={handleBarCodeScanned}>
+        <SafeAreaView style={PageStyle.innerView}>
+          <View style={PageStyle.iconWrap}>
+            <Text style={PageStyle.leftBlock} />
+            <TouchableOpacity
+              style={PageStyle.svgWrap}
+              onPress={() => {
+                navigateBack({ status: 'cancel', data: {} });
+              }}>
+              <Svg icon="close1" size={pTd(14)} iconStyle={PageStyle.icon} />
             </TouchableOpacity>
-          </SafeAreaView>
-        </Camera>
-      )}
-    </View>
-  );
+          </View>
+          <Svg icon="scan-square" size={pTd(240)} iconStyle={PageStyle.scan} />
+          <TextM style={PageStyle.tips}>{t('only support Login code by now')}</TextM>
+
+          <TouchableOpacity style={[PageStyle.albumWrap, GStyles.alignCenter]} onPress={selectImage}>
+            <Svg icon="album" size={pTd(48)} />
+            <TextM style={[FontStyles.font2, PageStyle.albumText]}>{t('Album')}</TextM>
+          </TouchableOpacity>
+        </SafeAreaView>
+      </Camera>
+    );
+  };
+
+  const emptyView = () => {
+    return (
+      <SafeAreaView style={[PageStyle.innerView, PageStyle.blackBg]}>
+        <View style={PageStyle.iconWrap}>
+          <Text style={PageStyle.leftBlock} />
+          <TouchableOpacity
+            style={PageStyle.svgWrap}
+            onPress={() => {
+              navigateBack({ status: 'cancel', data: {} });
+            }}>
+            <Svg icon="close1" size={pTd(14)} iconStyle={PageStyle.icon} />
+          </TouchableOpacity>
+        </View>
+        <Svg icon="scan-square" size={pTd(240)} iconStyle={PageStyle.scan} />
+        <TextM style={PageStyle.tips}>{t('only support Login code by now')}</TextM>
+
+        <TouchableOpacity style={[PageStyle.albumWrap, GStyles.alignCenter]} onPress={selectImage}>
+          <Svg icon="album" size={pTd(48)} />
+          <TextM style={[FontStyles.font2, PageStyle.albumText]}>{t('Album')}</TextM>
+        </TouchableOpacity>
+      </SafeAreaView>
+    );
+  };
+
+  return <View style={PageStyle.wrapper}>{refresh ? null : permissionGranted ? cameraView() : emptyView()}</View>;
 };
 
 export default QrScanner;
@@ -258,6 +294,10 @@ export const PageStyle = StyleSheet.create({
   leftBlock: {
     flex: 1,
   },
+  blackBg: {
+    backgroundColor: 'black',
+    opacity: 0.85,
+  },
 });
 export interface RouteInfoType {
   name: 'SendHome' | 'Tab';
@@ -271,15 +311,12 @@ export interface RouteInfoType {
 export enum InvalidQRCodeText {
   SWITCH_TO_MAINNET = 'Please switch to aelf Mainnet before scanning the QR code',
   SWITCH_TO_TESTNET = 'Please switch to aelf Testnet before scanning the QR code',
+  SWITCH_TO_TEST1 = 'Please switch to aelf Test1 before scanning the QR code',
   INVALID_QR_CODE = 'The QR code is invalid',
   DID_NOT_UNLOCK = 'Please unlock your wallet first',
 }
 
 export interface ScanQRCodeResult {}
-
-const determineCurrentNetwork = async (): Promise<NetworkType> => {
-  return (await PortkeyConfig.endPointUrl()) === EndPoints.MAIN_NET ? 'MAIN' : 'TESTNET';
-};
 
 const ensurePermission = async (
   permission: PermissionType,

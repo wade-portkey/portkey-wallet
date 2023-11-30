@@ -79,7 +79,7 @@ export const getVerifiedAndLockWallet = async (
   try {
     const afterVerifiedConfig: AfterVerifiedConfig = JSON.parse(deliveredAfterVerifiedConfig);
     const { normalVerifyPathInfo, scanQRCodePathInfo } = afterVerifiedConfig || {};
-    console.log('normalVerifyPathInfo', normalVerifyPathInfo);
+    console.log('afterVerifiedConfig', afterVerifiedConfig);
     let walletConfig: RecoverWalletConfig | null = null;
     if (normalVerifyPathInfo) {
       walletConfig = await handleNormalVerify(normalVerifyPathInfo);
@@ -182,7 +182,7 @@ const lockWallet = async (pinValue: string, config: RecoverWalletConfig): Promis
   GlobalStorage.set(PIN_KEY, pinValue);
   GlobalStorage.set(WALLET_CONFIG_KEY, JSON.stringify(config));
 
-  // then set temp wallet
+  // then set the temp wallet
   TempStorage.set(WALLET_CONFIG_KEY, JSON.stringify(config));
 };
 

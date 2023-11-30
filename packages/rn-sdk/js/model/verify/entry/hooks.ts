@@ -7,8 +7,10 @@ import { parseGuardianInfo } from 'model/global';
 import { PortkeyConfig } from 'global/constants';
 import Loading from 'components/Loading';
 import { OnGuardianHomeNewIntent } from 'pages/GuardianManage/GuardianHome';
-import { GuardianApprovalPageProps, GuardianApprovalPageResult } from 'pages/entries/GuardianApproval';
-import { VerifierDetailsPageProps, VerifierDetailsPageResult } from 'pages/entries/VerifierDetails';
+import { GuardianApprovalPageProps, GuardianApprovalPageResult } from 'pages/Entries/GuardianApproval';
+import { VerifierDetailsPageProps, VerifierDetailsPageResult } from 'pages/Entries/VerifierDetails';
+import { getUnlockedWallet } from 'model/wallet';
+import { getOrReadCachedVerifierData } from 'model/contract/handler';
 
 const navigateToForResult = async <P, R>(entryName: string, props: P, from = 'UNKNOWN'): Promise<R | null> => {
   return new Promise<R | null>((resolve, _) => {
@@ -51,22 +53,28 @@ export const handleGuardiansApproval = async (config: GuardianVerifyConfig) => {
   }
   Loading.show();
   const chainId = await PortkeyConfig.currChainId();
-  const { guardians, particularGuardian } = config;
+  const { guardians, particularGuardian, failHandler, guardianVerifyType } = config;
   try {
     if (!(guardians?.length > 0)) {
-      const guardiansInfo = await NetworkController.getGuardianInfo(config.accountIdentifier);
+      const {
+        caInfo: { caHash },
+      } = await getUnlockedWallet();
+      const guardiansInfo = await NetworkController.getGuardianInfo('', caHash);
+      const cachedVerifierData = Object.values((await getOrReadCachedVerifierData()).data?.verifierServers ?? {});
       const parsedGuardians = guardiansInfo?.guardianList?.guardians?.map(guardian => {
-        return parseGuardianInfo(guardian, chainId);
+        return parseGuardianInfo(guardian, chainId, cachedVerifierData);
       });
       if (parsedGuardians?.length > 0) config.guardians = parsedGuardians;
     }
-    config.guardians = (config.guardians ?? [])?.filter(
-      it =>
-        !particularGuardian ||
-        it.sendVerifyCodeParams.guardianIdentifier !== particularGuardian.sendVerifyCodeParams.guardianIdentifier ||
-        it.sendVerifyCodeParams.verifierId !== particularGuardian.sendVerifyCodeParams.verifierId ||
-        it.sendVerifyCodeParams.type !== particularGuardian.sendVerifyCodeParams.type,
-    );
+    if (guardianVerifyType !== GuardianVerifyType.MODIFY_GUARDIAN) {
+      config.guardians = (config.guardians ?? [])?.filter(
+        it =>
+          !particularGuardian ||
+          it.sendVerifyCodeParams.guardianIdentifier !== particularGuardian.sendVerifyCodeParams.guardianIdentifier ||
+          it.sendVerifyCodeParams.verifierId !== particularGuardian.sendVerifyCodeParams.verifierId ||
+          it.sendVerifyCodeParams.type !== particularGuardian.sendVerifyCodeParams.type,
+      );
+    }
   } catch (e) {
     console.error(e);
   }
@@ -79,10 +87,14 @@ export const handleGuardiansApproval = async (config: GuardianVerifyConfig) => {
   );
   console.log('handleGuardiansApproval', option);
   Loading.hide();
-  returnToGuardianHome({
-    type: GuardianVerifyType.ADD_GUARDIAN,
-    result: option ? 'success' : 'fail',
-  });
+  if (!option?.isVerified && failHandler) {
+    failHandler();
+  } else {
+    returnToGuardianHome({
+      type: guardianVerifyType,
+      result: option?.isVerified ? 'success' : 'fail',
+    });
+  }
 };
 
 const checkGuardiansApprovalConfig = (config: GuardianVerifyConfig): boolean => {

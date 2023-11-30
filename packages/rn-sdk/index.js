@@ -1,11 +1,12 @@
-import { initEntries, registerLaunchMode } from 'global/init/entries';
+import { initEntries } from 'global/init/entries';
 import { initJsMethodService } from 'global/init/services';
+import { initLanguage } from 'i18n/index';
 
-// init portkey's entry page with their entry name
+// we use i18n to translate
+initLanguage();
+
+// init portkey's entry page with its entry name
 initEntries();
-
-// register native page launch mode
-registerLaunchMode();
 
 // init js services for Android/iOS native
 initJsMethodService();

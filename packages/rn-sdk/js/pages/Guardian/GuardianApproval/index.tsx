@@ -3,7 +3,7 @@ import PageContainer from 'components/PageContainer';
 import { useLanguage } from 'i18n/hooks';
 import React, { useCallback, useMemo, useRef, useState } from 'react';
 import { GUARDIAN_EXPIRED_TIME, VERIFIER_EXPIRATION } from '@portkey-wallet/constants/misc';
-import { ScrollView, StyleSheet, View, Text, Platform } from 'react-native';
+import { ScrollView, StyleSheet, View, Text } from 'react-native';
 import GStyles from 'assets/theme/GStyles';
 import CommonButton from 'components/CommonButton';
 import { BorderStyles, FontStyles } from 'assets/theme/styles';
@@ -19,12 +19,12 @@ import { GuardiansStatus, GuardiansStatusItem } from '../types';
 import { GuardianVerifyConfig, GuardianVerifyType } from 'model/verify/social-recovery';
 import { GuardianConfig } from 'model/verify/guardian';
 import { UserGuardianItem } from '@portkey-wallet/store/store-ca/guardians/type';
-import { GuardianApprovalPageResult } from 'pages/entries/GuardianApproval';
+import { GuardianApprovalPageResult } from 'pages/Entries/GuardianApproval';
 import Loading from 'components/Loading';
 import { verifyHumanMachine } from 'components/VerifyHumanMachine';
 import { guardianTypeStrToEnum, isReacptchaOpen } from 'model/global';
 import { NetworkController } from 'network/controller';
-import { VerifierDetailsPageProps } from 'pages/entries/VerifierDetails';
+import { VerifierDetailsPageProps } from 'pages/Entries/VerifierDetails';
 import { PortkeyEntries } from 'config/entries';
 import { AccountOriginalType, AfterVerifiedConfig, VerifiedGuardianDoc } from 'model/verify/after-verify';
 import { VerifyPageResult } from '../VerifierDetails';
@@ -35,6 +35,7 @@ import { PortkeyConfig } from 'global/constants';
 import { ApprovedGuardianInfo } from 'network/dto/wallet';
 import { AppleAccountInfo, GoogleAccountInfo, isAppleLogin } from 'model/verify/third-party-account';
 import { useAppleAuthentication, useGoogleAuthentication } from 'model/hooks/authentication';
+import { getBottomSpace } from 'utils/screen';
 import { callAddGuardianMethod, callEditGuardianMethod, callRemoveGuardianMethod } from 'model/contract/handler';
 
 export default function GuardianApproval({
@@ -55,6 +56,7 @@ export default function GuardianApproval({
     particularGuardian,
     pastGuardian,
   } = guardianListConfig;
+
   const { t } = useLanguage();
 
   let operationType = OperationTypeEnum.communityRecovery;
@@ -81,7 +83,7 @@ export default function GuardianApproval({
     }
   }
 
-  const { navigateForResult } = useBaseContainer({
+  const { navigateForResult, onFinish: onBackPage } = useBaseContainer({
     entryName: PortkeyEntries.GUARDIAN_APPROVAL_ENTRY,
   });
 
@@ -147,8 +149,11 @@ export default function GuardianApproval({
   });
 
   const onBack = () => {
-    onPageFinish({
-      isVerified: false,
+    onBackPage({
+      status: 'cancel',
+      data: {
+        isVerified: false,
+      },
     });
   };
 
@@ -212,8 +217,9 @@ export default function GuardianApproval({
         Loading.show();
         const result = await callEditGuardianMethod(particularGuardian, pastGuardian, getVerifiedGuardianInfo());
         Loading.hide();
+        console.log('MODIFY_GUARDIAN result', result.error);
         onPageFinish({
-          isVerified: result?.error ? false : true,
+          isVerified: result.error ? false : true,
         });
         break;
       }
@@ -372,7 +378,10 @@ export default function GuardianApproval({
                   token = (await verifyHumanMachine('en')) as string;
                 }
                 const sendResult = await NetworkController.sendVerifyCode(
-                  Object.assign({}, guardian.sendVerifyCodeParams, { operationType }),
+                  {
+                    ...guardian.sendVerifyCodeParams,
+                    operationType,
+                  },
                   {
                     reCaptchaToken: token ?? '',
                   },
@@ -484,6 +493,11 @@ export default function GuardianApproval({
                   guardianType: guardianTypeStrToEnum(item.sendVerifyCodeParams.type) as any,
                   key: `${index}`,
                   identifierHash: '',
+                  verifier: {
+                    id: item.sendVerifyCodeParams.verifierId,
+                    name: item.name,
+                    imageUrl: item.imageUrl,
+                  },
                 } as UserGuardianItem;
                 return (
                   <GuardianItem
@@ -506,7 +520,6 @@ export default function GuardianApproval({
         </View>
       </View>
       {!isExpired && <CommonButton onPress={onFinish} disabled={!isSuccess} type="primary" title={'Confirm'} />}
-      {Platform.OS === 'android' && <View style={styles.bottomPadding} />}
     </PageContainer>
   );
 }
@@ -516,9 +529,9 @@ const { primaryColor } = defaultColors;
 const styles = StyleSheet.create({
   containerStyle: {
     paddingTop: 8,
-    paddingBottom: 16,
+    paddingBottom: 16 + getBottomSpace(),
     paddingHorizontal: 16,
-    height: '100%',
+    flex: 1,
     justifyContent: 'space-between',
   },
   activityButton: {
@@ -567,9 +580,5 @@ const styles = StyleSheet.create({
   },
   approvalTitle: {
     marginRight: pTd(7),
-  },
-  bottomPadding: {
-    height: 60,
-    width: '100%',
   },
 });

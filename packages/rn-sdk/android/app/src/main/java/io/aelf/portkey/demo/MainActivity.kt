@@ -1,9 +1,6 @@
 package io.aelf.portkey.demo
 
-import android.Manifest
-import android.content.pm.PackageManager
 import android.os.Bundle
-import android.os.Environment
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -20,29 +17,30 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import io.aelf.core.PortkeyEntries
 import io.aelf.portkey.components.logic.PortkeyMMKVStorage
-import io.aelf.portkey.core.entry.PortkeyTest
 import io.aelf.portkey.demo.ui.composable.ChoiceMaker
+import io.aelf.portkey.demo.ui.composable.DialogProps
+import io.aelf.portkey.demo.ui.composable.Loading
+import io.aelf.portkey.demo.ui.composable.Loading.PortkeyLoading
+import io.aelf.portkey.demo.ui.composable.PortkeyDialog
+import io.aelf.portkey.demo.ui.composable.PortkeyDialog.PortkeyDialog
 import io.aelf.portkey.demo.ui.composable.SimpleChoiceMaker
 import io.aelf.portkey.demo.ui.theme.MyRNApplicationTheme
 import io.aelf.portkey.demo.ui.theme.Purple40
 import io.aelf.portkey.entry.usePortkeyEntryWithParams
-import io.aelf.portkey.tools.startJSBackgroundTaskTest
-import io.aelf.portkey.ui.dialog.DialogProps
+import io.aelf.portkey.tools.callCaContractMethodTest
+import io.aelf.portkey.tools.runTestCases
 import io.aelf.portkey.wallet.isWalletUnlocked
-import java.io.BufferedReader
-import java.io.File
-import java.io.FileReader
-import java.io.IOException
 import java.security.InvalidKeyException
 
 
@@ -57,6 +55,9 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             MyRNApplicationTheme {
+                var devModeStatus by remember {
+                    mutableStateOf(DemoStorage.isDevMode())
+                }
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
@@ -87,7 +88,8 @@ class MainActivity : ComponentActivity() {
                                 "Login",
                                 "Scan",
                                 "AccountingSettings",
-                                "GuardianHome"
+                                "GuardianHome",
+                                "AssetsHome"
                             )
                         ) {
                             gotoPage(it)
@@ -107,25 +109,43 @@ class MainActivity : ComponentActivity() {
                         ) {
                             changeEndPointUrl(it)
                         }
-                        BigButton(text = "Background Service Call") {
-                            startJSBackgroundTaskTest(this@MainActivity) {
+                        BigButton(text = "Call CA Contract Method") {
+                            callCaContractMethodTest(this@MainActivity) {
+                                Loading.hideLoading()
                                 showWarnDialog(
-                                    mainTitle = "Background Service Call",
-                                    subTitle =
-                                    "data: ${it.data}",
+                                    mainTitle = "Contract Result",
+                                    subTitle = "$it",
                                 )
                             }
+                            Loading.showLoading("Calling CA Contract Method...")
+                        }
+                        BigButton(text = "Run Test Cases") {
+                            runTestCases(this@MainActivity) {
+                                Loading.hideLoading()
+                                showWarnDialog(
+                                    mainTitle = "Test Result ".plus(if (it.status == "success") "😊" else "😅"),
+                                    subTitle = "$it",
+                                )
+                            }
+                            Loading.showLoading("Running Test Cases...")
                         }
                         BigButton("Sign out?") {
                             signOut()
                         }
+                        BigButton(if (devModeStatus) "DevMode On" else "DevMode Off") {
+
+                            DemoStorage.setDevMode(!(devModeStatus))
+                            devModeStatus = !(devModeStatus)
+                        }
                     }
-                    PortkeyTest.UsePortkeyViewStub()
+                    PortkeyLoading()
+                    PortkeyDialog()
                 }
             }
         }
 //        AssetHelper.copyAssetsToFiles(this)   // copy bundle to memory，Simulate the process of loading bundle remotely
     }
+
     private fun gotoPage(it: String) {
         when (it) {
             "Login" -> {
@@ -142,6 +162,14 @@ class MainActivity : ComponentActivity() {
 
             "GuardianHome" -> {
                 jumpToActivity(PortkeyEntries.GUARDIAN_HOME_ENTRY.entryName)
+            }
+
+            "AssetsHome" -> {
+                jumpToActivity(PortkeyEntries.ASSETS_HOME_ENTRY.entryName)
+            }
+
+            else -> {
+                Toast.makeText(this, "Unknown page", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -166,10 +194,12 @@ class MainActivity : ComponentActivity() {
             }
         }
         usePortkeyEntryWithParams(entryName, params) {
-            showWarnDialog(
-                mainTitle = "Entry Result",
-                subTitle = "$it",
-            )
+            if (it.getString("status") != "cancel") {
+                showWarnDialog(
+                    mainTitle = "Entry Result",
+                    subTitle = "$it",
+                )
+            }
         }
     }
 
@@ -195,7 +225,7 @@ class MainActivity : ComponentActivity() {
         subTitle: String = "",
         then: () -> Unit = {}
     ) {
-        PortkeyTest.showDialogForTestOnly(
+        PortkeyDialog.show(
             DialogProps().apply {
                 this.mainTitle = mainTitle
                 this.subTitle = subTitle
