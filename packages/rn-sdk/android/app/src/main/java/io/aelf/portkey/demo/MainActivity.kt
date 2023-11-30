@@ -132,6 +132,7 @@ class MainActivity : ComponentActivity() {
                                     subTitle =
                                         "Are you sure to exit wallet? This process can not be undone and you have to start over again."
                                     positiveCallback = {
+                                        Loading.showLoading("Exiting Wallet...")
                                         PortkeyWallet.exitWallet(this@MainActivity) { succeed, reason ->
                                             Loading.hideLoading()
                                             if (succeed) {
@@ -153,7 +154,6 @@ class MainActivity : ComponentActivity() {
                                     }
                                 }
                             )
-                            Loading.showLoading("Exiting Wallet...")
                         }
                         TitleLine(text = "Developer Options")
                         BigButton(text = "Call CA Contract Method") {
@@ -317,5 +317,11 @@ internal fun BigButton(text: String, callback: () -> Unit) {
 
 @Composable
 internal fun TitleLine(text: String) {
-    Text(text = text, color = Color.Black, fontSize = 14.sp, lineHeight = 18.sp, textAlign = TextAlign.Left)
+    Text(
+        text = text,
+        color = Color.Black,
+        fontSize = 14.sp,
+        lineHeight = 18.sp,
+        textAlign = TextAlign.Left
+    )
 }
