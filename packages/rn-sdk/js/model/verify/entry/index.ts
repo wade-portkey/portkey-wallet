@@ -250,8 +250,8 @@ export const useVerifyEntry = (verifyConfig: VerifyConfig): VerifyEntryHooks => 
           },
           res => {
             const { data } = res || {};
-            const { deliveredVerifiedData, isVerified } = data || {};
-            if (!deliveredVerifiedData || !isVerified) {
+            const { isVerified } = data || {};
+            if (!isVerified) {
               setErrorMessage('verification failed, please try again.');
               return;
             } else {
