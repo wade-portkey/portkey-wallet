@@ -86,13 +86,15 @@ const WalletModule: BaseJSModule = {
       });
     }
     try {
-      const succeed = await callRemoveManagerMethod();
-      if (succeed) {
+      const res = await callRemoveManagerMethod();
+      if (!res.error) {
         exitWallet();
+      } else {
+        throw res.error;
       }
       return emitJSMethodResult(eventId, {
-        status: succeed ? 'success' : 'fail',
-        data: { succeed },
+        status: !res.error ? 'success' : 'fail',
+        data: { result: res.data },
       });
     } catch (e) {
       console.log('error when callRemoveManagerMethod', e);
