@@ -71,8 +71,12 @@ internal fun ChoiceMaker(
                     onClick = click@{
                         expand = false
                         if (choice == it) return@click
-                        if (!PortkeyWallet.isWalletUnlocked()) {
-                            PortkeyDialog.showFail("Please unlock wallet first.")
+                        if (!PortkeyWallet.isWalletExists()) {
+                            afterChosen(choice)
+                            PortkeyDialog.showSuccess("Now using $it.")
+                            return@click
+                        } else if (!PortkeyWallet.isWalletUnlocked()) {
+                            PortkeyDialog.showFail("You currently have a wallet without unlocking operations, Please unlock wallet first.")
                             return@click
                         }
                         fun execute() {
@@ -82,7 +86,7 @@ internal fun ChoiceMaker(
                                     context = context,
                                     callback = { succeed, reason ->
                                         if (succeed) {
-                                            PortkeyDialog.showSuccess("Exit wallet succeed, now using $it")
+                                            PortkeyDialog.showSuccess("Exit wallet succeed, now using $it.")
                                             afterChosen(choice)
                                         } else {
                                             PortkeyDialog.showFail("Exit wallet failed, reason: $reason")
