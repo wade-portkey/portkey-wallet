@@ -50,21 +50,13 @@ export const useNftCollections = () => {
   });
   const updateNftCollections = async (config?: { symbol?: string; skipCount?: number; maxResultCount?: number }) => {
     const { symbol, skipCount = 0, maxResultCount = 100 } = config || {};
-    setNftCollections(
-      nftCollections.map(it => {
-        return {
-          ...it,
-          isFetching: true,
-        } as NFTCollectionItemShowType;
-      }),
-    );
     const { multiCaAddresses } = await getUnlockedWallet({ getMultiCaAddresses: true });
 
     const caAddressInfos = Object.entries(multiCaAddresses).map(([chainId, caAddress]) => ({
       chainId,
       caAddress,
     }));
-    const { data, totalRecordCount } = await NetworkController.fetchNetCollections({
+    const { data } = await NetworkController.fetchNetCollections({
       maxResultCount,
       skipCount,
       caAddressInfos,
@@ -80,23 +72,9 @@ export const useNftCollections = () => {
     }
     setNftCollections(
       data.map(it => {
-        let cached: NFTCollectionItemShowType | undefined = nftCollections.find(one => one.symbol === it.symbol);
-        if (!cached) {
-          cached = {
-            ...it,
-            skipCount: skipCount + totalRecordCount,
-            maxResultCount,
-            isFetching: false,
-            children: [],
-            totalRecordCount: data.length,
-            decimals: 0,
-          };
-        }
-        return Object.assign({}, JSON.parse(JSON.stringify(cached)), {
+        return Object.assign({}, JSON.parse(JSON.stringify(it)), {
           children:
-            symbol === cached.symbol
-              ? (item.data.filter(one => one.chainId === cached?.chainId) as unknown as any)
-              : [],
+            symbol === it.symbol ? (item.data.filter(one => one.chainId === it?.chainId) as unknown as any) : [],
         } as Partial<NFTCollectionItemShowType>);
       }),
     );
