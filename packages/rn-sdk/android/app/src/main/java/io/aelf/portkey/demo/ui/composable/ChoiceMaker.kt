@@ -25,6 +25,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import io.aelf.portkey.demo.ui.theme.Purple40
+import io.aelf.portkey.wallet.PortkeyWallet
 
 @Composable
 internal fun ChoiceMaker(
@@ -71,12 +72,28 @@ internal fun ChoiceMaker(
                     onClick = click@{
                         expand = false
                         if (choice == it) return@click
+                        if (!PortkeyWallet.isWalletUnlocked()) {
+                            PortkeyDialog.showFail("Please unlock wallet first.")
+                            return@click
+                        }
                         fun execute() {
                             choice = it
                             if (useExitWallet) {
-
+                                PortkeyWallet.exitWallet(
+                                    context = context,
+                                    callback = { succeed, reason ->
+                                        if (succeed) {
+                                            afterChosen(choice)
+                                        } else {
+                                            Toast.makeText(
+                                                context,
+                                                "exit wallet failed, reason: $reason",
+                                                Toast.LENGTH_LONG
+                                            ).show()
+                                        }
+                                    }
+                                )
                             }
-                            afterChosen(it)
                             Toast.makeText(
                                 context,
                                 "now choosing $it${if (useExitWallet) ", wallet is also cleared by now" else ""}.",
@@ -87,7 +104,7 @@ internal fun ChoiceMaker(
                             DialogProps().apply {
                                 mainTitle = "Confirm"
                                 subTitle =
-                                    "Are you sure to switch to $it ?${if (useExitWallet) " Your wallet will be cleared." else ""}"
+                                    "Are you sure to switch to $it ?${if (useExitWallet) " Your wallet will be erased." else ""}"
                                 useSingleConfirmButton = false
                                 positiveCallback = {
                                     execute()

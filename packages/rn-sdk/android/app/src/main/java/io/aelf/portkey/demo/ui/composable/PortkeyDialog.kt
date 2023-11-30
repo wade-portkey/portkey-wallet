@@ -73,6 +73,16 @@ internal object PortkeyDialog {
         isActive = true
     }
 
+    internal fun showFail(text: String) {
+        show(
+            DialogProps().apply {
+                mainTitle = "Fail!"
+                subTitle = text
+                useSingleConfirmButton = true
+            }
+        )
+    }
+
     private fun hide() {
         isActive = false
     }
@@ -141,7 +151,8 @@ internal object PortkeyDialog {
                     modifier = Modifier
                         .padding(top = 8.dp, bottom = 8.dp)
                         .width(dynamicWidth())
-                        .background(Color.LightGray)
+                        .clip(RoundedCornerShape(8.dp))
+                        .background(Color.LightGray.copy(alpha = 0.5F))
                         .wrapContentHeight(Alignment.CenterVertically),
                 ) {
                     Column(

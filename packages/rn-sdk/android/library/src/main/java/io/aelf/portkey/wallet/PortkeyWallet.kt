@@ -32,9 +32,14 @@ object PortkeyWallet {
         )
     }
 
-    fun isWalletUnlocked(): Boolean {
-        val walletConfig = PortkeyMMKVStorage.readString("walletConfig" but TEMP)
+    fun isWalletExists(): Boolean {
+        val walletConfig = PortkeyMMKVStorage.readString("walletConfig")
         return walletConfig?.isNotEmpty() ?: false
+    }
+
+    fun isWalletUnlocked(): Boolean {
+        val tempWalletConfig = PortkeyMMKVStorage.readString("walletConfig" but TEMP)
+        return tempWalletConfig?.isNotEmpty() ?: false
     }
 }
 
