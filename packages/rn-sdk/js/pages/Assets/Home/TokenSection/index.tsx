@@ -13,6 +13,8 @@ export interface TokenSectionProps {
   getAccountBalance?: () => void;
 }
 
+const frontEndTokenSymbol = 'ELF';
+
 export default function TokenSection() {
   const commonInfo = useCommonInfo();
   const [isFetching] = useState(false);
@@ -41,8 +43,11 @@ export default function TokenSection() {
       })
       .filter(melted => melted.balance !== '0' || melted.isDefault)
       .sort((a, b) => {
-        const weight = (b.sortWeight || 0) - (a.sortWeight || 0);
-        return weight ? weight : a.symbol.toUpperCase().localeCompare(b.symbol.toUpperCase());
+        const { symbol: symbolA } = a;
+        const { symbol: symbolB } = b;
+        if (symbolA === frontEndTokenSymbol) return -1;
+        if (symbolB === frontEndTokenSymbol) return 1;
+        return symbolA.localeCompare(symbolB);
       });
   }, [allOfTokensList, balanceList, tokenPrices]);
 
