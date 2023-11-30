@@ -22,7 +22,7 @@ export default function TokenSection() {
 
   const itemData: Array<TokenItemShowType> = useMemo(() => {
     return allOfTokensList
-      .map(item => {
+      .map<TokenItemShowType>(item => {
         const { symbol, decimals, chainId, address } = item.token;
         const balanceItem = balanceList.find(it => it.symbol === symbol && it.chainId === item.token.chainId);
         const price = tokenPrices.find(it => it.symbol === symbol);
@@ -36,9 +36,14 @@ export default function TokenSection() {
           name: item.token.symbol,
           isDisplay: item.isDisplay,
           isDefault: item.isDefault,
+          sortWeight: item.sortWeight,
         };
-      }, [])
-      .filter(melted => melted.balance !== '0' || melted.isDefault);
+      })
+      .filter(melted => melted.balance !== '0' || melted.isDefault)
+      .sort((a, b) => {
+        const weight = (b.sortWeight || 0) - (a.sortWeight || 0);
+        return weight ? weight : a.symbol.toUpperCase().localeCompare(b.symbol.toUpperCase());
+      });
   }, [allOfTokensList, balanceList, tokenPrices]);
 
   // const onNavigate = useCallback((_: TokenItemShowType) => {
