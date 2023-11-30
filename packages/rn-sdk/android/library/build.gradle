@@ -4,7 +4,6 @@ buildscript {
         mavenCentral()
     }
 }
-
 plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
@@ -89,3 +88,5 @@ dependencies {
 }
 
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
+//apply from: "../../node_modules/react-native-update/build.gradle"
+

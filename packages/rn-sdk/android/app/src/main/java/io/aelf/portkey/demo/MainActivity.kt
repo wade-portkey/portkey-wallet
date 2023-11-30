@@ -89,7 +89,8 @@ class MainActivity : ComponentActivity() {
                                 "Scan",
                                 "AccountingSettings",
                                 "GuardianHome",
-                                "AssetsHome"
+                                "AssetsHome",
+                                "CheckUpdate"
                             )
                         ) {
                             gotoPage(it)
@@ -167,22 +168,25 @@ class MainActivity : ComponentActivity() {
             "AssetsHome" -> {
                 jumpToActivity(PortkeyEntries.ASSETS_HOME_ENTRY.entryName)
             }
-
+            "CheckUpdate" ->{
+                jumpToActivity(PortkeyEntries.UPDATE_CHECK_ENTRY.entryName, true)
+            }
             else -> {
                 Toast.makeText(this, "Unknown page", Toast.LENGTH_SHORT).show()
             }
         }
     }
 
-    private fun jumpToActivity(entryName: String = PortkeyEntries.SIGN_IN_ENTRY.entryName) {
-        jumpToActivityWithParams(entryName)
+    private fun jumpToActivity(entryName: String = PortkeyEntries.SIGN_IN_ENTRY.entryName, isSimple: Boolean = false) {
+        jumpToActivityWithParams(entryName, isSimple)
     }
 
     private fun jumpToActivityWithParams(
         entryName: String = PortkeyEntries.SIGN_IN_ENTRY.entryName,
+        isSimple: Boolean = false,
         params: Bundle? = null
     ) {
-        if (entryName != PortkeyEntries.SIGN_IN_ENTRY.entryName) {
+        if (entryName != PortkeyEntries.SIGN_IN_ENTRY.entryName && !isSimple) {
             if (!isWalletUnlocked()) {
                 showWarnDialog(
                     mainTitle = "Error 😅",

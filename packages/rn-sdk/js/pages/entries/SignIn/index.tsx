@@ -18,7 +18,9 @@ export default class SignInEntryPage extends BaseContainer<SignInPageProps, Sign
       enableSubmitButton: false,
     };
   }
-
+  componentDidMount(): void {
+    console.log('patch!!!');
+  }
   checkMMKVStorage = async () => {
     const cache = await GlobalStorage.getString(CURRENT_USING_COUNTRY_CODE);
     cache &&

@@ -21,6 +21,7 @@ import ModifyGuardian from 'pages/Guardian/GuardianManage/ModifyGuardian';
 import GuardianDetail from 'pages/Guardian/GuardianDetail';
 import ReceiveTokenPage from 'pages/Assets/ReceiveToken';
 import AssetsHome from 'pages/Assets/Home/AssetsHome';
+import UpdateCheckPage from 'pages/UpdateCheck';
 
 type AcceptableComponentType = ComponentProvider;
 
@@ -63,6 +64,8 @@ const initEntries = () => {
   // assets module
   entryConfig.set(PortkeyEntries.ASSETS_HOME_ENTRY, () => AssetsHome);
   entryConfig.set(PortkeyEntries.RECEIVE_TOKEN_ENTRY, () => ReceiveTokenPage);
+
+  entryConfig.set(PortkeyEntries.UPDATE_CHECK_ENTRY, () => UpdateCheckPage);
 
   for (const [key, value] of entryConfig) {
     AppRegistry.registerComponent(key, value);

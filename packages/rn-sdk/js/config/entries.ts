@@ -26,6 +26,8 @@ export enum PortkeyEntries {
 
   ASSETS_HOME_ENTRY = 'assets_home_entry',
   RECEIVE_TOKEN_ENTRY = 'receive_token_entry',
+
+  UPDATE_CHECK_ENTRY = 'update_check_entry',
 }
 
 export function isPortkeyEntries(variable: any): boolean {

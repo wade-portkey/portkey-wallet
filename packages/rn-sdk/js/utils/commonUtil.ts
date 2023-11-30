@@ -2,6 +2,7 @@ import CommonToast from 'components/CommonToast';
 import { setStringAsync } from 'expo-clipboard';
 import i18n from 'i18n';
 import { BackEndNetWorkMap } from '@portkey-wallet/constants/constants-ca/backend-network';
+import { downloadUpdate } from 'react-native-update';
 
 // eslint-disable-next-line @typescript-eslint/ban-types
 export function myThrottle(fn: Function, delay: number) {

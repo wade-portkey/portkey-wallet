@@ -1,26 +1,31 @@
 package io.aelf.portkey
 
-import android.app.Activity
 import android.app.Application
-import android.content.res.Resources
-import android.graphics.Color
-import android.os.Bundle
-import android.util.TypedValue
-import android.view.ViewGroup
-import android.widget.TextView
-import com.facebook.react.ReactActivity
+import cn.reactnative.modules.update.PushyFileProvider
 import com.facebook.react.ReactApplication
 import com.facebook.react.ReactNativeHost
-import com.tencent.mmkv.MMKV
 import io.aelf.core.PortKeySDKHolder
-import io.aelf.portkey.components.logic.PortkeyReactNativeHost
-import io.aelf.portkey.components.logic.hostInstance
-import io.aelf.portkey.config.StorageIdentifiers
 
 open class PortkeyReactApplication : Application(), ReactApplication {
     override fun onCreate() {
         super.onCreate()
         PortKeySDKHolder.initialize(this)
+//        // Java
+//        // Java
+//        Pushy.update(this, object : PushyUpdateHandler() {
+//            fun onUpdate(isUpdateAvailable: Boolean) {
+//                if (isUpdateAvailable) {
+//                    Pushy.downloadUpdate(this@MainActivity)
+//                }
+//            }
+//
+//            fun onDownload(status: DownloadStatus) {
+//                if (status === DownloadStatus.Success) {
+//                    Pushy.reloadBundle(this@MainActivity)
+//                }
+//            }
+//        })
+//        PushyFileProvider
     }
 
     override fun getReactNativeHost(): ReactNativeHost {
