@@ -17,6 +17,7 @@
 #import "BundleConfigViewController.h"
 #import <PortkeySDK/PortkeySDKContractModule.h>
 #import <PortkeySDK/NSDictionary+PortkeySDK.h>
+#import <PortkeySDK/PortkeySDKPortkey.h>
 
 @interface ViewController ()
 
@@ -230,8 +231,20 @@
 }
 
 - (void)exitWallet {
-    [PortkeySDKMMKVStorage clear];
-    [self.view makeToast:@"Exit Wallet Successfully"];
+    NSString *walletConfig = [PortkeySDKMMKVStorage readTempString:@"walletConfig"];
+    if ([walletConfig isKindOfClass:NSString.class] && walletConfig.length) {
+        [[PortkeySDKPortkey portkey].wallet exitWallet:^(BOOL success, NSString * _Nullable errorMsg) {
+            if (success) {
+                [PortkeySDKMMKVStorage clear];
+                [self.view makeToast:@"Exit Wallet Successfully"];
+            } else if (errorMsg.length > 0) {
+                NSLog(@"error: %@", errorMsg);
+                [self.view makeToast:errorMsg];
+            }
+        }];
+    } else {
+        [self.view makeToast:@"Please login or unlock first"];
+    }
 }
 
 - (void)configTermsOfService {

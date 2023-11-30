@@ -9,6 +9,12 @@
 
 typedef void(^PortkeySDKJSMethodCallback)(NSString *_Nullable);
 
+static const NSString * _Nonnull kPortkeySDKJSCallStatusKey = @"status";
+static const NSString * _Nonnull kPortkeySDKJSCallStatusSuccess = @"success";
+static const NSString * _Nonnull kPortkeySDKJSCallStatusFail = @"fail";
+static const NSString * _Nonnull kPortkeySDKJSCallDataKey = @"data";
+static const NSString * _Nonnull kPortkeySDKJSCallErrorKey = @"error";
+
 NS_ASSUME_NONNULL_BEGIN
 
 @class RCTBridge;
