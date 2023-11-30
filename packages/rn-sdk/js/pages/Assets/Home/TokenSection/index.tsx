@@ -8,7 +8,6 @@ import TokenListItem from 'components/TokenListItem';
 import { REFRESH_TIME } from '@portkey-wallet/constants/constants-ca/assets';
 import { useCommonInfo } from 'components/TokenOverlay/hook';
 import AssetsContext, { AssetsContextType } from 'global/context/assets/AssetsContext';
-import Loading from 'components/Loading';
 
 export interface TokenSectionProps {
   getAccountBalance?: () => void;
@@ -54,7 +53,6 @@ export default function TokenSection() {
   );
 
   const onRefresh = useCallback(async () => {
-    Loading.show();
     try {
       await updateTokensList();
       await updateBalanceList();
@@ -62,7 +60,6 @@ export default function TokenSection() {
     } catch (e) {
       console.warn('updateBalanceList or updateTokensList failed! ', e);
     }
-    Loading.hide();
   }, [updateBalanceList, updateTokenPrices, updateTokensList]);
 
   useEffect(() => {

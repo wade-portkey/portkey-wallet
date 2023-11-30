@@ -87,7 +87,7 @@ export const getVerifiedAndLockWallet = async (
       walletConfig = await handleScanQRCodeVerify(scanQRCodePathInfo);
     }
     if (!walletConfig) throw new Error('create wallet failed.');
-    await lockWallet(pinValue, walletConfig);
+    await createWallet(pinValue, walletConfig);
     rememberUseBiometric(setBiometrics ?? false);
     await sleep(500);
     return true;
@@ -99,7 +99,7 @@ export const getVerifiedAndLockWallet = async (
 };
 
 const handleNormalVerify = async (config: NormalVerifyPathInfo): Promise<RecoverWalletConfig> => {
-  const retryTimes = 30;
+  const retryTimes = 100;
   const originalChainId = await PortkeyConfig.currChainId();
   const { fromRecovery, accountIdentifier } = config || {};
   const { sessionId, publicKey, privateKey, address } = await requestSocialRecoveryOrRegister(config);
@@ -177,7 +177,7 @@ const findVerifyProcessOnCurrChain = (
   return undefined;
 };
 
-const lockWallet = async (pinValue: string, config: RecoverWalletConfig): Promise<void> => {
+const createWallet = async (pinValue: string, config: RecoverWalletConfig): Promise<void> => {
   // TODO encrypt walletConfig
   GlobalStorage.set(PIN_KEY, pinValue);
   GlobalStorage.set(WALLET_CONFIG_KEY, JSON.stringify(config));
@@ -197,6 +197,17 @@ export const getUseBiometric = async (): Promise<boolean> => {
 export const isWalletUnlocked = async (): Promise<boolean> => {
   const tempWalletConfig = await TempStorage.getString(WALLET_CONFIG_KEY);
   return !!tempWalletConfig;
+};
+
+export const lockWallet = async (): Promise<void> => {
+  TempStorage.remove(WALLET_CONFIG_KEY);
+};
+
+export const exitWallet = async (): Promise<void> => {
+  GlobalStorage.remove(PIN_KEY);
+  GlobalStorage.remove(USE_BIOMETRIC_KEY);
+  GlobalStorage.remove(WALLET_CONFIG_KEY);
+  TempStorage.remove(WALLET_CONFIG_KEY);
 };
 
 export const getTempWalletConfig = async (): Promise<RecoverWalletConfig> => {

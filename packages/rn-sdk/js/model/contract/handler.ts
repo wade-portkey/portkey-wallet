@@ -174,6 +174,22 @@ export const callFaucetMethod = async (amount = 100) => {
   });
 };
 
+/**
+ * calling this method will destroy the current wallet info and remove the manager created before.
+ *
+ * hope you know what you are doing.
+ */
+export const callRemoveManagerMethod = async () => {
+  const contractInstance = await getContractInstance();
+  const {
+    address,
+    caInfo: { caHash },
+  } = (await getUnlockedWallet()) || {};
+  return await contractInstance.callSendMethod('RemoveManagerInfo', address, {
+    caHash,
+  });
+};
+
 const parseGuardianConfigInfoToCaType = (guardianConfig: GuardianConfig, withoutVerifyData = false) => {
   const { signature, verificationDoc } = guardianConfig.verifiedDoc || {};
   if (!withoutVerifyData && (!signature || !verificationDoc))
