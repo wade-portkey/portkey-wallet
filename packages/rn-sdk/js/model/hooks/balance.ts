@@ -93,7 +93,10 @@ export const useNftCollections = () => {
           };
         }
         return Object.assign({}, JSON.parse(JSON.stringify(cached)), {
-          children: symbol === cached.symbol ? (item.data as unknown as any) : [],
+          children:
+            symbol === cached.symbol
+              ? (item.data.filter(one => one.chainId === cached?.chainId) as unknown as any)
+              : [],
         } as Partial<NFTCollectionItemShowType>);
       }),
     );

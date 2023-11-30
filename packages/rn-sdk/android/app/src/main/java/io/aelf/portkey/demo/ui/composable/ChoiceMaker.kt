@@ -41,6 +41,13 @@ internal fun ChoiceMaker(
     var choice by remember {
         mutableStateOf(defaultChoice)
     }
+    val changeChoice: (selection: String, text: String) -> Unit = remember {
+        { selection, text ->
+            choice = selection
+            afterChosen(selection)
+            PortkeyDialog.showSuccess(text)
+        }
+    }
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -72,28 +79,30 @@ internal fun ChoiceMaker(
                         expand = false
                         if (choice == it) return@click
                         if (!PortkeyWallet.isWalletExists()) {
-                            choice = it
-                            afterChosen(choice)
-                            PortkeyDialog.showSuccess("Now using $it.")
+                            changeChoice(it, "Now using $it.")
                             return@click
                         } else if (!PortkeyWallet.isWalletUnlocked()) {
                             PortkeyDialog.showFail("You currently have a wallet without unlocking operations, Please unlock wallet first.")
                             return@click
                         }
                         fun execute() {
+                            Loading.hideLoading()
                             if (useExitWallet) {
                                 PortkeyWallet.exitWallet(
                                     context = context,
                                     callback = { succeed, reason ->
                                         if (succeed) {
-                                            choice = it
-                                            PortkeyDialog.showSuccess("Exit wallet succeed, now using $it.")
-                                            afterChosen(choice)
+                                            changeChoice(
+                                                it,
+                                                "Now using $it. Wallet has been erased."
+                                            )
                                         } else {
                                             PortkeyDialog.showFail("Exit wallet failed, reason: $reason")
                                         }
                                     }
                                 )
+                            } else {
+                                changeChoice(it, "Now using $it.")
                             }
                         }
                         PortkeyDialog.show(
@@ -103,6 +112,7 @@ internal fun ChoiceMaker(
                                     "Are you sure to switch to $it ?${if (useExitWallet) " Your wallet will be erased." else ""}"
                                 useSingleConfirmButton = false
                                 positiveCallback = {
+                                    Loading.showLoading()
                                     execute()
                                 }
                             }
