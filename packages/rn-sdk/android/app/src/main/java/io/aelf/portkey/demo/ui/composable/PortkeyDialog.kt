@@ -73,6 +73,17 @@ internal object PortkeyDialog {
         isActive = true
     }
 
+
+    internal fun showSuccess(text: String) {
+        show(
+            DialogProps().apply {
+                mainTitle = "Operation Success"
+                subTitle = text
+                useSingleConfirmButton = true
+            }
+        )
+    }
+
     internal fun showFail(text: String) {
         show(
             DialogProps().apply {

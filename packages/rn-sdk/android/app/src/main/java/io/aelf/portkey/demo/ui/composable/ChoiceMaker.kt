@@ -1,6 +1,5 @@
 package io.aelf.portkey.demo.ui.composable
 
-import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -83,22 +82,14 @@ internal fun ChoiceMaker(
                                     context = context,
                                     callback = { succeed, reason ->
                                         if (succeed) {
+                                            PortkeyDialog.showSuccess("Exit wallet succeed, now using $it")
                                             afterChosen(choice)
                                         } else {
-                                            Toast.makeText(
-                                                context,
-                                                "exit wallet failed, reason: $reason",
-                                                Toast.LENGTH_LONG
-                                            ).show()
+                                            PortkeyDialog.showFail("Exit wallet failed, reason: $reason")
                                         }
                                     }
                                 )
                             }
-                            Toast.makeText(
-                                context,
-                                "now choosing $it${if (useExitWallet) ", wallet is also cleared by now" else ""}.",
-                                Toast.LENGTH_LONG
-                            ).show()
                         }
                         PortkeyDialog.show(
                             DialogProps().apply {
