@@ -40,7 +40,7 @@ import io.aelf.portkey.demo.ui.theme.Purple40
 import io.aelf.portkey.entry.usePortkeyEntryWithParams
 import io.aelf.portkey.tools.callCaContractMethodTest
 import io.aelf.portkey.tools.runTestCases
-import io.aelf.portkey.wallet.isWalletUnlocked
+import io.aelf.portkey.wallet.PortkeyWallet
 import java.security.InvalidKeyException
 
 
@@ -104,10 +104,66 @@ class MainActivity : ComponentActivity() {
                         ChoiceMaker(
                             title = "Choose EndPointUrl",
                             choicesList = environment.keys.toList(),
-                            useClearWallet = true,
+                            useExitWallet = true,
                             defaultChoice = cachedEndPointName
                         ) {
                             changeEndPointUrl(it)
+                        }
+                        BigButton(text = "Lock Wallet") {
+                            if (!PortkeyWallet.isWalletUnlocked()) {
+                                Toast.makeText(
+                                    this@MainActivity,
+                                    "Wallet already locked or doesn't exist",
+                                    Toast.LENGTH_SHORT
+                                )
+                                    .show()
+                                return@BigButton
+                            }
+                            PortkeyWallet.lockWallet {
+                                Toast.makeText(
+                                    this@MainActivity,
+                                    "Wallet locked now",
+                                    Toast.LENGTH_SHORT
+                                )
+                                    .show()
+                            }
+                        }
+                        BigButton(text = "Exit Wallet") {
+                            if (!PortkeyWallet.isWalletUnlocked()) {
+                                Toast.makeText(
+                                    this@MainActivity,
+                                    "Unlock your wallet first.",
+                                    Toast.LENGTH_SHORT
+                                )
+                                    .show()
+                                return@BigButton
+                            }
+                            PortkeyDialog.show(
+                                DialogProps().apply {
+                                    mainTitle = "Warning"
+                                    subTitle =
+                                        "Are you sure to exit wallet? This process can not be undone and you have to start over again."
+                                    positiveCallback = {
+                                        PortkeyWallet.exitWallet(this@MainActivity) { succeed, reason ->
+                                            if (succeed) {
+                                                Toast.makeText(
+                                                    this@MainActivity,
+                                                    "Wallet exited",
+                                                    Toast.LENGTH_SHORT
+                                                )
+                                                    .show()
+                                            } else {
+                                                Toast.makeText(
+                                                    this@MainActivity,
+                                                    "Wallet exit failed, reason: $reason",
+                                                    Toast.LENGTH_SHORT
+                                                )
+                                                    .show()
+                                            }
+                                        }
+                                    }
+                                }
+                            )
                         }
                         BigButton(text = "Call CA Contract Method") {
                             callCaContractMethodTest(this@MainActivity) {
@@ -128,9 +184,6 @@ class MainActivity : ComponentActivity() {
                                 )
                             }
                             Loading.showLoading("Running Test Cases...")
-                        }
-                        BigButton("Sign out?") {
-                            signOut()
                         }
                         BigButton(if (devModeStatus) "DevMode On" else "DevMode Off") {
 
@@ -183,7 +236,7 @@ class MainActivity : ComponentActivity() {
         params: Bundle? = null
     ) {
         if (entryName != PortkeyEntries.SIGN_IN_ENTRY.entryName) {
-            if (!isWalletUnlocked()) {
+            if (!PortkeyWallet.isWalletUnlocked()) {
                 showWarnDialog(
                     mainTitle = "Error 😅",
                     subTitle = "this operation needs wallet unlocked, and it seems that you did not unlock your wallet yet, click button below to enter login page.",

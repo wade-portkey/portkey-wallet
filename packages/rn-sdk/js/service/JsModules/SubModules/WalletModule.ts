@@ -1,8 +1,8 @@
 import { SendResult, ViewResult } from '@portkey-wallet/contracts/types';
 import { PortkeyModulesEntity } from '../../native-modules';
 import { BaseJSModule, BaseMethodParams, BaseMethodResult } from '../types';
-import { getContractInstance } from 'model/contract/handler';
-import { isWalletUnlocked } from 'model/verify/after-verify';
+import { callRemoveManagerMethod, getContractInstance } from 'model/contract/handler';
+import { exitWallet, isWalletUnlocked, lockWallet } from 'model/verify/after-verify';
 import { getUnlockedWallet } from 'model/wallet';
 
 const WalletModule: BaseJSModule = {
@@ -58,6 +58,49 @@ const WalletModule: BaseJSModule = {
       status: 'success',
       data: wallet,
     });
+  },
+
+  lockWallet: async (props: BaseMethodParams) => {
+    const { eventId } = props;
+    console.log('lockWallet called ', 'eventId: ', eventId);
+    if (!(await isWalletUnlocked())) {
+      return emitJSMethodResult(eventId, {
+        status: 'fail',
+        error: 'wallet is not unlocked! You have to unlock wallet before trying to lock.',
+      });
+    }
+    await lockWallet();
+    return emitJSMethodResult(eventId, {
+      status: 'success',
+      data: { succeed: true },
+    });
+  },
+
+  exitWallet: async (props: BaseMethodParams) => {
+    const { eventId } = props;
+    console.log('exitWallet called ', 'eventId: ', eventId);
+    if (!(await isWalletUnlocked())) {
+      return emitJSMethodResult(eventId, {
+        status: 'fail',
+        error: 'wallet is not unlocked or created! You have to unlock wallet before trying to exit.',
+      });
+    }
+    try {
+      const succeed = await callRemoveManagerMethod();
+      if (succeed) {
+        exitWallet();
+      }
+      return emitJSMethodResult(eventId, {
+        status: succeed ? 'success' : 'fail',
+        data: { succeed },
+      });
+    } catch (e) {
+      console.log('error when callRemoveManagerMethod', e);
+      return emitJSMethodResult(eventId, {
+        status: 'fail',
+        error: e,
+      });
+    }
   },
 };
 

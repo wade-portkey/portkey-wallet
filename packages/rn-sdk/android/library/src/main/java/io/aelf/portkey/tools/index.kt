@@ -7,9 +7,7 @@ import android.widget.Toast
 import com.google.gson.JsonElement
 import io.aelf.core.PortKeySDKHolder
 import io.aelf.portkey.BuildConfig
-import io.aelf.portkey.components.activities.entered
 import io.aelf.portkey.components.logic.JSEventBus
-import io.aelf.portkey.components.logic.PortkeyReactNativeHost
 import io.aelf.portkey.components.services.GeneralJSMethodService
 
 internal fun generateUniqueCallbackID(): String {
@@ -55,7 +53,7 @@ internal fun callJsMethod(
 data class JSMethodData(
     val status: String, //  'success' | 'fail'
     val transactionId: String,
-    val data: JsonElement,
-    val error: JsonElement
+    val data: JsonElement?,
+    val error: JsonElement?
 )
 

@@ -24,7 +24,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import io.aelf.portkey.components.logic.PortkeyMMKVStorage
 import io.aelf.portkey.demo.ui.theme.Purple40
 
 @Composable
@@ -32,7 +31,7 @@ internal fun ChoiceMaker(
     title: String,
     choicesList: List<String>,
     defaultChoice: String = choicesList[0],
-    useClearWallet: Boolean = false,
+    useExitWallet: Boolean = false,
     afterChosen: (String) -> Unit = {}
 ) {
     val context = LocalContext.current
@@ -74,11 +73,13 @@ internal fun ChoiceMaker(
                         if (choice == it) return@click
                         fun execute() {
                             choice = it
-                            if (useClearWallet) PortkeyMMKVStorage.clear()
+                            if (useExitWallet) {
+
+                            }
                             afterChosen(it)
                             Toast.makeText(
                                 context,
-                                "now choosing $it${if (useClearWallet) ", wallet is also cleared by now" else ""}.",
+                                "now choosing $it${if (useExitWallet) ", wallet is also cleared by now" else ""}.",
                                 Toast.LENGTH_LONG
                             ).show()
                         }
@@ -86,7 +87,7 @@ internal fun ChoiceMaker(
                             DialogProps().apply {
                                 mainTitle = "Confirm"
                                 subTitle =
-                                    "Are you sure to switch to $it ?${if (useClearWallet) " Your wallet will be cleared." else ""}"
+                                    "Are you sure to switch to $it ?${if (useExitWallet) " Your wallet will be cleared." else ""}"
                                 useSingleConfirmButton = false
                                 positiveCallback = {
                                     execute()

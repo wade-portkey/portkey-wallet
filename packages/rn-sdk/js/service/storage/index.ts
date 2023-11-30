@@ -2,6 +2,7 @@ import { StorageModule, PortkeyModulesEntity } from 'service/native-modules';
 
 export const GlobalStorage: StorageModule & {
   set: (key: string, value: string | number | boolean | null | undefined, allowSharpSymbol?: boolean) => void;
+  remove: (key: string) => void;
 } = Object.assign({}, PortkeyModulesEntity.StorageModule, {
   set(key: string, value: string | number | boolean | null | undefined, allowSharpSymbol = false) {
     !allowSharpSymbol && verifyStorageKey(key);
@@ -20,6 +21,9 @@ export const GlobalStorage: StorageModule & {
       }
     }
   },
+  remove(key: string) {
+    GlobalStorage.setString(key, null);
+  },
 });
 
 const verifyStorageKey = (key: string) => {
@@ -31,6 +35,9 @@ const verifyStorageKey = (key: string) => {
 export const TempStorage = {
   wrapKey(key: string) {
     return `${key}#${PortkeyModulesEntity.NativeWrapperModule.tempStorageIdentifier}`;
+  },
+  remove(key: string) {
+    GlobalStorage.remove(this.wrapKey(key));
   },
   set(key: string, value: any) {
     GlobalStorage.set(this.wrapKey(key), value, true);
