@@ -9,12 +9,14 @@
 #import <PortkeySDK/PortkeySDKAccountModule.h>
 #import <PortkeySDK/PortkeySDKConfigModule.h>
 #import <PortkeySDK/PortkeySDKServiceModule.h>
+#import <PortkeySDK/PortkeySDKWalletModule.h>
 
 @interface PortkeySDKPortkey ()
 
 @property (nonatomic, strong) id<PortkeySDKAccountProtocol> accountModule;
 @property (nonatomic, strong, readwrite) id<PortkeySDKServiceProtocol> service;
 @property (nonatomic, strong, readwrite) id<PortkeySDKConfigProtocol> config;
+@property (nonatomic, strong, readwrite) id<PortkeySDKWalletProtocol> wallet;
 
 @end
 
@@ -70,6 +72,13 @@
         _config = [PortkeySDKConfigModule new];
     }
     return _config;
+}
+
+- (id<PortkeySDKWalletProtocol>)wallet {
+    if (!_wallet) {
+        _wallet = [PortkeySDKWalletModule new];
+    }
+    return _wallet;
 }
 
 @end
