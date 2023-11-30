@@ -72,6 +72,7 @@ internal fun ChoiceMaker(
                         expand = false
                         if (choice == it) return@click
                         if (!PortkeyWallet.isWalletExists()) {
+                            choice = it
                             afterChosen(choice)
                             PortkeyDialog.showSuccess("Now using $it.")
                             return@click
@@ -80,12 +81,12 @@ internal fun ChoiceMaker(
                             return@click
                         }
                         fun execute() {
-                            choice = it
                             if (useExitWallet) {
                                 PortkeyWallet.exitWallet(
                                     context = context,
                                     callback = { succeed, reason ->
                                         if (succeed) {
+                                            choice = it
                                             PortkeyDialog.showSuccess("Exit wallet succeed, now using $it.")
                                             afterChosen(choice)
                                         } else {
