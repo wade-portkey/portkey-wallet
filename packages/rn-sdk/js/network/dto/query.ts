@@ -37,7 +37,7 @@ export type GetUserTokenListResult = {
 export type IUserTokenItem = {
   isDisplay: boolean;
   isDefault: boolean;
-  id: string;
+  sortWeight: number;
   token: {
     chainId: ChainId;
     decimals: number;
@@ -45,6 +45,8 @@ export type IUserTokenItem = {
     symbol: string;
     id: string;
   };
+  id: string;
+  userId: string;
 };
 
 export type FetchTokenPriceResult = {

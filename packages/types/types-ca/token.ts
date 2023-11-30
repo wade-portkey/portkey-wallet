@@ -27,6 +27,7 @@ export interface TokenItemShowType extends TokenItemType {
   balanceInUsd?: string;
   price?: string | number;
   userTokenId?: string;
+  sortWeight?: number;
 }
 
 export type UserTokenItemTokenType = Omit<BaseToken, 'name'> & { chainId: string };
