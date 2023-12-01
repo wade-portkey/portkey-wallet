@@ -21,4 +21,19 @@ interface IPortkeyCoreContractModule extends IPortkeyCoreBaseModule{
     callContractMethod: (accountModel: AccountModel, params: GeneralContractConfig, callback:MethodCallback<string>) => void
 }
 
+interface IPortkeyCoreAssetsModule #Red extends IPortkeyCoreBaseModule {
+    getAllTokens: (accountModel: AccountModel, callback: MethodCallback<TokenItem[]>) => void
+    getMyTokens: (accountModel: AccountModel, callback: MethodCallback<TokenItem[]>) => void
+    getMyNFTs: (accountModel: AccountModel, callback: MethodCallback<NFTItem[]>) => void
+    getActivities: (accountModel: AccountModel, params: IActivitiesApiParams, callback: MethodCallback<ActivityList>) => void
+    send: (accountModel: AccountModel, params: SameChainTransferParams|CrossChainTransferParams, callback: MethodCallback<ActivityList>)=>void
+}
+note left of IPortkeyService
+    manage submodules in login state
+end note
+
+interface IPortKeyCoreSecurityModule #Red extends IPortkeyCoreBaseModule {
+    checkSecuritySafe: (accountModel: AccountModel, callback: MethodCallback<boolean>) => void
+    checkPaymentLimit: (accountModel: AccountModel, callback: MethodCallback<boolean>) => void
+}
 @enduml

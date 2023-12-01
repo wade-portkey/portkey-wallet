@@ -1,5 +1,4 @@
 @startuml module
-
 interface IPortkeyAccount {
     login: (callback: MethodCallback<AccountModel>) => void
     logout: (callback: MethodCallback<boolean>) => void
@@ -18,8 +17,12 @@ interface IPortkeyGuardianModule{
     openAddGuardian: (callback:MethodCallback<boolean>) => void
 }
 
-interface IPortkeyAssetsModule{
+interface IPortkeyAssetsModule #Red{
     openAssetsCard: (callback:MethodCallback<boolean>) => void
+    openTokenDetail: (toekn: TokenItem, callback:MethodCallback<boolean>) => void
+    openActivity: (callback:MethodCallback<boolean>) => void
+    openPaymentSecurity: (callback:MethodCallback<boolean>) => void
+    openTokenList: (type:string, callback:MethodCallback<boolean>) => void
 }
 
 interface IPortkeyContractModule {

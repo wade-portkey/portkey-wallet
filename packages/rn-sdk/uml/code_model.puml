@@ -11,5 +11,72 @@ interface LoginParams extends BaseModel {
 interface GuardianItem extends BaseModel {
     
 }
+interface IActivitiesParams extends BaseModel  {
+  maxResultCount: number;
+  skipCount: number;
+  caAddresses?: string[];
+  caAddressInfos?: { chainId: ChainId; chainName: string; caAddress: string }[];
+  managerAddresses?: string[];
+  transactionTypes?: TransactionTypes[];
+  chainId?: string;
+  symbol?: string;
+  width?: number;
+  height?: number;
+}
 
+interface ActivityList  extends BaseModel {
+  maxResultCount: number;
+  skipCount: number;
+  data: ActivityItemType[];
+  totalRecordCount: number;
+  chainId?: string;
+  symbol?: string;
+}
+interface ActivityItemType  extends BaseModel {
+  chainId: string;
+  transactionType: TransactionTypes;
+  transactionName?: string; // item title
+  from: string; // wallet name
+  to: string; // to user nick name
+  fromAddress: string;
+  toAddress: string;
+  fromChainId: ChainId;
+  toChainId: ChainId;
+  status: string;
+  transactionId: string;
+  blockHash: string; // The chain may have forks, use transactionId and blockHash to uniquely determine the transaction
+  timestamp: string;
+  isReceived: boolean; // Is it a received transaction
+  amount: string;
+  symbol: string;
+  decimals?: string;
+  priceInUsd?: string;
+  nftInfo?: NftInfo;
+  transactionFees: TransactionFees[];
+  listIcon?: string;
+  isDelegated?: boolean;
+}
+interface TransferParams   extends BaseModel  {
+  tokenInfo: BaseToken;
+  chainType: ChainType;
+  managerAddress: string;
+  amount: number | string;
+  memo?: string;
+  toAddress: string;
+}
+interface CrossChainTransferParams extends TransferParams {
+  tokenContract: ContractBasic;
+  contract: ContractBasic;
+  caHash: string;
+  crossDefaultFee: number;
+}
+interface SameChainTransferParams   extends BaseModel {
+  contract: ContractBasic;
+  tokenInfo: BaseToken;
+  caHash: string;
+  amount: number | string;
+  toAddress: string;
+  memo?: string;
+  sendOptions?: SendOptions;
+}
 @enduml
