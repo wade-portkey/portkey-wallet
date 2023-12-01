@@ -1,8 +1,8 @@
 import { isEnrolledAsync } from 'expo-local-authentication';
-import { getUseBiometric, rememberUseBiometric } from 'model/verify/after-verify';
+import { getUseBiometric } from 'model/verify/after-verify';
 import { touchAuth } from 'pages/Pin/SetBiometrics';
 import { Platform } from 'react-native';
-import { AuthenticationBioOptions, PortkeyModulesEntity } from 'service/native-modules';
+import { PortkeyModulesEntity } from 'service/native-modules';
 
 export async function authenticateBioAsync() {
   const options = {
@@ -27,7 +27,7 @@ export async function authenticateBioReady(): Promise<boolean> {
     return PortkeyModulesEntity.BiometricModule.isEnrolledAsync();
   }
 }
-export async function isBiomtricsCanUse() {
+export async function isBiometricsCanUse() {
   return getUseBiometric();
 }
 

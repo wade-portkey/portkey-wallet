@@ -17,6 +17,7 @@
 #import "BundleConfigViewController.h"
 #import <PortkeySDK/PortkeySDKContractModule.h>
 #import <PortkeySDK/NSDictionary+PortkeySDK.h>
+#import <PortkeySDK/PortkeySDKPortkey.h>
 
 @interface ViewController ()
 
@@ -30,10 +31,7 @@
 @property (nonatomic, strong) UIButton *testNetButton;
 @property (nonatomic, strong) UIButton *test1NetButton;
 
-@property (nonatomic, strong) UIButton *scanQrcodeButton;
-@property (nonatomic, strong) UIButton *guardianHomeButton;
-@property (nonatomic, strong) UIButton *accountSettingButton;
-@property (nonatomic, strong) UIButton *assetsHomeButton;
+@property (nonatomic, strong) UIButton *openPageButton;
 
 @property (nonatomic, strong) UIButton *exitButton;
 
@@ -96,59 +94,23 @@
     }];
     [self.view addSubview:self.termsButton];
     
-    self.scanQrcodeButton = [self createButtonWithTitle:@"Scan QRCode"];
-    self.scanQrcodeButton.frame = self.termsButton.frame;
-    self.scanQrcodeButton.top = self.termsButton.bottom + 5;
-    [self.scanQrcodeButton addBlockForControlEvents:UIControlEventTouchUpInside block:^(id  _Nonnull sender) {
-        [[PortkeySDKRouterModule sharedInstance] navigateTo:@"scan_qr_code_entry" launchMode:@"" from:@"" targetScene:@"" closeCurrentScreen:NO params:@{}];
-    }];
-    [self.view addSubview:self.scanQrcodeButton];
-    
-    self.guardianHomeButton = [self createButtonWithTitle:@"Guardian Home"];
-    self.guardianHomeButton.frame = self.scanQrcodeButton.frame;
-    self.guardianHomeButton.top = self.scanQrcodeButton.bottom + 5;
-    [self.guardianHomeButton addBlockForControlEvents:UIControlEventTouchUpInside block:^(id  _Nonnull sender) {
+    self.openPageButton = [self createButtonWithTitle:@"Open Portkey Page"];
+    self.openPageButton.frame = self.termsButton.frame;
+    self.openPageButton.top = self.termsButton.bottom + 5;
+    [self.openPageButton addBlockForControlEvents:UIControlEventTouchUpInside block:^(id  _Nonnull sender) {
         @strongify(self)
         NSString *walletConfig = [PortkeySDKMMKVStorage readTempString:@"walletConfig"];
         if ([walletConfig isKindOfClass:NSString.class] && walletConfig.length) {
-            [[PortkeySDKRouterModule sharedInstance] navigateTo:@"guardian_home_entry" launchMode:@"" from:@"" targetScene:@"" closeCurrentScreen:NO params:@{}];
+            [self presentViewController:[self createOpenPageAlertController] animated:YES completion:nil];
         } else {
             [self.view makeToast:@"Please login or unlock first"];
         }
     }];
-    [self.view addSubview:self.guardianHomeButton];
-    
-    self.accountSettingButton = [self createButtonWithTitle:@"Account Setting"];
-    self.accountSettingButton.frame = self.guardianHomeButton.frame;
-    self.accountSettingButton.top = self.guardianHomeButton.bottom + 5;
-    [self.accountSettingButton addBlockForControlEvents:UIControlEventTouchUpInside block:^(id  _Nonnull sender) {
-        @strongify(self)
-        NSString *walletConfig = [PortkeySDKMMKVStorage readTempString:@"walletConfig"];
-        if ([walletConfig isKindOfClass:NSString.class] && walletConfig.length) {
-            [[PortkeySDKRouterModule sharedInstance] navigateTo:@"account_setting_entry" launchMode:@"single_task" from:@"" targetScene:@"" closeCurrentScreen:NO params:@{}];
-        } else {
-            [self.view makeToast:@"Please login or unlock first"];
-        }
-    }];
-    [self.view addSubview:self.accountSettingButton];
-    
-    self.assetsHomeButton = [self createButtonWithTitle:@"Assets Home"];
-    self.assetsHomeButton.frame = self.accountSettingButton.frame;
-    self.assetsHomeButton.top = self.accountSettingButton.bottom + 5;
-    [self.assetsHomeButton addBlockForControlEvents:UIControlEventTouchUpInside block:^(id  _Nonnull sender) {
-        @strongify(self)
-        NSString *walletConfig = [PortkeySDKMMKVStorage readTempString:@"walletConfig"];
-        if ([walletConfig isKindOfClass:NSString.class] && walletConfig.length) {
-            [[PortkeySDKRouterModule sharedInstance] navigateTo:@"assets_home_entry" launchMode:@"" from:@"" targetScene:@"" closeCurrentScreen:NO params:@{}];
-        } else {
-            [self.view makeToast:@"Please login or unlock first"];
-        }
-    }];
-    [self.view addSubview:self.assetsHomeButton];
+    [self.view addSubview:self.openPageButton];
     
     self.bundleConfigButton = [self createButtonWithTitle:@"Config Bundle"];
-    self.bundleConfigButton.frame = self.guardianHomeButton.frame;
-    self.bundleConfigButton.top = self.assetsHomeButton.bottom + 20;
+    self.bundleConfigButton.frame = self.openPageButton.frame;
+    self.bundleConfigButton.top = self.openPageButton.bottom + 20;
     [self.bundleConfigButton addBlockForControlEvents:UIControlEventTouchUpInside block:^(id  _Nonnull sender) {
         @strongify(self)
         [self.navigationController pushViewController:[BundleConfigViewController new] animated:YES];
@@ -223,6 +185,29 @@
     return alert;
 }
 
+- (UIAlertController *)createOpenPageAlertController {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Open Portkey Page" message:@"" preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertAction *scanQrcode = [UIAlertAction actionWithTitle:@"Scan QRCode" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [[PortkeySDKRouterModule sharedInstance] navigateTo:@"scan_qr_code_entry" launchMode:@"" from:@"" targetScene:@"" closeCurrentScreen:NO params:@{}];
+    }];
+    UIAlertAction *guardianHome = [UIAlertAction actionWithTitle:@"Guardian Home" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [[PortkeySDKRouterModule sharedInstance] navigateTo:@"guardian_home_entry" launchMode:@"" from:@"" targetScene:@"" closeCurrentScreen:NO params:@{}];
+    }];
+    UIAlertAction *accountSetting = [UIAlertAction actionWithTitle:@"Account Setting" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [[PortkeySDKRouterModule sharedInstance] navigateTo:@"account_setting_entry" launchMode:@"single_task" from:@"" targetScene:@"" closeCurrentScreen:NO params:@{}];
+    }];
+    UIAlertAction *assetsHome = [UIAlertAction actionWithTitle:@"Assets Home" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [[PortkeySDKRouterModule sharedInstance] navigateTo:@"assets_home_entry" launchMode:@"single_task" from:@"" targetScene:@"" closeCurrentScreen:NO params:@{}];
+    }];
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
+    [alert addAction:scanQrcode];
+    [alert addAction:guardianHome];
+    [alert addAction:accountSetting];
+    [alert addAction:assetsHome];
+    [alert addAction:cancel];
+    return alert;
+}
+
 #pragma mark - Selector
 
 - (void)loginButtonClicked:(id)sender {
@@ -246,8 +231,20 @@
 }
 
 - (void)exitWallet {
-    [PortkeySDKMMKVStorage clear];
-    [self.view makeToast:@"Exit Wallet Successfully"];
+    NSString *walletConfig = [PortkeySDKMMKVStorage readTempString:@"walletConfig"];
+    if ([walletConfig isKindOfClass:NSString.class] && walletConfig.length) {
+        [[PortkeySDKPortkey portkey].wallet exitWallet:^(BOOL success, NSString * _Nullable errorMsg) {
+            if (success) {
+                [PortkeySDKMMKVStorage clear];
+                [self.view makeToast:@"Exit Wallet Successfully"];
+            } else if (errorMsg.length > 0) {
+                NSLog(@"error: %@", errorMsg);
+                [self.view makeToast:errorMsg];
+            }
+        }];
+    } else {
+        [self.view makeToast:@"Please login or unlock first"];
+    }
 }
 
 - (void)configTermsOfService {

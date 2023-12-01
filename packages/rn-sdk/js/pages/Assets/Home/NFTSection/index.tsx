@@ -38,9 +38,9 @@ function areEqual(prevProps: NFTCollectionProps, nextProps: NFTCollectionProps) 
 }
 
 const NFTCollection: React.FC<NFTCollectionProps> = memo(function NFTCollection(props: NFTCollectionProps) {
-  const { symbol, isCollapsed } = props;
+  const { symbol, isCollapsed, chainId } = props;
 
-  return <NFTCollectionItem key={symbol} collapsed={isCollapsed} {...props} />;
+  return <NFTCollectionItem key={`${symbol}${chainId}`} collapsed={isCollapsed} {...props} />;
 }, areEqual);
 
 export default function NFTSection() {
@@ -134,7 +134,6 @@ export default function NFTSection() {
         )}
         renderItem={({ item }: { item: NFTCollectionItemShowType }) => (
           <NFTCollection
-            key={`${item.symbol}${item.chainId}`}
             isCollapsed={!openCollectionObj?.[`${item.symbol}${item.chainId}`]}
             openCollectionObj={openCollectionObj}
             setOpenCollectionObj={setOpenCollectionObj}
@@ -145,7 +144,6 @@ export default function NFTSection() {
           />
         )}
         refreshing={refreshing}
-        keyExtractor={(item: NFTCollectionItemShowType) => item?.symbol + item.chainId}
         onRefresh={onRefresh}
       />
     </View>

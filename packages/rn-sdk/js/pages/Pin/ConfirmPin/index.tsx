@@ -10,32 +10,21 @@ import { PortkeyEntries } from 'config/entries';
 import { changePin, getVerifiedAndLockWallet } from 'model/verify/after-verify';
 import Loading from 'components/Loading';
 import { SetBiometricsProps, SetBiometricsResult, touchAuth } from '../SetBiometrics';
-import { isEnrolledAsync } from 'expo-local-authentication';
 import CommonToast from 'components/CommonToast';
-import { useLanguage } from 'i18n/hooks';
-import { authenticateBioReady, isBiomtricsCanUse } from 'service/biometric';
-
-const isBiometricsReady = async () => {
-  try {
-    return await isEnrolledAsync();
-  } catch (e) {
-    return false;
-  }
-};
+import { authenticateBioReady, isBiometricsCanUse } from 'service/biometric';
 
 export default function ConfirmPin({ oldPin, pin, deliveredSetPinInfo }: ConfirmPinPageProps) {
   const [errorMessage, setErrorMessage] = useState<string>();
   const pinRef = useRef<DigitInputInterface>();
-  const { t } = useLanguage();
 
-  const { onFinish, navigateForResult, navigationTo } = useBaseContainer({
+  const { onFinish, navigateForResult } = useBaseContainer({
     entryName: PortkeyEntries.CONFIRM_PIN,
   });
   const onChangePin = useCallback(
     async (newPin: string) => {
       if (!oldPin) return;
       try {
-        const canUse = isBiomtricsCanUse();
+        const canUse = isBiometricsCanUse();
         const biometricsReady = authenticateBioReady();
         if (await canUse) {
           if (await biometricsReady) {

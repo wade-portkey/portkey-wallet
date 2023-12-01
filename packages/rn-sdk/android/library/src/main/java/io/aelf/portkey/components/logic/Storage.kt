@@ -85,4 +85,8 @@ object PortkeyMMKVStorage {
         portkeyMMKV.encode(key, value)
     }
 
+    fun remove(key: String) {
+        portkeyMMKV.removeValueForKey(key)
+    }
+
 }

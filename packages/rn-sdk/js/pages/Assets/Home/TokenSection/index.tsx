@@ -8,11 +8,12 @@ import TokenListItem from 'components/TokenListItem';
 import { REFRESH_TIME } from '@portkey-wallet/constants/constants-ca/assets';
 import { useCommonInfo } from 'components/TokenOverlay/hook';
 import AssetsContext, { AssetsContextType } from 'global/context/assets/AssetsContext';
-import Loading from 'components/Loading';
 
 export interface TokenSectionProps {
   getAccountBalance?: () => void;
 }
+
+const frontEndTokenSymbol = 'ELF';
 
 export default function TokenSection() {
   const commonInfo = useCommonInfo();
@@ -23,7 +24,7 @@ export default function TokenSection() {
 
   const itemData: Array<TokenItemShowType> = useMemo(() => {
     return allOfTokensList
-      .map(item => {
+      .map<TokenItemShowType>(item => {
         const { symbol, decimals, chainId, address } = item.token;
         const balanceItem = balanceList.find(it => it.symbol === symbol && it.chainId === item.token.chainId);
         const price = tokenPrices.find(it => it.symbol === symbol);
@@ -37,9 +38,17 @@ export default function TokenSection() {
           name: item.token.symbol,
           isDisplay: item.isDisplay,
           isDefault: item.isDefault,
+          sortWeight: item.sortWeight,
         };
-      }, [])
-      .filter(melted => melted.balance !== '0' || melted.isDefault);
+      })
+      .filter(melted => melted.balance !== '0' || melted.isDefault)
+      .sort((a, b) => {
+        const { symbol: symbolA } = a;
+        const { symbol: symbolB } = b;
+        if (symbolA === frontEndTokenSymbol) return -1;
+        if (symbolB === frontEndTokenSymbol) return 1;
+        return symbolA.localeCompare(symbolB);
+      });
   }, [allOfTokensList, balanceList, tokenPrices]);
 
   // const onNavigate = useCallback((_: TokenItemShowType) => {
@@ -54,7 +63,6 @@ export default function TokenSection() {
   );
 
   const onRefresh = useCallback(async () => {
-    Loading.show();
     try {
       await updateTokensList();
       await updateBalanceList();
@@ -62,7 +70,6 @@ export default function TokenSection() {
     } catch (e) {
       console.warn('updateBalanceList or updateTokensList failed! ', e);
     }
-    Loading.hide();
   }, [updateBalanceList, updateTokenPrices, updateTokensList]);
 
   useEffect(() => {

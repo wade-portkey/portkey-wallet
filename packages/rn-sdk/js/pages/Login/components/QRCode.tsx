@@ -50,7 +50,10 @@ export default function QRCode({ setLoginType }: { setLoginType: (type: PageLogi
   useEffect(() => {
     const { caInfo, originChainId } = caWalletInfo || {};
     if (caInfo && newWallet && originChainId) {
-      const { caAddress, caHash } = caInfo[caInfo.originChainId ?? 'AELF'];
+      const { caAddress, caHash } = caInfo[caInfo.originChainId ?? 'AELF'] || {};
+      if (!caAddress || !caHash) {
+        throw new Error('caAddress or caHash is empty');
+      }
       dealWithSetPin({
         scanQRCodePathInfo: {
           caHash: caHash,
@@ -74,7 +77,7 @@ export default function QRCode({ setLoginType }: { setLoginType: (type: PageLogi
       },
       res => {
         const { data } = res;
-        if (data.finished) {
+        if (data && data.finished) {
           onFinish({
             status: 'success',
             data: {
@@ -117,7 +120,7 @@ export default function QRCode({ setLoginType }: { setLoginType: (type: PageLogi
       timer2 && clearTimeout(timer2);
       listener.remove();
     };
-  }, [networkContext.currentNetwork]);
+  }, [generateWallet, networkContext.currentNetwork]);
 
   const qrData: LoginQRData = useMemo(
     () =>
