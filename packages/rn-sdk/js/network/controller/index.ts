@@ -28,7 +28,7 @@ import {
 } from 'network/dto/wallet';
 import { sleep } from '@portkey-wallet/utils';
 import { getCachedNetworkToken } from 'network/token';
-import { isWalletUnlocked } from 'model/verify/after-verify';
+import { isWalletUnlocked } from 'model/verify/after-verify/wallet';
 import { SymbolImages } from 'model/symbolImage';
 import {
   FetchTokenPriceResult,

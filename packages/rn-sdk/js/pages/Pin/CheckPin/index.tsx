@@ -7,7 +7,7 @@ import { StyleSheet } from 'react-native';
 import { PinErrorMessage } from '@portkey-wallet/utils/wallet/types';
 import useBaseContainer from 'model/container/UseBaseContainer';
 import { PortkeyEntries } from 'config/entries';
-import { checkPin, getUseBiometric, unLockTempWallet } from 'model/verify/after-verify';
+import { checkPin, getUseBiometric, unLockTempWallet } from 'model/verify/after-verify/wallet';
 import { touchAuth } from '../SetBiometrics';
 import Loading from 'components/Loading';
 import useEffectOnce from 'hooks/useEffectOnce';

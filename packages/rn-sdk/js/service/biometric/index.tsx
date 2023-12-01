@@ -1,5 +1,5 @@
 import { isEnrolledAsync } from 'expo-local-authentication';
-import { getUseBiometric } from 'model/verify/after-verify';
+import { getUseBiometric } from 'model/verify/after-verify/wallet';
 import { touchAuth } from 'pages/Pin/SetBiometrics';
 import { Platform } from 'react-native';
 import { PortkeyModulesEntity } from 'service/native-modules';

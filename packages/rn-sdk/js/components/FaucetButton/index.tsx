@@ -10,7 +10,7 @@ import { pTd } from 'utils/unit';
 import GStyles from 'assets/theme/GStyles';
 import CommonToast from 'components/CommonToast';
 import { callFaucetMethod } from 'model/contract/handler';
-import { isWalletUnlocked } from 'model/verify/after-verify';
+import { isWalletUnlocked } from 'model/verify/after-verify/wallet';
 import { getCurrentNetworkType } from 'model/hooks/network';
 interface SendButtonType {
   themeType?: 'dashBoard' | 'innerPage';

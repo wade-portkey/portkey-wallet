@@ -6,7 +6,7 @@ import { PortkeyConfig } from 'global/constants';
 import { getCachedNetworkConfig } from 'model/chain';
 import { guardianTypeStrToEnum } from 'model/global';
 import { getCurrentNetworkType } from 'model/hooks/network';
-import { isWalletUnlocked } from 'model/verify/after-verify';
+import { isWalletUnlocked } from 'model/verify/after-verify/wallet';
 import { GuardianConfig } from 'model/verify/guardian';
 import { getUnlockedWallet } from 'model/wallet';
 import { AElfWeb3SDK, ApprovedGuardianInfo } from 'network/dto/wallet';

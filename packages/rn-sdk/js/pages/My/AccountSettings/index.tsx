@@ -11,7 +11,7 @@ import { PortkeyEntries } from 'config/entries';
 import useBaseContainer from 'model/container/UseBaseContainer';
 import { CheckPinProps } from 'pages/Pin/CheckPin';
 import useEffectOnce from 'hooks/useEffectOnce';
-import { isWalletUnlocked } from 'model/verify/after-verify';
+import { isWalletUnlocked } from 'model/verify/after-verify/wallet';
 import { PortkeyModulesEntity } from 'service/native-modules';
 import CommonToast from 'components/CommonToast';
 export default function AccountSettings() {
