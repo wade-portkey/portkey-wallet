@@ -21,6 +21,9 @@ import ModifyGuardian from 'pages/Guardian/GuardianManage/ModifyGuardian';
 import GuardianDetail from 'pages/Guardian/GuardianDetail';
 import ReceiveTokenPage from 'pages/Assets/ReceiveToken';
 import AssetsHome from 'pages/Assets/Home/AssetsHome';
+import PaymentSecurityList from 'pages/My/WalletSecurity/PaymentSecurity/PaymentSecurityHome';
+// import PaymentSecurityDetail from 'pages/My/WalletSecurity/PaymentSecurity/PaymentSecurityDetail';
+// import PaymentSecurityEdit from 'pages/My/WalletSecurity/PaymentSecurity/PaymentSecurityEdit';
 
 type AcceptableComponentType = ComponentProvider;
 
@@ -63,6 +66,10 @@ const initEntries = () => {
   // assets module
   entryConfig.set(PortkeyEntries.ASSETS_HOME_ENTRY, () => AssetsHome);
   entryConfig.set(PortkeyEntries.RECEIVE_TOKEN_ENTRY, () => ReceiveTokenPage);
+
+  entryConfig.set(PortkeyEntries.PAYMENT_SECURITY_HOME_ENTRY, () => PaymentSecurityList);
+  // entryConfig.set(PortkeyEntries.PAYMENT_SECURITY_DETAIL_ENTRY, () => PaymentSecurityDetail);
+  // entryConfig.set(PortkeyEntries.PAYMENT_SECURITY_EDIT_ENTRY, () => PaymentSecurityEdit);
 
   for (const [key, value] of entryConfig) {
     AppRegistry.registerComponent(key, value);

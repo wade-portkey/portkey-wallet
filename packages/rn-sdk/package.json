@@ -26,6 +26,7 @@
     "@react-navigation/material-top-tabs": "^6.6.5",
     "@rneui/base": "^4.0.0-rc.6",
     "@rneui/themed": "^4.0.0-rc.6",
+    "@types/lodash": "^4.14.202",
     "aelf-sdk": "^3.2.45-beta.1",
     "expo": "^49.0.13",
     "expo-application": "^5.4.0",

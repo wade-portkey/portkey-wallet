@@ -91,7 +91,8 @@ class MainActivity : ComponentActivity() {
                                 "Scan",
                                 "AccountingSettings",
                                 "GuardianHome",
-                                "AssetsHome"
+                                "AssetsHome",
+                                "PaymentSecurity"
                             )
                         ) {
                             gotoPage(it)
@@ -186,13 +187,13 @@ class MainActivity : ComponentActivity() {
                             Loading.showLoading("Running Test Cases...")
                         }
                         TitleLine(text = "Environment Settings")
-                        ChoiceMaker(
-                            title = "Choose Chain",
-                            choicesList = mutableListOf("AELF", "tDVV", "tDVW"),
-                            defaultChoice = cachedChainId
-                        ) {
-                            changeChain(it)
-                        }
+//                        ChoiceMaker(
+//                            title = "Choose Chain",
+//                            choicesList = mutableListOf("AELF", "tDVV", "tDVW"),
+//                            defaultChoice = cachedChainId
+//                        ) {
+//                            changeChain(it)
+//                        }
                         ChoiceMaker(
                             title = "Choose EndPointUrl",
                             choicesList = environment.keys.toList(),
@@ -235,6 +236,10 @@ class MainActivity : ComponentActivity() {
 
             "AssetsHome" -> {
                 jumpToActivity(PortkeyEntries.ASSETS_HOME_ENTRY.entryName)
+            }
+
+            "PaymentSecurity" -> {
+                jumpToActivity(PortkeyEntries.PAYMENT_SECURITY_HOME_ENTRY.entryName)
             }
 
             else -> {

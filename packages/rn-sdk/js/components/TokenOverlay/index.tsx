@@ -15,7 +15,7 @@ import NoData from 'components/NoData';
 import { useGStyles } from 'assets/theme/useGStyles';
 import myEvents from '../../utils/deviceEvent';
 import { getCachedAllChainInfo } from 'model/chain';
-import { useCommonInfo } from './hook';
+import { useCommonInfo } from './hooks';
 import { NetworkController } from 'network/controller';
 import { IUserTokenItem } from 'network/dto/query';
 import Loading from 'components/Loading';

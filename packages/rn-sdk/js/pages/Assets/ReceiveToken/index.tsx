@@ -11,7 +11,7 @@ import GStyles from 'assets/theme/GStyles';
 import { formatChainInfoToShow } from '@portkey-wallet/utils';
 import AccountCard from 'components/AccountCard';
 import { copyText } from 'utils/commonUtil';
-import { useSymbolImages } from 'components/TokenOverlay/hook';
+import { useSymbolImages } from 'components/TokenOverlay/hooks';
 import { NetworkType } from '@portkey-wallet/types';
 
 export default function ReceiveTokenPage(props: {

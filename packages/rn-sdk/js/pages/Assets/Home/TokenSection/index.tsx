@@ -6,7 +6,7 @@ import { defaultColors } from 'assets/theme';
 import { pTd } from 'utils/unit';
 import TokenListItem from 'components/TokenListItem';
 import { REFRESH_TIME } from '@portkey-wallet/constants/constants-ca/assets';
-import { useCommonInfo } from 'components/TokenOverlay/hook';
+import { useCommonInfo } from 'components/TokenOverlay/hooks';
 import AssetsContext, { AssetsContextType } from 'global/context/assets/AssetsContext';
 
 export interface TokenSectionProps {
