@@ -1,0 +1,33 @@
+@startuml
+
+interface UIInterface {
+    + openLoginPage(): Wallet
+    + openAssetDashboardPage()
+    + openGuardiansPage()
+    + openSettingsPage()
+    + openPaymentSecurityPage()
+    + openCheckPinPage(): Wallet
+}
+
+interface LogicInterface {
+    + callCaMethod(methodName: string, params: any, callback: Callback)
+    + getUnlockedWalletInfo(): Wallet
+    + getWalletState(): string
+}
+
+class Wallet {
+    - walletInfo: any
+    - walletState: string
+    + getWalletInfo(): any
+    + getWalletState(): string
+}
+
+class Callback {
+    + onSuccess(result: any)
+    + onError(error: any)
+}
+
+UIInterface --> Wallet
+LogicInterface --> Wallet
+
+@enduml
