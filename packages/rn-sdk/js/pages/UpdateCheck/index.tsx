@@ -76,10 +76,10 @@ export default class UpdateCheckPage extends Component {
     }
   };
   checkUpdate = async () => {
-    if (__DEV__) {
-      // 开发模式不支持热更新，跳过检查
-      return;
-    }
+    // if (__DEV__) {
+    //   // 开发模式不支持热更新，跳过检查
+    //   return;
+    // }
     let info;
     try {
       info = await checkUpdate(appKey);
