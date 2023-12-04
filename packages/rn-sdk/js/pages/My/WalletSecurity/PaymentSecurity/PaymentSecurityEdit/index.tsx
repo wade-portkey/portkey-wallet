@@ -3,11 +3,7 @@ import PageContainer from 'components/PageContainer';
 import { StyleSheet, View } from 'react-native';
 import { defaultColors } from 'assets/theme';
 import GStyles from 'assets/theme/GStyles';
-import useRouterParams from '@portkey-wallet/hooks/useRouterParams';
-import { ITransferLimitItem } from '@portkey-wallet/types/types-ca/paymentSecurity';
 import CommonButton from 'components/CommonButton';
-import navigationService from 'utils/navigationService';
-import { ApprovalType } from '@portkey-wallet/types/verifier';
 import { TextM } from 'components/CommonText';
 import { FontStyles } from 'assets/theme/styles';
 import { pTd } from 'utils/unit';
@@ -19,8 +15,12 @@ import { INIT_HAS_ERROR, INIT_NONE_ERROR } from 'constants/common';
 import { isValidInteger } from '@portkey-wallet/utils/reg';
 import { isIOS } from '@portkey-wallet/utils/mobile/device';
 import { divDecimals, timesDecimals } from '@portkey-wallet/utils/converter';
+import { ITransferLimitItem } from 'model/security';
+import { handleGuardiansApproval } from 'model/verify/entry/hooks';
+import { GuardianVerifyType } from 'model/verify/social-recovery';
+import CommonToast from 'components/CommonToast';
 
-interface RouterParams {
+export interface PaymentSecurityEditProps {
   transferLimitDetail?: ITransferLimitItem;
 }
 
@@ -31,8 +31,8 @@ type EditInfoType = {
 };
 const MAX_LENGTH = 18;
 
-const PaymentSecurityEdit: React.FC = () => {
-  const { transferLimitDetail: detail } = useRouterParams<RouterParams>();
+const PaymentSecurityEdit: React.FC = (props: PaymentSecurityEditProps) => {
+  const { transferLimitDetail: detail } = props;
   const [editInfo, setEditInfo] = useState<EditInfoType>();
   const [singleLimitError, setSingleLimitError] = useState<ErrorType>({ ...INIT_NONE_ERROR });
   const [dailyLimitError, setDailyLimitError] = useState<ErrorType>({ ...INIT_NONE_ERROR });
@@ -121,19 +121,22 @@ const PaymentSecurityEdit: React.FC = () => {
       }
     }
 
-    if (isError) return;
+    if (isError || !detail) return;
 
-    navigationService.navigate('GuardianApproval', {
-      approvalType: ApprovalType.modifyTransferLimit,
-      transferLimitDetail: {
-        chainId: detail?.chainId,
-        symbol: detail?.symbol,
+    handleGuardiansApproval({
+      guardianVerifyType: GuardianVerifyType.EDIT_PAYMENT_SECURITY,
+      guardians: [],
+      paymentSecurityConfig: {
+        chainId: detail.chainId,
+        symbol: detail.symbol,
         singleLimit: editInfo.restricted ? timesDecimals(editInfo.singleLimit, detail?.decimals).toFixed(0) : '-1',
         dailyLimit: editInfo.restricted ? timesDecimals(editInfo.dailyLimit, detail?.decimals).toFixed(0) : '-1',
         restricted: editInfo.restricted,
-        decimals: detail?.decimals,
+        decimals: detail.decimals,
       },
-      targetChainId: detail?.chainId,
+      failHandler: () => {
+        CommonToast.fail('edit failed');
+      },
     });
   }, [detail, editInfo]);
 

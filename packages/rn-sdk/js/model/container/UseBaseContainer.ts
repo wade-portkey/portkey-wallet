@@ -38,7 +38,7 @@ const useBaseContainer = (props: BaseContainerHookedProps): BaseContainerHooks =
     [entryName, baseContainerContext.entryName],
   );
 
-  const navigationTo = useCallback(
+  const navigateTo = useCallback(
     <T = { [x: string]: AcceptableValueType }>(
       entry: PortkeyEntries,
       {
@@ -116,19 +116,19 @@ const useBaseContainer = (props: BaseContainerHookedProps): BaseContainerHooks =
   return useMemo(() => {
     return {
       getEntryName,
-      navigationTo,
+      navigateTo,
       navigateForResult,
       onFinish,
       onError,
       onFatal,
       onWarn,
     };
-  }, [getEntryName, navigateForResult, navigationTo, onError, onFatal, onFinish, onWarn]);
+  }, [getEntryName, navigateForResult, navigateTo, onError, onFatal, onFinish, onWarn]);
 };
 
 export interface BaseContainerHooks {
   getEntryName: () => string;
-  navigationTo: <T = { [x: string]: AcceptableValueType }>(
+  navigateTo: <T = { [x: string]: AcceptableValueType }>(
     entry: PortkeyEntries,
     {
       params = {} as any,

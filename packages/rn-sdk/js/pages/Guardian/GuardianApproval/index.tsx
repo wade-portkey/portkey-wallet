@@ -36,7 +36,12 @@ import { ApprovedGuardianInfo } from 'network/dto/wallet';
 import { AppleAccountInfo, GoogleAccountInfo, isAppleLogin } from 'model/verify/third-party-account';
 import { useAppleAuthentication, useGoogleAuthentication } from 'model/hooks/authentication';
 import { getBottomSpace } from 'utils/screen';
-import { callAddGuardianMethod, callEditGuardianMethod, callRemoveGuardianMethod } from 'model/contract/handler';
+import {
+  callAddGuardianMethod,
+  callEditGuardianMethod,
+  callEditPaymentSecurityMethod,
+  callRemoveGuardianMethod,
+} from 'model/contract/handler';
 
 export default function GuardianApproval({
   guardianVerifyConfig: guardianListConfig,
@@ -49,12 +54,13 @@ export default function GuardianApproval({
 }) {
   const {
     guardians,
-    accountIdentifier,
+    accountIdentifier = '',
     accountOriginalType,
     thirdPartyAccountInfo,
     guardianVerifyType,
     particularGuardian,
     pastGuardian,
+    paymentSecurityConfig,
   } = guardianListConfig;
 
   const { t } = useLanguage();
@@ -75,6 +81,10 @@ export default function GuardianApproval({
     }
     case GuardianVerifyType.MODIFY_GUARDIAN: {
       operationType = OperationTypeEnum.editGuardian;
+      break;
+    }
+    case GuardianVerifyType.EDIT_PAYMENT_SECURITY: {
+      operationType = OperationTypeEnum.modifyTransferLimit;
       break;
     }
     case GuardianVerifyType.CREATE_WALLET:
@@ -196,7 +206,7 @@ export default function GuardianApproval({
         const result = await callAddGuardianMethod(particularGuardian, getVerifiedGuardianInfo());
         Loading.hide();
         onPageFinish({
-          isVerified: result?.error ? false : true,
+          isVerified: !result?.error,
         });
         break;
       }
@@ -207,7 +217,7 @@ export default function GuardianApproval({
         const result = await callRemoveGuardianMethod(particularGuardian, getVerifiedGuardianInfo());
         Loading.hide();
         onPageFinish({
-          isVerified: result?.error ? false : true,
+          isVerified: !result?.error,
         });
         break;
       }
@@ -217,9 +227,21 @@ export default function GuardianApproval({
         Loading.show();
         const result = await callEditGuardianMethod(particularGuardian, pastGuardian, getVerifiedGuardianInfo());
         Loading.hide();
-        console.log('MODIFY_GUARDIAN result', result.error);
+        console.log('MODIFY_GUARDIAN result', result);
         onPageFinish({
-          isVerified: result.error ? false : true,
+          isVerified: !result.error,
+        });
+        break;
+      }
+
+      case GuardianVerifyType.EDIT_PAYMENT_SECURITY: {
+        Loading.show();
+        if (!paymentSecurityConfig) throw new Error('paymentSecurityConfig is null!');
+        const result = await callEditPaymentSecurityMethod(getVerifiedGuardianInfo(), paymentSecurityConfig);
+        Loading.hide();
+        console.log('EDIT_PAYMENT_SECURITY result', result);
+        onPageFinish({
+          isVerified: !result.error,
         });
         break;
       }

@@ -1,3 +1,4 @@
+import Loading from 'components/Loading';
 import { ITransferLimitItem } from 'model/security';
 import { getUnlockedWallet } from 'model/wallet';
 import { NetworkController } from 'network/controller';
@@ -20,6 +21,7 @@ export const useTransferLimitList = () => {
         caInfo: { caHash },
       } = await getUnlockedWallet();
       if (!caHash) return;
+      Loading.show();
       const nextPagination: PaymentSecurityPagination = {
         page: 0,
         pageSize: PAYMENT_SECURITY_PAGE_LIMIT,
@@ -41,7 +43,7 @@ export const useTransferLimitList = () => {
         skipCount: (nextPagination.page - 1) * nextPagination.pageSize,
         maxResultCount: nextPagination.pageSize,
       });
-
+      Loading.hide();
       if (result.data && Array.isArray(result.data) && result.totalRecordCount !== undefined) {
         if (result.totalRecordCount <= (nextPagination.page - 1) * nextPagination.pageSize) {
           setIsNext(false);

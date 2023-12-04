@@ -34,7 +34,11 @@ const QrScanner: React.FC = () => {
   // const jumpToWebview = useDiscoverJumpWithNetWork();
   const [refresh, setRefresh] = useState<boolean>();
   const [permissionGranted, setPermissionGranted] = useState<boolean>(false);
-  const { onFinish, navigateForResult, navigationTo } = useBaseContainer({
+  const {
+    onFinish,
+    navigateForResult,
+    navigateTo: navigationTo,
+  } = useBaseContainer({
     entryName: PortkeyEntries.SCAN_QR_CODE,
   });
   const navigateBack = (res: EntryResult<ScanQRCodeResult> = { status: 'success', data: {} }) => {

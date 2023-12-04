@@ -17,7 +17,7 @@ export function useSymbolImages() {
   return symbolImages;
 }
 
-export function useCommonInfo() {
+export function useCommonNetworkInfo() {
   const symbolImages = useSymbolImages();
   const [currentNetwork, setCurrentNetwork] = useState<NetworkType>('MAIN');
   const [defaultToken, setDefaultToken] = useState<Token>(DEFAULT_TOKEN);

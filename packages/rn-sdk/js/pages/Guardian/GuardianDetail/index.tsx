@@ -42,7 +42,7 @@ export default function GuardianDetail(config: { info: string }) {
   const { appleSign } = useAppleAuthentication();
   const { googleSign } = useGoogleAuthentication();
 
-  const { navigationTo, onFinish } = useBaseContainer({
+  const { navigateTo: navigationTo, onFinish } = useBaseContainer({
     entryName: PortkeyEntries.GUARDIAN_DETAIL_ENTRY,
   });
 

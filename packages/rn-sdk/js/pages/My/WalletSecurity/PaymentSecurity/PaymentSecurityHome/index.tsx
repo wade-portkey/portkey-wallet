@@ -7,7 +7,6 @@ import { TextL, TextM } from 'components/CommonText';
 
 import { BGStyles, FontStyles } from 'assets/theme/styles';
 import { pTd } from 'utils/unit';
-import useEffectOnce from 'hooks/useEffectOnce';
 import CommonToast from 'components/CommonToast';
 import Touchable from 'components/Touchable';
 import isEqual from 'lodash/isEqual';
@@ -18,19 +17,28 @@ import NoData from 'components/NoData';
 import { ITransferLimitItem } from 'model/security';
 import { useTransferLimitList } from 'model/hooks/payment';
 import { useCurrentNetworkInfo } from 'hooks/network';
-import Loading from 'components/Loading';
-import { useCommonInfo, useSymbolImages } from 'components/TokenOverlay/hooks';
+import { useCommonNetworkInfo, useSymbolImages } from 'components/TokenOverlay/hooks';
+import useBaseContainer from 'model/container/UseBaseContainer';
+import { PortkeyEntries } from 'config/entries';
+import { PaymentSecurityDetailProps } from '../PaymentSecurityDetail';
+import { GuardiansApprovalIntent } from 'pages/GuardianManage/GuardianHome';
 
 const _renderPaymentSecurityItem = ({ item }: { item: ITransferLimitItem }) => {
-  const { defaultToken } = useCommonInfo();
+  const { defaultToken } = useCommonNetworkInfo();
   const symbolImages = useSymbolImages();
   const networkType = useCurrentNetworkInfo();
+  const { navigateTo: navigationTo } = useBaseContainer({
+    entryName: PortkeyEntries.PAYMENT_SECURITY_HOME_ENTRY,
+  });
 
   return (
     <Touchable
       onPress={() => {
-        // TODO details page
-        // navigationService.navigate('PaymentSecurityDetail', { transferLimitDetail: item });
+        navigationTo<PaymentSecurityDetailProps>(PortkeyEntries.PAYMENT_SECURITY_DETAIL_ENTRY, {
+          params: {
+            transferLimitDetail: item,
+          },
+        });
       }}>
       <View style={ItemStyles.wrap}>
         <CommonAvatar
@@ -77,31 +85,32 @@ const PaymentSecurityList: React.FC = () => {
   const [isRefreshing, setIsRefreshing] = useState(false);
   const { list, isNext, next, init } = useTransferLimitList();
 
+  useBaseContainer({
+    entryName: PortkeyEntries.PAYMENT_SECURITY_HOME_ENTRY,
+    onNewIntent: (intent: GuardiansApprovalIntent) => {
+      console.log('PaymentSecurityList onNewIntent', intent);
+      if (intent.result === 'success') {
+        CommonToast.success('edit success');
+      }
+    },
+    onShow: () => {
+      setTimeout(() => {
+        init();
+      }, 100);
+    },
+  });
+
   const getList = useCallback(async () => {
     if (!isNext) return;
     setIsRefreshing(true);
     try {
-      Loading.show();
       await next();
-      Loading.hide();
     } catch (error) {
       console.log('PaymentSecurityList: error', error);
       CommonToast.failError('Failed to fetch data');
     }
-
     setIsRefreshing(false);
   }, [isNext, next]);
-
-  useEffectOnce(() => {
-    const timer = setTimeout(() => {
-      Loading.show();
-      init();
-      Loading.hide();
-    }, 100);
-    return () => {
-      clearTimeout(timer);
-    };
-  });
 
   return (
     <PageContainer

@@ -6,7 +6,7 @@ import { defaultColors } from 'assets/theme';
 import { pTd } from 'utils/unit';
 import TokenListItem from 'components/TokenListItem';
 import { REFRESH_TIME } from '@portkey-wallet/constants/constants-ca/assets';
-import { useCommonInfo } from 'components/TokenOverlay/hooks';
+import { useCommonNetworkInfo } from 'components/TokenOverlay/hooks';
 import AssetsContext, { AssetsContextType } from 'global/context/assets/AssetsContext';
 
 export interface TokenSectionProps {
@@ -16,7 +16,7 @@ export interface TokenSectionProps {
 const frontEndTokenSymbol = 'ELF';
 
 export default function TokenSection() {
-  const commonInfo = useCommonInfo();
+  const commonInfo = useCommonNetworkInfo();
   const [isFetching] = useState(false);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
   const { balanceList, updateBalanceList, allOfTokensList, updateTokensList, tokenPrices, updateTokenPrices } =
@@ -45,9 +45,13 @@ export default function TokenSection() {
       .sort((a, b) => {
         const { symbol: symbolA } = a;
         const { symbol: symbolB } = b;
-        if (symbolA === frontEndTokenSymbol) return -1;
-        if (symbolB === frontEndTokenSymbol) return 1;
-        return symbolA.localeCompare(symbolB);
+        if (symbolA === symbolB) {
+          return getWeightForTokenItems(b) - getWeightForTokenItems(a);
+        } else {
+          if (symbolA === frontEndTokenSymbol) return -1;
+          if (symbolB === frontEndTokenSymbol) return 1;
+          return symbolA.localeCompare(symbolB);
+        }
       });
   }, [allOfTokensList, balanceList, tokenPrices]);
 
@@ -105,6 +109,17 @@ export default function TokenSection() {
     </View>
   );
 }
+
+// AELF > tDVW > tDVV > others
+const getWeightForTokenItems = (item: TokenItemShowType): number => {
+  if (item.chainId === 'AELF') {
+    return 2;
+  } else if (item.chainId === 'tDVW') {
+    return 1;
+  } else {
+    return 0;
+  }
+};
 
 const styles = StyleSheet.create({
   tokenListPageWrap: {

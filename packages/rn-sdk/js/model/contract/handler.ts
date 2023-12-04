@@ -6,10 +6,12 @@ import { PortkeyConfig } from 'global/constants';
 import { getCachedNetworkConfig } from 'model/chain';
 import { guardianTypeStrToEnum } from 'model/global';
 import { getCurrentNetworkType } from 'model/hooks/network';
+import { ITransferLimitItem } from 'model/security';
 import { isWalletUnlocked } from 'model/verify/after-verify';
 import { GuardianConfig } from 'model/verify/guardian';
 import { getUnlockedWallet } from 'model/wallet';
-import { AElfWeb3SDK, ApprovedGuardianInfo } from 'network/dto/wallet';
+import { NetworkController } from 'network/controller';
+import { AElfChainStatusItemDTO, AElfWeb3SDK, ApprovedGuardianInfo } from 'network/dto/wallet';
 import { handleCachedValue } from 'service/storage/cache';
 import { selectCurrentBackendConfig } from 'utils/commonUtil';
 import { addManager } from 'utils/wallet';
@@ -151,6 +153,56 @@ export const callCancelLoginGuardianMethod = async (particularGuardian: Guardian
       identifierHash: guardianIdentifier,
     },
   });
+};
+
+export const callGetTransferLimitMethod = async (chainId: string, symbol: string) => {
+  console.log('callGetTransferLimitMethod: ', chainId, symbol);
+  const contractInstance = await getContractInstanceOnParticularChain(chainId);
+  const {
+    caInfo: { caHash },
+  } = (await getUnlockedWallet()) || {};
+  return await contractInstance.callViewMethod('GetTransferLimit', {
+    caHash,
+    symbol,
+  });
+};
+
+export const callEditPaymentSecurityMethod = async (
+  guardianList: Array<ApprovedGuardianInfo>,
+  transferLimitDetail: ITransferLimitItem,
+) => {
+  const { chainId } = transferLimitDetail;
+  const contractInstance = await getContractInstanceOnParticularChain(chainId);
+  const {
+    address,
+    caInfo: { caHash },
+  } = (await getUnlockedWallet()) || {};
+  return await contractInstance.callSendMethod('SetTransferLimit', address, {
+    caHash,
+    symbol: transferLimitDetail.symbol,
+    singleLimit: transferLimitDetail.singleLimit,
+    dailyLimit: transferLimitDetail.dailyLimit,
+    guardiansApproved: guardianList.map(item => parseVerifiedGuardianInfoToCaType(item)),
+  });
+};
+
+const getContractInstanceOnParticularChain = async (chainId: string) => {
+  const { privateKey } = (await getUnlockedWallet()) || {};
+  const { caContractAddress, endPoint } = await findParticularNetworkByChainId(chainId);
+  if (!caContractAddress || !endPoint)
+    throw new Error('callGetTransferLimitMethod: caContractAddress or endPoint is invalid');
+  return await getContractBasic({
+    contractAddress: caContractAddress,
+    rpcUrl: endPoint,
+    account: AElfWeb3SDK.getWalletByPrivateKey(privateKey),
+  });
+};
+
+const findParticularNetworkByChainId = async (chainId: string): Promise<AElfChainStatusItemDTO> => {
+  const { items } = await NetworkController.getNetworkInfo();
+  const item = items.find(it => it.chainId === chainId);
+  if (!item) throw new Error('chainId is invalid');
+  return item;
 };
 
 export const callFaucetMethod = async (amount = 100) => {

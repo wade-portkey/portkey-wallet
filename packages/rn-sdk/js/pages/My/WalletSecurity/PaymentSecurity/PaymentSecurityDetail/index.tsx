@@ -1,75 +1,58 @@
-import React, { useCallback, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import PageContainer from 'components/PageContainer';
 import { StyleSheet, View } from 'react-native';
 import { defaultColors } from 'assets/theme';
 import GStyles from 'assets/theme/GStyles';
 
-import { ITransferLimitItem } from '@portkey-wallet/types/types-ca/paymentSecurity';
 import CommonButton from 'components/CommonButton';
-import navigationService from 'utils/navigationService';
 import { TextM } from 'components/CommonText';
 import { FontStyles } from 'assets/theme/styles';
 import { pTd } from 'utils/unit';
-import { RouteProp, useFocusEffect, useRoute } from '@react-navigation/native';
 import { divDecimalsToShow } from '@portkey-wallet/utils/converter';
-import { useGetTransferLimit } from '@portkey-wallet/hooks/hooks-ca/security';
-import { useLatestRef } from '@portkey-wallet/hooks';
-import { useGetCurrentCAContract } from 'hooks/contract';
-import { ContractBasic } from '@portkey-wallet/contracts/utils/ContractBasic';
+import { ITransferLimitItem } from 'model/security';
+import { callGetTransferLimitMethod } from 'model/contract/handler';
+import useEffectOnce from 'hooks/useEffectOnce';
+import Loading from 'components/Loading';
+import useBaseContainer from 'model/container/UseBaseContainer';
+import { PortkeyEntries } from 'config/entries';
+import { PaymentSecurityEditProps } from '../PaymentSecurityEdit';
 
-interface RouterParams {
+export interface PaymentSecurityDetailProps {
   transferLimitDetail?: ITransferLimitItem;
 }
 
-const PaymentSecurityDetail: React.FC = () => {
-  const {
-    params: { transferLimitDetail },
-  } = useRoute<RouteProp<{ params: RouterParams }>>();
+const PaymentSecurityDetail: React.FC = (props: PaymentSecurityDetailProps) => {
+  const { transferLimitDetail } = props;
   const [detail, setDetail] = useState<ITransferLimitItem | undefined>(transferLimitDetail);
-
-  const getCurrentCAContract = useGetCurrentCAContract(transferLimitDetail?.chainId);
-  const getTransferLimit = useGetTransferLimit();
-
-  const caContractRef = useRef<ContractBasic>();
+  const { navigateTo } = useBaseContainer({
+    entryName: PortkeyEntries.PAYMENT_SECURITY_DETAIL_ENTRY,
+  });
   const getDetail = useCallback(async () => {
-    if (!caContractRef.current) {
-      try {
-        caContractRef.current = await getCurrentCAContract();
-      } catch (error) {
-        console.log('PaymentSecurityDetail: caContract error');
-        return;
-      }
-    }
-
-    const caContract = caContractRef.current;
+    if (!transferLimitDetail) return;
+    Loading.show();
+    const { symbol, chainId } = transferLimitDetail;
     try {
-      const result = await getTransferLimit({
-        caContract,
-        symbol: transferLimitDetail?.symbol || '',
-      });
-      if (result) {
+      const result = await callGetTransferLimitMethod(chainId, symbol);
+      if (result?.data) {
         setDetail(pre => {
           if (pre) {
             return {
               ...pre,
-              ...result,
+              ...result?.data,
             };
           }
           return pre;
         });
       }
     } catch (error) {
-      console.log('PaymentSecurityDetail: getTransferLimit error');
+      console.log('PaymentSecurityDetail: getTransferLimit error', error);
     }
-  }, [getCurrentCAContract, getTransferLimit, transferLimitDetail?.symbol]);
-  const getDetailRef = useLatestRef(getDetail);
+    Loading.hide();
+  }, [transferLimitDetail]);
 
-  useFocusEffect(
-    useCallback(() => {
-      getDetailRef.current();
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []),
-  );
+  useEffectOnce(() => {
+    getDetail();
+  });
 
   const detailFormatted = useMemo(() => {
     if (!detail) return undefined;
@@ -120,8 +103,10 @@ const PaymentSecurityDetail: React.FC = () => {
       <CommonButton
         type="solid"
         onPress={() => {
-          navigationService.navigate('PaymentSecurityEdit', {
-            transferLimitDetail: detail,
+          navigateTo<PaymentSecurityEditProps>(PortkeyEntries.PAYMENT_SECURITY_EDIT_ENTRY, {
+            params: {
+              transferLimitDetail: detail,
+            },
           });
         }}>
         Edit
