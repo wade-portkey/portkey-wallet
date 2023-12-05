@@ -2646,27 +2646,6 @@
     xcode "^3.0.1"
     xml2js "0.6.0"
 
-"@expo/config-plugins@~5.0.0":
-  version "5.0.1"
-  resolved "https://registry.npmmirror.com/@expo/config-plugins/-/config-plugins-5.0.1.tgz#66bc8d15785bdcd3598e466344f8c0518390179d"
-  integrity sha512-1OfnsOrfeSkB0VZfT01UjQ5Uq6p+yYbq8yNkj0e99K/6NLHpyvIxj+5tZIV0nQXgkOcqBIABL2uA7lwB8CkaBQ==
-  dependencies:
-    "@expo/config-types" "^46.0.0"
-    "@expo/json-file" "8.2.36"
-    "@expo/plist" "0.0.18"
-    "@expo/sdk-runtime-versions" "^1.0.0"
-    "@react-native/normalize-color" "^2.0.0"
-    chalk "^4.1.2"
-    debug "^4.3.1"
-    find-up "~5.0.0"
-    getenv "^1.0.0"
-    glob "7.1.6"
-    resolve-from "^5.0.0"
-    semver "^7.3.5"
-    slash "^3.0.0"
-    xcode "^3.0.1"
-    xml2js "0.4.23"
-
 "@expo/config-plugins@~7.3.0":
   version "7.3.1"
   resolved "https://registry.yarnpkg.com/@expo/config-plugins/-/config-plugins-7.3.1.tgz#001b72ac2e51e56c4bf574452ac76b106fa95adc"
@@ -2709,11 +2688,6 @@
     slash "^3.0.0"
     xcode "^3.0.1"
     xml2js "0.6.0"
-
-"@expo/config-types@^46.0.0":
-  version "46.0.2"
-  resolved "https://registry.npmmirror.com/@expo/config-types/-/config-types-46.0.2.tgz#191f225ebfcbe624868ddc40efae79593f948dd8"
-  integrity sha512-PXkmOgNwRyBfgVT1HmFZhfh3Qm7WKKyV6mk3/5HJ/LzPh1t+Zs2JrWX8U2YncTLV1QzV7nV8tnkyvszzqnZEzQ==
 
 "@expo/config-types@^49.0.0-alpha.1":
   version "49.0.0"
@@ -2857,15 +2831,6 @@
     semver "7.3.2"
     tempy "0.3.0"
 
-"@expo/json-file@8.2.36":
-  version "8.2.36"
-  resolved "https://registry.npmmirror.com/@expo/json-file/-/json-file-8.2.36.tgz#62a505cb7f30a34d097386476794680a3f7385ff"
-  integrity sha512-tOZfTiIFA5KmMpdW9KF7bc6CFiGjb0xnbieJhTGlHrLL+ps2G0OkqmuZ3pFEXBOMnJYUVpnSy++52LFxvpa5ZQ==
-  dependencies:
-    "@babel/code-frame" "~7.10.4"
-    json5 "^1.0.1"
-    write-file-atomic "^2.3.0"
-
 "@expo/json-file@^8.2.37", "@expo/json-file@~8.2.37":
   version "8.2.37"
   resolved "https://registry.yarnpkg.com/@expo/json-file/-/json-file-8.2.37.tgz#9c02d3b42134907c69cc0a027b18671b69344049"
@@ -2917,15 +2882,6 @@
     npm-package-arg "^7.0.0"
     split "^1.0.1"
     sudo-prompt "9.1.1"
-
-"@expo/plist@0.0.18":
-  version "0.0.18"
-  resolved "https://registry.npmmirror.com/@expo/plist/-/plist-0.0.18.tgz#9abcde78df703a88f6d9fa1a557ee2f045d178b0"
-  integrity sha512-+48gRqUiz65R21CZ/IXa7RNBXgAI/uPSdvJqoN9x1hfL44DNbUoWHgHiEXTx7XelcATpDwNTz6sHLfy0iNqf+w==
-  dependencies:
-    "@xmldom/xmldom" "~0.7.0"
-    base64-js "^1.2.3"
-    xmlbuilder "^14.0.0"
 
 "@expo/plist@^0.0.20":
   version "0.0.20"
@@ -4980,13 +4936,13 @@
     "@portkey/utils" "^1.5.1"
     aelf-sdk "3.2.45-beta.0"
 
-"@portkey/graphql@^1.3.0-alpha.3":
-  version "1.3.0-alpha.3"
-  resolved "https://registry.yarnpkg.com/@portkey/graphql/-/graphql-1.3.0-alpha.3.tgz#b5920d680c29a9f7610cf772d20122b682112d56"
-  integrity sha512-2l5TQow2Mcdz1Cpx41OaFaO7OTZS0c4cYGN4Dy/kvN3HdRmIOo2Pn91y3IzlTE7oyPBhXaifoK/AhXJygSRB4w==
+"@portkey/graphql@^1.5.1":
+  version "1.5.1"
+  resolved "https://registry.yarnpkg.com/@portkey/graphql/-/graphql-1.5.1.tgz#1cf0c4adcd5d88b7074d0d8c0842bf929fef4941"
+  integrity sha512-ZWl9PFOenxJHVqnLpOInldeBJXh1x6GMzm5OsQGL8OS/MHZIY+JU4YCwp1I2OQO3AkKZH2sV8B7MYJJnFP5cug==
   dependencies:
     "@apollo/client" "^3.7.3"
-    "@portkey/types" "^1.3.0-alpha.3"
+    "@portkey/types" "^1.5.1"
     graphql "^16.6.0"
     subscriptions-transport-ws "^0.11.0"
 
@@ -5037,23 +4993,23 @@
     lodash "^4.17.21"
     readable-stream "^4.4.0"
 
-"@portkey/request@^1.3.0-alpha.3":
-  version "1.3.0-alpha.3"
-  resolved "https://registry.yarnpkg.com/@portkey/request/-/request-1.3.0-alpha.3.tgz#34d0349d2fcf38fdc04c0778fade809e2ae5af50"
-  integrity sha512-KEAdrpaMRCzyF2APR/7dPbUDUJpuNmCAjH03W1SONoYUuXUFYgJFBniutsH/hxInGSHb8tdj81xThfEU+J0oiQ==
+"@portkey/request@^1.3.0-alpha.3", "@portkey/request@^1.5.1":
+  version "1.5.1"
+  resolved "https://registry.yarnpkg.com/@portkey/request/-/request-1.5.1.tgz#201ac4694abec29d1bf42bb14f52a181db356520"
+  integrity sha512-1RTpZiKQ+KF6IIcPs63DttjLdp7ZuJyu2PHWJ5dZblD/ivQlMoOPVWlr7hZnZR0vp30msyCBn/jOpcQ7V0FV6g==
   dependencies:
-    "@portkey/types" "^1.3.0-alpha.3"
+    "@portkey/types" "^1.5.1"
     query-string "^7.1.1"
 
 "@portkey/services@^1.3.0-alpha.3":
-  version "1.3.0-alpha.3"
-  resolved "https://registry.yarnpkg.com/@portkey/services/-/services-1.3.0-alpha.3.tgz#becd1d9c01892fd335f6eda3d4b351cf97e2a841"
-  integrity sha512-HxmCoOfOPFovwoGk5qRDj6o+wYhxa3D5HLQz9qb72HQ668iuP/vRZJx0DsGCVh1JMyPybBELobUnJL5tS7pHSA==
+  version "1.5.1"
+  resolved "https://registry.yarnpkg.com/@portkey/services/-/services-1.5.1.tgz#b6119b4c9cbfa3161ad8f08387835bf918379169"
+  integrity sha512-WGk1kok260pMGD0CSX4zhW//uNdXlRBu+vzqdmw6FRyMu0ahaMlfDEF99ahW5aXSv9oXd6NEZHLQepP78z/Qtg==
   dependencies:
-    "@portkey/graphql" "^1.3.0-alpha.3"
-    "@portkey/request" "^1.3.0-alpha.3"
-    "@portkey/types" "^1.3.0-alpha.3"
-    aelf-sdk "^3.2.44"
+    "@portkey/graphql" "^1.5.1"
+    "@portkey/request" "^1.5.1"
+    "@portkey/types" "^1.5.1"
+    aelf-sdk "3.2.45-beta.0"
     query-string "^7.1.1"
 
 "@portkey/socket@1.0.0-alpha.2":
@@ -5068,13 +5024,6 @@
   version "1.0.0-alpha.4"
   resolved "https://registry.npmjs.org/@portkey/types/-/types-1.0.0-alpha.4.tgz#2f22a75a1af6df31db15fce1c473ca9e1f07f127"
   integrity sha512-mOSl89fN+hQ4zun6MF2uuQH5Bz8Owf6eA+N1HJ5fwKUMbQqr+7uI1HJZstoTSLFTLPjVSAIaIauXb2sfdRIm7A==
-  dependencies:
-    "@types/elliptic" "^6.4.14"
-
-"@portkey/types@^1.3.0-alpha.3":
-  version "1.3.0-alpha.3"
-  resolved "https://registry.yarnpkg.com/@portkey/types/-/types-1.3.0-alpha.3.tgz#ac81c1007e881a35474efc5c66a7c85dcb452617"
-  integrity sha512-04gKW6qwgg4E2pXpoICjV9qvzSJJWifpxZw4lWJn5UXI5Oufwtb2oHyE9w+YDDKwUaP1qrdQgB/STLDm6ckbpg==
   dependencies:
     "@types/elliptic" "^6.4.14"
 
@@ -5723,11 +5672,6 @@
     "@types/react" "*"
     hoist-non-react-statics "^3.3.0"
 
-"@types/is-url@^1.2.30":
-  version "1.2.30"
-  resolved "https://registry.npmjs.org/@types/is-url/-/is-url-1.2.30.tgz#85567e8bee4fee69202bc3448f9fb34b0d56c50a"
-  integrity sha512-AnlNFwjzC8XLda5VjRl4ItSd8qp8pSNowvsut0WwQyBWHpOxjxRJm8iO6uETWqEyLdYdb9/1j+Qd9gQ4l5I4fw==
-
 "@types/istanbul-lib-coverage@*", "@types/istanbul-lib-coverage@^2.0.0", "@types/istanbul-lib-coverage@^2.0.1":
   version "2.0.4"
   resolved "https://registry.npmmirror.com/@types/istanbul-lib-coverage/-/istanbul-lib-coverage-2.0.4.tgz#8467d4b3c087805d63580480890791277ce35c44"
@@ -6237,11 +6181,6 @@
   dependencies:
     tslib "^2.3.0"
 
-"@xmldom/xmldom@~0.7.0":
-  version "0.7.5"
-  resolved "https://registry.npmmirror.com/@xmldom/xmldom/-/xmldom-0.7.5.tgz#09fa51e356d07d0be200642b0e4f91d8e6dd408d"
-  integrity sha512-V3BIhmY36fXZ1OtVcI9W+FxQqxVLsPKcNjWigIaa81dLC9IolJl5Mt4Cvhmr0flUnjSpTdrbMTSbXqYqV5dT6A==
-
 "@xmldom/xmldom@~0.7.7":
   version "0.7.13"
   resolved "https://registry.yarnpkg.com/@xmldom/xmldom/-/xmldom-0.7.13.tgz#ff34942667a4e19a9f4a0996a76814daac364cf3"
@@ -6376,28 +6315,6 @@ aelf-sdk@3.2.45-beta.0:
     readable-stream "^3.6.0"
     scryptsy "^2.1.0"
     typescript "^4.9.5"
-    xmlhttprequest "^1.8.0"
-
-aelf-sdk@^3.2.40:
-  version "3.2.40"
-  resolved "https://registry.npmmirror.com/aelf-sdk/-/aelf-sdk-3.2.40.tgz#57064ffe31590f8c7d615224eb664b4c723c87bf"
-  integrity sha512-VhiwX9am5gS1mMnImdwaPuFo/sdABrX1gL1ojCM3ohKN/L4qE+egxGBYHEcVxHbCFo1t54pUB2/w7pA4QMJY2w==
-  dependencies:
-    "@aelfqueen/protobufjs" "^6.8.9"
-    "@babel/runtime" "^7.4.5"
-    assert "^2.0.0"
-    bignumber.js "^9.0.0"
-    bip39 "^3.0.2"
-    browserify-cipher "^1.0.1"
-    bs58 "^4.0.1"
-    buffer "^5.2.1"
-    crypto-js "^3.1.9-1"
-    elliptic "^6.4.1"
-    hdkey "^1.1.1"
-    js-sha256 "^0.9.0"
-    query-string "5.1.1"
-    randombytes "^2.1.0"
-    scryptsy "^2.1.0"
     xmlhttprequest "^1.8.0"
 
 aelf-sdk@^3.2.44:
@@ -9982,13 +9899,6 @@ expo-crypto@~12.6.0:
   dependencies:
     base64-js "^1.3.0"
 
-expo-device@^4.3.0:
-  version "4.3.0"
-  resolved "https://registry.yarnpkg.com/expo-device/-/expo-device-4.3.0.tgz#a25257febe8dd18378f556ef61b5ff73ee687a6b"
-  integrity sha512-NRmsEuZVxx0EvD/dHZdng87wDgN9msfyjqp5DbNIyzvMGhxOrGtE/iEivvMyOdQpVotHGK8rBRbFKJzOtYB5lg==
-  dependencies:
-    ua-parser-js "^0.7.19"
-
 expo-device@^5.0.0:
   version "5.6.0"
   resolved "https://registry.yarnpkg.com/expo-device/-/expo-device-5.6.0.tgz#3dc4cf0a36818a050c9a01a7b06f5877713a8f27"
@@ -10037,14 +9947,6 @@ expo-linking@~6.0.0:
     invariant "^2.2.4"
     qs "^6.11.0"
     url-parse "^1.5.9"
-
-expo-local-authentication@^12.3.0:
-  version "12.3.0"
-  resolved "https://registry.npmmirror.com/expo-local-authentication/-/expo-local-authentication-12.3.0.tgz#eb44fd6e58eca55cb3240ebdf54f603f7019b2d2"
-  integrity sha512-7rL2La2VneAXANTNtTV3kihbq+EYv0uRLL/8aZ/A+jPg2mHwMuwKHVaCLHuq1pR+MAV47JbiHeEh+Mx/t534dA==
-  dependencies:
-    "@expo/config-plugins" "~5.0.0"
-    invariant "^2.2.4"
 
 expo-local-authentication@^13.6.0:
   version "13.6.0"
@@ -17706,20 +17608,10 @@ typedarray@^0.0.6:
   resolved "https://registry.npmmirror.com/typescript/-/typescript-4.8.4.tgz#c464abca159669597be5f96b8943500b238e60e6"
   integrity sha512-QCh+85mCy+h0IGff8r5XWzOVSbBO+KfeYrMQh7NJ58QujwcE22u+NUSmUxqF+un70P9GXKxa2HCNiTTMJknyjQ==
 
-typescript@^4.9.4:
-  version "4.9.4"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.9.4.tgz#a2a3d2756c079abda241d75f149df9d561091e78"
-  integrity sha512-Uz+dTXYzxXXbsFpM86Wh3dKCxrQqUcVMxwU54orwlJjOpO3ao8L7j5lH+dWfTwgCwIuM9GQ2kvVotzYJMXTBZg==
-
 typescript@^4.9.5:
   version "4.9.5"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.9.5.tgz#095979f9bcc0d09da324d58d03ce8f8374cbe65a"
   integrity sha512-1FXk9E2Hm+QzZQ7z+McJiHL4NW1F2EzMu9Nq9i3zAaGqibafqYwCVU6WyWAuyQRRzOlxou8xZSyXLEN8oKj24g==
-
-ua-parser-js@^0.7.19:
-  version "0.7.32"
-  resolved "https://registry.yarnpkg.com/ua-parser-js/-/ua-parser-js-0.7.32.tgz#cd8c639cdca949e30fa68c44b7813ef13e36d211"
-  integrity sha512-f9BESNVhzlhEFf2CHMSj40NWOjYPl1YKYbrvIr/hFTDEmLq7SRbWvm7FcdcpCYT95zrOhC7gZSxjdnnTpBcwVw==
 
 ua-parser-js@^0.7.30:
   version "0.7.31"
@@ -18407,14 +18299,6 @@ xml-name-validator@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/xml-name-validator/-/xml-name-validator-4.0.0.tgz#79a006e2e63149a8600f15430f0a4725d1524835"
   integrity sha512-ICP2e+jsHvAj2E2lIHxa5tjXRlKDJo4IdvPvCXbXQGdzSfmSpNVyIKMvoZHjDY9DP0zV17iI85o90vRFXNccRw==
-
-xml2js@0.4.23:
-  version "0.4.23"
-  resolved "https://registry.npmmirror.com/xml2js/-/xml2js-0.4.23.tgz#a0c69516752421eb2ac758ee4d4ccf58843eac66"
-  integrity sha512-ySPiMjM0+pLDftHgXY4By0uswI3SPKLDw/i3UXbnO8M/p28zqexCUoPmQFrYD+/1BzhGJSs2i1ERWKJAtiLrug==
-  dependencies:
-    sax ">=0.6.0"
-    xmlbuilder "~11.0.0"
 
 xml2js@0.5.0:
   version "0.5.0"
