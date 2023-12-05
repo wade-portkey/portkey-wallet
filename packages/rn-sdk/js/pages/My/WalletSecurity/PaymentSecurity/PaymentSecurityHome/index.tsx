@@ -81,7 +81,7 @@ const ItemStyles = StyleSheet.create({
   },
 });
 
-const PaymentSecurityList: React.FC = () => {
+const PaymentSecurityList = ({ containerId }: { containerId: string }) => {
   const [isRefreshing, setIsRefreshing] = useState(false);
   const { list, isNext, next, init } = useTransferLimitList();
 
@@ -93,6 +93,7 @@ const PaymentSecurityList: React.FC = () => {
         CommonToast.success('edit success');
       }
     },
+    containerId,
     onShow: () => {
       setTimeout(() => {
         init();

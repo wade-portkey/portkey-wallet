@@ -130,11 +130,7 @@ export interface BaseContainerHooks {
   getEntryName: () => string;
   navigateTo: <T = { [x: string]: AcceptableValueType }>(
     entry: PortkeyEntries,
-    {
-      params = {} as any,
-      targetScene = 'none',
-      closeCurrentScreen = false,
-    }: {
+    option: {
       params?: T;
       targetScene?: string;
       closeCurrentScreen?: boolean;

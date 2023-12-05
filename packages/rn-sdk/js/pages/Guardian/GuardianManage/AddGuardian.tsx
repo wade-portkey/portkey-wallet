@@ -328,6 +328,7 @@ const AddGuardian: React.FC = () => {
                     accountIdentifier,
                     accountOriginalType,
                     deliveredGuardianInfo: JSON.stringify(thisGuardian),
+                    operationType: OperationTypeEnum.addGuardian,
                   });
                   if (!guardianVerifyResult?.verifiedData) {
                     throw new Error('guardian is not verified!');

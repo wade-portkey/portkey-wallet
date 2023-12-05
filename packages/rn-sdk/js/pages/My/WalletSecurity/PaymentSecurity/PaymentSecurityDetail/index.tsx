@@ -11,7 +11,6 @@ import { pTd } from 'utils/unit';
 import { divDecimalsToShow } from '@portkey-wallet/utils/converter';
 import { ITransferLimitItem } from 'model/security';
 import { callGetTransferLimitMethod } from 'model/contract/handler';
-import useEffectOnce from 'hooks/useEffectOnce';
 import Loading from 'components/Loading';
 import useBaseContainer from 'model/container/UseBaseContainer';
 import { PortkeyEntries } from 'config/entries';
@@ -19,13 +18,18 @@ import { PaymentSecurityEditProps } from '../PaymentSecurityEdit';
 
 export interface PaymentSecurityDetailProps {
   transferLimitDetail?: ITransferLimitItem;
+  containerId?: string;
 }
 
 const PaymentSecurityDetail: React.FC = (props: PaymentSecurityDetailProps) => {
-  const { transferLimitDetail } = props;
+  const { transferLimitDetail, containerId } = props;
   const [detail, setDetail] = useState<ITransferLimitItem | undefined>(transferLimitDetail);
   const { navigateTo } = useBaseContainer({
     entryName: PortkeyEntries.PAYMENT_SECURITY_DETAIL_ENTRY,
+    onShow: () => {
+      getDetail();
+    },
+    containerId,
   });
   const getDetail = useCallback(async () => {
     if (!transferLimitDetail) return;
@@ -49,10 +53,6 @@ const PaymentSecurityDetail: React.FC = (props: PaymentSecurityDetailProps) => {
     }
     Loading.hide();
   }, [transferLimitDetail]);
-
-  useEffectOnce(() => {
-    getDetail();
-  });
 
   const detailFormatted = useMemo(() => {
     if (!detail) return undefined;

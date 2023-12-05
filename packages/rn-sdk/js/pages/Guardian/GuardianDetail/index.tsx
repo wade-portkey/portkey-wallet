@@ -174,6 +174,7 @@ export default function GuardianDetail(config: { info: string }) {
               verifySessionId: req.verifierSessionId,
             } as Partial<GuardianConfig>),
           ),
+          operationType: OperationTypeEnum.setLoginAccount,
         });
         if (!guardianVerifyResult?.verifiedData) throw new Error('verify fail');
         await onSetLoginAccount();
