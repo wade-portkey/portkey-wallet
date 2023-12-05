@@ -1,5 +1,5 @@
 import { ZERO } from 'packages/constants/misc';
-import { fetchTokensPriceAsync } from '@portkey-wallet/store/store-ca/assets/slice';
+import { fetchTokensPriceAsync } from 'packages/types/store-ca/assets/slice';
 import { divDecimals, formatAmountShow } from 'packages/utils/converter';
 import { useMemo, useCallback, useEffect } from 'react';
 import { useAppCASelector, useAppCommonDispatch } from '../index';

@@ -14,8 +14,8 @@ import { useCaAddressInfoList, useWallet } from 'packages/hooks/hooks-ca/wallet'
 import TokenListItem from 'components/TokenListItem';
 import { FontStyles } from 'assets/theme/styles';
 import { useCaAddresses } from 'packages/hooks/hooks-ca/wallet';
-import { fetchAssetList } from '@portkey-wallet/store/store-ca/assets/api';
-import { IAssetItemType } from '@portkey-wallet/store/store-ca/assets/type';
+import { fetchAssetList } from 'packages/types/store-ca/assets/api';
+import { IAssetItemType } from 'packages/types/store-ca/assets/type';
 import navigationService from 'utils/navigationService';
 import { IToSendHomeParamsType } from 'packages/types/types-ca/routeParams';
 import { formatChainInfoToShow } from 'packages/utils';

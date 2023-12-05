@@ -5,7 +5,7 @@ jest.mock('packages/hooks/hooks-ca/network');
 import { renderHook } from '@testing-library/react';
 import { useFetchWalletCAAddress } from './wallet-result';
 import Socket from 'packages/socket/socket-did';
-import * as walletUtils from '@portkey-wallet/api/api-did/utils/wallet';
+import * as walletUtils from 'packages/api/api-did/utils/wallet';
 import { useCurrentApiUrl } from 'packages/hooks/hooks-ca/network';
 import { VerificationType } from 'packages/types/verifier';
 import { CaAccountRecoverResult, CaAccountRegisterResult } from 'packages/types/types-ca/wallet';

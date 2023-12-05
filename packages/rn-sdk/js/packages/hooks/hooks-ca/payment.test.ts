@@ -3,23 +3,23 @@ import { renderHookWithProvider } from '../../../test/utils/render';
 import { setupStore } from '../../../test/utils/setup';
 import { PaymentState } from '../../../test/data/paymentState';
 import { GuardianState } from '../../../test/data/guardianState';
-import { getAchToken } from '@portkey-wallet/api/api-did/payment/util';
+import { getAchToken } from 'packages/api/api-did/payment/util';
 import { useAppCommonDispatch } from '../index';
 import * as networkHook from './network';
 import { renderHook } from '@testing-library/react';
 import { ACH_MERCHANT_NAME } from 'packages/constants/constants-ca/payment';
 import { randomId } from 'packages/utils';
 import signalrSell from 'packages/socket/socket-sell';
-import { request } from '@portkey-wallet/api/api-did';
+import { request } from 'packages/api/api-did';
 
-jest.mock('@portkey-wallet/api/api-did/payment/util');
+jest.mock('packages/api/api-did/payment/util');
 jest.mock('../index');
 jest.mocked(useAppCommonDispatch).mockReturnValue(async (call: () => void) => {
   return call;
 });
 jest.mock('packages/utils');
 jest.mock('packages/socket/socket-sell');
-jest.mock('@portkey-wallet/api/api-did');
+jest.mock('packages/api/api-did');
 
 beforeAll(() => {
   jest.useFakeTimers();

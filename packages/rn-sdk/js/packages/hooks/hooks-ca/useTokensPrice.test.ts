@@ -4,7 +4,7 @@ import {
   useAmountInUsdShow,
   useIsTokenHasPrice,
 } from './useTokensPrice';
-import * as assetSlice from '@portkey-wallet/store/store-ca/assets/slice';
+import * as assetSlice from 'packages/types/store-ca/assets/slice';
 import * as baseHooks from '../index';
 import { renderHookWithProvider } from '../../../test/utils/render';
 import { setupStore } from '../../../test/utils/setup';

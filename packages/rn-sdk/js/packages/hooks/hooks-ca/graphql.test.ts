@@ -12,7 +12,7 @@ import { useCurrentWallet, useOriginChainId } from './wallet';
 jest.mock('./chainList');
 jest.mock('../index');
 jest.mock('./wallet');
-jest.mock('@portkey-wallet/store/store-ca/wallet/actions', () => {
+jest.mock('packages/types/store-ca/wallet/actions', () => {
   return {
     getChainListAsync: jest.fn(() => {
       return [];

@@ -1,5 +1,5 @@
-import { IDappStoreState } from '@portkey-wallet/store/store-ca/dapp/type';
-import { WalletState } from '@portkey-wallet/store/store-ca/wallet/type';
+import { IDappStoreState } from 'packages/types/store-ca/dapp/type';
+import { WalletState } from 'packages/types/store-ca/wallet/type';
 import { CAInfo } from 'packages/types/types-ca/wallet';
 import { Accounts, ChainId, ChainIds } from '@portkey/provider-types';
 import { addressFormat } from '../index';

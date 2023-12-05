@@ -1,7 +1,7 @@
 import { act } from '@testing-library/react';
-import { WalletType } from '@portkey-wallet/store/store-ca/wallet/type';
+import { WalletType } from 'packages/types/store-ca/wallet/type';
 import { ChainId, NetworkType } from 'packages/types';
-import { request } from '@portkey-wallet/api/api-did';
+import { request } from 'packages/api/api-did';
 import { useCurrentNetworkInfo } from './network';
 import {
   useCurrentWalletInfo,
@@ -26,7 +26,7 @@ import { ApolloClient, NormalizedCacheObject } from '@apollo/client';
 import { TestnetNetworkInfo } from '../../../test/data/networkState';
 
 jest.mock('./network');
-jest.mock('@portkey-wallet/api/api-did');
+jest.mock('packages/api/api-did');
 jest.mock('@portkey-wallet/graphql/contract/apollo');
 jest.mock('@portkey-wallet/graphql/contract/__generated__/hooks/caHolderManagerInfo');
 jest.mock('packages/utils/device');

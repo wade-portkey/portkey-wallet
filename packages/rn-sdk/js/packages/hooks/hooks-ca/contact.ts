@@ -1,5 +1,5 @@
-import { request } from '@portkey-wallet/api/api-did';
-import { CheckContactNameResponseType } from '@portkey-wallet/api/api-did/contact/type';
+import { request } from 'packages/api/api-did';
+import { CheckContactNameResponseType } from 'packages/api/api-did/contact/type';
 import { useCurrentNetworkInfo } from 'packages/hooks/hooks-ca/network';
 import {
   AddContactItemApiType,
@@ -16,7 +16,7 @@ import {
   fetchContactListAsync,
   readImputationAction,
   refreshContactMap,
-} from '@portkey-wallet/store/store-ca/contact/actions';
+} from 'packages/types/store-ca/contact/actions';
 import { useAppCASelector, useAppCommonDispatch, useAppCommonSelector } from '../index';
 import { getAelfAddress, isAelfAddress } from 'packages/utils/aelf';
 import { ContactsTab } from 'packages/constants/constants-ca/assets';

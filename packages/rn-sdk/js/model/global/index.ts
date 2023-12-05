@@ -22,7 +22,7 @@ import { randomId, sleep } from 'packages/utils';
 import { ThirdPartyAccountInfo } from 'model/verify/third-party-account';
 import { GlobalStorage } from 'service/storage';
 import { ChainId } from 'packages/types';
-import { UserGuardianItem } from '@portkey-wallet/store/store-ca/guardians/type';
+import { UserGuardianItem } from 'packages/types/store-ca/guardians/type';
 import { LoginType } from 'packages/types/types-ca/wallet';
 import { Verifier, getOrReadCachedVerifierData } from 'model/contract/handler';
 

@@ -1,6 +1,6 @@
-import { addDapp, updateDapp } from '@portkey-wallet/store/store-ca/dapp/actions';
-import { DappStoreItem } from '@portkey-wallet/store/store-ca/dapp/type';
-import { ChainItemType } from '@portkey-wallet/store/store-ca/wallet/type';
+import { addDapp, updateDapp } from 'packages/types/store-ca/dapp/actions';
+import { DappStoreItem } from 'packages/types/store-ca/dapp/type';
+import { ChainItemType } from 'packages/types/store-ca/wallet/type';
 import { DappManagerOptions, IDappManager, IDappManagerStore } from 'packages/types/types-ca/dapp';
 import { CACommonState } from 'packages/types/types-ca/store';
 import { CAInfo } from 'packages/types/types-ca/wallet';

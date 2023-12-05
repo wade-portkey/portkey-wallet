@@ -26,8 +26,8 @@ import { VerifierImage } from 'pages/Guardian/components/VerifierImage';
 import fonts from 'assets/theme/fonts';
 import PhoneInput from 'components/PhoneInput';
 import Touchable from 'components/Touchable';
-import { request } from '@portkey-wallet/api/api-did';
-import verificationApiConfig from '@portkey-wallet/api/api-did/verification';
+import { request } from 'packages/api/api-did';
+import verificationApiConfig from 'packages/api/api-did/verification';
 import {
   AppleAuthentication,
   useAppleAuthentication,

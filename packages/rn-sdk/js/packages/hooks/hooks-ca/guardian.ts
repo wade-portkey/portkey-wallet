@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { request } from '@portkey-wallet/api/api-did';
+import { request } from 'packages/api/api-did';
 import { checkHolderError } from 'packages/utils/check';
 import { handleErrorCode, handleErrorMessage } from 'packages/utils';
 import { useAppCASelector } from '.';

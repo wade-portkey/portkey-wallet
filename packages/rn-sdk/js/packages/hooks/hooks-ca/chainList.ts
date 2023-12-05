@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useCallback } from 'react';
 import { useAppCommonDispatch } from '../index';
-import { getChainListAsync } from '@portkey-wallet/store/store-ca/wallet/actions';
+import { getChainListAsync } from 'packages/types/store-ca/wallet/actions';
 import { useCurrentWallet, useOriginChainId, useWallet } from './wallet';
 import { ChainId } from 'packages/types';
 import { DEFAULT_TOKEN } from 'packages/constants/constants-ca/wallet';

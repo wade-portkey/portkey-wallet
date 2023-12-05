@@ -1,4 +1,4 @@
-import { request } from '@portkey-wallet/api/api-did';
+import { request } from 'packages/api/api-did';
 
 export const enum CUSTOM_EVENT_ENUM {
   LOGIN = 'login_custom',

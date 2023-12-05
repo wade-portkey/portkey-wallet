@@ -1,8 +1,8 @@
 import { CACommonState } from './store';
 import { Accounts, ChainIds, ChainsInfo, WalletName } from '@portkey/provider-types';
-import { DappStoreItem } from '@portkey-wallet/store/store-ca/dapp/type';
+import { DappStoreItem } from 'packages/types/store-ca/dapp/type';
 import { ChainId, NetworkType } from '../index';
-import { ChainItemType } from '@portkey-wallet/store/store-ca/wallet/type';
+import { ChainItemType } from 'packages/types/store-ca/wallet/type';
 import { CAInfo } from './wallet';
 import { SessionInfo } from '../session';
 export interface IDappManager<T = CACommonState> {

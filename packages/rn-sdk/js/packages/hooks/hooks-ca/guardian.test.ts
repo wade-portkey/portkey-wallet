@@ -1,10 +1,10 @@
 import { useGetRegisterInfo, useGuardiansInfo } from './guardian';
-import { request } from '@portkey-wallet/api/api-did';
+import { request } from 'packages/api/api-did';
 import { renderHook } from '@testing-library/react';
 import { renderHookWithProvider } from '../../../test/utils/render';
 import { setupStore } from '../../../test/utils/setup';
 
-jest.mock('@portkey-wallet/api/api-did');
+jest.mock('packages/api/api-did');
 
 describe('useGetRegisterInfo', () => {
   test('complete data, and return successfully', async () => {

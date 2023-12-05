@@ -1,7 +1,7 @@
 import { useAppCASelector } from './index';
 import { useMemo } from 'react';
 import { useAppCommonDispatch } from '../index';
-import { initCurrentChainRecentData } from '@portkey-wallet/store/store-ca/recent/slice';
+import { initCurrentChainRecentData } from 'packages/types/store-ca/recent/slice';
 
 export const initialRecentData = {
   isFetching: false,

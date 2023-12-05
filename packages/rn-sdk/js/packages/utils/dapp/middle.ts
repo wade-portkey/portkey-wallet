@@ -1,6 +1,6 @@
 import { CACommonState } from 'packages/types/types-ca/store';
-import { changeNetworkType, setCAInfo } from '@portkey-wallet/store/store-ca/wallet/actions';
-import { addDapp, removeDapp, resetDappList } from '@portkey-wallet/store/store-ca/dapp/actions';
+import { changeNetworkType, setCAInfo } from 'packages/types/store-ca/wallet/actions';
+import { addDapp, removeDapp, resetDappList } from 'packages/types/store-ca/dapp/actions';
 
 export interface IMiddlewareAPI<T = CACommonState> {
   getState(): Promise<T>;

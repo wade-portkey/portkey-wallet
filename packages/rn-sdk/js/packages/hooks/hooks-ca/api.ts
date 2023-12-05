@@ -3,7 +3,7 @@ import { useCurrentNetworkInfo } from './network';
 import { useCurrentWalletInfo, useOriginChainId } from './wallet';
 import aes from 'packages/utils/aes';
 import AElf from 'aelf-sdk';
-import { setRefreshTokenConfig } from '@portkey-wallet/api/api-did/utils';
+import { setRefreshTokenConfig } from 'packages/api/api-did/utils';
 
 export function useRefreshTokenConfig(pin?: string) {
   const { caHash, AESEncryptPrivateKey } = useCurrentWalletInfo();

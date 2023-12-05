@@ -1,6 +1,6 @@
 import { renderHookWithProvider } from '../../../test/utils/render';
 import { setupStore } from '../../../test/utils/setup';
-import { fetchAllTokenListAsync, getSymbolImagesAsync } from '@portkey-wallet/store/store-ca/tokenManagement/action';
+import { fetchAllTokenListAsync, getSymbolImagesAsync } from 'packages/types/store-ca/tokenManagement/action';
 import {
   useToken,
   useMarketTokenListInCurrentChain,
@@ -11,11 +11,11 @@ import {
 import { TokenManagementState } from '../../../test/data/tokenManagementState';
 import * as baseHooks from '../index';
 import * as networkHooks from './network';
-import { request } from '@portkey-wallet/api/api-did';
+import { request } from 'packages/api/api-did';
 import { TestnetNetworkInfo } from '../../../test/data/networkState';
 
-jest.mock('@portkey-wallet/store/store-ca/tokenManagement/action');
-jest.mock('@portkey-wallet/api/api-did');
+jest.mock('packages/types/store-ca/tokenManagement/action');
+jest.mock('packages/api/api-did');
 
 beforeEach(() => {
   jest.restoreAllMocks();

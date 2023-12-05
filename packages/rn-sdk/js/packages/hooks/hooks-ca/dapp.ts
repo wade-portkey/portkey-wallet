@@ -2,7 +2,7 @@ import { useMemo, useCallback } from 'react';
 import { useAppCASelector } from '.';
 import { useCurrentWalletInfo, useWallet } from './wallet';
 import { useAppCommonDispatch } from '../index';
-import { updateSessionInfo } from '@portkey-wallet/store/store-ca/dapp/actions';
+import { updateSessionInfo } from 'packages/types/store-ca/dapp/actions';
 import { useCurrentNetworkInfo } from './network';
 import { NetworkType } from 'packages/types';
 import { SessionExpiredPlan, SessionInfo } from 'packages/types/session';

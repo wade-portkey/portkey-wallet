@@ -18,7 +18,7 @@ import useBaseContainer from 'model/container/UseBaseContainer';
 import { PortkeyEntries } from 'config/entries';
 import { CheckVerifyCodeResultDTO } from 'network/dto/guardian';
 import GuardianItem from '../components/GuardianItem';
-import { UserGuardianItem } from '@portkey-wallet/store/store-ca/guardians/type';
+import { UserGuardianItem } from 'packages/types/store-ca/guardians/type';
 import CommonToast from 'components/CommonToast';
 import useEffectOnce from 'hooks/useEffectOnce';
 

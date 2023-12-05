@@ -18,7 +18,7 @@ import fonts from 'assets/theme/fonts';
 import GuardianAccountItem from '../components/GuardianAccountItem';
 import Divider from 'components/Divider';
 import { useAppleAuthentication, useGoogleAuthentication } from 'model/hooks/authentication';
-import { UserGuardianItem } from '@portkey-wallet/store/store-ca/guardians/type';
+import { UserGuardianItem } from 'packages/types/store-ca/guardians/type';
 import { GuardianConfig } from 'model/verify/guardian';
 import { PortkeyConfig } from 'global/constants';
 import useEffectOnce from 'hooks/useEffectOnce';

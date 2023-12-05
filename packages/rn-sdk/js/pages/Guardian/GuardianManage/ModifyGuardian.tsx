@@ -33,7 +33,7 @@ import { PortkeyEntries } from 'config/entries';
 import useBaseContainer from 'model/container/UseBaseContainer';
 import { handleGuardiansApproval } from 'model/verify/entry/hooks';
 import { GuardianVerifyType } from 'model/verify/social-recovery';
-import { UserGuardianItem } from '@portkey-wallet/store/store-ca/guardians/type';
+import { UserGuardianItem } from 'packages/types/store-ca/guardians/type';
 
 type thirdPartyInfoType = {
   id: string;

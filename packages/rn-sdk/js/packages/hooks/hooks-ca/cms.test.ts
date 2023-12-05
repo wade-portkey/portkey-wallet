@@ -1,5 +1,5 @@
 import * as networkHook from 'packages/hooks/hooks-ca/network'; //{ useCurrentNetworkInfo, useNetworkList }
-import * as cmsStore from '@portkey-wallet/store/store-ca/cms/actions'; //{ getDiscoverGroupAsync, getSocialMediaAsync }
+import * as cmsStore from 'packages/types/store-ca/cms/actions'; //{ getDiscoverGroupAsync, getSocialMediaAsync }
 import { useCMS, useSocialMediaList, useDiscoverGroupList, useBuyButton, useBuyButtonShow } from './cms';
 import * as indexHook from '../index';
 import { MainnetNetworkInfo, TestnetNetworkInfo } from '../../../test/data/networkState';

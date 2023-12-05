@@ -11,7 +11,7 @@ import {
   setChannelList,
   setHasNext,
   updateChannelAttribute,
-} from '@portkey-wallet/store/store-ca/im/actions';
+} from 'packages/types/store-ca/im/actions';
 import { useIMChannelListNetMapState, useIMHasNextNetMapState } from '.';
 
 export const useNextChannelList = () => {

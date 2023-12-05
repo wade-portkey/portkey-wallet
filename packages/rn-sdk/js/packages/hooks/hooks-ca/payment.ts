@@ -1,6 +1,6 @@
 import { useAppCASelector } from '.';
-import { getAchToken } from '@portkey-wallet/api/api-did/payment/util';
-import { AchTokenInfoType } from '@portkey-wallet/store/store-ca/payment/type';
+import { getAchToken } from 'packages/api/api-did/payment/util';
+import { AchTokenInfoType } from 'packages/types/store-ca/payment/type';
 import { useCallback, useRef } from 'react';
 import { useGuardiansInfo } from './guardian';
 import { LoginType } from 'packages/types/types-ca/wallet';
@@ -8,7 +8,7 @@ import { useIsMainnet } from './network';
 import { ACH_MERCHANT_NAME, SELL_SOCKET_TIMEOUT } from 'packages/constants/constants-ca/payment';
 import { RequestOrderTransferredType, SellTransferParams } from 'packages/types/types-ca/payment';
 import signalrSell from 'packages/socket/socket-sell';
-import { request } from '@portkey-wallet/api/api-did';
+import { request } from 'packages/api/api-did';
 import { randomId } from 'packages/utils';
 
 export const usePayment = () => useAppCASelector(state => state.payment);

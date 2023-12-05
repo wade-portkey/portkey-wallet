@@ -1,12 +1,12 @@
 import { useAppCASelector } from '.';
-import { getPhoneCountryCode, setLocalPhoneCountryCodeAction } from '@portkey-wallet/store/store-ca/misc/actions';
+import { getPhoneCountryCode, setLocalPhoneCountryCodeAction } from 'packages/types/store-ca/misc/actions';
 import { useEffect, useMemo, useCallback, useState, useRef } from 'react';
 import { useCurrentNetworkInfo, useNetworkList } from 'packages/hooks/hooks-ca/network';
 import { useAppCommonDispatch } from '../index';
 import { DefaultCountry, getCountryCodeIndex } from 'packages/constants/constants-ca/country';
 import { CountryItem } from 'packages/types/types-ca/country';
 import signalrDid from 'packages/socket/socket-did';
-import { request } from '@portkey-wallet/api/api-did';
+import { request } from 'packages/api/api-did';
 
 export const useMisc = () => useAppCASelector(state => state.misc);
 

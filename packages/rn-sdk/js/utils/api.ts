@@ -1,9 +1,9 @@
-import { request } from '@portkey-wallet/api/api-did';
+import { request } from 'packages/api/api-did';
 import {
   IntervalErrorMessage,
   SendVerificationConfig,
   Verification,
-} from '@portkey-wallet/api/api-did/verification/utils';
+} from 'packages/api/api-did/verification/utils';
 import { IStorage } from 'packages/types/storage';
 import { OperationTypeEnum } from 'packages/types/verifier';
 import { baseStore } from 'packages/utils/mobile/storage';

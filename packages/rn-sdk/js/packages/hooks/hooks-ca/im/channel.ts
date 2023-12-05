@@ -13,12 +13,12 @@ import {
   nextChannelMessageList,
   addChannelMessage,
   updateChannelMessageAttribute,
-} from '@portkey-wallet/store/store-ca/im/actions';
+} from 'packages/types/store-ca/im/actions';
 import { useChannelItemInfo, useIMChannelMessageListNetMapState, useRelationId } from '.';
 import s3Instance, { getThumbSize, UploadFileType } from 'packages/utils/s3';
 import { messageParser } from '@portkey-wallet/im/utils';
 import { useContactRelationIdMap } from '../contact';
-import { request } from '@portkey-wallet/api/api-did';
+import { request } from 'packages/api/api-did';
 
 export type ImageMessageFileType = {
   body: string | File;

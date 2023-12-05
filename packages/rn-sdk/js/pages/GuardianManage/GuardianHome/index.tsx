@@ -10,7 +10,7 @@ import Touchable from 'components/Touchable';
 import GStyles from 'assets/theme/GStyles';
 import { AccountOriginalType, getTempWalletConfig, RecoverWalletConfig } from 'model/verify/after-verify';
 import { NetworkController } from 'network/controller';
-import { UserGuardianItem } from '@portkey-wallet/store/store-ca/guardians/type';
+import { UserGuardianItem } from 'packages/types/store-ca/guardians/type';
 import { getBottomSpace } from 'utils/screen';
 import { GuardianInfo } from 'network/dto/guardian';
 import { guardianTypeStrToEnum, parseGuardianInfo } from 'model/global';

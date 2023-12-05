@@ -1,4 +1,4 @@
-import { request } from '@portkey-wallet/api/api-did';
+import { request } from 'packages/api/api-did';
 import { DEVICE_TYPE_INFO, DEVICE_INFO_VERSION } from 'packages/constants/constants-ca/device';
 import {
   DeviceInfoType,

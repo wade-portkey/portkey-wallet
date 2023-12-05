@@ -6,7 +6,7 @@ import * as Google from 'expo-auth-session/providers/google';
 import Config from 'react-native-config';
 import * as Application from 'expo-application';
 import { AccessTokenRequest, makeRedirectUri } from 'expo-auth-session';
-import { request } from '@portkey-wallet/api/api-did';
+import { request } from 'packages/api/api-did';
 import { ChainId } from 'packages/types';
 import { AppleUserInfo, getGoogleUserInfo, parseAppleIdentityToken } from 'packages/utils/authentication';
 import { LoginType } from 'packages/types/types-ca/wallet';

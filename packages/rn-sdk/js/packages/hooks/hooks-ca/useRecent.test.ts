@@ -1,11 +1,11 @@
 import { useRecent, initialRecentData } from './useRecent';
 import { useAppCommonDispatch } from '../index';
-import { initCurrentChainRecentData } from '@portkey-wallet/store/store-ca/recent/slice';
+import { initCurrentChainRecentData } from 'packages/types/store-ca/recent/slice';
 import { setupStore } from '../../../test/utils/setup';
 import { renderHookWithProvider } from '../../../test/utils/render';
 
 jest.mock('../index');
-jest.mock('@portkey-wallet/store/store-ca/recent/slice', () => {
+jest.mock('packages/types/store-ca/recent/slice', () => {
   return {
     initCurrentChainRecentData: jest.fn(),
   };

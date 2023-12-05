@@ -1,4 +1,4 @@
-import { getChainListAsync } from '@portkey-wallet/store/store-ca/wallet/actions';
+import { getChainListAsync } from 'packages/types/store-ca/wallet/actions';
 import { ChainItemType } from 'packages/types/chain';
 import { useEffect, useMemo } from 'react';
 import { useAppCommonSelector, useAppCommonDispatch } from '.';

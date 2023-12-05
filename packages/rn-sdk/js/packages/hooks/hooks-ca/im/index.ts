@@ -9,12 +9,12 @@ import {
   setRelationId,
   setRelationToken,
   updateChannelAttribute,
-} from '@portkey-wallet/store/store-ca/im/actions';
-import { UpdateChannelAttributeTypeEnum } from '@portkey-wallet/store/store-ca/im/type';
+} from 'packages/types/store-ca/im/actions';
+import { UpdateChannelAttributeTypeEnum } from 'packages/types/store-ca/im/type';
 import { useEditContact } from '../contact';
 import { EditContactItemApiType } from 'packages/types/types-ca/contact';
 import { useChannelList } from './channelList';
-import { fetchContactListAsync } from '@portkey-wallet/store/store-ca/contact/actions';
+import { fetchContactListAsync } from 'packages/types/store-ca/contact/actions';
 
 export const useIMState = () => useAppCASelector(state => state.im);
 export const useIMHasNextNetMapState = () => useAppCASelector(state => state.im.hasNextNetMap);

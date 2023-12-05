@@ -3,7 +3,7 @@ import { VerificationType } from 'packages/types/verifier';
 import { clearTimeoutInterval, setTimeoutInterval } from 'packages/utils/interval';
 
 import { ContractBasic } from 'packages/contracts/utils/ContractBasic';
-import { request } from '@portkey-wallet/api/api-did';
+import { request } from 'packages/api/api-did';
 import socket from 'packages/socket/socket-did';
 import { LoginQRData } from 'packages/types/types-ca/qrcode';
 

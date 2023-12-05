@@ -4,7 +4,7 @@ import * as networkHooks from './network';
 import * as walletHooks from './wallet';
 import aes from 'packages/utils/aes';
 import AElf from 'aelf-sdk';
-import * as utils from '@portkey-wallet/api/api-did/utils';
+import * as utils from 'packages/api/api-did/utils';
 import { TestnetNetworkInfo } from '../../../test/data/networkState';
 import { currentWallet } from '../../../test/data/chainInfo';
 

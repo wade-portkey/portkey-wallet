@@ -18,7 +18,7 @@ import ActionSheet from 'components/ActionSheet';
 import { GuardiansStatus, GuardiansStatusItem } from '../types';
 import { GuardianVerifyConfig, GuardianVerifyType } from 'model/verify/social-recovery';
 import { GuardianConfig } from 'model/verify/guardian';
-import { UserGuardianItem } from '@portkey-wallet/store/store-ca/guardians/type';
+import { UserGuardianItem } from 'packages/types/store-ca/guardians/type';
 import { GuardianApprovalPageResult } from 'pages/Entries/GuardianApproval';
 import Loading from 'components/Loading';
 import { verifyHumanMachine } from 'components/VerifyHumanMachine';

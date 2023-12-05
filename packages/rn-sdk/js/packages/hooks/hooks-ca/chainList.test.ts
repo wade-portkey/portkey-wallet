@@ -8,11 +8,11 @@ import {
 } from './chainList';
 import { renderHook } from '@testing-library/react';
 import { useAppCommonDispatch } from '../index';
-import { getChainListAsync } from '@portkey-wallet/store/store-ca/wallet/actions';
+import { getChainListAsync } from 'packages/types/store-ca/wallet/actions';
 import { useCurrentWallet, useOriginChainId, useWallet } from './wallet';
 import { currentWallet } from '../../../test/data/chainInfo';
 
-jest.mock('@portkey-wallet/store/store-ca/wallet/actions', () => {
+jest.mock('packages/types/store-ca/wallet/actions', () => {
   return {
     getChainListAsync: jest.fn(async () => {
       return { payload: [[{ chainId: 'AELF' }, { chainId: 'tDVV' }], { chainId: 'AELF' }] };

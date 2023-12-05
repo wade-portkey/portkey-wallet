@@ -1,6 +1,6 @@
 import { useAppEOASelector, useAppCommonDispatch } from '../index';
-import { addTokenInCurrentAccount, deleteTokenInCurrentAccount } from '@portkey-wallet/store/token/action';
-import { fetchTokenListAsync } from '@portkey-wallet/store/token/slice';
+import { addTokenInCurrentAccount, deleteTokenInCurrentAccount } from 'packages/types/token/action';
+import { fetchTokenListAsync } from 'packages/types/token/slice';
 import {
   TokenItemType,
   TokenState,

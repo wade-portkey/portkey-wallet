@@ -13,8 +13,8 @@ import {
   getBuyButtonAsync,
   getRememberMeBlackListAsync,
   getTabMenuAsync,
-} from '@portkey-wallet/store/store-ca/cms/actions';
-import { BuyButtonType } from '@portkey-wallet/store/store-ca/cms/types';
+} from 'packages/types/store-ca/cms/actions';
+import { BuyButtonType } from 'packages/types/store-ca/cms/types';
 import { getOrigin } from 'packages/utils/dapp/browser';
 import { checkSiteIsInBlackList } from 'packages/utils/session';
 import { ChatTabName } from 'packages/constants/constants-ca/chat';

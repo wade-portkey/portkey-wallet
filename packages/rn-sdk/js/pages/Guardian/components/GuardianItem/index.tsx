@@ -7,7 +7,7 @@ import React, { useCallback, useMemo } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { pTd } from 'utils/unit';
 import fonts from 'assets/theme/fonts';
-import { UserGuardianItem } from '@portkey-wallet/store/store-ca/guardians/type';
+import { UserGuardianItem } from 'packages/types/store-ca/guardians/type';
 import Loading from 'components/Loading';
 import CommonToast from 'components/CommonToast';
 import { sleep } from 'packages/utils';

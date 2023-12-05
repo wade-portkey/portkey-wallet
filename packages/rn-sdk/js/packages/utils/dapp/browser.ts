@@ -1,4 +1,4 @@
-import { DappStoreItem } from '@portkey-wallet/store/store-ca/dapp/type';
+import { DappStoreItem } from 'packages/types/store-ca/dapp/type';
 import isUrl from 'is-url';
 import Url from 'url-parse';
 

@@ -1,8 +1,8 @@
-import { request } from '@portkey-wallet/api/api-did';
+import { request } from 'packages/api/api-did';
 import { useAppCASelector, useAppCommonDispatch } from 'packages/hooks';
 import { useCurrentNetworkInfo } from 'packages/hooks/hooks-ca/network';
-import { cleanBookmarkList, addBookmarkList } from '@portkey-wallet/store/store-ca/discover/slice';
-import { IBookmarkItem } from '@portkey-wallet/store/store-ca/discover/type';
+import { cleanBookmarkList, addBookmarkList } from 'packages/types/store-ca/discover/slice';
+import { IBookmarkItem } from 'packages/types/store-ca/discover/type';
 import { DISCOVER_BOOKMARK_MAX_COUNT } from 'packages/constants/constants-ca/discover';
 import { useCallback, useMemo } from 'react';
 

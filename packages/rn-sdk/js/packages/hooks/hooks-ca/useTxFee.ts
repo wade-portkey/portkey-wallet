@@ -2,7 +2,7 @@ import { useAppCASelector } from './index';
 import { useEffect, useMemo } from 'react';
 import { useAppCommonDispatch } from '../index';
 import { useCurrentNetwork } from './network';
-import { fetchTxFeeAsync } from '@portkey-wallet/store/store-ca/txFee/actions';
+import { fetchTxFeeAsync } from 'packages/types/store-ca/txFee/actions';
 import { ChainId } from 'packages/types';
 import { InitialTxFee } from 'packages/constants/constants-ca/wallet';
 import { useCurrentChainList } from './chainList';
