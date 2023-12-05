@@ -47,7 +47,7 @@ export class UIManagerService implements IPortkeyUIManagerService {
     if (!(await this.checkIsUnlocked())) {
       throw new AccountError(1001);
     }
-    // openFromExternal(PortkeyEntries.PAYMENT_SECURITY_ENTRY);
+    this.openFromExternal(PortkeyEntries.PAYMENT_SECURITY_HOME_ENTRY);
   }
   unlockWallet(): Promise<UnlockedWallet | undefined> {
     return new Promise((resolve, reject) => {
