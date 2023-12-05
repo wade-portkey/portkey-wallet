@@ -1,4 +1,4 @@
-import { ChannelItem, Message } from '@portkey-wallet/im/types';
+import { ChannelItem, Message } from 'packages/im/types';
 import { NetworkType } from 'packages/types';
 
 export type ChannelList = {

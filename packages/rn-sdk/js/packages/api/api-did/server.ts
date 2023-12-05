@@ -5,8 +5,8 @@ import { BaseConfig, RequestConfig } from '../types';
 import { getRequestConfig, spliceUrl } from '../utils';
 import { isValidRefreshTokenConfig, queryAuthorization, RefreshTokenConfig } from './utils/index';
 import { sleep } from 'packages/utils';
-import im from '@portkey-wallet/im';
-import { IM_TOKEN_ERROR_ARRAY } from '@portkey-wallet/im/constant';
+import im from 'packages/im';
+import { IM_TOKEN_ERROR_ARRAY } from 'packages/im/constant';
 export class DidService extends ServiceInit {
   protected refreshTokenConfig?: RefreshTokenConfig;
   protected onLockApp?: (expired?: boolean) => void;

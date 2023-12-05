@@ -3,8 +3,8 @@ import { NFTCollectionItemShowType } from 'packages/types/types-ca/assets';
 import { fetchAssetList, fetchNFTSeriesList, fetchNFTList, fetchTokenList, fetchTokenPrices } from './api';
 import { AccountAssets, TokenItemShowType } from 'packages/types/types-ca/token';
 import { ChainId } from 'packages/types';
-import { NEW_CLIENT_MOCK_ELF_LIST, PAGE_SIZE_IN_NFT_ITEM } from '@portkey-wallet/constants/constants-ca/assets';
-import { ZERO } from '@portkey-wallet/constants/misc';
+import { NEW_CLIENT_MOCK_ELF_LIST, PAGE_SIZE_IN_NFT_ITEM } from 'packages/constants/constants-ca/assets';
+import { ZERO } from 'packages/constants/misc';
 import { formatAmountShow } from 'packages/utils/converter';
 
 // asset = token + nft

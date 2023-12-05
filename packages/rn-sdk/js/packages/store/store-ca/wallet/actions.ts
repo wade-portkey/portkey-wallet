@@ -1,5 +1,5 @@
 import { getCaHolder } from 'packages/api/api-did/es/utils';
-import { NetworkList } from '@portkey-wallet/constants/constants-ca/network';
+import { NetworkList } from 'packages/constants/constants-ca/network';
 import { ChainId, NetworkType } from 'packages/types';
 import { CAInfo, CAInfoType, ManagerInfo } from 'packages/types/types-ca/wallet';
 import { WalletInfoType } from 'packages/types/wallet';

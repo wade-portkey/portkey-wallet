@@ -1,5 +1,5 @@
 import { request } from 'packages/api/api-did';
-import { NFT_MIDDLE_SIZE } from '@portkey-wallet/constants/constants-ca/assets';
+import { NFT_MIDDLE_SIZE } from 'packages/constants/constants-ca/assets';
 import { ActivityItemType } from 'packages/types/types-ca/activity';
 import {
   IActivityApiParams,

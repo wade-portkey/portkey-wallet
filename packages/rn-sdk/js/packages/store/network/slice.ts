@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { DefaultChain } from '@portkey-wallet/constants/network';
+import { DefaultChain } from 'packages/constants/network';
 import { ChainItemType } from 'packages/types/chain';
 import { ChainActionError, ChainState } from './types';
 import { checkNetworkName } from './utils';

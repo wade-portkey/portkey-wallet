@@ -16,7 +16,7 @@ import {
 } from './actions';
 import { GuardiansState } from './type';
 import { LoginType } from 'packages/types/types-ca/wallet';
-import { GUARDIAN_EXPIRED_TIME } from '@portkey-wallet/constants/misc';
+import { GUARDIAN_EXPIRED_TIME } from 'packages/constants/misc';
 
 const initialState: GuardiansState = {};
 export const guardiansSlice = createSlice({

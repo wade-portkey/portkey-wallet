@@ -1,4 +1,4 @@
-import im, { utils, MessageType, Message, TriggerMessageEventActionEnum } from '@portkey-wallet/im';
+import im, { utils, MessageType, Message, TriggerMessageEventActionEnum } from 'packages/im';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { randomId } from 'packages/utils';
 import { MESSAGE_LIST_LIMIT, SEARCH_CHANNEL_LIMIT } from 'packages/constants/constants-ca/im';
@@ -16,7 +16,7 @@ import {
 } from 'packages/types/store-ca/im/actions';
 import { useChannelItemInfo, useIMChannelMessageListNetMapState, useRelationId } from '.';
 import s3Instance, { getThumbSize, UploadFileType } from 'packages/utils/s3';
-import { messageParser } from '@portkey-wallet/im/utils';
+import { messageParser } from 'packages/im/utils';
 import { useContactRelationIdMap } from '../contact';
 import { request } from 'packages/api/api-did';
 

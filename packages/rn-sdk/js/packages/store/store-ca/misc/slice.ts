@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { getPhoneCountryCode, setLocalPhoneCountryCodeAction } from './actions';
 import { MiscState } from './types';
-import { DefaultCountry } from '@portkey-wallet/constants/constants-ca/country';
+import { DefaultCountry } from 'packages/constants/constants-ca/country';
 
 const initialState: MiscState = {
   phoneCountryCodeListChainMap: {},

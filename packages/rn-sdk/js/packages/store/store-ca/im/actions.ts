@@ -1,6 +1,6 @@
 import { createAction } from '@reduxjs/toolkit';
 import { ChannelList, UpdateChannelAttributeTypeEnum } from './type';
-import { ChannelItem, Message } from '@portkey-wallet/im';
+import { ChannelItem, Message } from 'packages/im';
 import { NetworkType } from 'packages/types';
 
 export const setChannelList = createAction<{

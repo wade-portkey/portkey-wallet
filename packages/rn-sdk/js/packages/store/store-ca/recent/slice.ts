@@ -1,9 +1,9 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
 import { RecentContactItemType } from 'packages/types/types-ca/contact';
 import { fetchRecentTransactionUsers } from './api';
-import { initialRecentData } from '@portkey-wallet/hooks/hooks-ca/useRecent';
+import { initialRecentData } from 'packages/hooks/hooks-ca/useRecent';
 
-import { RECENT_LIST_PAGE_SIZE } from '@portkey-wallet/constants/constants-ca/recent';
+import { RECENT_LIST_PAGE_SIZE } from 'packages/constants/constants-ca/recent';
 import { ChainId } from 'packages/types';
 
 export interface RecentStateType {

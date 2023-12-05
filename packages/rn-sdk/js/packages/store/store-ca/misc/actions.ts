@@ -2,8 +2,8 @@ import { createAsyncThunk, createAction } from '@reduxjs/toolkit';
 import { request } from 'packages/api/api-did';
 import { NetworkType } from 'packages/types';
 import { MiscState } from './types';
-import { NetworkList } from '@portkey-wallet/constants/constants-ca/network';
-import { DefaultCountry } from '@portkey-wallet/constants/constants-ca/country';
+import { NetworkList } from 'packages/constants/constants-ca/network';
+import { DefaultCountry } from 'packages/constants/constants-ca/country';
 import { CountryItem } from 'packages/types/types-ca/country';
 
 export const getPhoneCountryCode = createAsyncThunk<

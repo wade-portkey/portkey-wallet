@@ -4,7 +4,7 @@ import { fetchActivities } from './api';
 import { getCurrentActivityMapKey } from 'packages/utils/activity';
 import { getActivityListAsync } from './action';
 import { configureStore } from '@reduxjs/toolkit';
-import { TransactionTypes } from '@portkey-wallet/constants/constants-ca/activity';
+import { TransactionTypes } from 'packages/constants/constants-ca/activity';
 
 const reducer = activitySlice.reducer;
 const mockInitState = {

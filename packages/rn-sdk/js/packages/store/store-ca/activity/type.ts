@@ -1,6 +1,6 @@
 import { ActivityItemType, the2ThFailedActivityItemType } from 'packages/types/types-ca/activity';
-import { TransactionTypes } from '@portkey-wallet/constants/constants-ca/activity';
-import { ICaAddressInfoListItemType } from '@portkey-wallet/hooks/hooks-ca/wallet';
+import { TransactionTypes } from 'packages/constants/constants-ca/activity';
+import { ICaAddressInfoListItemType } from 'packages/hooks/hooks-ca/wallet';
 import { ChainId } from 'packages/types';
 
 export type ActivityStateType = {

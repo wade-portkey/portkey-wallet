@@ -18,7 +18,7 @@ import {
   getAccountByPrivateKey,
   getNextBIP44Path,
 } from 'packages/utils/wallet';
-import { DefaultBIP44Path } from '@portkey-wallet/constants/wallet';
+import { DefaultBIP44Path } from 'packages/constants/wallet';
 import { WalletError, WalletState } from './type';
 import {
   changeEncryptStr,

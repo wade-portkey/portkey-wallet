@@ -1,4 +1,4 @@
-import { NEW_CLIENT_MOCK_ELF_LIST } from '@portkey-wallet/constants/constants-ca/assets';
+import { NEW_CLIENT_MOCK_ELF_LIST } from 'packages/constants/constants-ca/assets';
 import { ChainId } from 'packages/types';
 import {
   assetsSlice,

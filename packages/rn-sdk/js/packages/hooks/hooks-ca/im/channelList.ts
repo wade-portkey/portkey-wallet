@@ -1,4 +1,4 @@
-import im, { ChannelStatusEnum, ChannelTypeEnum } from '@portkey-wallet/im';
+import im, { ChannelStatusEnum, ChannelTypeEnum } from 'packages/im';
 import { useCallback, useMemo, useRef } from 'react';
 
 import { CHANNEL_LIST_LIMIT } from 'packages/constants/constants-ca/im';
