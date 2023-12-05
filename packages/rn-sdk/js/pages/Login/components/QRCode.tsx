@@ -19,7 +19,7 @@ import useBaseContainer from 'model/container/UseBaseContainer';
 import { SetPinPageResult, SetPinPageProps } from 'pages/Pin/SetPin';
 import { PortkeyEntries } from 'config/entries';
 import { AfterVerifiedConfig } from 'model/verify/after-verify';
-import { WalletInfo } from 'network/dto/wallet';
+import { ManagerInfo } from 'network/dto/wallet';
 import { isIOS } from '@portkey-wallet/utils/mobile/device';
 
 // When wallet does not exist, DEFAULT_WALLET is populated as the default data
@@ -38,7 +38,7 @@ const DEFAULT_WALLET: LoginQRData = {
 };
 
 export default function QRCode({ setLoginType }: { setLoginType: (type: PageLoginType) => void }) {
-  const [newWallet, setNewWallet] = useState<WalletInfo>();
+  const [newWallet, setNewWallet] = useState<ManagerInfo>();
   const networkContext = useContext(NetworkContext);
   const currentNetwork = useMemo(() => {
     return networkContext.currentNetwork?.networkType ?? 'MAIN';
@@ -46,6 +46,32 @@ export default function QRCode({ setLoginType }: { setLoginType: (type: PageLogi
   const { navigateForResult, onFinish } = useBaseContainer({});
   const caWalletInfo = useIntervalQueryCAInfoByAddress(currentNetwork, newWallet?.address);
   usePreventScreenCapture('LoginQRCode');
+
+  const dealWithSetPin = useCallback(
+    (afterVerifiedData: AfterVerifiedConfig | string) => {
+      navigateForResult<SetPinPageResult, SetPinPageProps>(
+        PortkeyEntries.SET_PIN,
+        {
+          params: {
+            deliveredSetPinInfo:
+              typeof afterVerifiedData === 'string' ? afterVerifiedData : JSON.stringify(afterVerifiedData),
+          },
+        },
+        res => {
+          const { data } = res;
+          if (data && data.finished) {
+            onFinish({
+              status: 'success',
+              data: {
+                finished: true,
+              },
+            });
+          }
+        },
+      );
+    },
+    [navigateForResult, onFinish],
+  );
 
   useEffect(() => {
     const { caInfo, originChainId } = caWalletInfo || {};
@@ -63,31 +89,7 @@ export default function QRCode({ setLoginType }: { setLoginType: (type: PageLogi
         },
       });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [caWalletInfo, newWallet]);
-
-  const dealWithSetPin = (afterVerifiedData: AfterVerifiedConfig | string) => {
-    navigateForResult<SetPinPageResult, SetPinPageProps>(
-      PortkeyEntries.SET_PIN,
-      {
-        params: {
-          deliveredSetPinInfo:
-            typeof afterVerifiedData === 'string' ? afterVerifiedData : JSON.stringify(afterVerifiedData),
-        },
-      },
-      res => {
-        const { data } = res;
-        if (data && data.finished) {
-          onFinish({
-            status: 'success',
-            data: {
-              finished: true,
-            },
-          });
-        }
-      },
-    );
-  };
+  }, [caWalletInfo, dealWithSetPin, newWallet]);
 
   const generateWallet = useCallback(() => {
     try {

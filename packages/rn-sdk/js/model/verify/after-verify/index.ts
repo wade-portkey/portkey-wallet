@@ -9,7 +9,7 @@ import {
   ProgressStatus,
   RecoveryProgressDTO,
   RegisterProgressDTO,
-  WalletInfo,
+  ManagerInfo,
   isRecoveryStatusItem,
 } from 'network/dto/wallet';
 import { GlobalStorage, TempStorage } from 'service/storage';
@@ -32,7 +32,7 @@ export interface NormalVerifyPathInfo {
 }
 
 export interface ScanQRCodePathInfo {
-  walletInfo: WalletInfo;
+  walletInfo: ManagerInfo;
   originalChainId: string;
   accountIdentifier?: string;
   caHash: string;
@@ -254,4 +254,4 @@ export type RecoverWalletConfig = {
     caHash: string;
     caAddress: string;
   };
-} & WalletInfo;
+} & ManagerInfo;

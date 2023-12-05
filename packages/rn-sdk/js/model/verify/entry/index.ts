@@ -96,7 +96,7 @@ export const useVerifyEntry = (verifyConfig: VerifyConfig): VerifyEntryHooks => 
         throw new Error('login failed.');
       }
       const accountIdentifier = thirdPartyAccountInfo.accountIdentifier;
-      const accountCheckResult = await attemptAccountCheck(accountIdentifier as string);
+      const accountCheckResult = await attemptAccountCheck(accountIdentifier);
       const thirdPartyInfo: ThirdPartyAccountInfo = isAppleLogin(thirdPartyAccountInfo)
         ? { apple: thirdPartyAccountInfo }
         : { google: thirdPartyAccountInfo };
@@ -173,7 +173,7 @@ export const useVerifyEntry = (verifyConfig: VerifyConfig): VerifyEntryHooks => 
     }
     const loadingKey = Loading.show();
     try {
-      const accountCheckResult = await attemptAccountCheck(accountIdentifier as string);
+      const accountCheckResult = await attemptAccountCheck(accountIdentifier);
       if (accountCheckResult.hasRegistered) {
         dealWithSignIn(accountIdentifier, thirdPartyAccountInfo);
       } else {
@@ -206,7 +206,7 @@ export const useVerifyEntry = (verifyConfig: VerifyConfig): VerifyEntryHooks => 
     }
     const loadingKey = Loading.show();
     try {
-      const accountCheckResult = await attemptAccountCheck(accountIdentifier as string);
+      const accountCheckResult = await attemptAccountCheck(accountIdentifier);
       if (accountCheckResult.hasRegistered) {
         ActionSheet.alert({
           title: 'Continue with this account?',
