@@ -22,6 +22,11 @@ export interface Verifier {
   imageUrl: string;
 }
 
+/**
+ * get a basic contract instance, which can be used to call contract method.
+ * @param allowTemplateWallet if true, a fake wallet will be used to create the contract instance, which can only be used on VIEW method.
+ * @returns Contract Basic
+ */
 export const getContractInstance = async (allowTemplateWallet = false): Promise<ContractBasic> => {
   let privateKey = '';
   if (allowTemplateWallet && !(await isWalletUnlocked())) {
@@ -38,6 +43,16 @@ export const getContractInstance = async (allowTemplateWallet = false): Promise<
   });
 };
 
+/**
+ * ```Manager``` is a wallet instance that you can create with ```AElfWeb3SDK.createNewWallet()```.
+ *
+ * there're three basic ways to add a ```Manager``` wallet to the CA holder info:
+ * 1. the ```AddManager``` CA method
+ * 2. the ```SocialRecovery``` CA method, known as ```Sign In```
+ * 3. the ```Register``` CA method, known as ```Sign Up```
+ *
+ * after being added, the ```Manager``` info can be used to call any CA method below and control the ca holder info's tokens.
+ */
 export const callAddManagerMethod = async (extraData: string, managerAddress: string) => {
   if (!(await isWalletUnlocked())) throw new Error('wallet is not unlocked');
   const contractInstance = await getContractInstance();
@@ -54,6 +69,9 @@ export const callAddManagerMethod = async (extraData: string, managerAddress: st
   });
 };
 
+/**
+ * get the verifier data on the chain, which can be used to display ```Guardian```'s icon and name.
+ */
 export const getOrReadCachedVerifierData = async (): Promise<{
   data?: {
     verifierServers: {
@@ -76,6 +94,11 @@ export const getOrReadCachedVerifierData = async (): Promise<{
   });
 };
 
+/**
+ * add a ```Guardian``` to the CA holder info on target chain.
+ * @param particularGuardian the ```Guardian``` info that is about to be added.
+ * @param guardianList the ```Guardian``` list that has been approved.
+ */
 export const callAddGuardianMethod = async (
   particularGuardian: GuardianConfig,
   guardianList: Array<ApprovedGuardianInfo>,
@@ -92,6 +115,12 @@ export const callAddGuardianMethod = async (
   });
 };
 
+/**
+ * get the CA holder info on target chain.
+ * @param caHash the CA holder info's identifier hash
+ * @param caContractAddress the CA contract address on the target chain
+ * @param peerUrl the target chain's peer url
+ */
 export const callGetHolderInfoMethod = async (caHash: string, caContractAddress: string, peerUrl: string) => {
   const { privateKey } = (await getUnlockedWallet()) || {};
   const contractInstance = await getContractBasic({
@@ -104,6 +133,11 @@ export const callGetHolderInfoMethod = async (caHash: string, caContractAddress:
   });
 };
 
+/**
+ * remove a ```Guardian``` from the CA holder info on target chain.
+ * @param particularGuardian the ```Guardian``` info that is about to be removed.
+ * @param guardianList the ```Guardian``` list that has been approved.
+ */
 export const callRemoveGuardianMethod = async (
   particularGuardian: GuardianConfig,
   guardianList: Array<ApprovedGuardianInfo>,
@@ -120,6 +154,12 @@ export const callRemoveGuardianMethod = async (
   });
 };
 
+/**
+ * update a ```Guardian``` from the CA holder info on target chain.
+ * @param thisGuardian the ```Guardian``` info that is about to be updated.
+ * @param pastGuardian the ```Guardian``` info that has been approved.
+ * @param guardianList the ```Guardian``` list that has been approved. Warning: the ```pastGuardian``` should not be included in this list, while the ```thisGuardian``` should be included.
+ */
 export const callEditGuardianMethod = async (
   thisGuardian: GuardianConfig,
   pastGuardian: GuardianConfig,
@@ -138,6 +178,11 @@ export const callEditGuardianMethod = async (
   });
 };
 
+/**
+ * make a login ``` Guardian``` to be a normal ```Guardian```.
+ * login ```Guardian``` is a special ```Guardian``` that can provide a trace to the target CA holder info
+ * @see {@link attemptAccountCheck} for more details.
+ */
 export const callCancelLoginGuardianMethod = async (particularGuardian: GuardianConfig) => {
   const contractInstance = await getContractInstance();
   const { guardianIdentifier } = handleVerificationDoc(particularGuardian.verifiedDoc?.verificationDoc ?? '');
@@ -155,8 +200,12 @@ export const callCancelLoginGuardianMethod = async (particularGuardian: Guardian
   });
 };
 
+/**
+ * transfer limit is a security feature that can be used to limit the token transfer amount in a certain period.
+ * @param chainId the target chain's chain id, like ```AELF```
+ * @param symbol the token symbol, like ```ELF```
+ */
 export const callGetTransferLimitMethod = async (chainId: string, symbol: string) => {
-  console.log('callGetTransferLimitMethod: ', chainId, symbol);
   const contractInstance = await getContractInstanceOnParticularChain(chainId);
   const {
     caInfo: { caHash },
@@ -167,6 +216,11 @@ export const callGetTransferLimitMethod = async (chainId: string, symbol: string
   });
 };
 
+/**
+ * update the transfer limit on target chain.
+ * @param guardianList the ```Guardian``` list that has been approved.
+ * @param transferLimitDetail the transfer limit detail that is about to be updated.
+ */
 export const callEditPaymentSecurityMethod = async (
   guardianList: Array<ApprovedGuardianInfo>,
   transferLimitDetail: ITransferLimitItem,
@@ -186,6 +240,10 @@ export const callEditPaymentSecurityMethod = async (
   });
 };
 
+/**
+ * get the contract instance on target chain.
+ * @param chainId the target chain's chain id, like ```AELF```
+ */
 const getContractInstanceOnParticularChain = async (chainId: string) => {
   const { privateKey } = (await getUnlockedWallet()) || {};
   const { caContractAddress, endPoint } = await findParticularNetworkByChainId(chainId);
@@ -205,6 +263,10 @@ const findParticularNetworkByChainId = async (chainId: string): Promise<AElfChai
   return item;
 };
 
+/**
+ * Faucet contract can provide several tokens for test, it is only available on any test environment, not mainnet.
+ * @param amount the token amount you want to get, default is 100
+ */
 export const callFaucetMethod = async (amount = 100) => {
   const contractInstance = await getContractInstance();
   if ((await getCurrentNetworkType()) === 'MAIN') {
