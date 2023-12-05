@@ -13,8 +13,8 @@ import { extraDataListDecode } from 'packages/utils/device';
 import { ChainId } from 'packages/types';
 import { DefaultChainId } from 'packages/constants/constants-ca/network';
 
-import { getCAHolderManagerInfo } from '@portkey-wallet/graphql/contract/queries';
-import { ManagerInfo, Maybe } from '@portkey-wallet/graphql/contract/__generated__/types';
+import { getCAHolderManagerInfo } from 'packages/graphql/contract/queries';
+import { ManagerInfo, Maybe } from 'packages/graphql/contract/__generated__/types';
 
 export interface CurrentWalletType extends WalletInfoType, CAInfoType {
   caHash?: string;

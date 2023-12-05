@@ -7,7 +7,7 @@ import {
   getTabMenu,
   getBuyButton,
   getRememberMeBlackListSites,
-} from '@portkey-wallet/graphql/cms/queries';
+} from 'packages/graphql/cms/queries';
 
 export const getSocialMediaAsync = createAsyncThunk<Required<Pick<CMSState, 'socialMediaListNetMap'>>, NetworkType>(
   'cms/getSocialMediaAsync',

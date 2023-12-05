@@ -17,9 +17,9 @@ import {
 } from './wallet';
 import { setupStore } from '../../../test/utils/setup';
 import { renderHookWithProvider } from '../../../test/utils/render';
-import { getApolloClient } from '@portkey-wallet/graphql/contract/apollo';
+import { getApolloClient } from 'packages/graphql/contract/apollo';
 import { extraDataListDecode } from 'packages/utils/device';
-import { useCaHolderManagerInfoQuery } from '@portkey-wallet/graphql/contract/__generated__/hooks/caHolderManagerInfo';
+import { useCaHolderManagerInfoQuery } from 'packages/graphql/contract/__generated__/hooks/caHolderManagerInfo';
 import { DefaultChainId } from 'packages/constants/constants-ca/network';
 import { ExtraDataDecodeType } from 'packages/types/types-ca/device';
 import { ApolloClient, NormalizedCacheObject } from '@apollo/client';
@@ -27,8 +27,8 @@ import { TestnetNetworkInfo } from '../../../test/data/networkState';
 
 jest.mock('./network');
 jest.mock('packages/api/api-did');
-jest.mock('@portkey-wallet/graphql/contract/apollo');
-jest.mock('@portkey-wallet/graphql/contract/__generated__/hooks/caHolderManagerInfo');
+jest.mock('packages/graphql/contract/apollo');
+jest.mock('packages/graphql/contract/__generated__/hooks/caHolderManagerInfo');
 jest.mock('packages/utils/device');
 const COMPLETE_WALLET_STATE = {
   wallet: {
