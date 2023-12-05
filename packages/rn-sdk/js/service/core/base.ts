@@ -12,10 +12,10 @@ export interface IPortkeyAccountService {
 }
 
 export interface IPortkeyUIManagerService {
-  login(): Promise<UnlockedWallet | undefined>;
+  login(): Promise<UnlockedWallet | null>;
   openAssetsDashboard(): Promise<void>;
   guardiansManager(): Promise<void>;
   settingsManager(): Promise<void>;
   paymentSecurityManager(): Promise<void>;
-  unlockWallet(): Promise<UnlockedWallet | undefined>;
+  unlockWallet(): Promise<UnlockedWallet | null>;
 }
