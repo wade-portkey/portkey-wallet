@@ -16,7 +16,7 @@ import { WalletState } from './types';
 
 @injectable()
 export class PortkeyAccountService implements IPortkeyAccountService {
-  async callCaContractMethod(props: CallCaMethodProps): Promise<BaseMethodResult> {
+  async callCaContractMethod(props: CallCaMethodProps) {
     const { contractMethodName: methodName, params, isViewMethod } = props;
     if (!(await isWalletUnlocked())) {
       throw new AccountError(1001);
@@ -47,7 +47,7 @@ export class PortkeyAccountService implements IPortkeyAccountService {
     }
   }
 
-  async getWalletInfo(): Promise<UnlockedWallet> {
+  async getWalletInfo() {
     if (!(await isWalletUnlocked())) {
       throw new AccountError(1001);
     }
@@ -55,7 +55,7 @@ export class PortkeyAccountService implements IPortkeyAccountService {
     return wallet;
   }
 
-  async getWalletState(): Promise<WalletState> {
+  async getWalletState() {
     const exist = await isWalletExists();
     const unlocked = await isWalletUnlocked();
     return exist ? (unlocked ? WalletState.UNLOCKED : WalletState.LOCKED) : WalletState.NONE;

@@ -14,11 +14,11 @@ export class UIManagerService implements IPortkeyUIManagerService {
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   @inject(TYPES.AccountModule) private _accountService: IPortkeyAccountService;
-  login(): Promise<UnlockedWallet | undefined> {
+  login(): Promise<UnlockedWallet | null> {
     return new Promise((resolve, reject) => {
       this.openResultFromExternal<LoginResult>(PortkeyEntries.SIGN_IN_ENTRY, res => {
         if (res) {
-          resolve(res?.data?.walletInfo);
+          resolve(res?.data?.walletInfo ?? null);
         } else {
           reject(new AccountError(1004));
         }
@@ -49,11 +49,11 @@ export class UIManagerService implements IPortkeyUIManagerService {
     }
     this.openFromExternal(PortkeyEntries.PAYMENT_SECURITY_HOME_ENTRY);
   }
-  unlockWallet(): Promise<UnlockedWallet | undefined> {
+  unlockWallet(): Promise<UnlockedWallet | null> {
     return new Promise((resolve, reject) => {
       this.openResultFromExternal<CheckPinResult>(PortkeyEntries.CHECK_PIN, res => {
         if (res) {
-          resolve(res.data?.walletInfo);
+          resolve(res.data?.walletInfo ?? null);
         } else {
           reject(new AccountError(1003));
         }

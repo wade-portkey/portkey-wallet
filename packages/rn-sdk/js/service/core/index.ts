@@ -13,37 +13,37 @@ class Portkey implements IPortkeyAccountService, IPortkeyUIManagerService {
     this._portkeyAccountService = myContainer.get<IPortkeyAccountService>(TYPES.AccountModule);
     this._portkeyUIManagerService = myContainer.get<IPortkeyUIManagerService>(TYPES.UIManagerModule);
   }
-  login(): Promise<UnlockedWallet | undefined> {
+  async login() {
     return this._portkeyUIManagerService.login();
   }
-  async openAssetsDashboard(): Promise<void> {
+  async openAssetsDashboard() {
     this._portkeyUIManagerService.openAssetsDashboard();
   }
-  async guardiansManager(): Promise<void> {
+  async guardiansManager() {
     this._portkeyUIManagerService.guardiansManager();
   }
-  async settingsManager(): Promise<void> {
+  async settingsManager() {
     this._portkeyUIManagerService.settingsManager();
   }
-  async paymentSecurityManager(): Promise<void> {
+  async paymentSecurityManager() {
     this._portkeyUIManagerService.paymentSecurityManager();
   }
-  unlockWallet(): Promise<UnlockedWallet | undefined> {
+  async unlockWallet() {
     return this._portkeyUIManagerService.unlockWallet();
   }
-  callCaContractMethod(props: CallCaMethodProps): Promise<BaseMethodResult> {
+  async callCaContractMethod(props: CallCaMethodProps) {
     return this._portkeyAccountService.callCaContractMethod(props);
   }
-  async getWalletInfo(): Promise<UnlockedWallet> {
+  async getWalletInfo() {
     return this._portkeyAccountService.getWalletInfo();
   }
-  async getWalletState(): Promise<WalletState> {
+  async getWalletState() {
     return this._portkeyAccountService.getWalletState();
   }
-  async lockWallet(): Promise<boolean> {
+  async lockWallet() {
     return this._portkeyAccountService.lockWallet();
   }
-  async exitWallet(): Promise<boolean> {
+  async exitWallet() {
     return this._portkeyAccountService.exitWallet();
   }
 }
