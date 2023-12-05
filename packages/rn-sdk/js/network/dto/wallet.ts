@@ -35,13 +35,13 @@ export type RequestRegisterOrSocialRecoveryResultDTO = {
   sessionId: string;
 };
 
-export type WalletInfo = {
+export type ManagerInfo = {
   privateKey: string;
   publicKey: string;
   address: string;
 };
 
-export type RequestProcessResult = RequestRegisterOrSocialRecoveryResultDTO & WalletInfo;
+export type RequestProcessResult = RequestRegisterOrSocialRecoveryResultDTO & ManagerInfo;
 
 export interface CheckRegisterOrRecoveryProcessParams {
   filter: string;

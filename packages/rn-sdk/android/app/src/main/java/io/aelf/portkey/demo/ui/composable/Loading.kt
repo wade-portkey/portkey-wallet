@@ -111,7 +111,7 @@ internal object Loading {
         )
     }
 
-    internal fun showLoading(text: String = DEFAULT_LOADING_TEXT, duration: Long = 10 * 1000L) {
+    internal fun showLoading(text: String = DEFAULT_LOADING_TEXT, duration: Long = 30 * 1000L) {
         loadingState.isShow = true
         loadingState.loadingText = text
         if (duration > 0L) {

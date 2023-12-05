@@ -32,7 +32,7 @@ export default function Biometric() {
         console.log(error); // reject
       });
   }, []);
-  const { navigationTo } = useBaseContainer({ entryName: PortkeyEntries.BIOMETRIC_SWITCH_ENTRY });
+  const { navigateTo: navigationTo } = useBaseContainer({ entryName: PortkeyEntries.BIOMETRIC_SWITCH_ENTRY });
   const { t } = useLanguage();
   const openBiometrics = useCallback(async (pin: string) => {
     // when use bio to verify, the pin value is 'use-bio'

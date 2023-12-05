@@ -19,7 +19,7 @@ export default function CheckPin(props: CheckPinProps) {
   const [errorMessage, setErrorMessage] = useState<string>();
   const pinRef = useRef<DigitInputInterface>();
   const [canUseBiometrics, setCanUseBiometrics] = useState(false);
-  const { onFinish, navigationTo } = useBaseContainer({
+  const { onFinish, navigateTo: navigationTo } = useBaseContainer({
     entryName: PortkeyEntries.CHECK_PIN,
   });
 

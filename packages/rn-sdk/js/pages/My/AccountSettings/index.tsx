@@ -16,7 +16,7 @@ import { PortkeyModulesEntity } from 'service/native-modules';
 import CommonToast from 'components/CommonToast';
 export default function AccountSettings() {
   const biometricsReady = useBiometricsReady();
-  const { navigationTo, onFinish } = useBaseContainer({
+  const { navigateTo: navigationTo, onFinish } = useBaseContainer({
     entryName: PortkeyEntries.ACCOUNT_SETTING_ENTRY,
     onNewIntent: (params: { modified: boolean }) => {
       console.log('params.modified', params.modified);
