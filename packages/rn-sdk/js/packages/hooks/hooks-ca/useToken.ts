@@ -1,6 +1,6 @@
 import { useAppCASelector, useAppCommonDispatch } from '../index';
 import { fetchAllTokenListAsync, getSymbolImagesAsync } from '@portkey-wallet/store/store-ca/tokenManagement/action';
-import { TokenState, TokenItemShowType } from '@portkey-wallet/types/types-ca/token';
+import { TokenState, TokenItemShowType } from 'packages/types/types-ca/token';
 import { useMemo, useCallback, useEffect } from 'react';
 import { useCurrentNetworkInfo } from './network';
 import { request } from '@portkey-wallet/api/api-did';

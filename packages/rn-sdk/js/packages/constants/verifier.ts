@@ -1,4 +1,4 @@
-import { LoginType } from '@portkey-wallet/types/types-ca/wallet';
+import { LoginType } from 'packages/types/types-ca/wallet';
 import { LoginGuardianTypeIcon } from 'constants/misc';
 
 export const LOGIN_TYPE_LABEL_MAP: { [key in LoginType]: string } = {

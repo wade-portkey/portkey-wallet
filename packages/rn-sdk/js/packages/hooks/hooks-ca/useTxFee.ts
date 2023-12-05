@@ -3,8 +3,8 @@ import { useEffect, useMemo } from 'react';
 import { useAppCommonDispatch } from '../index';
 import { useCurrentNetwork } from './network';
 import { fetchTxFeeAsync } from '@portkey-wallet/store/store-ca/txFee/actions';
-import { ChainId } from '@portkey-wallet/types';
-import { InitialTxFee } from '@portkey-wallet/constants/constants-ca/wallet';
+import { ChainId } from 'packages/types';
+import { InitialTxFee } from 'packages/constants/constants-ca/wallet';
 import { useCurrentChainList } from './chainList';
 
 export const useFetchTxFee = () => {

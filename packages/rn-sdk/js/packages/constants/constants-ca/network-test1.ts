@@ -1,4 +1,4 @@
-import { NetworkItem } from '@portkey-wallet/types/types-ca/network';
+import { NetworkItem } from 'packages/types/types-ca/network';
 import { BackEndNetWorkMap } from './backend-network';
 
 export const NetworkList: NetworkItem[] = [BackEndNetWorkMap['back-end-test2'], BackEndNetWorkMap['back-end-test1']];

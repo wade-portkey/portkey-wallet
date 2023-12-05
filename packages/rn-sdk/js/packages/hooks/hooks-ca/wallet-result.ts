@@ -1,10 +1,10 @@
-import Socket from '@portkey-wallet/socket/socket-did';
+import Socket from 'packages/socket/socket-did';
 import { useCurrentApiUrl } from 'packages/hooks/hooks-ca/network';
-import { CreateWalletResult } from '@portkey-wallet/types/types-ca/wallet';
+import { CreateWalletResult } from 'packages/types/types-ca/wallet';
 import { requestCreateWallet } from '@portkey-wallet/api/api-did/utils/wallet';
-import { sleep } from '@portkey-wallet/utils';
+import { sleep } from 'packages/utils';
 import { useCallback } from 'react';
-import { VerificationType } from '@portkey-wallet/types/verifier';
+import { VerificationType } from 'packages/types/verifier';
 
 const getCreateResultBySocket = ({
   type,

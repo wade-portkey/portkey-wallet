@@ -18,7 +18,7 @@ import { fetchAssetList } from '@portkey-wallet/store/store-ca/assets/api';
 import { IAssetItemType } from '@portkey-wallet/store/store-ca/assets/type';
 import navigationService from 'utils/navigationService';
 import { IToSendHomeParamsType } from 'packages/types/types-ca/routeParams';
-import { formatChainInfoToShow } from '@portkey-wallet/utils';
+import { formatChainInfoToShow } from 'packages/utils';
 import { ChainId } from 'packages/types';
 import { useGStyles } from 'assets/theme/useGStyles';
 import myEvents from 'utils/deviceEvent';

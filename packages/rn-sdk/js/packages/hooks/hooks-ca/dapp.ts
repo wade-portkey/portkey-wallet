@@ -4,10 +4,10 @@ import { useCurrentWalletInfo, useWallet } from './wallet';
 import { useAppCommonDispatch } from '../index';
 import { updateSessionInfo } from '@portkey-wallet/store/store-ca/dapp/actions';
 import { useCurrentNetworkInfo } from './network';
-import { NetworkType } from '@portkey-wallet/types';
-import { SessionExpiredPlan, SessionInfo } from '@portkey-wallet/types/session';
-import { formatExpiredTime, signSession } from '@portkey-wallet/utils/session';
-import { AElfWallet } from '@portkey-wallet/types/aelf';
+import { NetworkType } from 'packages/types';
+import { SessionExpiredPlan, SessionInfo } from 'packages/types/session';
+import { formatExpiredTime, signSession } from 'packages/utils/session';
+import { AElfWallet } from 'packages/types/aelf';
 export const useDapp = () => useAppCASelector(state => state.dapp);
 export const useDiscover = () => useAppCASelector(state => state.discover);
 

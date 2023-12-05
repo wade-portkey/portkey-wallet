@@ -6,7 +6,7 @@ import {
   TokenState,
   AddedTokenData,
   TokenListShowInMarketType,
-} from '@portkey-wallet/types/types-eoa/token';
+} from 'packages/types/types-eoa/token';
 import { useMemo } from 'react';
 
 export interface TokenFuncsType {

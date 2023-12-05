@@ -2,7 +2,7 @@ import { useRefreshTokenConfig } from './api';
 import { renderHook, act } from '@testing-library/react';
 import * as networkHooks from './network';
 import * as walletHooks from './wallet';
-import aes from '@portkey-wallet/utils/aes';
+import aes from 'packages/utils/aes';
 import AElf from 'aelf-sdk';
 import * as utils from '@portkey-wallet/api/api-did/utils';
 import { TestnetNetworkInfo } from '../../../test/data/networkState';

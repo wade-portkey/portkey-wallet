@@ -1,14 +1,14 @@
-jest.mock('@portkey-wallet/socket/socket-did');
-jest.mock('@portkey-wallet/utils');
+jest.mock('packages/socket/socket-did');
+jest.mock('packages/utils');
 jest.mock('packages/hooks/hooks-ca/network');
 
 import { renderHook } from '@testing-library/react';
 import { useFetchWalletCAAddress } from './wallet-result';
-import Socket from '@portkey-wallet/socket/socket-did';
+import Socket from 'packages/socket/socket-did';
 import * as walletUtils from '@portkey-wallet/api/api-did/utils/wallet';
 import { useCurrentApiUrl } from 'packages/hooks/hooks-ca/network';
-import { VerificationType } from '@portkey-wallet/types/verifier';
-import { CaAccountRecoverResult, CaAccountRegisterResult } from '@portkey-wallet/types/types-ca/wallet';
+import { VerificationType } from 'packages/types/verifier';
+import { CaAccountRecoverResult, CaAccountRegisterResult } from 'packages/types/types-ca/wallet';
 
 describe('useFetchWalletCAAddress', () => {
   test('register success', async () => {

@@ -1,7 +1,7 @@
 import im, { ChannelStatusEnum, ChannelTypeEnum, IMStatusEnum, SocketMessage } from '@portkey-wallet/im';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useAppCASelector } from '../.';
-import { AElfWallet } from '@portkey-wallet/types/aelf';
+import { AElfWallet } from 'packages/types/aelf';
 import { useCurrentNetworkInfo } from '../network';
 import { useAppCommonDispatch } from '../../index';
 import {
@@ -12,7 +12,7 @@ import {
 } from '@portkey-wallet/store/store-ca/im/actions';
 import { UpdateChannelAttributeTypeEnum } from '@portkey-wallet/store/store-ca/im/type';
 import { useEditContact } from '../contact';
-import { EditContactItemApiType } from '@portkey-wallet/types/types-ca/contact';
+import { EditContactItemApiType } from 'packages/types/types-ca/contact';
 import { useChannelList } from './channelList';
 import { fetchContactListAsync } from '@portkey-wallet/store/store-ca/contact/actions';
 

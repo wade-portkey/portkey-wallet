@@ -20,7 +20,7 @@ import { SetPinPageResult, SetPinPageProps } from 'pages/Pin/SetPin';
 import { PortkeyEntries } from 'config/entries';
 import { AfterVerifiedConfig } from 'model/verify/after-verify';
 import { WalletInfo } from 'network/dto/wallet';
-import { isIOS } from '@portkey-wallet/utils/mobile/device';
+import { isIOS } from 'packages/utils/mobile/device';
 
 // When wallet does not exist, DEFAULT_WALLET is populated as the default data
 const DEFAULT_WALLET: LoginQRData = {

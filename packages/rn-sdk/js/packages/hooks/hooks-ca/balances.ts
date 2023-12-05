@@ -1,8 +1,8 @@
 import { useCurrentNetwork } from '../network';
 import { useMemo } from 'react';
 import { useAppCASelector } from '.';
-import { divDecimals, formatAmountShow } from '@portkey-wallet/utils/converter';
-import { ZERO } from '@portkey-wallet/constants/misc';
+import { divDecimals, formatAmountShow } from 'packages/utils/converter';
+import { ZERO } from 'packages/constants/misc';
 
 export function useAllBalances() {
   return useAppCASelector(state => state.tokenBalance.balances);

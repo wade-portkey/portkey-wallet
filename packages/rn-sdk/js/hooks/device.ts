@@ -8,7 +8,7 @@ import { ButtonRowProps } from 'components/ButtonRow';
 import { Linking, Platform } from 'react-native';
 import OverlayModal from 'components/OverlayModal';
 import ActionSheet from 'components/ActionSheet';
-import { compareVersions } from '@portkey-wallet/utils/device';
+import { compareVersions } from 'packages/utils/device';
 import * as Device from 'expo-device';
 
 export const useGetDeviceInfo = () => {

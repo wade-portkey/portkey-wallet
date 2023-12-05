@@ -9,7 +9,7 @@ import { pageStyles } from './style';
 import ListItem from 'components/ListItem';
 import { useLanguage } from 'i18n/hooks';
 import CommonInput from 'components/CommonInput';
-import { checkEmail } from '@portkey-wallet/utils/check';
+import { checkEmail } from 'packages/utils/check';
 import { LOGIN_TYPE_LIST } from 'constants/misc';
 import { PRIVATE_GUARDIAN_ACCOUNT } from 'packages/constants/constants-ca/guardian';
 import { OperationTypeEnum, VerificationType, VerifierItem } from 'packages/types/verifier';
@@ -55,7 +55,7 @@ import { handleGuardiansApproval, handlePhoneOrEmailGuardianVerify } from 'model
 import { AccountOriginalType } from 'model/verify/after-verify';
 import { GuardianVerifyType, VerifiedGuardianInfo } from 'model/verify/social-recovery';
 import { Buffer } from 'buffer';
-import { sleep } from '@portkey-wallet/utils';
+import { sleep } from 'packages/utils';
 
 if (!global.Buffer) {
   global.Buffer = Buffer;

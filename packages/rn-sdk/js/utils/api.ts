@@ -6,7 +6,7 @@ import {
 } from '@portkey-wallet/api/api-did/verification/utils';
 import { IStorage } from 'packages/types/storage';
 import { OperationTypeEnum } from 'packages/types/verifier';
-import { baseStore } from '@portkey-wallet/utils/mobile/storage';
+import { baseStore } from 'packages/utils/mobile/storage';
 import { verifyHumanMachine } from 'components/VerifyHumanMachine';
 
 class MobileVerification extends Verification {

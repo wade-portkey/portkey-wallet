@@ -4,7 +4,7 @@ import { DigitInputInterface } from 'components/DigitInput';
 import { PIN_SIZE } from 'packages/constants/misc';
 import PinContainer from 'components/PinContainer';
 import { StyleSheet } from 'react-native';
-import { PinErrorMessage } from '@portkey-wallet/utils/wallet/types';
+import { PinErrorMessage } from 'packages/utils/wallet/types';
 import useBaseContainer from 'model/container/UseBaseContainer';
 import { PortkeyEntries } from 'config/entries';
 import { checkPin, getUseBiometric, unLockTempWallet } from 'model/verify/after-verify';

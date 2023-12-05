@@ -3,9 +3,9 @@ import { getPhoneCountryCode, setLocalPhoneCountryCodeAction } from '@portkey-wa
 import { useEffect, useMemo, useCallback, useState, useRef } from 'react';
 import { useCurrentNetworkInfo, useNetworkList } from 'packages/hooks/hooks-ca/network';
 import { useAppCommonDispatch } from '../index';
-import { DefaultCountry, getCountryCodeIndex } from '@portkey-wallet/constants/constants-ca/country';
-import { CountryItem } from '@portkey-wallet/types/types-ca/country';
-import signalrDid from '@portkey-wallet/socket/socket-did';
+import { DefaultCountry, getCountryCodeIndex } from 'packages/constants/constants-ca/country';
+import { CountryItem } from 'packages/types/types-ca/country';
+import signalrDid from 'packages/socket/socket-did';
 import { request } from '@portkey-wallet/api/api-did';
 
 export const useMisc = () => useAppCASelector(state => state.misc);

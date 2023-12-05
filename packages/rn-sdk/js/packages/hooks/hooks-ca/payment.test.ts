@@ -7,9 +7,9 @@ import { getAchToken } from '@portkey-wallet/api/api-did/payment/util';
 import { useAppCommonDispatch } from '../index';
 import * as networkHook from './network';
 import { renderHook } from '@testing-library/react';
-import { ACH_MERCHANT_NAME } from '@portkey-wallet/constants/constants-ca/payment';
-import { randomId } from '@portkey-wallet/utils';
-import signalrSell from '@portkey-wallet/socket/socket-sell';
+import { ACH_MERCHANT_NAME } from 'packages/constants/constants-ca/payment';
+import { randomId } from 'packages/utils';
+import signalrSell from 'packages/socket/socket-sell';
 import { request } from '@portkey-wallet/api/api-did';
 
 jest.mock('@portkey-wallet/api/api-did/payment/util');
@@ -17,8 +17,8 @@ jest.mock('../index');
 jest.mocked(useAppCommonDispatch).mockReturnValue(async (call: () => void) => {
   return call;
 });
-jest.mock('@portkey-wallet/utils');
-jest.mock('@portkey-wallet/socket/socket-sell');
+jest.mock('packages/utils');
+jest.mock('packages/socket/socket-sell');
 jest.mock('@portkey-wallet/api/api-did');
 
 beforeAll(() => {

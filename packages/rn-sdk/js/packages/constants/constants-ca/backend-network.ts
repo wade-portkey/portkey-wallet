@@ -1,4 +1,4 @@
-import { NetworkItem } from '@portkey-wallet/types/types-ca/network';
+import { NetworkItem } from 'packages/types/types-ca/network';
 
 type BackEndNetworkType = 'back-end-test1' | 'back-end-testnet' | 'back-end-mainnet';
 

@@ -1,6 +1,6 @@
-import { CountryItem } from '@portkey-wallet/types/types-ca/payment';
+import { CountryItem } from 'packages/types/types-ca/payment';
 import countryCodeMapJson from './countryCodeList.json';
-import { ChainId } from '@portkey-wallet/types';
+import { ChainId } from 'packages/types';
 
 const getCountryCodeMap = (list: CountryItem[]) => {
   const country: { [key: string]: CountryItem } = {};

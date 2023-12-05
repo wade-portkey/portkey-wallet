@@ -15,7 +15,7 @@ import { LoginQRData } from 'packages/types/types-ca/qrcode';
 import useBaseContainer from 'model/container/UseBaseContainer';
 import { PortkeyEntries } from 'config/entries';
 import { NetworkController } from 'network/controller';
-import { extraDataEncode, getDeviceInfoFromQR } from '@portkey-wallet/utils/device';
+import { extraDataEncode, getDeviceInfoFromQR } from 'packages/utils/device';
 import { PortkeyConfig } from 'global/constants';
 import { callAddManagerMethod } from 'model/contract/handler';
 

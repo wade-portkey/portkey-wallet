@@ -1,4 +1,4 @@
-import { SessionExpiredPlan } from '@portkey-wallet/types/session';
+import { SessionExpiredPlan } from 'packages/types/session';
 import { MethodsBase } from '@portkey/provider-types';
 
 export const SessionKeyMap = {

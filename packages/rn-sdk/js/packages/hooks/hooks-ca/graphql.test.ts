@@ -3,7 +3,7 @@ import { useIntervalQueryCAInfoByAddress, useCheckManager } from './graphql';
 import { useCurrentChain } from './chainList';
 import { useAppCommonDispatch } from '../index';
 import * as graphqlQuery from '@portkey-wallet/graphql/index';
-import { ChainId, NetworkType } from '@portkey-wallet/types';
+import { ChainId, NetworkType } from 'packages/types';
 import { CaHolderWithGuardian } from '@portkey-wallet/graphql/contract/types';
 import * as chainListHooks from './chainList';
 import { AELFChainInfo, currentWallet } from '../../../test/data/chainInfo';

@@ -15,10 +15,10 @@ import {
   getTabMenuAsync,
 } from '@portkey-wallet/store/store-ca/cms/actions';
 import { BuyButtonType } from '@portkey-wallet/store/store-ca/cms/types';
-import { getOrigin } from '@portkey-wallet/utils/dapp/browser';
-import { checkSiteIsInBlackList } from '@portkey-wallet/utils/session';
-import { ChatTabName } from '@portkey-wallet/constants/constants-ca/chat';
-import { VersionDeviceType } from '@portkey-wallet/types/types-ca/device';
+import { getOrigin } from 'packages/utils/dapp/browser';
+import { checkSiteIsInBlackList } from 'packages/utils/session';
+import { ChatTabName } from 'packages/constants/constants-ca/chat';
+import { VersionDeviceType } from 'packages/types/types-ca/device';
 
 export const useCMS = () => useAppCASelector(state => state.cms);
 

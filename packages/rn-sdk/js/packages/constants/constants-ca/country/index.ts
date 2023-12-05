@@ -1,4 +1,4 @@
-import { CountryItem } from '@portkey-wallet/types/types-ca/country';
+import { CountryItem } from 'packages/types/types-ca/country';
 import countryCodeMap from './countryCodeList.json';
 
 export const getCountryCodeJSON = (countryCode: CountryItem[]) => {

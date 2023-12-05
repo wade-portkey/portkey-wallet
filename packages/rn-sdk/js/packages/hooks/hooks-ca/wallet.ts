@@ -1,17 +1,17 @@
 import { useAppCASelector } from '.';
 import { useMemo, useCallback, useState, useEffect } from 'react';
-import { WalletInfoType } from '@portkey-wallet/types/wallet';
-import { CAInfoType } from '@portkey-wallet/types/types-ca/wallet';
+import { WalletInfoType } from 'packages/types/wallet';
+import { CAInfoType } from 'packages/types/types-ca/wallet';
 import { WalletState } from '@portkey-wallet/store/store-ca/wallet/type';
 import { useCurrentNetworkInfo } from './network';
 import { useCurrentChain, useCurrentChainList } from './chainList';
 import { request } from '@portkey-wallet/api/api-did';
 import { useAppCommonDispatch } from '../index';
 import { setWalletNameAction } from '@portkey-wallet/store/store-ca/wallet/actions';
-import { DeviceInfoType } from '@portkey-wallet/types/types-ca/device';
-import { extraDataListDecode } from '@portkey-wallet/utils/device';
-import { ChainId } from '@portkey-wallet/types';
-import { DefaultChainId } from '@portkey-wallet/constants/constants-ca/network';
+import { DeviceInfoType } from 'packages/types/types-ca/device';
+import { extraDataListDecode } from 'packages/utils/device';
+import { ChainId } from 'packages/types';
+import { DefaultChainId } from 'packages/constants/constants-ca/network';
 
 import { getCAHolderManagerInfo } from '@portkey-wallet/graphql/contract/queries';
 import { ManagerInfo, Maybe } from '@portkey-wallet/graphql/contract/__generated__/types';

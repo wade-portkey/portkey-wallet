@@ -4,13 +4,13 @@ import { setupStore } from '../../../test/utils/setup';
 import { useMisc, useSetLocalPhoneCountryCode, usePhoneCountryCode, useIsScanQRCode } from './misc';
 import { useAppCommonDispatch } from '../index';
 import { renderHook } from '@testing-library/react';
-import { CountryItem } from '@portkey-wallet/types/types-ca/country';
+import { CountryItem } from 'packages/types/types-ca/country';
 import * as MiscActions from '@portkey-wallet/store/store-ca/misc/actions';
 import * as indexHook from '.';
 import * as networkHook from 'packages/hooks/hooks-ca/network';
 import { MainnetNetworkInfo, TestnetNetworkInfo } from '../../../test/data/networkState';
-import { DefaultCountry } from '@portkey-wallet/constants/constants-ca/country';
-import signalrDid from '@portkey-wallet/socket/socket-did';
+import { DefaultCountry } from 'packages/constants/constants-ca/country';
+import signalrDid from 'packages/socket/socket-did';
 
 jest.mock('../index', () => ({
   useAppCommonDispatch: jest.fn(),

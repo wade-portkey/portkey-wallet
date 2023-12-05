@@ -3,7 +3,7 @@ import { useAppCASelector, useAppCommonDispatch } from 'packages/hooks';
 import { useCurrentNetworkInfo } from 'packages/hooks/hooks-ca/network';
 import { cleanBookmarkList, addBookmarkList } from '@portkey-wallet/store/store-ca/discover/slice';
 import { IBookmarkItem } from '@portkey-wallet/store/store-ca/discover/type';
-import { DISCOVER_BOOKMARK_MAX_COUNT } from '@portkey-wallet/constants/constants-ca/discover';
+import { DISCOVER_BOOKMARK_MAX_COUNT } from 'packages/constants/constants-ca/discover';
 import { useCallback, useMemo } from 'react';
 
 export const useBookmarkList = () => {

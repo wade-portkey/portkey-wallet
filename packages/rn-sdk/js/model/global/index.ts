@@ -18,7 +18,7 @@ import {
   RequestSocialRecoveryParams,
 } from 'network/dto/wallet';
 import { CountryCodeDataDTO } from 'types/wallet';
-import { randomId, sleep } from '@portkey-wallet/utils';
+import { randomId, sleep } from 'packages/utils';
 import { ThirdPartyAccountInfo } from 'model/verify/third-party-account';
 import { GlobalStorage } from 'service/storage';
 import { ChainId } from 'packages/types';

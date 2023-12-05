@@ -1,4 +1,4 @@
-import { handleErrorMessage } from '@portkey-wallet/utils';
+import { handleErrorMessage } from 'packages/utils';
 import ActionSheet from 'components/ActionSheet';
 import Loading from 'components/Loading';
 import { verifyHumanMachine } from 'components/VerifyHumanMachine';

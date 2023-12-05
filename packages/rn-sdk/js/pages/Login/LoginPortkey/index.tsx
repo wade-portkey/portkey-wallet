@@ -3,7 +3,7 @@ import PageContainer, { SafeAreaColorMapKeyUnit } from 'components/PageContainer
 import { TextM, TextXXXL } from 'components/CommonText';
 import { pTd } from 'utils/unit';
 import { ImageBackground, View } from 'react-native';
-import { isIOS } from '@portkey-wallet/utils/mobile/device';
+import { isIOS } from 'packages/utils/mobile/device';
 import { useLanguage } from 'i18n/hooks';
 import Svg from 'components/Svg';
 import { BGStyles, FontStyles } from 'assets/theme/styles';

@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import { request } from '@portkey-wallet/api/api-did';
-import { checkHolderError } from '@portkey-wallet/utils/check';
-import { handleErrorCode, handleErrorMessage } from '@portkey-wallet/utils';
+import { checkHolderError } from 'packages/utils/check';
+import { handleErrorCode, handleErrorMessage } from 'packages/utils';
 import { useAppCASelector } from '.';
 
 export const useGetRegisterInfo = () => {

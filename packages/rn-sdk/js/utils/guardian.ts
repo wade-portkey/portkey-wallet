@@ -2,7 +2,7 @@ import { UserGuardianItem } from '@portkey-wallet/store/store-ca/guardians/type'
 import { VerifierInfo } from 'packages/types/verifier';
 import { GuardiansStatus } from 'pages/Guardian/types';
 import { ContractBasic } from 'packages/contracts/utils/ContractBasic';
-import { handleVerificationDoc } from '@portkey-wallet/utils/guardian';
+import { handleVerificationDoc } from 'packages/utils/guardian';
 
 const getGuardiansApproved = (userGuardiansList: UserGuardianItem[], guardiansStatus: GuardiansStatus) => {
   return userGuardiansList

@@ -9,7 +9,7 @@ import CommonButton from 'components/CommonButton';
 import { BorderStyles, FontStyles } from 'assets/theme/styles';
 import Svg from 'components/Svg';
 import { pTd } from 'utils/unit';
-import { getApprovalCount } from '@portkey-wallet/utils/guardian';
+import { getApprovalCount } from 'packages/utils/guardian';
 import { ApprovalType, OperationTypeEnum, VerifyStatus } from 'packages/types/verifier';
 import GuardianItem from '../components/GuardianItem';
 import useEffectOnce from 'hooks/useEffectOnce';

@@ -12,7 +12,7 @@ import { useAccountTokenBalanceList, useSearchTokenList, useTokenPrices, useNftC
 import CustomHeader from 'components/CustomHeader';
 import useBaseContainer from 'model/container/UseBaseContainer';
 import AssetsContext, { AssetsContextType } from 'global/context/assets/AssetsContext';
-import { divDecimals } from '@portkey-wallet/utils/converter';
+import { divDecimals } from 'packages/utils/converter';
 import { ZERO } from 'packages/constants/misc';
 
 const AssetsHome: React.FC = () => {

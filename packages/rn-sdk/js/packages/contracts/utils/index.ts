@@ -1,8 +1,8 @@
-import { AElfInterface, AElfWallet } from '@portkey-wallet/types/aelf';
+import { AElfInterface, AElfWallet } from 'packages/types/aelf';
 import { ContractBasic } from './ContractBasic';
 import AElf from 'aelf-sdk';
-import { getAelfInstance } from '@portkey-wallet/utils/aelf';
-import { sleep } from '@portkey-wallet/utils';
+import { getAelfInstance } from 'packages/utils/aelf';
+import { sleep } from 'packages/utils';
 
 const methodsMap: { [key: string]: any } = {};
 

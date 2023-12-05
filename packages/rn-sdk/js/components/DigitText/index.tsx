@@ -4,7 +4,7 @@ import { defaultColors } from 'assets/theme';
 import { TextS } from 'components/CommonText';
 import React, { useCallback, memo, useMemo } from 'react';
 import { StyleSheet, View, StyleProp, ViewStyle } from 'react-native';
-import { screenWidth } from '@portkey-wallet/utils/mobile/device';
+import { screenWidth } from 'packages/utils/mobile/device';
 
 export type DigitTextProps = {
   maxLength?: number;

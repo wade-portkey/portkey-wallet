@@ -1,13 +1,13 @@
 import useInterval from '../useInterval';
 import { contractQueries } from '@portkey-wallet/graphql/index';
-import { ChainId, NetworkType } from '@portkey-wallet/types';
+import { ChainId, NetworkType } from 'packages/types';
 import { useState, useMemo, useEffect } from 'react';
-import { CAInfoType, ManagerInfo } from '@portkey-wallet/types/types-ca/wallet';
-import { VerificationType } from '@portkey-wallet/types/verifier';
+import { CAInfoType, ManagerInfo } from 'packages/types/types-ca/wallet';
+import { VerificationType } from 'packages/types/verifier';
 import { useCurrentWallet, useOriginChainId } from './wallet';
 import useLockCallback from '../useLockCallback';
 import { useGetChainInfo } from './chainList';
-import { DefaultChainId } from '@portkey-wallet/constants/constants-ca/network';
+import { DefaultChainId } from 'packages/constants/constants-ca/network';
 import { useLatestRef } from '../index';
 export type CAWalletInfo = {
   caInfo: CAInfoType;

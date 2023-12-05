@@ -7,7 +7,7 @@ import {
   ContactIndexType,
   ContactItemType,
   EditContactItemApiType,
-} from '@portkey-wallet/types/types-ca/contact';
+} from 'packages/types/types-ca/contact';
 import { useCallback, useEffect, useMemo } from 'react';
 import {
   addContactAction,
@@ -18,8 +18,8 @@ import {
   refreshContactMap,
 } from '@portkey-wallet/store/store-ca/contact/actions';
 import { useAppCASelector, useAppCommonDispatch, useAppCommonSelector } from '../index';
-import { getAelfAddress, isAelfAddress } from '@portkey-wallet/utils/aelf';
-import { ContactsTab } from '@portkey-wallet/constants/constants-ca/assets';
+import { getAelfAddress, isAelfAddress } from 'packages/utils/aelf';
+import { ContactsTab } from 'packages/constants/constants-ca/assets';
 import { useAddStranger } from './im';
 import { useWallet } from './wallet';
 

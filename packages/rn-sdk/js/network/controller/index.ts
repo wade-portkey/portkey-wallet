@@ -26,7 +26,7 @@ import {
   RequestRegisterParams,
   RequestSocialRecoveryParams,
 } from 'network/dto/wallet';
-import { sleep } from '@portkey-wallet/utils';
+import { sleep } from 'packages/utils';
 import { getCachedNetworkToken } from 'network/token';
 import { isWalletUnlocked } from 'model/verify/after-verify';
 import { SymbolImages } from 'model/symbolImage';

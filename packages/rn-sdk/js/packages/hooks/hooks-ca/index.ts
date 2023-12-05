@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import { TypedUseSelectorHook, useSelector } from 'react-redux';
-import { CACommonState } from '@portkey-wallet/types/types-ca/store';
+import { CACommonState } from 'packages/types/types-ca/store';
 import { useAppCommonDispatch } from '../index';
 import { resetAssets } from '@portkey-wallet/store/store-ca/assets/slice';
 import { resetRecent } from '@portkey-wallet/store/store-ca/recent/slice';

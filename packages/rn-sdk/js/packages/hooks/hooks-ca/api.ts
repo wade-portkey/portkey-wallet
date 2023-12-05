@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { useCurrentNetworkInfo } from './network';
 import { useCurrentWalletInfo, useOriginChainId } from './wallet';
-import aes from '@portkey-wallet/utils/aes';
+import aes from 'packages/utils/aes';
 import AElf from 'aelf-sdk';
 import { setRefreshTokenConfig } from '@portkey-wallet/api/api-did/utils';
 

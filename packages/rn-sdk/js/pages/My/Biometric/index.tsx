@@ -16,7 +16,7 @@ import { PortkeyEntries } from 'config/entries';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import BaseContainerContext from 'model/container/BaseContainerContext';
 // import { touchAuth } from 'pages/Pin/SetBiometrics';
-import { authenticationReady } from '@portkey-wallet/utils/mobile/authentication';
+import { authenticationReady } from 'packages/utils/mobile/authentication';
 import { authenticateBioAsync, authenticateBioReady } from 'service/biometric';
 
 export default function Biometric() {

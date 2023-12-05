@@ -13,7 +13,7 @@ import { NFTCollectionItemShowType } from 'packages/types/types-ca/assets';
 import Touchable from 'components/Touchable';
 import { OpenCollectionObjType } from './index';
 import { ChainId } from 'packages/types';
-import { formatChainInfoToShow } from '@portkey-wallet/utils';
+import { formatChainInfoToShow } from 'packages/utils';
 import { useCurrentNetworkType } from 'model/hooks/network';
 
 export enum NoDataMessage {

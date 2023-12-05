@@ -1,5 +1,5 @@
 import { useCurrentWallet } from './wallet';
-import { NetworkList } from '@portkey-wallet/constants/constants-ca/network';
+import { NetworkList } from 'packages/constants/constants-ca/network';
 import { useCurrentNetworkInfo, useCurrentApiUrl, useVerifierList, useIsTestnet, useIsMainnet } from './network';
 import { renderHook } from '@testing-library/react';
 import { renderHookWithProvider } from '../../../test/utils/render';

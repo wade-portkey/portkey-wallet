@@ -1,6 +1,6 @@
 import { CAInfo, ManagerInfo } from 'packages/types/types-ca/wallet';
 import { VerificationType } from 'packages/types/verifier';
-import { clearTimeoutInterval, setTimeoutInterval } from '@portkey-wallet/utils/interval';
+import { clearTimeoutInterval, setTimeoutInterval } from 'packages/utils/interval';
 
 import { ContractBasic } from 'packages/contracts/utils/ContractBasic';
 import { request } from '@portkey-wallet/api/api-did';

@@ -1,7 +1,7 @@
 import im, { ChannelStatusEnum, ChannelTypeEnum } from '@portkey-wallet/im';
 import { useCallback, useMemo, useRef } from 'react';
 
-import { CHANNEL_LIST_LIMIT } from '@portkey-wallet/constants/constants-ca/im';
+import { CHANNEL_LIST_LIMIT } from 'packages/constants/constants-ca/im';
 
 import { useCurrentNetworkInfo } from '../network';
 import { useAppCommonDispatch } from '../../index';
