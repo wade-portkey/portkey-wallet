@@ -17,7 +17,7 @@ import { isIOS } from '@portkey-wallet/utils/mobile/device';
 import { LoginType } from 'packages/types/types-ca/wallet';
 import { VerifierImage } from '../VerifierImage';
 import { GuardiansStatus, GuardiansStatusItem } from 'pages/Guardian/types';
-import { useThrottleCallback } from '@portkey-wallet/hooks';
+import { useThrottleCallback } from 'packages/hooks';
 import { verification } from 'utils/api';
 import { PRIVATE_GUARDIAN_ACCOUNT } from 'packages/constants/constants-ca/guardian';
 import { APPROVAL_TO_OPERATION_MAP } from 'packages/constants/constants-ca/verifier';

@@ -7,7 +7,7 @@ import GStyles from 'assets/theme/GStyles';
 import { defaultColors } from 'assets/theme';
 import { BGStyles } from 'assets/theme/styles';
 import Touchable from 'components/Touchable';
-import { usePreventHardwareBack } from '@portkey-wallet/hooks/mobile';
+import { usePreventHardwareBack } from 'packages/hooks/mobile';
 import { pTd } from 'utils/unit';
 import { handleErrorMessage } from '@portkey-wallet/utils';
 import CommonToast from 'components/CommonToast';

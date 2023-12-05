@@ -1,4 +1,4 @@
-import useInterval from '@portkey-wallet/hooks/useInterval';
+import useInterval from 'packages/hooks/useInterval';
 import { contractQueries } from '@portkey-wallet/graphql/index';
 import { ChainId, NetworkType } from 'packages/types';
 import { useState, useMemo } from 'react';
