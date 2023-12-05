@@ -1,4 +1,4 @@
-import { VerificationType } from '@portkey-wallet/types/verifier';
+import { OperationTypeEnum, VerificationType } from '@portkey-wallet/types/verifier';
 import { PortkeyEntries } from '../../../config/entries';
 import BaseContainer, { BaseContainerProps } from '../../../model/container/BaseContainer';
 import VerifierDetails from 'pages/Guardian/VerifierDetails';
@@ -24,12 +24,14 @@ export default class VerifierDetailsEntryPage extends BaseContainer<
 
   render() {
     const { guardianConfig } = this.state;
+    const { operationType = OperationTypeEnum.unknown } = this.props;
     const { accountIdentifier, accountOriginalType } = guardianConfig;
     return (
       <VerifierDetails
         accountIdentifier={accountIdentifier}
         accountOriginalType={accountOriginalType}
         guardianConfig={guardianConfig}
+        operationType={operationType}
       />
     );
   }
@@ -40,6 +42,7 @@ export interface VerifierDetailsPageProps extends BaseContainerProps {
   accountIdentifier: string;
   accountOriginalType: AccountOriginalType;
   deliveredGuardianInfo: string; // GuardianConfig
+  operationType: OperationTypeEnum;
 }
 
 export interface VerifierDetailsPageState {

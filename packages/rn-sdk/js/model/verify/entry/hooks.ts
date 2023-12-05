@@ -39,7 +39,7 @@ const returnToParticularBasePage = async (intent: GuardiansApprovalIntent) => {
       returnToGuardianHome(intent);
       break;
     case GuardianVerifyType.EDIT_PAYMENT_SECURITY:
-      returnToPaymentSecurityHome(intent);
+      returnToPaymentSecurityDetail(intent);
       break;
   }
 };
@@ -55,15 +55,11 @@ const returnToGuardianHome = async (intent: GuardiansApprovalIntent) => {
   );
 };
 
-const returnToPaymentSecurityHome = async (intent: GuardiansApprovalIntent) => {
-  PortkeyModulesEntity.RouterModule.navigateTo<GuardiansApprovalIntent>(
-    PortkeyEntries.PAYMENT_SECURITY_HOME_ENTRY,
-    LaunchMode.SINGLE_TASK,
-    `PaymentSecurityIntent`,
-    'none',
-    false,
-    intent,
-  );
+const returnToPaymentSecurityDetail = async (intent: GuardiansApprovalIntent) => {
+  PortkeyModulesEntity.RouterModule.navigateBack({
+    status: intent.result,
+    data: intent,
+  });
 };
 
 export const handlePhoneOrEmailGuardianVerify = async (config: VerifierDetailsPageProps) => {

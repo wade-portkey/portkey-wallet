@@ -80,6 +80,7 @@ export const useVerifyEntry = (verifyConfig: VerifyConfig): VerifyEntryHooks => 
         {
           params: {
             deliveredGuardianInfo: JSON.stringify(config),
+            operationType: type === PageType.login ? OperationTypeEnum.communityRecovery : OperationTypeEnum.register,
           },
         },
         res => {

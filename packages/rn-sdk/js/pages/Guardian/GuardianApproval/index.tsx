@@ -394,7 +394,7 @@ export default function GuardianApproval({
             onPress: async () => {
               try {
                 Loading.show();
-                const needRecaptcha = await isReacptchaOpen(OperationTypeEnum.communityRecovery);
+                const needRecaptcha = await isReacptchaOpen(operationType);
                 let token: string | undefined;
                 if (needRecaptcha) {
                   token = (await verifyHumanMachine('en')) as string;
@@ -450,9 +450,12 @@ export default function GuardianApproval({
       return null;
     }
     return new Promise(resolve => {
-      navigateToGuardianPage(Object.assign({}, guardian, { alreadySent: alreadySent ?? false }), result => {
-        resolve(result);
-      });
+      navigateToGuardianPage(
+        Object.assign({}, guardian, { alreadySent: alreadySent ?? false, operationType }),
+        result => {
+          resolve(result);
+        },
+      );
     });
   };
 
@@ -462,6 +465,7 @@ export default function GuardianApproval({
       {
         params: {
           deliveredGuardianInfo: JSON.stringify(config),
+          operationType,
         },
       },
       res => {
