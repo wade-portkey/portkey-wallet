@@ -45,8 +45,6 @@ export default function Referral({
   setLoginType: (type: PageLoginType) => void;
   type?: PageType;
 }) {
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-
   const { onFinish, navigateForResult, getEntryName } = useBaseContainer({
     entryName: PortkeyEntries.SIGN_IN_ENTRY,
   });
@@ -64,18 +62,16 @@ export default function Referral({
     setErrorMessage,
   });
 
-  const onSuccess = async (text = 'You have already logged in, page close in 3 seconds') => {
-    CommonToast.success(text);
+  const onSuccess = async (text = 'sign in / sign up success') => {
     const walletInfo = await getUnlockedWallet();
-    setTimeout(() => {
-      onFinish({
-        status: 'success',
-        data: {
-          finished: true,
-          walletInfo,
-        },
-      });
-    }, 3000);
+    onFinish({
+      status: 'success',
+      data: {
+        finished: true,
+        msg: text,
+        walletInfo,
+      },
+    });
   };
 
   const pushToSignUp = () => {
@@ -87,7 +83,7 @@ export default function Referral({
   };
 
   useEffectOnce(async () => {
-    baseCheck();
+    walletCheck();
     Loading.show();
     try {
       await getOrReadCachedVerifierData();
@@ -95,18 +91,23 @@ export default function Referral({
     Loading.hide();
   });
 
-  const baseCheck = async () => {
+  const walletCheck = async () => {
     if (await isWalletExists()) {
       if (await isWalletUnlocked()) {
-        onSuccess('wallet is unlocked already, this page will close in 3 seconds');
+        onSuccess('you have already signed in');
       } else {
         const tryToUnlock = async () => {
           navigateForResult<CheckPinResult, CheckPinProps>(PortkeyEntries.CHECK_PIN, {}, res => {
             if (res.status === 'success') {
-              onSuccess();
+              onSuccess('wallet unlock success');
             } else {
-              CommonToast.failError('Try again');
-              tryToUnlock();
+              onFinish({
+                status: 'cancel',
+                data: {
+                  finished: false,
+                  msg: 'unlock cancelled',
+                },
+              });
             }
           });
         };
