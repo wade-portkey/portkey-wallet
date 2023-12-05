@@ -70,7 +70,9 @@
     "rn-teaset": "0.1.2-alpha.1",
     "stream": "^0.0.2",
     "tslib": "^2.6.2",
-    "typescript": "^4.4.4"
+    "typescript": "^4.4.4",
+    "inversify": "^6.0.2",
+    "reflect-metadata": "^0.1.9"
   },
   "scripts": {
     "start": "react-native start",
@@ -92,7 +94,8 @@
     "eslint-plugin-prettier": "^3.1.3",
     "i18next": "^21.8.5",
     "metro-react-native-babel-preset": "^0.70.3",
-    "prettier": "^2.6.2"
+    "prettier": "^2.6.2",
+    "@babel/plugin-proposal-decorators": "^7.23.5"
   },
   "resolutions": {
     "@types/react": "18.0.2",

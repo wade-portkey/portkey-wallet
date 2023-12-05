@@ -24,7 +24,12 @@ import { PageType } from 'pages/Login/types';
 import { ThirdPartyAccountInfo, isAppleLogin } from '../third-party-account';
 import { GuardianApprovalPageProps, GuardianApprovalPageResult } from 'pages/Entries/GuardianApproval';
 import { useThirdPartyVerifyAtomic } from './atomic';
+import { UnlockedWallet, getUnlockedWallet } from 'model/wallet';
 
+export interface LoginResult {
+  finished: boolean;
+  walletInfo: UnlockedWallet;
+}
 export const useVerifyEntry = (verifyConfig: VerifyConfig): VerifyEntryHooks => {
   const { type, entryName, accountOriginalType, setErrorMessage, verifyAccountIdentifier } = verifyConfig;
 
@@ -248,17 +253,19 @@ export const useVerifyEntry = (verifyConfig: VerifyConfig): VerifyEntryHooks => 
               deliveredGuardianListInfo: JSON.stringify(signInPageData),
             },
           },
-          res => {
+          async res => {
             const { data } = res || {};
             const { isVerified } = data || {};
             if (!isVerified) {
               setErrorMessage('verification failed, please try again.');
               return;
             } else {
+              const walletInfo = await getUnlockedWallet();
               onFinish({
                 status: 'success',
                 data: {
                   finished: true,
+                  walletInfo,
                 },
               });
             }
@@ -283,13 +290,15 @@ export const useVerifyEntry = (verifyConfig: VerifyConfig): VerifyEntryHooks => 
             typeof afterVerifiedData === 'string' ? afterVerifiedData : JSON.stringify(afterVerifiedData),
         },
       },
-      res => {
+      async res => {
         const { data } = res;
         if (data?.finished) {
+          const walletInfo = await getUnlockedWallet();
           onFinish({
             status: 'success',
             data: {
               finished: true,
+              walletInfo,
             },
           });
         }

@@ -23,6 +23,7 @@ import { useVerifyEntry } from 'model/verify/entry';
 import { isIOS } from '@portkey-wallet/utils/mobile/device';
 import { getOrReadCachedVerifierData } from 'model/contract/handler';
 import Loading from 'components/Loading';
+import { getUnlockedWallet } from 'model/wallet';
 
 const TitleMap = {
   [PageType.login]: {
@@ -63,13 +64,15 @@ export default function Referral({
     setErrorMessage,
   });
 
-  const onSuccess = (text = 'You have already logged in, page close in 3 seconds') => {
+  const onSuccess = async (text = 'You have already logged in, page close in 3 seconds') => {
     CommonToast.success(text);
+    const walletInfo = await getUnlockedWallet();
     setTimeout(() => {
       onFinish({
         status: 'success',
         data: {
           finished: true,
+          walletInfo,
         },
       });
     }, 3000);

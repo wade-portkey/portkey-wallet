@@ -12,6 +12,7 @@ import { touchAuth } from '../SetBiometrics';
 import Loading from 'components/Loading';
 import useEffectOnce from 'hooks/useEffectOnce';
 import myEvents from 'utils/deviceEvent';
+import { UnlockedWallet, getUnlockedWallet } from 'model/wallet';
 
 export default function CheckPin(props: CheckPinProps) {
   const { targetScene, openBiometrics } = props;
@@ -39,12 +40,14 @@ export default function CheckPin(props: CheckPinProps) {
         }
         Loading.show();
         myEvents.openBiometrics.emit(pin);
-        unLockTempWallet(pin).then(() => {
+        unLockTempWallet(pin).then(async () => {
           Loading.hide();
+          const walletInfo = await getUnlockedWallet();
           onFinish<CheckPinResult>({
             status: 'success',
             data: {
               pin,
+              walletInfo,
             },
           });
         });
@@ -60,11 +63,13 @@ export default function CheckPin(props: CheckPinProps) {
     if (res?.success) {
       Loading.show();
       await unLockTempWallet('use-bio', true);
+      const walletInfo = await getUnlockedWallet();
       Loading.hide();
       onFinish<CheckPinResult>({
         status: 'success',
         data: {
           pin: 'FAKE',
+          walletInfo,
         },
       });
     } else {
@@ -119,6 +124,7 @@ export interface CheckPinProps {
 
 export interface CheckPinResult {
   pin: string;
+  walletInfo?: UnlockedWallet;
 }
 
 const styles = StyleSheet.create({
