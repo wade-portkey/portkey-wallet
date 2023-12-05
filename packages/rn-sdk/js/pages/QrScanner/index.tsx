@@ -16,7 +16,7 @@ import { checkIsUrl } from '@portkey-wallet/utils/dapp/browser';
 // import { useDiscoverJumpWithNetWork } from 'hooks/discover'; // currently we do not use this
 import Loading from 'components/Loading';
 import CommonToast from 'components/CommonToast';
-import { QRData, isLoginQRData } from '@portkey-wallet/types/types-ca/qrcode';
+import { QRData, isLoginQRData } from 'packages/types/types-ca/qrcode';
 import { isAddress } from '@portkey-wallet/utils';
 import useBaseContainer, { VoidResult } from 'model/container/UseBaseContainer';
 import { PortkeyEntries, isPortkeyEntries } from 'config/entries';

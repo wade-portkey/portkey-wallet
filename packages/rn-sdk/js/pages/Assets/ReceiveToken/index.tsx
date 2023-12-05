@@ -12,7 +12,7 @@ import { formatChainInfoToShow } from '@portkey-wallet/utils';
 import AccountCard from 'components/AccountCard';
 import { copyText } from 'utils/commonUtil';
 import { useSymbolImages } from 'components/TokenOverlay/hook';
-import { NetworkType } from '@portkey-wallet/types';
+import { NetworkType } from 'packages/types';
 
 export default function ReceiveTokenPage(props: {
   token: string;

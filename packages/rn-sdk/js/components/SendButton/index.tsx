@@ -2,7 +2,7 @@ import React, { memo } from 'react';
 import Svg from 'components/Svg';
 import { dashBoardBtnStyle, innerPageStyles } from './style';
 // import navigationService from 'utils/navigationService';
-import { TokenItemShowType } from '@portkey-wallet/types/types-ca/token';
+import { TokenItemShowType } from 'packages/types/types-ca/token';
 import { View, TouchableOpacity } from 'react-native';
 import { TextM } from 'components/CommonText';
 import { useLanguage } from 'i18n/hooks';

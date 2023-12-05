@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { DeviceInfoType, UpdateNotify, VersionDeviceType } from '@portkey-wallet/types/types-ca/device';
+import { DeviceInfoType, UpdateNotify, VersionDeviceType } from 'packages/types/types-ca/device';
 import { DEVICE_TYPE } from 'constants/common';
 import useLockCallback from '@portkey-wallet/hooks/useLockCallback';
 import * as Application from 'expo-application';

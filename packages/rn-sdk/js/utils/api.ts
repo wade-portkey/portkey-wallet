@@ -4,8 +4,8 @@ import {
   SendVerificationConfig,
   Verification,
 } from '@portkey-wallet/api/api-did/verification/utils';
-import { IStorage } from '@portkey-wallet/types/storage';
-import { OperationTypeEnum } from '@portkey-wallet/types/verifier';
+import { IStorage } from 'packages/types/storage';
+import { OperationTypeEnum } from 'packages/types/verifier';
 import { baseStore } from '@portkey-wallet/utils/mobile/storage';
 import { verifyHumanMachine } from 'components/VerifyHumanMachine';
 

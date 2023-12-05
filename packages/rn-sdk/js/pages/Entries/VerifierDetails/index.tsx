@@ -1,4 +1,4 @@
-import { VerificationType } from '@portkey-wallet/types/verifier';
+import { VerificationType } from 'packages/types/verifier';
 import { PortkeyEntries } from '../../../config/entries';
 import BaseContainer, { BaseContainerProps } from '../../../model/container/BaseContainer';
 import VerifierDetails from 'pages/Guardian/VerifierDetails';

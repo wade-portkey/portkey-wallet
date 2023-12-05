@@ -1,4 +1,4 @@
-import { ChainId } from '@portkey-wallet/types';
+import { ChainId } from 'packages/types';
 import { GlobalStorage } from 'service/storage';
 
 export enum EndPoints {

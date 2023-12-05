@@ -1,4 +1,4 @@
-import { PIN_SIZE } from '@portkey-wallet/constants/misc';
+import { PIN_SIZE } from 'packages/constants/misc';
 import { Text } from '@rneui/base';
 import { defaultColors } from 'assets/theme';
 import { TextS } from 'components/CommonText';

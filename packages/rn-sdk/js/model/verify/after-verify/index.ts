@@ -1,5 +1,5 @@
-import { ChainId } from '@portkey-wallet/types';
-import { DeviceInfoType, DeviceType } from '@portkey-wallet/types/types-ca/device';
+import { ChainId } from 'packages/types';
+import { DeviceInfoType, DeviceType } from 'packages/types/types-ca/device';
 import { sleep } from '@portkey-wallet/utils';
 import CommonToast from 'components/CommonToast';
 import { PortkeyConfig } from 'global/constants';

@@ -1,7 +1,7 @@
 import React, { useCallback, useRef, useState } from 'react';
 import PageContainer from 'components/PageContainer';
 import { DigitInputInterface } from 'components/DigitInput';
-import { PIN_SIZE } from '@portkey-wallet/constants/misc';
+import { PIN_SIZE } from 'packages/constants/misc';
 import PinContainer from 'components/PinContainer';
 import { StyleSheet } from 'react-native';
 import { PinErrorMessage } from '@portkey-wallet/utils/wallet/types';

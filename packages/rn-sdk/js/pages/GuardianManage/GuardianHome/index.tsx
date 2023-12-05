@@ -22,7 +22,7 @@ import CommonToast from 'components/CommonToast';
 import Loading from 'components/Loading';
 import { ModifyGuardianProps } from 'pages/Guardian/GuardianManage/ModifyGuardian';
 import { PortkeyConfig } from 'global/constants';
-import { OperationTypeEnum } from '@portkey-wallet/types/verifier';
+import { OperationTypeEnum } from 'packages/types/verifier';
 import { Verifier, getOrReadCachedVerifierData } from 'model/contract/handler';
 
 export default function GuardianHome({ containerId }: { containerId: any }) {

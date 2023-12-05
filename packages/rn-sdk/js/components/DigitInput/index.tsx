@@ -1,4 +1,4 @@
-import { PIN_SIZE } from '@portkey-wallet/constants/misc';
+import { PIN_SIZE } from 'packages/constants/misc';
 import { InputProps } from '@rneui/base';
 import React, { useRef, useState, useCallback, memo, useMemo, forwardRef, useImperativeHandle } from 'react';
 import { StyleSheet, View, TextInput, TouchableHighlight } from 'react-native';

@@ -2,7 +2,7 @@ import { PortkeyConfig } from 'global/constants';
 import { AccountIdentifierStatusDTO, RegisterStatusDTO } from 'network/dto/signIn';
 import { NetworkOptions, ResultWrapper, TypedUrlParams, nativeFetch } from 'service/native-modules';
 import { APIPaths } from 'network/path';
-import { ChainId } from '@portkey-wallet/types';
+import { ChainId } from 'packages/types';
 import {
   CheckVerifyCodeParams,
   CheckVerifyCodeResultDTO,
@@ -15,7 +15,7 @@ import {
   VerifyAppleGuardianParams,
   VerifyGoogleGuardianParams,
 } from 'network/dto/guardian';
-import { OperationTypeEnum } from '@portkey-wallet/types/verifier';
+import { OperationTypeEnum } from 'packages/types/verifier';
 import { CountryCodeDataDTO } from 'types/wallet';
 import {
   AElfChainStatusDTO,

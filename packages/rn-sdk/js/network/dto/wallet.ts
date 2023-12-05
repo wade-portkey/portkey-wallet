@@ -1,6 +1,6 @@
 import { AccountOriginalType, ContextInfo } from 'model/verify/after-verify';
 import AElf from 'aelf-sdk';
-import { ChainId } from '@portkey-wallet/types';
+import { ChainId } from 'packages/types';
 
 export interface RequestRegisterParams {
   chainId: string;

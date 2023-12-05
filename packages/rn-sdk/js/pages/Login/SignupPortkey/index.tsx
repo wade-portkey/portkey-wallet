@@ -21,9 +21,9 @@ import { checkForCountryCodeCached } from 'model/global';
 import useBaseContainer from 'model/container/UseBaseContainer';
 import { PortkeyEntries } from 'config/entries';
 import NetworkContext from '../context/NetworkContext';
-import { NetworkItem } from '@portkey-wallet/types/types-ca/network';
+import { NetworkItem } from 'packages/types/types-ca/network';
 import { PortkeyConfig, setEndPointUrl } from 'global/constants';
-import { NetworkList } from '@portkey-wallet/constants/constants-ca/network-mainnet';
+import { NetworkList } from 'packages/constants/constants-ca/network-mainnet';
 import { CountryCodeItem } from 'types/wallet';
 
 const scrollViewProps = { extraHeight: 120 };
