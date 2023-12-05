@@ -12,4 +12,6 @@ initEntries();
 // init js services for Android/iOS native
 initJsMethodService();
 
+// export for npm
 export * from 'service/core';
+export { UnlockedWallet } from 'model/wallet';
