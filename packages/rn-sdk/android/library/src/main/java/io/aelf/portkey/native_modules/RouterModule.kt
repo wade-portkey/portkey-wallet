@@ -7,12 +7,11 @@ import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.ReactContextBaseJavaModule
 import com.facebook.react.bridge.ReactMethod
 import com.facebook.react.bridge.ReadableMap
-import com.facebook.react.bridge.WritableMap
 import io.aelf.portkey.components.activities.navigateToAnotherReactActivity
 import io.aelf.portkey.components.activities.toBundle
 import io.aelf.portkey.config.StorageIdentifiers
 import io.aelf.portkey.navigation.NavigationHolder
-import io.aelf.portkey.tools.generateUniqueCallbackID
+import io.aelf.portkey.tools.generateUniqueID
 
 class RouterModule(reactContext: ReactApplicationContext) :
     ReactContextBaseJavaModule(reactContext) {
@@ -69,7 +68,7 @@ class RouterModule(reactContext: ReactApplicationContext) :
         val activity = NavigationHolder.getTopComponent()
         val targetScene = params.getString("targetScene")
         val closeSelf = params.getBoolean("closeCurrentScreen")
-        val callbackId = generateUniqueCallbackID()
+        val callbackId = generateUniqueID()
         if(closeSelf) {
             NavigationHolder.popAndFinish(activity)
         }

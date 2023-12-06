@@ -76,6 +76,7 @@ export interface StorageModule {
   getString: (key: string) => Promise<string | undefined>;
   getBoolean: (key: string) => Promise<boolean | undefined>;
   getNumber: (key: string) => Promise<number | undefined>;
+  internalEncryptKey: string;
 }
 
 export interface NetworkModule {
