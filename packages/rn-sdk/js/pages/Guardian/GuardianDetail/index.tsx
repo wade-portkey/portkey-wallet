@@ -24,7 +24,7 @@ import { PortkeyConfig } from 'global/constants';
 import useEffectOnce from 'hooks/useEffectOnce';
 import { getContractInstance, getOrReadCachedVerifierData } from 'model/contract/handler';
 import { guardianEnumToTypeStr, guardianTypeStrToEnum, isReacptchaOpen, parseGuardianInfo } from 'model/global';
-import { AccountOriginalType } from 'model/verify/after-verify';
+import { AccountOriginalType } from 'model/verify/core';
 import { getUnlockedWallet } from 'model/wallet';
 import { NetworkController } from 'network/controller';
 import { ModifyGuardianProps, checkIsTheLastLoginGuardian } from '../GuardianManage/ModifyGuardian';
@@ -42,7 +42,7 @@ export default function GuardianDetail(config: { info: string }) {
   const { appleSign } = useAppleAuthentication();
   const { googleSign } = useGoogleAuthentication();
 
-  const { navigationTo, onFinish } = useBaseContainer({
+  const { navigateTo: navigationTo, onFinish } = useBaseContainer({
     entryName: PortkeyEntries.GUARDIAN_DETAIL_ENTRY,
   });
 
@@ -174,6 +174,7 @@ export default function GuardianDetail(config: { info: string }) {
               verifySessionId: req.verifierSessionId,
             } as Partial<GuardianConfig>),
           ),
+          operationType: OperationTypeEnum.setLoginAccount,
         });
         if (!guardianVerifyResult?.verifiedData) throw new Error('verify fail');
         await onSetLoginAccount();

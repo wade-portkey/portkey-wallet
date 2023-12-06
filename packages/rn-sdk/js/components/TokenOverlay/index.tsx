@@ -15,7 +15,7 @@ import NoData from 'components/NoData';
 import { useGStyles } from 'assets/theme/useGStyles';
 import myEvents from '../../utils/deviceEvent';
 import { getCachedAllChainInfo } from 'model/chain';
-import { useCommonInfo } from './hook';
+import { useCommonNetworkInfo } from './hooks';
 import { NetworkController } from 'network/controller';
 import { IUserTokenItem } from 'network/dto/query';
 import Loading from 'components/Loading';
@@ -30,7 +30,7 @@ type TokenListProps = {
 
 const TokenList = ({ onFinishSelectToken }: TokenListProps) => {
   const { t } = useLanguage();
-  const commonInfo = useCommonInfo();
+  const commonInfo = useCommonNetworkInfo();
   const chainIdList = useRef<string[] | undefined>(undefined);
   const [tokenDataShowInMarket, setTokenDataShowInMarket] = useState<IUserTokenItem[]>();
   const gStyles = useGStyles;

@@ -12,7 +12,7 @@ import PhoneInput from 'components/PhoneInput';
 import { getCachedCountryCodeData } from 'model/global';
 import { CountryCodeItem, defaultCountryCode } from 'types/wallet';
 import { PortkeyEntries } from 'config/entries';
-import { AccountOriginalType } from 'model/verify/after-verify';
+import { AccountOriginalType } from 'model/verify/core';
 import useBaseContainer from 'model/container/UseBaseContainer';
 import TermsServiceButton from './TermsServiceButton';
 import { useVerifyEntry } from 'model/verify/entry';

@@ -7,7 +7,7 @@ import { pTd } from 'utils/unit';
 import { TokenItemShowType } from 'packages/types/types-ca/token';
 import { shrinkSendQrData, QRCodeDataObjType } from 'packages/utils/qrCode';
 import CommonQRCodeStyled from 'components/CommonQRCodeStyled';
-import { useCurrentNetworkInfo, useDefaultChainType } from './hook';
+import { useCurrentNetworkInfo, useDefaultChainType } from '../../hooks/network';
 
 const cardWidth = ScreenWidth * 0.63;
 

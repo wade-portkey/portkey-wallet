@@ -16,6 +16,7 @@ const plugins = [
       root: ['./js'],
     },
   ],
+  ['@babel/plugin-proposal-decorators', { legacy: true }],
 ];
 
 module.exports = {

@@ -9,7 +9,7 @@ import CommonButton from 'components/CommonButton';
 import GStyles from 'assets/theme/GStyles';
 import { PageLoginType, PageType } from '../types';
 import Button from './Button';
-import { AccountOriginalType } from 'model/verify/after-verify';
+import { AccountOriginalType } from 'model/verify/core';
 import { PortkeyEntries } from 'config/entries';
 import TermsServiceButton from './TermsServiceButton';
 import { useVerifyEntry } from 'model/verify/entry';

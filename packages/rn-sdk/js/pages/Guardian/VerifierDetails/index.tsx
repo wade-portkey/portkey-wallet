@@ -9,7 +9,7 @@ import { StyleSheet, Text } from 'react-native';
 import { OperationTypeEnum, VerificationType } from 'packages/types/verifier';
 import { FontStyles } from 'assets/theme/styles';
 import { LoginType } from 'packages/types/types-ca/wallet';
-import { AccountOriginalType } from 'model/verify/after-verify';
+import { AccountOriginalType } from 'model/verify/core';
 import usePhoneOrEmailGuardian, { GuardianConfig, INIT_TIME_OUT } from 'model/verify/guardian';
 import { NetworkController } from 'network/controller';
 import { verifyHumanMachine } from 'components/VerifyHumanMachine';
@@ -41,10 +41,10 @@ function TipText({ guardianAccount, isRegister }: { guardianAccount?: string; is
 }
 
 export default function VerifierDetails({
-  verificationType = VerificationType.register,
   guardianConfig,
+  operationType,
 }: {
-  verificationType?: VerificationType;
+  operationType: OperationTypeEnum;
   accountIdentifier: string;
   accountOriginalType: AccountOriginalType;
   guardianConfig: GuardianConfig;
@@ -53,6 +53,8 @@ export default function VerifierDetails({
     entryName: PortkeyEntries.VERIFIER_DETAIL_ENTRY,
   });
 
+  const realOperationType =
+    operationType !== OperationTypeEnum.unknown ? operationType : guardianConfig.sendVerifyCodeParams.operationType;
   const guardianItem: UserGuardianItem = {
     guardianAccount: guardianConfig.sendVerifyCodeParams.guardianIdentifier,
     guardianType: guardianConfig.sendVerifyCodeParams.type === 'Phone' ? LoginType.Phone : LoginType.Email,
@@ -67,7 +69,13 @@ export default function VerifierDetails({
     salt: guardianConfig.salt ?? '',
   };
 
-  const { countDown: countDownNumber, sendVerifyCode, checkVerifyCode } = usePhoneOrEmailGuardian(guardianConfig);
+  const guardianInfo = useMemo(() => {
+    const parsedGuardian = JSON.parse(JSON.stringify(guardianConfig));
+    parsedGuardian.sendVerifyCodeParams.operationType = realOperationType;
+    return parsedGuardian;
+  }, [guardianConfig, realOperationType]);
+
+  const { countDown: countDownNumber, sendVerifyCode, checkVerifyCode } = usePhoneOrEmailGuardian(guardianInfo);
 
   const tryToResendCode = async () => {
     if (countDownNumber > 0) {
@@ -77,7 +85,7 @@ export default function VerifierDetails({
     try {
       let token: string | undefined;
       Loading.show();
-      const needRecaptcha = await NetworkController.isGoogleRecaptchaOpen(OperationTypeEnum.register); // TODO
+      const needRecaptcha = await NetworkController.isGoogleRecaptchaOpen(realOperationType);
       if (needRecaptcha) {
         token = (await verifyHumanMachine('en')) as string;
       }
@@ -143,7 +151,7 @@ export default function VerifierDetails({
       scrollViewProps={{ disabled: true }}>
       {guardianItem ? <GuardianItem guardianItem={guardianItem} isButtonHide /> : null}
       <TipText
-        isRegister={!verificationType || (verificationType as VerificationType) === VerificationType.register}
+        isRegister={realOperationType === OperationTypeEnum.register}
         guardianAccount={guardianItem?.guardianAccount}
       />
       <DigitInput ref={digitInput} onFinish={onInputFinish} maxLength={DIGIT_CODE.length} />

@@ -10,7 +10,7 @@ import { pTd } from 'utils/unit';
 import CommonButton from 'components/CommonButton';
 import { PortkeyEntries } from 'config/entries';
 import useBaseContainer from 'model/container/UseBaseContainer';
-import { AccountOriginalType, isWalletExists, isWalletUnlocked } from 'model/verify/after-verify';
+import { AccountOriginalType, isWalletExists, isWalletUnlocked } from 'model/verify/core';
 import CommonToast from 'components/CommonToast';
 import useEffectOnce from 'hooks/useEffectOnce';
 import { CheckPinProps, CheckPinResult } from 'pages/Pin/CheckPin';
@@ -23,6 +23,7 @@ import { useVerifyEntry } from 'model/verify/entry';
 import { isIOS } from 'packages/utils/mobile/device';
 import { getOrReadCachedVerifierData } from 'model/contract/handler';
 import Loading from 'components/Loading';
+import { getUnlockedWallet } from 'model/wallet';
 
 const TitleMap = {
   [PageType.login]: {
@@ -44,8 +45,6 @@ export default function Referral({
   setLoginType: (type: PageLoginType) => void;
   type?: PageType;
 }) {
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-
   const { onFinish, navigateForResult, getEntryName } = useBaseContainer({
     entryName: PortkeyEntries.SIGN_IN_ENTRY,
   });
@@ -63,16 +62,16 @@ export default function Referral({
     setErrorMessage,
   });
 
-  const onSuccess = (text = 'You have already logged in, page close in 3 seconds') => {
-    CommonToast.success(text);
-    setTimeout(() => {
-      onFinish({
-        status: 'success',
-        data: {
-          finished: true,
-        },
-      });
-    }, 3000);
+  const onSuccess = async (text = 'sign in / sign up success') => {
+    const walletInfo = await getUnlockedWallet();
+    onFinish({
+      status: 'success',
+      data: {
+        finished: true,
+        msg: text,
+        walletInfo,
+      },
+    });
   };
 
   const pushToSignUp = () => {
@@ -84,7 +83,7 @@ export default function Referral({
   };
 
   useEffectOnce(async () => {
-    baseCheck();
+    walletCheck();
     Loading.show();
     try {
       await getOrReadCachedVerifierData();
@@ -92,18 +91,23 @@ export default function Referral({
     Loading.hide();
   });
 
-  const baseCheck = async () => {
+  const walletCheck = async () => {
     if (await isWalletExists()) {
       if (await isWalletUnlocked()) {
-        onSuccess('wallet is unlocked already, this page will close in 3 seconds');
+        onSuccess('you have already signed in');
       } else {
         const tryToUnlock = async () => {
           navigateForResult<CheckPinResult, CheckPinProps>(PortkeyEntries.CHECK_PIN, {}, res => {
             if (res.status === 'success') {
-              onSuccess();
+              onSuccess('wallet unlock success');
             } else {
-              CommonToast.failError('Try again');
-              tryToUnlock();
+              onFinish({
+                status: 'cancel',
+                data: {
+                  finished: false,
+                  msg: 'unlock cancelled',
+                },
+              });
             }
           });
         };

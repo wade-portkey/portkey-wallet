@@ -26,7 +26,7 @@ import { guardianTypeStrToEnum, isReacptchaOpen } from 'model/global';
 import { NetworkController } from 'network/controller';
 import { VerifierDetailsPageProps } from 'pages/Entries/VerifierDetails';
 import { PortkeyEntries } from 'config/entries';
-import { AccountOriginalType, AfterVerifiedConfig, VerifiedGuardianDoc } from 'model/verify/after-verify';
+import { AccountOriginalType, AfterVerifiedConfig, VerifiedGuardianDoc } from 'model/verify/core';
 import { VerifyPageResult } from '../VerifierDetails';
 import useBaseContainer from 'model/container/UseBaseContainer';
 import { defaultColors } from 'assets/theme';
@@ -36,7 +36,12 @@ import { ApprovedGuardianInfo } from 'network/dto/wallet';
 import { AppleAccountInfo, GoogleAccountInfo, isAppleLogin } from 'model/verify/third-party-account';
 import { useAppleAuthentication, useGoogleAuthentication } from 'model/hooks/authentication';
 import { getBottomSpace } from 'utils/screen';
-import { callAddGuardianMethod, callEditGuardianMethod, callRemoveGuardianMethod } from 'model/contract/handler';
+import {
+  callAddGuardianMethod,
+  callEditGuardianMethod,
+  callEditPaymentSecurityMethod,
+  callRemoveGuardianMethod,
+} from 'model/contract/handler';
 
 export default function GuardianApproval({
   guardianVerifyConfig: guardianListConfig,
@@ -49,12 +54,13 @@ export default function GuardianApproval({
 }) {
   const {
     guardians,
-    accountIdentifier,
+    accountIdentifier = '',
     accountOriginalType,
     thirdPartyAccountInfo,
     guardianVerifyType,
     particularGuardian,
     pastGuardian,
+    paymentSecurityConfig,
   } = guardianListConfig;
 
   const { t } = useLanguage();
@@ -75,6 +81,10 @@ export default function GuardianApproval({
     }
     case GuardianVerifyType.MODIFY_GUARDIAN: {
       operationType = OperationTypeEnum.editGuardian;
+      break;
+    }
+    case GuardianVerifyType.EDIT_PAYMENT_SECURITY: {
+      operationType = OperationTypeEnum.modifyTransferLimit;
       break;
     }
     case GuardianVerifyType.CREATE_WALLET:
@@ -196,7 +206,7 @@ export default function GuardianApproval({
         const result = await callAddGuardianMethod(particularGuardian, getVerifiedGuardianInfo());
         Loading.hide();
         onPageFinish({
-          isVerified: result?.error ? false : true,
+          isVerified: !result?.error,
         });
         break;
       }
@@ -207,7 +217,7 @@ export default function GuardianApproval({
         const result = await callRemoveGuardianMethod(particularGuardian, getVerifiedGuardianInfo());
         Loading.hide();
         onPageFinish({
-          isVerified: result?.error ? false : true,
+          isVerified: !result?.error,
         });
         break;
       }
@@ -217,9 +227,21 @@ export default function GuardianApproval({
         Loading.show();
         const result = await callEditGuardianMethod(particularGuardian, pastGuardian, getVerifiedGuardianInfo());
         Loading.hide();
-        console.log('MODIFY_GUARDIAN result', result.error);
+        console.log('MODIFY_GUARDIAN result', result);
         onPageFinish({
-          isVerified: result.error ? false : true,
+          isVerified: !result.error,
+        });
+        break;
+      }
+
+      case GuardianVerifyType.EDIT_PAYMENT_SECURITY: {
+        Loading.show();
+        if (!paymentSecurityConfig) throw new Error('paymentSecurityConfig is null!');
+        const result = await callEditPaymentSecurityMethod(getVerifiedGuardianInfo(), paymentSecurityConfig);
+        Loading.hide();
+        console.log('EDIT_PAYMENT_SECURITY result', result);
+        onPageFinish({
+          isVerified: !result.error,
         });
         break;
       }
@@ -372,7 +394,7 @@ export default function GuardianApproval({
             onPress: async () => {
               try {
                 Loading.show();
-                const needRecaptcha = await isReacptchaOpen(OperationTypeEnum.communityRecovery);
+                const needRecaptcha = await isReacptchaOpen(operationType);
                 let token: string | undefined;
                 if (needRecaptcha) {
                   token = (await verifyHumanMachine('en')) as string;
@@ -428,9 +450,12 @@ export default function GuardianApproval({
       return null;
     }
     return new Promise(resolve => {
-      navigateToGuardianPage(Object.assign({}, guardian, { alreadySent: alreadySent ?? false }), result => {
-        resolve(result);
-      });
+      navigateToGuardianPage(
+        Object.assign({}, guardian, { alreadySent: alreadySent ?? false, operationType }),
+        result => {
+          resolve(result);
+        },
+      );
     });
   };
 
@@ -440,6 +465,7 @@ export default function GuardianApproval({
       {
         params: {
           deliveredGuardianInfo: JSON.stringify(config),
+          operationType,
         },
       },
       res => {

@@ -61,6 +61,9 @@
         //         "../mobile-app-did/js/*"
         //     ],
         // }
+        "types": ["reflect-metadata"],
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true
     },
     "exclude": [
         "android",

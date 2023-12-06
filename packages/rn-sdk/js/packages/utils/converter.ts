@@ -32,6 +32,11 @@ export const unitConverter = (num?: number | BigNumber | string, decimal = 4, de
   return fixedDecimal(bigNum, decimal);
 };
 
+export function divDecimalsToShow(a?: BigNumber.Value, decimals: string | number = 8, defaultVal = '--') {
+  const n = divDecimals(a, decimals);
+  return isEffectiveNumber(n) ? n.toFormat() : defaultVal;
+}
+
 export function divDecimals(a?: BigNumber.Value, decimals: string | number = 18) {
   if (!a) return ZERO;
   const bigA = ZERO.plus(a);

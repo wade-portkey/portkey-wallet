@@ -6,13 +6,13 @@ import { NetworkController } from 'network/controller';
 import { parseGuardianInfo } from 'model/global';
 import { PortkeyConfig } from 'global/constants';
 import Loading from 'components/Loading';
-import { OnGuardianHomeNewIntent } from 'pages/GuardianManage/GuardianHome';
+import { GuardiansApprovalIntent } from 'pages/GuardianManage/GuardianHome';
 import { GuardianApprovalPageProps, GuardianApprovalPageResult } from 'pages/Entries/GuardianApproval';
 import { VerifierDetailsPageProps, VerifierDetailsPageResult } from 'pages/Entries/VerifierDetails';
 import { getUnlockedWallet } from 'model/wallet';
 import { getOrReadCachedVerifierData } from 'model/contract/handler';
 
-const navigateToForResult = async <P, R>(entryName: string, props: P, from = 'UNKNOWN'): Promise<R | null> => {
+export const navigateToForResult = async <P, R>(entryName: string, props: P, from = 'UNKNOWN'): Promise<R | null> => {
   return new Promise<R | null>((resolve, _) => {
     PortkeyModulesEntity.RouterModule.navigateToWithOptions<R, P>(
       entryName,
@@ -29,8 +29,23 @@ const navigateToForResult = async <P, R>(entryName: string, props: P, from = 'UN
   });
 };
 
-const returnToGuardianHome = async (intent: OnGuardianHomeNewIntent) => {
-  PortkeyModulesEntity.RouterModule.navigateTo<OnGuardianHomeNewIntent>(
+const returnToParticularBasePage = async (intent: GuardiansApprovalIntent) => {
+  const { type } = intent;
+  switch (type) {
+    case GuardianVerifyType.CREATE_WALLET:
+    case GuardianVerifyType.ADD_GUARDIAN:
+    case GuardianVerifyType.MODIFY_GUARDIAN:
+    case GuardianVerifyType.REMOVE_GUARDIAN:
+      returnToGuardianHome(intent);
+      break;
+    case GuardianVerifyType.EDIT_PAYMENT_SECURITY:
+      returnToPaymentSecurityDetail(intent);
+      break;
+  }
+};
+
+const returnToGuardianHome = async (intent: GuardiansApprovalIntent) => {
+  PortkeyModulesEntity.RouterModule.navigateTo<GuardiansApprovalIntent>(
     PortkeyEntries.GUARDIAN_HOME_ENTRY,
     LaunchMode.SINGLE_TASK,
     `GuardianVerifyType#${intent.type}`,
@@ -38,6 +53,13 @@ const returnToGuardianHome = async (intent: OnGuardianHomeNewIntent) => {
     false,
     intent,
   );
+};
+
+const returnToPaymentSecurityDetail = async (intent: GuardiansApprovalIntent) => {
+  PortkeyModulesEntity.RouterModule.navigateBack({
+    status: intent.result,
+    data: intent,
+  });
 };
 
 export const handlePhoneOrEmailGuardianVerify = async (config: VerifierDetailsPageProps) => {
@@ -90,7 +112,7 @@ export const handleGuardiansApproval = async (config: GuardianVerifyConfig) => {
   if (!option?.isVerified && failHandler) {
     failHandler();
   } else {
-    returnToGuardianHome({
+    returnToParticularBasePage({
       type: guardianVerifyType,
       result: option?.isVerified ? 'success' : 'fail',
     });
@@ -98,7 +120,7 @@ export const handleGuardiansApproval = async (config: GuardianVerifyConfig) => {
 };
 
 const checkGuardiansApprovalConfig = (config: GuardianVerifyConfig): boolean => {
-  const { guardianVerifyType, particularGuardian } = config;
+  const { guardianVerifyType, particularGuardian, paymentSecurityConfig } = config;
   console.log('checkGuardiansApprovalConfig', config);
   switch (guardianVerifyType) {
     case GuardianVerifyType.CREATE_WALLET: {
@@ -108,6 +130,10 @@ const checkGuardiansApprovalConfig = (config: GuardianVerifyConfig): boolean => 
     case GuardianVerifyType.MODIFY_GUARDIAN:
     case GuardianVerifyType.REMOVE_GUARDIAN: {
       return !!particularGuardian;
+    }
+
+    case GuardianVerifyType.EDIT_PAYMENT_SECURITY: {
+      return !!paymentSecurityConfig;
     }
     default:
       return true;

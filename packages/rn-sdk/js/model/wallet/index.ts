@@ -2,16 +2,17 @@ import { PortkeyConfig, setCurrChainId } from 'global/constants';
 import useEffectOnce from 'hooks/useEffectOnce';
 import { callGetHolderInfoMethod } from 'model/contract/handler';
 import { getCaInfoByAccountIdentifierOrSessionId } from 'model/global';
-import { getTempWalletConfig } from 'model/verify/after-verify';
+import { getTempWalletConfig, isWalletUnlocked } from 'model/verify/core';
 import { NetworkController } from 'network/controller';
 import { CaInfo } from 'network/dto/guardian';
-import { WalletInfo } from 'network/dto/wallet';
+import { ManagerInfo } from 'network/dto/wallet';
 import { useState } from 'react';
 import { handleCachedValue } from 'service/storage/cache';
 
 export const getUnlockedWallet = async ({
   getMultiCaAddresses,
 }: GetWalletConfig = DefaultConfig): Promise<UnlockedWallet> => {
+  if (!(await isWalletUnlocked())) throw new Error('wallet is not unlocked');
   const {
     sessionId,
     accountIdentifier,
@@ -110,4 +111,4 @@ export type UnlockedWallet = {
   };
   name: string;
   originChainId: string;
-} & WalletInfo;
+} & ManagerInfo;

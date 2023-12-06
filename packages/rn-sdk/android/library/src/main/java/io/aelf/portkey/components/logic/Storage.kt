@@ -5,11 +5,20 @@ import com.tencent.mmkv.MMKV
 import io.aelf.core.JSNameSpace
 import java.util.Arrays
 
-private val portkeyMMKV = MMKV.mmkvWithID("portkey-sdk").apply {
-    allKeys()?.filter { it.contains("#") }?.forEach {
-        removeValueForKey(it)
+
+// change this crypto key to ensure high level of information security
+private const val DEFAULT_CRYPTO_KEY = "portkey-default-crypto-key"
+
+const val PORTKEY_CONFIG_ENDPOINT_URL = "endPointUrl"
+
+private val portkeyConfigKeyList = listOf(PORTKEY_CONFIG_ENDPOINT_URL)
+
+private val portkeyMMKV =
+    MMKV.mmkvWithID("portkey-sdk", MMKV.SINGLE_PROCESS_MODE, DEFAULT_CRYPTO_KEY).apply {
+        allKeys()?.filter { it.contains("#") }?.forEach {
+            removeValueForKey(it)
+        }
     }
-}
 
 internal infix fun String.but(options: StorageKeyOptions): String {
     return when (options) {
@@ -17,6 +26,7 @@ internal infix fun String.but(options: StorageKeyOptions): String {
         else -> this
     }
 }
+
 
 internal val TEMP: StorageKeyOptions = object : StorageKeyOptions {}
 
@@ -26,6 +36,13 @@ object PortkeyMMKVStorage {
     @Synchronized
     fun readString(key: String): String? {
         return portkeyMMKV.decodeString(key)
+    }
+
+    fun setEnvironmentConfig(key: String, value: String) {
+        if (!portkeyConfigKeyList.contains(key)) {
+            throw IllegalArgumentException("key $key is not allowed to set")
+        }
+        writeString(key, value)
     }
 
     @Synchronized
@@ -58,7 +75,7 @@ object PortkeyMMKVStorage {
         }
     }
 
-    fun clear() {
+    internal fun clear() {
         portkeyMMKV.clearAll()
         portkeyMMKV.clearMemoryCache()
         portkeyMMKV.sync()
@@ -66,26 +83,26 @@ object PortkeyMMKVStorage {
     }
 
     @Synchronized
-    fun writeString(key: String, value: String?) {
+    internal fun writeString(key: String, value: String?) {
         portkeyMMKV.encode(key, value)
     }
 
     @Synchronized
-    fun writeDouble(key: String, value: Double) {
+    internal fun writeDouble(key: String, value: Double) {
         portkeyMMKV.encode(key, value)
     }
 
     @Synchronized
-    fun writeInt(key: String, value: Int) {
+    internal fun writeInt(key: String, value: Int) {
         portkeyMMKV.encode(key, value)
     }
 
     @Synchronized
-    fun writeBoolean(key: String, value: Boolean) {
+    internal fun writeBoolean(key: String, value: Boolean) {
         portkeyMMKV.encode(key, value)
     }
 
-    fun remove(key: String) {
+    internal fun remove(key: String) {
         portkeyMMKV.removeValueForKey(key)
     }
 

@@ -1,5 +1,5 @@
 import { PortkeyConfig } from 'global/constants';
-import { isWalletUnlocked } from 'model/verify/after-verify';
+import { isWalletUnlocked } from 'model/verify/core';
 import { getUnlockedWallet } from 'model/wallet';
 import { NetworkController } from 'network/controller';
 import { AElfWeb3SDK } from 'network/dto/wallet';

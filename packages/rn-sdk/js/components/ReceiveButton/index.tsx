@@ -20,7 +20,7 @@ interface SendButtonType {
 export default function ReceiveButton(props: SendButtonType) {
   const { themeType = 'dashBoard' } = props;
   const { t } = useLanguage();
-  const { navigationTo } = useBaseContainer({
+  const { navigateTo: navigationTo } = useBaseContainer({
     entryName: PortkeyEntries.ASSETS_HOME_ENTRY,
   });
   const styles = themeType === 'dashBoard' ? dashBoardBtnStyle : innerPageStyles;

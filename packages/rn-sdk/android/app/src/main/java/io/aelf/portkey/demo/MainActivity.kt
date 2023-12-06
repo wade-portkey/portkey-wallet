@@ -28,6 +28,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import io.aelf.core.PortkeyEntries
+import io.aelf.portkey.components.logic.PORTKEY_CONFIG_ENDPOINT_URL
 import io.aelf.portkey.components.logic.PortkeyMMKVStorage
 import io.aelf.portkey.demo.ui.composable.ChoiceMaker
 import io.aelf.portkey.demo.ui.composable.DialogProps
@@ -64,13 +65,6 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = Color.Gray
                 ) {
-                    val cachedChainId = remember {
-                        val chainId = PortkeyMMKVStorage.readString("currChainId")
-                        if (chainId.isNullOrEmpty()) {
-                            changeChain("AELF")
-                        }
-                        chainId ?: "AELF"
-                    }
                     val cachedEndPointName = remember {
                         val url = PortkeyMMKVStorage.readString("endPointUrl")
                         if (url.isNullOrEmpty()) {
@@ -91,7 +85,8 @@ class MainActivity : ComponentActivity() {
                                 "Scan",
                                 "AccountingSettings",
                                 "GuardianHome",
-                                "AssetsHome"
+                                "AssetsHome",
+                                "PaymentSecurity"
                             )
                         ) {
                             gotoPage(it)
@@ -186,13 +181,13 @@ class MainActivity : ComponentActivity() {
                             Loading.showLoading("Running Test Cases...")
                         }
                         TitleLine(text = "Environment Settings")
-                        ChoiceMaker(
-                            title = "Choose Chain",
-                            choicesList = mutableListOf("AELF", "tDVV", "tDVW"),
-                            defaultChoice = cachedChainId
-                        ) {
-                            changeChain(it)
-                        }
+//                        ChoiceMaker(
+//                            title = "Choose Chain",
+//                            choicesList = mutableListOf("AELF", "tDVV", "tDVW"),
+//                            defaultChoice = cachedChainId
+//                        ) {
+//                            changeChain(it)
+//                        }
                         ChoiceMaker(
                             title = "Choose EndPointUrl",
                             choicesList = environment.keys.toList(),
@@ -237,6 +232,10 @@ class MainActivity : ComponentActivity() {
                 jumpToActivity(PortkeyEntries.ASSETS_HOME_ENTRY.entryName)
             }
 
+            "PaymentSecurity" -> {
+                jumpToActivity(PortkeyEntries.PAYMENT_SECURITY_HOME_ENTRY.entryName)
+            }
+
             else -> {
                 Toast.makeText(this, "Unknown page", Toast.LENGTH_SHORT).show()
             }
@@ -272,13 +271,9 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    private fun changeChain(chainId: String) {
-        PortkeyMMKVStorage.writeString("currChainId", chainId)
-    }
-
     private fun changeEndPointUrl(name: String) {
-        PortkeyMMKVStorage.writeString(
-            "endPointUrl",
+        PortkeyMMKVStorage.setEnvironmentConfig(
+            PORTKEY_CONFIG_ENDPOINT_URL,
             environment[name] ?: throw InvalidKeyException()
         )
     }

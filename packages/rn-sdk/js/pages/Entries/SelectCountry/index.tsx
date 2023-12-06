@@ -1,12 +1,7 @@
 import { CountryCodeDataDTO, CountryCodeItem, defaultCountryCode } from 'types/wallet';
 import { PortkeyEntries } from '../../../config/entries';
 import BaseContainer, { BaseContainerProps } from '../../../model/container/BaseContainer';
-import {
-  AccountCheckResult,
-  COUNTRY_CODE_DATA_KEY,
-  CURRENT_USING_COUNTRY_CODE,
-  attemptAccountCheck,
-} from '../../../model/global';
+import { COUNTRY_CODE_DATA_KEY, CURRENT_USING_COUNTRY_CODE } from '../../../model/global';
 import SelectCountry, { SelectCountryResult } from 'pages/Login/SelectCountry';
 import React from 'react';
 import { GlobalStorage } from 'service/storage';
@@ -37,10 +32,6 @@ export default class SelectCountryEntryPage extends BaseContainer<
   };
 
   getEntryName = (): string => PortkeyEntries.SELECT_COUNTRY_ENTRY;
-
-  attemptAccountCheck = async (accountIdentifier: string): Promise<AccountCheckResult> => {
-    return attemptAccountCheck(accountIdentifier);
-  };
 
   onSelected = (result: CountryCodeItem | null | undefined) => {
     if (result) {

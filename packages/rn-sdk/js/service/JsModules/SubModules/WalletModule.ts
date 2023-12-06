@@ -2,7 +2,7 @@ import { SendResult, ViewResult } from 'packages/contracts/types';
 import { PortkeyModulesEntity } from '../../native-modules';
 import { BaseJSModule, BaseMethodParams, BaseMethodResult } from '../types';
 import { callRemoveManagerMethod, getContractInstance } from 'model/contract/handler';
-import { exitWallet, isWalletUnlocked, lockWallet } from 'model/verify/after-verify';
+import { exitWallet, isWalletUnlocked, lockWallet } from 'model/verify/core';
 import { getUnlockedWallet } from 'model/wallet';
 
 const WalletModule: BaseJSModule = {

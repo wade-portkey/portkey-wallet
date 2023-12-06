@@ -12,7 +12,7 @@ import { pTd } from 'utils/unit';
 import { handleErrorMessage } from 'packages/utils';
 import CommonToast from 'components/CommonToast';
 import useEffectOnce from 'hooks/useEffectOnce';
-import { getVerifiedAndLockWallet } from 'model/verify/after-verify';
+import { getVerifiedAndLockWallet } from 'model/verify/core';
 import Loading from 'components/Loading';
 import { PortkeyEntries } from 'config/entries';
 import useBaseContainer from 'model/container/UseBaseContainer';

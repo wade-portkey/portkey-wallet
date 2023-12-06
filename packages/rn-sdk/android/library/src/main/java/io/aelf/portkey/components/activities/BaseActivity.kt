@@ -38,7 +38,7 @@ abstract class BasePortkeyReactActivity : ReactActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-            this.callbackId =
+        this.callbackId =
             intent.getStringExtra(StorageIdentifiers.PAGE_CALLBACK_ID) ?: NO_CALLBACK_METHOD
         val pageEntry = intent.getStringExtra(StorageIdentifiers.PAGE_ENTRY)
             ?: PortkeyEntries.SCAN_QR_CODE_ENTRY.entryName
@@ -192,41 +192,9 @@ internal fun BasePortkeyReactActivity.navigateToAnotherReactActivity(
 }
 
 fun ReadableMap.toBundle(extraEntries: Array<Pair<String, String>> = emptyArray()): Bundle {
-    val bundle = Bundle()
-    this.entryIterator.forEachRemaining {
-        bundle.putWithType(it.key, it.value)
-    }
-    extraEntries.forEach {
-        bundle.putWithType(it.first, it.second)
-    }
-    return bundle
-}
-
-/**
- * React Native only accept
- */
-private fun Bundle.putWithType(key: String, value: Any?): Bundle {
-    if (value == null) return this
-    when (value) {
-        is String -> this.putString(key, value)
-        is Int -> this.putInt(key, value)
-        is Float -> this.putDouble(key, value.toDouble())
-        is Double -> this.putDouble(key, value)
-        is Boolean -> this.putBoolean(key, value)
-        is List<*> -> {
-            val isNumber = value.isEmpty() || value[0] is Number
-            if (isNumber) {
-                this.putDoubleArray(key, value.map { (it as Number).toDouble() }.toDoubleArray())
-            } else {
-                this.putStringArrayList(key, value.map { it.toString() } as ArrayList<String>)
-            }
+    return (Arguments.toBundle(this) ?: Bundle()).apply {
+        extraEntries.forEach {
+            this.putString(it.first, it.second)
         }
-
-        is Map<*, *> -> {
-            throw IllegalArgumentException("Map(Object) type props is not supported in Android here.")
-        }
-
-        else -> this.putString(key, value.toString())
     }
-    return this
 }

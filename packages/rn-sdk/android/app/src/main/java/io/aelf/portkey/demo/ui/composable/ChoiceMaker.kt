@@ -86,11 +86,12 @@ internal fun ChoiceMaker(
                             return@click
                         }
                         fun execute() {
-                            Loading.hideLoading()
                             if (useExitWallet) {
+                                Loading.showLoading()
                                 PortkeyWallet.exitWallet(
                                     context = context,
                                     callback = { succeed, reason ->
+                                        Loading.hideLoading()
                                         if (succeed) {
                                             changeChoice(
                                                 it,
@@ -112,7 +113,6 @@ internal fun ChoiceMaker(
                                     "Are you sure to switch to $it ?${if (useExitWallet) " Your wallet will be erased." else ""}"
                                 useSingleConfirmButton = false
                                 positiveCallback = {
-                                    Loading.showLoading()
                                     execute()
                                 }
                             }

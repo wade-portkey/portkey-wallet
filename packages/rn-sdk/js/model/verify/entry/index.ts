@@ -10,7 +10,7 @@ import {
   guardianTypeStrToEnum,
 } from 'model/global';
 import { SetPinPageResult, SetPinPageProps } from 'pages/Pin/SetPin';
-import { AccountOriginalType, AfterVerifiedConfig, VerifiedGuardianDoc } from '../after-verify';
+import { AccountOriginalType, AfterVerifiedConfig, VerifiedGuardianDoc } from '../core';
 import { GuardianConfig } from '../guardian';
 import useBaseContainer from 'model/container/UseBaseContainer';
 import { SendVerifyCodeResultDTO } from 'network/dto/guardian';
@@ -24,7 +24,12 @@ import { PageType } from 'pages/Login/types';
 import { ThirdPartyAccountInfo, isAppleLogin } from '../third-party-account';
 import { GuardianApprovalPageProps, GuardianApprovalPageResult } from 'pages/Entries/GuardianApproval';
 import { useThirdPartyVerifyAtomic } from './atomic';
+import { UnlockedWallet, getUnlockedWallet } from 'model/wallet';
 
+export interface LoginResult {
+  finished: boolean;
+  walletInfo: UnlockedWallet;
+}
 export const useVerifyEntry = (verifyConfig: VerifyConfig): VerifyEntryHooks => {
   const { type, entryName, accountOriginalType, setErrorMessage, verifyAccountIdentifier } = verifyConfig;
 
@@ -75,6 +80,7 @@ export const useVerifyEntry = (verifyConfig: VerifyConfig): VerifyEntryHooks => 
         {
           params: {
             deliveredGuardianInfo: JSON.stringify(config),
+            operationType: type === PageType.login ? OperationTypeEnum.communityRecovery : OperationTypeEnum.register,
           },
         },
         res => {
@@ -96,7 +102,7 @@ export const useVerifyEntry = (verifyConfig: VerifyConfig): VerifyEntryHooks => 
         throw new Error('login failed.');
       }
       const accountIdentifier = thirdPartyAccountInfo.accountIdentifier;
-      const accountCheckResult = await attemptAccountCheck(accountIdentifier as string);
+      const accountCheckResult = await attemptAccountCheck(accountIdentifier);
       const thirdPartyInfo: ThirdPartyAccountInfo = isAppleLogin(thirdPartyAccountInfo)
         ? { apple: thirdPartyAccountInfo }
         : { google: thirdPartyAccountInfo };
@@ -173,7 +179,7 @@ export const useVerifyEntry = (verifyConfig: VerifyConfig): VerifyEntryHooks => 
     }
     const loadingKey = Loading.show();
     try {
-      const accountCheckResult = await attemptAccountCheck(accountIdentifier as string);
+      const accountCheckResult = await attemptAccountCheck(accountIdentifier);
       if (accountCheckResult.hasRegistered) {
         dealWithSignIn(accountIdentifier, thirdPartyAccountInfo);
       } else {
@@ -206,7 +212,7 @@ export const useVerifyEntry = (verifyConfig: VerifyConfig): VerifyEntryHooks => 
     }
     const loadingKey = Loading.show();
     try {
-      const accountCheckResult = await attemptAccountCheck(accountIdentifier as string);
+      const accountCheckResult = await attemptAccountCheck(accountIdentifier);
       if (accountCheckResult.hasRegistered) {
         ActionSheet.alert({
           title: 'Continue with this account?',
@@ -248,17 +254,19 @@ export const useVerifyEntry = (verifyConfig: VerifyConfig): VerifyEntryHooks => 
               deliveredGuardianListInfo: JSON.stringify(signInPageData),
             },
           },
-          res => {
+          async res => {
             const { data } = res || {};
             const { isVerified } = data || {};
             if (!isVerified) {
               setErrorMessage('verification failed, please try again.');
               return;
             } else {
+              const walletInfo = await getUnlockedWallet();
               onFinish({
                 status: 'success',
                 data: {
                   finished: true,
+                  walletInfo,
                 },
               });
             }
@@ -283,13 +291,15 @@ export const useVerifyEntry = (verifyConfig: VerifyConfig): VerifyEntryHooks => 
             typeof afterVerifiedData === 'string' ? afterVerifiedData : JSON.stringify(afterVerifiedData),
         },
       },
-      res => {
+      async res => {
         const { data } = res;
         if (data?.finished) {
+          const walletInfo = await getUnlockedWallet();
           onFinish({
             status: 'success',
             data: {
               finished: true,
+              walletInfo,
             },
           });
         }

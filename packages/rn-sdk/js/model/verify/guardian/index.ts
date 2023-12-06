@@ -1,8 +1,8 @@
 import { NetworkController } from 'network/controller';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { CheckVerifyCodeResultDTO, SendVerifyCodeParams } from '../../../network/dto/guardian';
-import { AccountOriginalType } from '../after-verify';
-import { VerifiedGuardianDoc } from '../after-verify/index';
+import { AccountOriginalType } from '../core';
+import { VerifiedGuardianDoc } from '../core/index';
 
 export const INIT_TIME_OUT = 60;
 
