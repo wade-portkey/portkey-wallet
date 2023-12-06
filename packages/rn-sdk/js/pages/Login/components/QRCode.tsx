@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useState, useContext } from 'react';
 import { View, Image } from 'react-native';
-import AElf from 'aelf-sdk';
 import { BGStyles, FontStyles } from 'assets/theme/styles';
 import myEvents from 'utils/deviceEvent';
 import styles from '../styles';
@@ -18,8 +17,8 @@ import NetworkContext from '../context/NetworkContext';
 import useBaseContainer from 'model/container/UseBaseContainer';
 import { SetPinPageResult, SetPinPageProps } from 'pages/Pin/SetPin';
 import { PortkeyEntries } from 'config/entries';
-import { AfterVerifiedConfig } from 'model/verify/after-verify';
-import { ManagerInfo } from 'network/dto/wallet';
+import { AfterVerifiedConfig } from 'model/verify/core';
+import { AElfWeb3SDK, ManagerInfo } from 'network/dto/wallet';
 import { isIOS } from '@portkey-wallet/utils/mobile/device';
 
 // When wallet does not exist, DEFAULT_WALLET is populated as the default data
@@ -94,9 +93,14 @@ export default function QRCode({ setLoginType }: { setLoginType: (type: PageLogi
   const generateWallet = useCallback(() => {
     try {
       console.log('before createNewWallet');
-      const wallet = AElf.wallet.createNewWallet();
-      console.log('wallet', wallet);
-      setNewWallet(wallet);
+      const wallet = AElfWeb3SDK.createNewWallet();
+      const { privateKey, address } = wallet;
+      const publicKey = wallet.keyPair.getPublic('hex');
+      setNewWallet({
+        privateKey,
+        publicKey,
+        address,
+      });
     } catch (error) {
       console.error(error);
     }

@@ -26,7 +26,7 @@ import { PortkeyConfig } from 'global/constants';
 import useEffectOnce from 'hooks/useEffectOnce';
 import { Verifier, callCancelLoginGuardianMethod, getOrReadCachedVerifierData } from 'model/contract/handler';
 import { guardianTypeStrToEnum, parseGuardianInfo } from 'model/global';
-import { AccountOriginalType } from 'model/verify/after-verify';
+import { AccountOriginalType } from 'model/verify/core';
 import { getUnlockedWallet } from 'model/wallet';
 import { NetworkController } from 'network/controller';
 import { PortkeyEntries } from 'config/entries';

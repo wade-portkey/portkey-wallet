@@ -3,7 +3,7 @@ import { PortkeyEntries } from '../../../config/entries';
 import BaseContainer, { BaseContainerProps } from '../../../model/container/BaseContainer';
 import VerifierDetails from 'pages/Guardian/VerifierDetails';
 import React from 'react';
-import { AccountOriginalType } from 'model/verify/after-verify';
+import { AccountOriginalType } from 'model/verify/core';
 import { GuardianConfig } from 'model/verify/guardian';
 
 export default class VerifierDetailsEntryPage extends BaseContainer<

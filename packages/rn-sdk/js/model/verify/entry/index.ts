@@ -10,7 +10,7 @@ import {
   guardianTypeStrToEnum,
 } from 'model/global';
 import { SetPinPageResult, SetPinPageProps } from 'pages/Pin/SetPin';
-import { AccountOriginalType, AfterVerifiedConfig, VerifiedGuardianDoc } from '../after-verify';
+import { AccountOriginalType, AfterVerifiedConfig, VerifiedGuardianDoc } from '../core';
 import { GuardianConfig } from '../guardian';
 import useBaseContainer from 'model/container/UseBaseContainer';
 import { SendVerifyCodeResultDTO } from 'network/dto/guardian';

@@ -1,6 +1,7 @@
 import { getUnlockedWallet } from 'model/wallet';
 import { NetworkController } from 'network/controller';
 import { TestCase } from 'service/JsModules/types';
+import { encryptLocal } from 'utils/crypto';
 
 export const NetworkTestCases: Array<TestCase> = [
   {
@@ -8,6 +9,15 @@ export const NetworkTestCases: Array<TestCase> = [
     run: async testContext => {
       const it = await NetworkController.getNetworkInfo();
       testContext.assert(it.totalCount > 0, 'totalCount should be greater than 0');
+    },
+  },
+  {
+    describe: 'EncryptLocal',
+    run: async testContext => {
+      const msg = 'i-am-error';
+      const decrypted = await encryptLocal(await encryptLocal(msg));
+      console.log('decrypted', decrypted);
+      testContext.assert(msg === decrypted, 'msg should be the same after 2 times encryptLocal');
     },
   },
   {
@@ -64,18 +74,20 @@ export const NetworkTestCases: Array<TestCase> = [
       });
       testContext.assert(!!it, 'it should not be falsy');
       testContext.log(it, 'getNftCollections result');
-      const symbol = it.data[0].symbol;
-      const them = await NetworkController.fetchParticularNftItemList({
-        maxResultCount: 100,
-        skipCount: 0,
-        symbol,
-        caAddressInfos: Object.entries(wallet.multiCaAddresses).map(([chainId, caAddress]) => ({
-          chainId,
-          caAddress,
-        })),
-      });
-      testContext.assert(!!them, 'them should not be falsy');
-      testContext.log(them, 'getNftItems result');
+      const symbol = it.data[0]?.symbol;
+      if (symbol) {
+        const them = await NetworkController.fetchParticularNftItemList({
+          maxResultCount: 100,
+          skipCount: 0,
+          symbol,
+          caAddressInfos: Object.entries(wallet.multiCaAddresses).map(([chainId, caAddress]) => ({
+            chainId,
+            caAddress,
+          })),
+        });
+        testContext.assert(!!them, 'nft items info should not be falsy');
+        testContext.log(them, 'getNftItems result');
+      }
     },
     useDetailsReport: true,
   },

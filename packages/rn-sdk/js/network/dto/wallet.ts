@@ -1,4 +1,4 @@
-import { AccountOriginalType, ContextInfo } from 'model/verify/after-verify';
+import { AccountOriginalType, ContextInfo } from 'model/verify/core';
 import AElf from 'aelf-sdk';
 import { ChainId } from '@portkey-wallet/types';
 

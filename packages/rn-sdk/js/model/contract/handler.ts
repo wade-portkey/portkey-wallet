@@ -7,7 +7,7 @@ import { getCachedNetworkConfig } from 'model/chain';
 import { guardianTypeStrToEnum } from 'model/global';
 import { getCurrentNetworkType } from 'model/hooks/network';
 import { ITransferLimitItem } from 'model/security';
-import { isWalletUnlocked } from 'model/verify/after-verify';
+import { isWalletUnlocked } from 'model/verify/core';
 import { GuardianConfig } from 'model/verify/guardian';
 import { getUnlockedWallet } from 'model/wallet';
 import { NetworkController } from 'network/controller';

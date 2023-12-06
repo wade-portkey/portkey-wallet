@@ -13,10 +13,12 @@ import {
   isRecoveryStatusItem,
 } from 'network/dto/wallet';
 import { GlobalStorage, TempStorage } from 'service/storage';
+import { decrypt, encrypt, encryptLocal } from 'utils/crypto';
 
 const PIN_KEY = 'pin';
 const WALLET_CONFIG_KEY = 'walletConfig';
 const USE_BIOMETRIC_KEY = 'useBiometric';
+const LOCAL_WALLET_CONFIG_KEY = 'localWalletConfig';
 
 export interface AfterVerifiedConfig {
   normalVerifyPathInfo?: NormalVerifyPathInfo;
@@ -88,7 +90,7 @@ export const getVerifiedAndLockWallet = async (
     }
     if (!walletConfig) throw new Error('create wallet failed.');
     await createWallet(pinValue, walletConfig);
-    rememberUseBiometric(setBiometrics ?? false);
+    rememberUseBiometric(setBiometrics ?? false, walletConfig);
     await sleep(500);
     return true;
   } catch (e) {
@@ -178,16 +180,18 @@ const findVerifyProcessOnCurrChain = (
 };
 
 const createWallet = async (pinValue: string, config: RecoverWalletConfig): Promise<void> => {
-  // TODO encrypt walletConfig
-  GlobalStorage.set(PIN_KEY, pinValue);
-  GlobalStorage.set(WALLET_CONFIG_KEY, JSON.stringify(config));
+  const walletInfo = JSON.stringify(config);
+  const encryptedWalletConfig = encrypt(walletInfo, pinValue);
+  GlobalStorage.set(WALLET_CONFIG_KEY, encryptedWalletConfig);
 
   // then set the temp wallet
-  TempStorage.set(WALLET_CONFIG_KEY, JSON.stringify(config));
+  TempStorage.set(WALLET_CONFIG_KEY, walletInfo);
 };
 
-export const rememberUseBiometric = async (useBiometric: boolean): Promise<void> => {
+export const rememberUseBiometric = async (useBiometric: boolean, config: RecoverWalletConfig): Promise<void> => {
+  const walletInfo = JSON.stringify(config);
   GlobalStorage.set(USE_BIOMETRIC_KEY, useBiometric);
+  GlobalStorage.set(LOCAL_WALLET_CONFIG_KEY, await encryptLocal(walletInfo));
 };
 
 export const getUseBiometric = async (): Promise<boolean> => {
@@ -217,31 +221,51 @@ export const getTempWalletConfig = async (): Promise<RecoverWalletConfig> => {
 };
 
 export const isWalletExists = async (): Promise<boolean> => {
-  const storagePin = await GlobalStorage.getString(PIN_KEY);
   const walletConfig = await GlobalStorage.getString(WALLET_CONFIG_KEY);
-  return !!storagePin && !!walletConfig;
+  return !!walletConfig;
 };
 
 export const checkPin = async (pinValue: string): Promise<boolean> => {
-  const storagePin = await GlobalStorage.getString(PIN_KEY);
-  return storagePin === pinValue;
+  try {
+    const encrypted = await GlobalStorage.getString(WALLET_CONFIG_KEY);
+    if (!encrypted || !pinValue) throw new Error('wallet not exist');
+    const decrypted = decrypt(encrypted, pinValue);
+    console.log('decrypted', decrypted);
+    const decryptedWalletConfig = JSON.parse(decrypted);
+    return !!decryptedWalletConfig;
+  } catch (e) {
+    console.log('checkPin error', e);
+    return false;
+  }
 };
 export const changePin = async (pinValue: string): Promise<void> => {
   GlobalStorage.set(PIN_KEY, pinValue);
 };
 
 export const unLockTempWallet = async (pinValue?: string, useBiometric = false): Promise<boolean> => {
-  const storagePin = await GlobalStorage.getString(PIN_KEY);
-  const walletConfig = await GlobalStorage.getString(WALLET_CONFIG_KEY);
-  if ((storagePin !== pinValue && !useBiometric) || !walletConfig) {
-    return false;
-  }
-  if (await isWalletUnlocked()) {
-    return true;
-  } else {
+  try {
+    if (await isWalletUnlocked()) {
+      return true;
+    }
+    let decrypted: string | undefined;
+    if (useBiometric) {
+      const encrypted = await GlobalStorage.getString(LOCAL_WALLET_CONFIG_KEY);
+      console.log('encrypted', encrypted);
+      if (!encrypted) throw new Error('wallet not exist');
+      decrypted = await encryptLocal(encrypted);
+    } else {
+      const encrypted = await GlobalStorage.getString(WALLET_CONFIG_KEY);
+      if (!encrypted || !pinValue) throw new Error('wallet not exist');
+      decrypted = decrypt(encrypted, pinValue);
+    }
+    const decryptedWalletConfig = JSON.parse(decrypted);
+    if (!decryptedWalletConfig) throw new Error('decrypt error!');
     // TODO decrypt walletConfig
-    TempStorage.set(WALLET_CONFIG_KEY, walletConfig);
+    TempStorage.set(WALLET_CONFIG_KEY, decrypted);
     return true;
+  } catch (e) {
+    console.log('unlock wallet failed', e);
+    return false;
   }
 };
 

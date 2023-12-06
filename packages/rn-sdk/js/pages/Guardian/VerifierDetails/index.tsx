@@ -9,7 +9,7 @@ import { StyleSheet, Text } from 'react-native';
 import { OperationTypeEnum } from '@portkey-wallet/types/verifier';
 import { FontStyles } from 'assets/theme/styles';
 import { LoginType } from '@portkey-wallet/types/types-ca/wallet';
-import { AccountOriginalType } from 'model/verify/after-verify';
+import { AccountOriginalType } from 'model/verify/core';
 import usePhoneOrEmailGuardian, { GuardianConfig, INIT_TIME_OUT } from 'model/verify/guardian';
 import { NetworkController } from 'network/controller';
 import { verifyHumanMachine } from 'components/VerifyHumanMachine';

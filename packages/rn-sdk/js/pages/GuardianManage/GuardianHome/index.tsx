@@ -8,7 +8,7 @@ import { useLanguage } from 'i18n/hooks';
 import GuardianItem from 'pages/Guardian/components/GuardianItem';
 import Touchable from 'components/Touchable';
 import GStyles from 'assets/theme/GStyles';
-import { AccountOriginalType, getTempWalletConfig, RecoverWalletConfig } from 'model/verify/after-verify';
+import { AccountOriginalType, getTempWalletConfig, RecoverWalletConfig } from 'model/verify/core';
 import { NetworkController } from 'network/controller';
 import { UserGuardianItem } from '@portkey-wallet/store/store-ca/guardians/type';
 import { getBottomSpace } from 'utils/screen';

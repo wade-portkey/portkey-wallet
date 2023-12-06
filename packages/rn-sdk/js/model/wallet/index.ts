@@ -2,7 +2,7 @@ import { PortkeyConfig, setCurrChainId } from 'global/constants';
 import useEffectOnce from 'hooks/useEffectOnce';
 import { callGetHolderInfoMethod } from 'model/contract/handler';
 import { getCaInfoByAccountIdentifierOrSessionId } from 'model/global';
-import { getTempWalletConfig, isWalletUnlocked } from 'model/verify/after-verify';
+import { getTempWalletConfig, isWalletUnlocked } from 'model/verify/core';
 import { NetworkController } from 'network/controller';
 import { CaInfo } from 'network/dto/guardian';
 import { ManagerInfo } from 'network/dto/wallet';

@@ -1,4 +1,4 @@
-import { AccountOriginalType } from '../after-verify';
+import { AccountOriginalType } from '../core';
 import { GuardianConfig } from '../guardian';
 import { CheckVerifyCodeResultDTO } from 'network/dto/guardian';
 import { ThirdPartyAccountInfo } from '../third-party-account';

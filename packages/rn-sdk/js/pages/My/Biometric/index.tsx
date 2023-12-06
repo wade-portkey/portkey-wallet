@@ -10,7 +10,7 @@ import i18n from 'i18n';
 import { TextM } from 'components/CommonText';
 import ActionSheet from 'components/ActionSheet';
 import myEvents from 'utils/deviceEvent';
-import { checkPin, getUseBiometric, rememberUseBiometric } from 'model/verify/after-verify';
+import { checkPin, getUseBiometric, rememberUseBiometric } from 'model/verify/core';
 import useBaseContainer from 'model/container/UseBaseContainer';
 import { PortkeyEntries } from 'config/entries';
 import { SafeAreaProvider } from 'react-native-safe-area-context';

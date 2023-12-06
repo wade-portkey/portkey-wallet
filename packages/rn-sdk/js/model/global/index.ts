@@ -1,11 +1,6 @@
 import { OperationTypeEnum } from '@portkey-wallet/types/verifier';
 import { PortkeyConfig, setCurrChainId } from 'global/constants';
-import {
-  AccountOriginalType,
-  NormalVerifyPathInfo,
-  VerifiedGuardianDoc,
-  wrapExtraData,
-} from 'model/verify/after-verify';
+import { AccountOriginalType, NormalVerifyPathInfo, VerifiedGuardianDoc, wrapExtraData } from 'model/verify/core';
 import { GuardianConfig } from 'model/verify/guardian';
 import { SignUpConfig } from 'model/verify/sign-up';
 import { GuardianVerifyConfig, GuardianVerifyType } from 'model/verify/social-recovery';

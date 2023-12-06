@@ -3,7 +3,7 @@ import { PortkeyEntries } from '../../../config/entries';
 import BaseContainer, { BaseContainerProps } from '../../../model/container/BaseContainer';
 import GuardianApproval from 'pages/Guardian/GuardianApproval';
 import React from 'react';
-import { AfterVerifiedConfig } from 'model/verify/after-verify';
+import { AfterVerifiedConfig } from 'model/verify/core';
 import { SetPinPageProps, SetPinPageResult } from 'pages/Pin/SetPin';
 import CommonToast from 'components/CommonToast';
 

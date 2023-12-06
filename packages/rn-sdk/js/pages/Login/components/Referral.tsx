@@ -10,7 +10,7 @@ import { pTd } from 'utils/unit';
 import CommonButton from 'components/CommonButton';
 import { PortkeyEntries } from 'config/entries';
 import useBaseContainer from 'model/container/UseBaseContainer';
-import { AccountOriginalType, isWalletExists, isWalletUnlocked } from 'model/verify/after-verify';
+import { AccountOriginalType, isWalletExists, isWalletUnlocked } from 'model/verify/core';
 import CommonToast from 'components/CommonToast';
 import useEffectOnce from 'hooks/useEffectOnce';
 import { CheckPinProps, CheckPinResult } from 'pages/Pin/CheckPin';

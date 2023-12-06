@@ -52,7 +52,7 @@ import { CountryCodeItem, defaultCountryCode } from 'types/wallet';
 import CommonButton from 'components/CommonButton';
 import { verifyHumanMachine } from 'components/VerifyHumanMachine';
 import { handleGuardiansApproval, handlePhoneOrEmailGuardianVerify } from 'model/verify/entry/hooks';
-import { AccountOriginalType } from 'model/verify/after-verify';
+import { AccountOriginalType } from 'model/verify/core';
 import { GuardianVerifyType, VerifiedGuardianInfo } from 'model/verify/social-recovery';
 import { Buffer } from 'buffer';
 import { sleep } from '@portkey-wallet/utils';

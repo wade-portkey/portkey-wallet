@@ -26,7 +26,7 @@ import { guardianTypeStrToEnum, isReacptchaOpen } from 'model/global';
 import { NetworkController } from 'network/controller';
 import { VerifierDetailsPageProps } from 'pages/Entries/VerifierDetails';
 import { PortkeyEntries } from 'config/entries';
-import { AccountOriginalType, AfterVerifiedConfig, VerifiedGuardianDoc } from 'model/verify/after-verify';
+import { AccountOriginalType, AfterVerifiedConfig, VerifiedGuardianDoc } from 'model/verify/core';
 import { VerifyPageResult } from '../VerifierDetails';
 import useBaseContainer from 'model/container/UseBaseContainer';
 import { defaultColors } from 'assets/theme';

@@ -5,7 +5,7 @@ import {
   isWalletUnlocked,
   lockWallet as lockInternalWallet,
   exitWallet as exitInternalWallet,
-} from 'model/verify/after-verify';
+} from 'model/verify/core';
 import { injectable } from 'inversify';
 import { callRemoveManagerMethod, getContractInstance } from 'model/contract/handler';
 import { UnlockedWallet, getUnlockedWallet } from 'model/wallet';
