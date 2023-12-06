@@ -9,7 +9,16 @@ yarn add @portkey/rn-sdk
 ```
 <br>
 
-**Step 2: Init**
+**Step 2: Create .env file** <br>
+In order to use Google login, You need to create an **.env** file in the same directory as **package.json**, the file  must contain **GOOGLE_WEB_CLIENT_ID**, **GOOGLE_IOS_CLIENT_ID**,**GOOGLE_ANDROID_CLIENT_ID**
+```
+# .env file
+GOOGLE_WEB_CLIENT_ID="your google web client id"
+GOOGLE_IOS_CLIENT_ID = "your google ios client id"
+GOOGLE_ANDROID_CLIENT_ID = "your google android client id"
+```
+
+**Step 3: Init**
 ```
 // Please import the following statement in your entry file
 import '@portkey/rn-sdk';

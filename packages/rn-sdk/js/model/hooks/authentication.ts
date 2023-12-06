@@ -17,6 +17,7 @@ import { OperationTypeEnum } from 'packages/types/verifier';
 import NetworkContext, { NetworkContextState } from 'pages/Login/context/NetworkContext';
 import { appleLogin } from './apple-login';
 import { NetworkController } from 'network/controller';
+import { APPLE_CLIENT_ID, APPLE_MAIN_REDIRECT_URI, APPLE_TESTNET_REDIRECT_URI } from 'utils/const';
 
 if (!isIOS) {
   GoogleSignin.configure({
@@ -139,9 +140,8 @@ export function useAppleAuthentication() {
   useEffect(() => {
     if (isIOS) return;
     appleAuthAndroid.configure({
-      clientId: Config.APPLE_CLIENT_ID,
-      redirectUri:
-        currentNetwork?.networkType === 'MAIN' ? Config.APPLE_MAIN_REDIRECT_URI : Config.APPLE_TESTNET_REDIRECT_URI,
+      clientId: APPLE_CLIENT_ID,
+      redirectUri: currentNetwork?.networkType === 'MAIN' ? APPLE_MAIN_REDIRECT_URI : APPLE_TESTNET_REDIRECT_URI,
       scope: appleAuthAndroid.Scope.ALL,
       responseType: appleAuthAndroid.ResponseType.ALL,
     });
