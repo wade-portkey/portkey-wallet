@@ -10,20 +10,20 @@ import useDebounce from 'hooks/useDebounce';
 import NoData from 'components/NoData';
 import { Image } from '@rneui/themed';
 import { defaultColors } from 'assets/theme';
-import { useCaAddressInfoList, useWallet } from '@portkey-wallet/hooks/hooks-ca/wallet';
+import { useCaAddressInfoList, useWallet } from 'packages/hooks/hooks-ca/wallet';
 import TokenListItem from 'components/TokenListItem';
 import { FontStyles } from 'assets/theme/styles';
-import { useCaAddresses } from '@portkey-wallet/hooks/hooks-ca/wallet';
-import { fetchAssetList } from '@portkey-wallet/store/store-ca/assets/api';
-import { IAssetItemType } from '@portkey-wallet/store/store-ca/assets/type';
+import { useCaAddresses } from 'packages/hooks/hooks-ca/wallet';
+import { fetchAssetList } from 'packages/types/store-ca/assets/api';
+import { IAssetItemType } from 'packages/types/store-ca/assets/type';
 import navigationService from 'utils/navigationService';
-import { IToSendHomeParamsType } from '@portkey-wallet/types/types-ca/routeParams';
-import { formatChainInfoToShow } from '@portkey-wallet/utils';
-import { ChainId } from '@portkey-wallet/types';
+import { IToSendHomeParamsType } from 'packages/types/types-ca/routeParams';
+import { formatChainInfoToShow } from 'packages/utils';
+import { ChainId } from 'packages/types';
 import { useGStyles } from 'assets/theme/useGStyles';
 import myEvents from 'utils/deviceEvent';
 import useEffectOnce from 'hooks/useEffectOnce';
-import { useGetCurrentAccountTokenPrice } from '@portkey-wallet/hooks/hooks-ca/useTokensPrice';
+import { useGetCurrentAccountTokenPrice } from 'packages/hooks/hooks-ca/useTokensPrice';
 
 const AssetItem = (props: { symbol: string; onPress: (item: any) => void; item: IAssetItemType }) => {
   const { symbol, onPress, item } = props;

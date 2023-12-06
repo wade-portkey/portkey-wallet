@@ -1,7 +1,7 @@
-import { getContractBasic } from '@portkey-wallet/contracts/utils';
-import { ContractBasic } from '@portkey-wallet/contracts/utils/ContractBasic';
-import { timesDecimals } from '@portkey-wallet/utils/converter';
-import { handleVerificationDoc } from '@portkey-wallet/utils/guardian';
+import { getContractBasic } from 'packages/contracts/utils';
+import { ContractBasic } from 'packages/contracts/utils/ContractBasic';
+import { timesDecimals } from 'packages/utils/converter';
+import { handleVerificationDoc } from 'packages/utils/guardian';
 import { PortkeyConfig } from 'global/constants';
 import { getCachedNetworkConfig } from 'model/chain';
 import { guardianTypeStrToEnum } from 'model/global';

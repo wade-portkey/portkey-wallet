@@ -4,7 +4,7 @@ import { StyleSheet, FlatList } from 'react-native';
 import { defaultColors } from 'assets/theme';
 import GStyles from 'assets/theme/GStyles';
 import { TextM } from 'components/CommonText';
-import { IDeviceItem, useCurrentWalletInfo, useDeviceList } from '@portkey-wallet/hooks/hooks-ca/wallet';
+import { IDeviceItem, useCurrentWalletInfo, useDeviceList } from 'packages/hooks/hooks-ca/wallet';
 import DeviceItem from './components/DeviceItem';
 import navigationService from 'utils/navigationService';
 import { FontStyles } from 'assets/theme/styles';

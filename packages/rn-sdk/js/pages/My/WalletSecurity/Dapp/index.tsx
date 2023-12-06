@@ -4,7 +4,7 @@ import { StyleSheet } from 'react-native';
 import { defaultColors } from 'assets/theme';
 import GStyles from 'assets/theme/GStyles';
 import { pTd } from 'utils/unit';
-import { useCurrentDappList } from '@portkey-wallet/hooks/hooks-ca/dapp';
+import { useCurrentDappList } from 'packages/hooks/hooks-ca/dapp';
 import NoData from 'components/NoData';
 import navigationService from 'utils/navigationService';
 import DappListItem from './components/DappListItem';

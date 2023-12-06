@@ -3,7 +3,7 @@ import PageContainer, { SafeAreaColorMapKeyUnit } from 'components/PageContainer
 import { TextM, TextXXXL } from 'components/CommonText';
 import { pTd } from 'utils/unit';
 import { ImageBackground, View } from 'react-native';
-import { isIOS } from '@portkey-wallet/utils/mobile/device';
+import { isIOS } from 'packages/utils/mobile/device';
 import { useLanguage } from 'i18n/hooks';
 import Svg from 'components/Svg';
 import { BGStyles, FontStyles } from 'assets/theme/styles';
@@ -21,9 +21,9 @@ import { checkForCountryCodeCached } from 'model/global';
 import useBaseContainer from 'model/container/UseBaseContainer';
 import { PortkeyEntries } from 'config/entries';
 import NetworkContext from '../context/NetworkContext';
-import { NetworkItem } from '@portkey-wallet/types/types-ca/network';
+import { NetworkItem } from 'packages/types/types-ca/network';
 import { PortkeyConfig, setEndPointUrl } from 'global/constants';
-import { NetworkList } from '@portkey-wallet/constants/constants-ca/network-mainnet';
+import { NetworkList } from 'packages/constants/constants-ca/network-mainnet';
 import { CountryCodeItem } from 'types/wallet';
 
 const scrollViewProps = { extraHeight: 120 };
