@@ -10,7 +10,7 @@ import i18n from 'i18n';
 import { TextM } from 'components/CommonText';
 import ActionSheet from 'components/ActionSheet';
 import myEvents from 'utils/deviceEvent';
-import { checkPin, getUseBiometric, rememberUseBiometric } from 'model/verify/after-verify';
+import { checkPin, getUseBiometric, rememberUseBiometric } from 'model/verify/core';
 import useBaseContainer from 'model/container/UseBaseContainer';
 import { PortkeyEntries } from 'config/entries';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
@@ -32,7 +32,7 @@ export default function Biometric() {
         console.log(error); // reject
       });
   }, []);
-  const { navigationTo } = useBaseContainer({ entryName: PortkeyEntries.BIOMETRIC_SWITCH_ENTRY });
+  const { navigateTo: navigationTo } = useBaseContainer({ entryName: PortkeyEntries.BIOMETRIC_SWITCH_ENTRY });
   const { t } = useLanguage();
   const openBiometrics = useCallback(async (pin: string) => {
     // when use bio to verify, the pin value is 'use-bio'

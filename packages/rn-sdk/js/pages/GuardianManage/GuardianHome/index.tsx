@@ -8,7 +8,7 @@ import { useLanguage } from 'i18n/hooks';
 import GuardianItem from 'pages/Guardian/components/GuardianItem';
 import Touchable from 'components/Touchable';
 import GStyles from 'assets/theme/GStyles';
-import { AccountOriginalType, getTempWalletConfig, RecoverWalletConfig } from 'model/verify/after-verify';
+import { AccountOriginalType, getTempWalletConfig, RecoverWalletConfig } from 'model/verify/core';
 import { NetworkController } from 'network/controller';
 import { UserGuardianItem } from '@portkey-wallet/store/store-ca/guardians/type';
 import { getBottomSpace } from 'utils/screen';
@@ -43,9 +43,9 @@ export default function GuardianHome({ containerId }: { containerId: any }) {
     Loading.hide();
   });
 
-  const { navigationTo, navigateForResult } = useBaseContainer({
+  const { navigateTo: navigationTo, navigateForResult } = useBaseContainer({
     entryName: PortkeyEntries.GUARDIAN_HOME_ENTRY,
-    onNewIntent: async (intent: OnGuardianHomeNewIntent) => {
+    onNewIntent: async (intent: GuardiansApprovalIntent) => {
       console.log('GuardianHome onNewIntent', intent);
       switch (intent.type) {
         case GuardianVerifyType.ADD_GUARDIAN: {
@@ -173,7 +173,7 @@ export default function GuardianHome({ containerId }: { containerId: any }) {
   );
 }
 
-export interface OnGuardianHomeNewIntent {
+export interface GuardiansApprovalIntent {
   type: GuardianVerifyType;
   result: 'success' | 'fail' | 'cancel' | 'system';
   extra?: any;

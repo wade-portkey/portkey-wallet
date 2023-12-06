@@ -28,7 +28,7 @@ import {
 } from 'network/dto/wallet';
 import { sleep } from '@portkey-wallet/utils';
 import { getCachedNetworkToken } from 'network/token';
-import { isWalletUnlocked } from 'model/verify/after-verify';
+import { isWalletUnlocked } from 'model/verify/core';
 import { SymbolImages } from 'model/symbolImage';
 import {
   FetchTokenPriceResult,
@@ -42,6 +42,7 @@ import {
   FetchAccountNftCollectionItemListResult,
 } from 'network/dto/query';
 import { selectCurrentBackendConfig } from 'utils/commonUtil';
+import { CheckPaymentSecurityRuleParams, CheckPaymentSecurityRuleResult } from 'network/dto/security';
 
 const DEFAULT_MAX_POLLING_TIMES = 50;
 
@@ -374,6 +375,21 @@ export class NetworkControllerEntity {
         maxResultCount,
         width: 16,
         height: 16,
+      },
+    );
+    if (!res?.result) throw new Error('network failure');
+    return res.result;
+  };
+
+  fetchTransferLimitRule = async (config: CheckPaymentSecurityRuleParams) => {
+    const { caHash, skipCount = 0, maxResultCount = 100 } = config;
+    const res = await this.realExecute<CheckPaymentSecurityRuleResult>(
+      await this.parseUrl(APIPaths.CHECK_TRANSFER_LIMIT),
+      'GET',
+      {
+        caHash,
+        skipCount,
+        maxResultCount,
       },
     );
     if (!res?.result) throw new Error('network failure');

@@ -41,6 +41,8 @@ export enum OperationTypeEnum {
   editGuardian = 5,
   removeOtherManager = 6,
   setLoginAccount = 7,
+  managerApprove = 8,
+  modifyTransferLimit = 9,
 }
 
 export interface VerifierInfo {

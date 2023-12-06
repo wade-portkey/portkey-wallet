@@ -1,3 +1,4 @@
+import 'reflect-metadata';
 import { initEntries } from 'global/init/entries';
 import { initJsMethodService } from 'global/init/services';
 import { initLanguage } from 'i18n/index';
@@ -10,3 +11,7 @@ initEntries();
 
 // init js services for Android/iOS native
 initJsMethodService();
+
+// export for npm
+export * from 'service/core';
+export { UnlockedWallet } from 'model/wallet';

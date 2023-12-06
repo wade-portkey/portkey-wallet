@@ -23,7 +23,7 @@ import { PortkeyEntries, isPortkeyEntries } from 'config/entries';
 import { EntryResult, PermissionType, chooseImageAndroid, PortkeyModulesEntity } from 'service/native-modules';
 import useEffectOnce from 'hooks/useEffectOnce';
 import { ScanToLoginProps } from 'pages/Login/ScanLogin';
-import { isWalletUnlocked } from 'model/verify/after-verify';
+import { isWalletUnlocked } from 'model/verify/core';
 import { checkIsPortKeyUrl, isEntryScheme } from 'utils/scheme';
 import { myThrottle } from 'utils/commonUtil';
 import { getCurrentNetworkType } from 'model/hooks/network';
@@ -34,7 +34,11 @@ const QrScanner: React.FC = () => {
   // const jumpToWebview = useDiscoverJumpWithNetWork();
   const [refresh, setRefresh] = useState<boolean>();
   const [permissionGranted, setPermissionGranted] = useState<boolean>(false);
-  const { onFinish, navigateForResult, navigationTo } = useBaseContainer({
+  const {
+    onFinish,
+    navigateForResult,
+    navigateTo: navigationTo,
+  } = useBaseContainer({
     entryName: PortkeyEntries.SCAN_QR_CODE,
   });
   const navigateBack = (res: EntryResult<ScanQRCodeResult> = { status: 'success', data: {} }) => {

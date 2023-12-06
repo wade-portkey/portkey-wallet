@@ -3,7 +3,7 @@ import { NetworkType } from '@portkey-wallet/types';
 import useEffectOnce from 'hooks/useEffectOnce';
 import { Token, getCachedNetworkConfig } from 'model/chain';
 import { getCurrentNetworkType } from 'model/hooks/network';
-import { getTempWalletConfig } from 'model/verify/after-verify';
+import { getTempWalletConfig } from 'model/verify/core';
 import { NetworkController } from 'network/controller';
 import { useState } from 'react';
 
@@ -17,7 +17,7 @@ export function useSymbolImages() {
   return symbolImages;
 }
 
-export function useCommonInfo() {
+export function useCommonNetworkInfo() {
   const symbolImages = useSymbolImages();
   const [currentNetwork, setCurrentNetwork] = useState<NetworkType>('MAIN');
   const [defaultToken, setDefaultToken] = useState<Token>(DEFAULT_TOKEN);

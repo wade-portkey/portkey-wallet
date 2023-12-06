@@ -25,7 +25,7 @@ object PortKeySDKHolder {
             if (BuildConfig.DEBUG)
                 Toast.makeText(
                     application,
-                    "sdk initial successful!",
+                    "sdk reloaded.",
                     Toast.LENGTH_LONG
                 ).show()
         }

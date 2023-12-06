@@ -1,11 +1,6 @@
 import { OperationTypeEnum } from '@portkey-wallet/types/verifier';
 import { PortkeyConfig, setCurrChainId } from 'global/constants';
-import {
-  AccountOriginalType,
-  NormalVerifyPathInfo,
-  VerifiedGuardianDoc,
-  wrapExtraData,
-} from 'model/verify/after-verify';
+import { AccountOriginalType, NormalVerifyPathInfo, VerifiedGuardianDoc, wrapExtraData } from 'model/verify/core';
 import { GuardianConfig } from 'model/verify/guardian';
 import { SignUpConfig } from 'model/verify/sign-up';
 import { GuardianVerifyConfig, GuardianVerifyType } from 'model/verify/social-recovery';
@@ -22,7 +17,6 @@ import { randomId, sleep } from '@portkey-wallet/utils';
 import { ThirdPartyAccountInfo } from 'model/verify/third-party-account';
 import { GlobalStorage } from 'service/storage';
 import { ChainId } from '@portkey-wallet/types';
-import { UserGuardianItem } from '@portkey-wallet/store/store-ca/guardians/type';
 import { LoginType } from '@portkey-wallet/types/types-ca/wallet';
 import { Verifier, getOrReadCachedVerifierData } from 'model/contract/handler';
 
@@ -153,15 +147,6 @@ export const parseGuardianInfo = (
   };
 };
 
-export const getCentralGuardianKey = (guardian: GuardianInfo | UserGuardianItem): CentralGuardianKey => {
-  const isGuardianInfo = (item: GuardianInfo | UserGuardianItem): item is GuardianInfo => {
-    return (item as GuardianInfo).guardianIdentifier !== undefined;
-  };
-  return {
-    verifierId: isGuardianInfo(guardian) ? guardian.verifierId : guardian.verifier?.id ?? '',
-  };
-};
-
 export const requestSocialRecoveryOrRegister = async (params: NormalVerifyPathInfo): Promise<RequestProcessResult> => {
   await sleep(500);
   const { address, privateKey, keyPair } = AElfWeb3SDK.createNewWallet();
@@ -276,7 +261,3 @@ export const guardianEnumToTypeStr = (
 export interface AccountCheckResult {
   hasRegistered: boolean;
 }
-
-export type CentralGuardianKey = {
-  verifierId: string;
-};

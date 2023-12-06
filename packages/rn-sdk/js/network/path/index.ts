@@ -30,4 +30,7 @@ export enum APIPaths {
   GET_TOKEN_PRICES = '/api/app/tokens/prices',
   FETCH_NFT_COLLECTIONS = '/api/app/user/assets/nftCollections',
   FETCH_NFT_COLLECTIONS_ITEM = '/api/app/user/assets/nftItems',
+
+  // security service
+  CHECK_TRANSFER_LIMIT = '/api/app/user/security/transferLimit',
 }
