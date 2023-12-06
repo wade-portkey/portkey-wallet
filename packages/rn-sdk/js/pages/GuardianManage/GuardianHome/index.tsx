@@ -10,7 +10,7 @@ import Touchable from 'components/Touchable';
 import GStyles from 'assets/theme/GStyles';
 import { AccountOriginalType, getTempWalletConfig, RecoverWalletConfig } from 'model/verify/core';
 import { NetworkController } from 'network/controller';
-import { UserGuardianItem } from '@portkey-wallet/store/store-ca/guardians/type';
+import { UserGuardianItem } from 'packages/types/store-ca/guardians/type';
 import { getBottomSpace } from 'utils/screen';
 import { GuardianInfo } from 'network/dto/guardian';
 import { guardianTypeStrToEnum, parseGuardianInfo } from 'model/global';
@@ -22,7 +22,7 @@ import CommonToast from 'components/CommonToast';
 import Loading from 'components/Loading';
 import { ModifyGuardianProps } from 'pages/Guardian/GuardianManage/ModifyGuardian';
 import { PortkeyConfig } from 'global/constants';
-import { OperationTypeEnum } from '@portkey-wallet/types/verifier';
+import { OperationTypeEnum } from 'packages/types/verifier';
 import { Verifier, getOrReadCachedVerifierData } from 'model/contract/handler';
 
 export default function GuardianHome({ containerId }: { containerId: any }) {

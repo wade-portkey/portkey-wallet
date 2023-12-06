@@ -6,7 +6,7 @@ import Touchable from 'components/Touchable';
 import { pTd } from 'utils/unit';
 import { FontStyles } from 'assets/theme/styles';
 import { formatTransferTime } from 'utils';
-import { DeviceItemType, DeviceType } from '@portkey-wallet/types/types-ca/device';
+import { DeviceItemType, DeviceType } from 'packages/types/types-ca/device';
 import Svg, { IconName } from 'components/Svg';
 
 const deviceTypeIconMap: Record<DeviceType, IconName> = {

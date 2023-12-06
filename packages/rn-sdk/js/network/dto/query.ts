@@ -1,4 +1,4 @@
-import { ChainId } from '@portkey-wallet/types';
+import { ChainId } from 'packages/types';
 
 export interface SearchTokenListParams {
   keyword?: string; // used to filter token list, can be empty

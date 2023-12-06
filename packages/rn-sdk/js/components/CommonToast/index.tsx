@@ -6,8 +6,8 @@ import { defaultColors } from 'assets/theme';
 import Svg from 'components/Svg';
 import { TextL } from 'components/CommonText';
 import { pTd } from 'utils/unit';
-import { statusBarHeight } from '@portkey-wallet/utils/mobile/device';
-import { handleErrorMessage } from '@portkey-wallet/utils';
+import { statusBarHeight } from 'packages/utils/mobile/device';
+import { handleErrorMessage } from 'packages/utils';
 import Lottie from 'lottie-react-native';
 
 type TostProps = [
