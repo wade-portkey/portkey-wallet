@@ -16,7 +16,7 @@ export const NetworkTestCases: Array<TestCase> = [
     run: async testContext => {
       const msg = 'i-am-error';
       const decrypted = await decryptLocal(await encryptLocal(msg));
-      console.log('decrypted', decrypted);
+      testContext.log('decrypted', decrypted);
       testContext.assert(msg === decrypted, 'msg should be the same after encrypt and decrypt');
     },
   },

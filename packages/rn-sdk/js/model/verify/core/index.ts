@@ -13,7 +13,7 @@ import {
   isRecoveryStatusItem,
 } from 'network/dto/wallet';
 import { GlobalStorage, TempStorage } from 'service/storage';
-import { decrypt, encrypt, encryptLocal } from 'utils/crypto';
+import { decrypt, decryptLocal, encrypt, encryptLocal } from 'utils/crypto';
 
 const PIN_KEY = 'pin';
 const WALLET_CONFIG_KEY = 'walletConfig';
@@ -252,7 +252,7 @@ export const unLockTempWallet = async (pinValue?: string, useBiometric = false):
       const encrypted = await GlobalStorage.getString(LOCAL_WALLET_CONFIG_KEY);
       console.log('encrypted', encrypted);
       if (!encrypted) throw new Error('wallet not exist');
-      decrypted = await encryptLocal(encrypted);
+      decrypted = await decryptLocal(encrypted);
     } else {
       const encrypted = await GlobalStorage.getString(WALLET_CONFIG_KEY);
       if (!encrypted || !pinValue) throw new Error('wallet not exist');
