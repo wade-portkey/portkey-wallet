@@ -4,10 +4,10 @@ import { StyleSheet } from 'react-native';
 import { defaultColors } from 'assets/theme';
 import GStyles from 'assets/theme/GStyles';
 
-import { useDeviceList } from '@portkey-wallet/hooks/hooks-ca/wallet';
+import { useDeviceList } from 'packages/hooks/hooks-ca/wallet';
 import navigationService from 'utils/navigationService';
 import MenuItem from '../components/MenuItem';
-import { useCurrentDappList } from '@portkey-wallet/hooks/hooks-ca/dapp';
+import { useCurrentDappList } from 'packages/hooks/hooks-ca/dapp';
 import { pTd } from 'utils/unit';
 
 const WalletSecurity: React.FC = () => {
