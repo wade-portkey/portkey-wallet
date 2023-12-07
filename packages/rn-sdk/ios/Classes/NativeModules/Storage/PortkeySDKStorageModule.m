@@ -8,9 +8,17 @@
 #import "PortkeySDKStorageModule.h"
 #import <PortkeySDK/PortkeySDKMMKVStorage.h>
 
+static NSString *kPortkeyInternalEncryptKey = @"kPortkeyInternalEncryptKey";
+
 @implementation PortkeySDKStorageModule
 
 RCT_EXPORT_MODULE(StorageModule);
+
+- (NSDictionary *)constantsToExport {
+    return @{
+        @"internalEncryptKey": [self internalEncryptKey]
+    };
+}
 
 RCT_EXPORT_METHOD(setString:(NSString *)key value:(NSString *)value)
 {
@@ -46,6 +54,19 @@ RCT_EXPORT_METHOD(getNumber:(NSString *)key
                      reject:(RCTPromiseRejectBlock)reject)
 {
     resolve(@([PortkeySDKMMKVStorage getDouble:key]));
+}
+
+- (NSString *)internalEncryptKey {
+    NSUserDefaults *userDefaults = [[NSUserDefaults alloc] initWithSuiteName:@"Portkey"];
+    NSString *internalEncryptKey = [userDefaults stringForKey:kPortkeyInternalEncryptKey];
+    if (internalEncryptKey && internalEncryptKey.length > 0) {
+        return internalEncryptKey;
+    } else {
+        internalEncryptKey = [[NSUUID UUID] UUIDString] ?: @"";
+        [userDefaults setObject:internalEncryptKey forKey:kPortkeyInternalEncryptKey];
+        [userDefaults synchronize];
+        return internalEncryptKey;
+    }
 }
 
 @end
