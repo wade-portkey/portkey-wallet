@@ -8,6 +8,7 @@ import { IPortkeyAccountService, IPortkeyUIManagerService } from 'service/core/b
 import { EntryResult, PortkeyModulesEntity } from 'service/native-modules';
 import { TYPES, WalletState } from 'service/core/types';
 import { AccountError } from 'service/error';
+import { wrapEntry } from 'utils/commonUtil';
 
 @injectable()
 export class UIManagerService implements IPortkeyUIManagerService {
@@ -67,7 +68,7 @@ export class UIManagerService implements IPortkeyUIManagerService {
   }
   private openFromExternal(target: PortkeyEntries) {
     PortkeyModulesEntity.RouterModule.navigateTo(
-      target,
+      wrapEntry(target),
       LaunchModeSet.get(target) || LaunchMode.STANDARD,
       'external',
       'none',
@@ -77,7 +78,7 @@ export class UIManagerService implements IPortkeyUIManagerService {
   }
   private openResultFromExternal<R>(target: PortkeyEntries, callback: (res: EntryResult<R>) => void) {
     PortkeyModulesEntity.RouterModule.navigateToWithOptions(
-      target,
+      wrapEntry(target),
       LaunchModeSet.get(target) || LaunchMode.STANDARD,
       'external',
       {} as any,
