@@ -4,7 +4,7 @@ source 'https://gitee.com/mirrors/CocoaPods-Specs.git'
 
 platform :ios, '13.0'
 
-$root_path = "../.."
+$root_path = ".."
 $node_modules = "#{$root_path}/node_modules"
 $react_native_path = "#{$node_modules}/react-native"
 
@@ -27,7 +27,7 @@ target 'PortkeySDKExample_Example' do
   use_native_modules!
   use_react_native!(path: $react_native_path, hermes_enabled: false)
   
-  pod 'PortkeySDK', :path => '../../'
+  pod 'PortkeySDK', :path => '../'
   
   pod 'YYKit', git: 'https://github.com/SAGESSE-CN/YYKit.git'
   pod 'Toast', '4.0.0'

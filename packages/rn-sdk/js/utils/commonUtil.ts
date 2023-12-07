@@ -50,3 +50,8 @@ export const copyText = async (text: string) => {
     CommonToast.success(i18n.t('Copy Fail'));
   }
 };
+
+export function wrapEntry(entry: string) {
+  const prefix = 'portkey_';
+  return prefix + entry;
+}

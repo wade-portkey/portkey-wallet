@@ -1,7 +1,6 @@
 package io.aelf.portkey.demo.ui
 
 import android.app.Activity
-import android.app.Application
 import android.content.res.Resources
 import android.graphics.Color
 import android.os.Bundle
@@ -9,18 +8,11 @@ import android.util.TypedValue
 import android.view.ViewGroup
 import android.widget.TextView
 import com.facebook.react.ReactActivity
-import com.facebook.react.ReactApplication
-import com.facebook.react.ReactNativeHost
-import com.tencent.mmkv.MMKV
-import io.aelf.core.PortKeySDKHolder
-import io.aelf.portkey.BuildConfig
 import io.aelf.portkey.PortkeyReactApplication
-import io.aelf.portkey.components.logic.PortkeyReactNativeHost
 import io.aelf.portkey.config.StorageIdentifiers
 import io.aelf.portkey.demo.DemoStorage
 
 class DemoApplication : PortkeyReactApplication() {
-    private lateinit var navHost: PortkeyReactNativeHost
     override fun onCreate() {
         super.onCreate()
         registerActivityLifecycleCallbacks(object : ActivityLifecycleCallbacks{

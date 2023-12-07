@@ -8,6 +8,7 @@ import {
 import { PortkeyEntries } from '../../config/entries';
 import { VoidResult } from './UseBaseContainer';
 import { LaunchMode, LaunchModeSet } from 'global/init/entries';
+import { wrapEntry } from 'utils/commonUtil';
 
 export default abstract class BaseContainer<
   P extends BaseContainerProps,
@@ -45,7 +46,7 @@ export default abstract class BaseContainer<
 
   navigationTo = (entry: PortkeyEntries, targetScene?: string, closeCurrentScreen?: boolean, params?: any) => {
     PortkeyModulesEntity.RouterModule.navigateTo(
-      entry,
+      wrapEntry(entry),
       LaunchModeSet.get(entry) || LaunchMode.STANDARD,
       this.getEntryName(),
       targetScene ?? 'none',
@@ -61,7 +62,7 @@ export default abstract class BaseContainer<
   ) => {
     const { params, closeCurrentScreen, navigationAnimation, navigationAnimationDuration, targetScene } = options;
     PortkeyModulesEntity.RouterModule.navigateToWithOptions(
-      entry,
+      wrapEntry(entry),
       LaunchModeSet.get(entry) || LaunchMode.STANDARD,
       this.getEntryName(),
       {
