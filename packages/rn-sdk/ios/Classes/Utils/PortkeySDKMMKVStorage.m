@@ -16,7 +16,8 @@ extern const NSString *kPortkeySDKTempStorageIdentifier;
 + (void)initialize {
     if (self == [PortkeySDKMMKVStorage class]) {
         [MMKV initializeMMKV:nil];
-        storage = [MMKV mmkvWithID:@"portkey-sdk"];
+        NSData *cryptKey = [@"PortkeyCrypyKey" dataUsingEncoding:NSUTF8StringEncoding];
+        storage = [MMKV mmkvWithID:@"portkey-sdk" cryptKey:cryptKey];
     }
 }
 
