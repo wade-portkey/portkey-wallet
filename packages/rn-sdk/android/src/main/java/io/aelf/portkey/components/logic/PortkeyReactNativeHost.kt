@@ -2,7 +2,6 @@ package io.aelf.portkey.components.logic
 
 import android.annotation.SuppressLint
 import android.app.Application
-import android.os.Environment
 import com.facebook.hermes.reactexecutor.HermesExecutorFactory
 import com.facebook.react.PackageList
 import com.facebook.react.ReactNativeHost
