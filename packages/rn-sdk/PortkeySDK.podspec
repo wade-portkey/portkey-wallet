@@ -23,7 +23,6 @@ TODO: Add long description of the pod here.
 
   s.homepage         = 'https://github.com/wade-portkey/PortkeySDK'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
-  s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'wade-portkey' => 'codingwizard@portkey.finance' }
   s.source           = { :git => 'https://github.com/wade-portkey/PortkeySDK.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
