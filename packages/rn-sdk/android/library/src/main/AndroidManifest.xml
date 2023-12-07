@@ -29,7 +29,11 @@
         <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
 
         <service android:name=".components.services.GeneralJSMethodService"/>
-
+        <provider
+            android:authorities="${applicationId}.init.provider"
+            android:name="io.aelf.core.InitProvider"
+            android:exported="false"
+            android:initOrder="1"/>
     </application>
 
 </manifest>
