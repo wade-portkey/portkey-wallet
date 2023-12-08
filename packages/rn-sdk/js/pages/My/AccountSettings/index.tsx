@@ -16,7 +16,7 @@ import { PortkeyModulesEntity } from 'service/native-modules';
 import CommonToast from 'components/CommonToast';
 export default function AccountSettings() {
   const biometricsReady = useBiometricsReady();
-  const { navigateTo: navigationTo, onFinish } = useBaseContainer({
+  const { navigateTo, onFinish } = useBaseContainer({
     entryName: PortkeyEntries.ACCOUNT_SETTING_ENTRY,
     onNewIntent: (params: { modified: boolean }) => {
       console.log('params.modified', params.modified);
@@ -53,12 +53,12 @@ export default function AccountSettings() {
     (menuName: string) => {
       console.log('menuName', menuName);
       if (menuName === 'CheckPin') {
-        navigationTo<CheckPinProps>(PortkeyEntries.CHECK_PIN, { targetScene: 'changePin' });
+        navigateTo<CheckPinProps>(PortkeyEntries.CHECK_PIN, { targetScene: 'changePin' });
       } else if (menuName === 'Biometric') {
-        navigationTo(PortkeyEntries.BIOMETRIC_SWITCH_ENTRY, {});
+        navigateTo(PortkeyEntries.BIOMETRIC_SWITCH_ENTRY, {});
       }
     },
-    [navigationTo],
+    [navigateTo],
   );
   useEffectOnce(() => {
     isWalletUnlocked().then(status => {

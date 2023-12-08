@@ -10,7 +10,6 @@ import Touchable from 'components/Touchable';
 import GStyles from 'assets/theme/GStyles';
 import { AccountOriginalType, getTempWalletConfig, RecoverWalletConfig } from 'model/verify/core';
 import { NetworkController } from 'network/controller';
-import { UserGuardianItem } from 'packages/types/store-ca/guardians/type';
 import { getBottomSpace } from 'utils/screen';
 import { GuardianInfo } from 'network/dto/guardian';
 import { guardianTypeStrToEnum, parseGuardianInfo } from 'model/global';
@@ -24,6 +23,7 @@ import { ModifyGuardianProps } from 'pages/Guardian/GuardianManage/ModifyGuardia
 import { PortkeyConfig } from 'global/constants';
 import { OperationTypeEnum } from 'packages/types/verifier';
 import { Verifier, getOrReadCachedVerifierData } from 'model/contract/handler';
+import { UserGuardianItem } from 'packages/store/store-ca/guardians/type';
 
 export default function GuardianHome({ containerId }: { containerId: any }) {
   const { t } = useLanguage();
@@ -43,7 +43,7 @@ export default function GuardianHome({ containerId }: { containerId: any }) {
     Loading.hide();
   });
 
-  const { navigateTo: navigationTo, navigateForResult } = useBaseContainer({
+  const { navigateTo, navigateForResult } = useBaseContainer({
     entryName: PortkeyEntries.GUARDIAN_HOME_ENTRY,
     onNewIntent: async (intent: GuardiansApprovalIntent) => {
       console.log('GuardianHome onNewIntent', intent);
@@ -128,7 +128,7 @@ export default function GuardianHome({ containerId }: { containerId: any }) {
         <TouchableOpacity
           style={{ padding: pTd(16) }}
           onPress={() => {
-            navigationTo(PortkeyEntries.ADD_GUARDIAN_ENTRY, {});
+            navigateTo(PortkeyEntries.ADD_GUARDIAN_ENTRY, {});
           }}>
           <Svg icon="add1" size={pTd(20)} color={defaultColors.font2} />
         </TouchableOpacity>

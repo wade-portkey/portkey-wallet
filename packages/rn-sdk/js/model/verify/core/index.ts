@@ -229,7 +229,6 @@ export const checkPin = async (pinValue: string): Promise<boolean> => {
     const encrypted = await GlobalStorage.getString(WALLET_CONFIG_KEY);
     if (!encrypted || !pinValue) throw new Error('wallet not exist');
     const decrypted = decrypt(encrypted, pinValue);
-    console.log('decrypted', decrypted);
     const decryptedWalletConfig = JSON.parse(decrypted);
     return !!decryptedWalletConfig;
   } catch (e) {
