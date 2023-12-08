@@ -23,7 +23,7 @@ export const addressBookSlice = createSlice({
     ) => {
       const { addressBook, type, currentChain } = action.payload;
       const { rpcUrl, networkName } = currentChain;
-      const address = addressFormat(addressBook.address, currentChain.chainId, currentChain.chainType);
+      const address = addressFormat(addressBook.address, currentChain.chainId as any, currentChain.chainType);
 
       const error: string[] = [];
 
@@ -49,7 +49,7 @@ export const addressBookSlice = createSlice({
           // illegal name
           if (flag) error.push(AddressBookError.alreadyExists);
 
-          if (!!error.length) throw new Error(JSON.stringify(error));
+          if (error.length) throw new Error(JSON.stringify(error));
 
           state.addressBook[`${rpcUrl}&${networkName}`] = (state.addressBook[`${rpcUrl}&${networkName}`] ?? []).concat([
             addressBookFormat,
@@ -67,7 +67,7 @@ export const addressBookSlice = createSlice({
 
           if (flag) error.push(AddressBookError.alreadyExists);
 
-          if (!!error.length) throw new Error(JSON.stringify(error));
+          if (error.length) throw new Error(JSON.stringify(error));
 
           state.addressBook[`${rpcUrl}&${networkName}`] = (state.addressBook[`${rpcUrl}&${networkName}`] ?? []).map(
             item => (item.key === addressBookFormat.key ? addressBookFormat : item),

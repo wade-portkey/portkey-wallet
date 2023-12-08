@@ -46,7 +46,7 @@ export type FilterTokenList = (token_name: string, address: string) => TokenItem
 export interface TokenState {
   addedTokenData: AddedTokenData;
   tokenDataShowInMarket: TokenListShowInMarketType;
-  isFetchingTokenList: Boolean;
+  isFetchingTokenList: boolean;
 }
 
 export interface AccountItemType {

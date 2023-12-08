@@ -77,7 +77,7 @@ export function isAllowAelfAddress(value: string) {
   return false;
 }
 
-export function getAelfAddress(value: string = '') {
+export function getAelfAddress(value = '') {
   const arr = value.split('_');
   if (arr.length === 3) return arr[1];
   for (let i = 0; i < arr.length; i++) {

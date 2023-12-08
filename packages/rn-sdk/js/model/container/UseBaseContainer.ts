@@ -1,4 +1,3 @@
-import { PortkeyEntries } from 'config/entries';
 import { useCallback, useContext, useEffect, useMemo, useRef } from 'react';
 import { DeviceEventEmitter, EmitterSubscription } from 'react-native';
 import { EntryResult, PortkeyDeviceEventEmitter, RouterOptions, PortkeyModulesEntity } from 'service/native-modules';

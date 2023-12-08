@@ -48,7 +48,7 @@ export const checkRpcUrl = async ({
   chainType,
   key,
 }: CheckRpcUrlParam & { key?: string }): Promise<string> => {
-  let flag = chainList.some(chain => chain.rpcUrl === rpcUrl && chain.key !== key);
+  const flag = chainList.some(chain => chain.rpcUrl === rpcUrl && chain.key !== key);
   if (flag) throw new Error(ChainActionError.rpcUrlAlreadyExists);
   const chainStatus = await checkRpcUrlFormat({ rpcUrl, chainType });
   return chainStatus.ChainId;

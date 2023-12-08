@@ -16,6 +16,8 @@ import AElf from 'aelf-sdk';
 import { isExtension } from 'packages/utils';
 import { DefaultBIP44Path } from 'packages/constants/wallet';
 import { isValidPassword, isValidPin, isValidWalletName } from 'packages/utils/reg';
+import { jest } from '@jest/globals';
+import { describe, expect, test, beforeEach } from '@jest/globals';
 
 declare module 'aelf-sdk';
 
@@ -56,13 +58,13 @@ describe('formatWalletInfo', () => {
     childWallet: 'childWallet',
   };
   test('WalletInfoInput does not exist', () => {
-    expect(formatWalletInfo(null, password, accountName)).toBeFalsy;
+    expect(formatWalletInfo(null, password, accountName)).toBeFalsy();
   });
   test('PrivateKey of walletInfoInput exist but password does not exist', () => {
-    expect(formatWalletInfo({ privateKey: 'privateKey' }, '', accountName)).toBeFalsy;
+    expect(formatWalletInfo({ privateKey: 'privateKey' }, '', accountName)).toBeFalsy();
   });
   test('KeyPair does not exist', () => {
-    expect(formatWalletInfo({}, password, accountName)).toThrowError;
+    expect(formatWalletInfo({}, password, accountName)).toThrowError();
   });
   test('The walletInfoInput does not contain publicKey, contain keyPair', () => {
     const res = formatWalletInfo(
@@ -101,7 +103,7 @@ describe('formatAccountInfo', () => {
     xPrivateKey: 'xPrivateKey',
   };
   test('The input of walletInfoInput does not exist', () => {
-    expect(formatAccountInfo({}, password, accountName)).toBeFalsy;
+    expect(formatAccountInfo({}, password, accountName)).toBeFalsy();
   });
   test('WalletInfoInput`privateKey exist but password does not exist', () => {
     expect(
@@ -112,7 +114,7 @@ describe('formatAccountInfo', () => {
         '',
         accountName,
       ),
-    ).toBeFalsy;
+    ).toBeFalsy();
   });
   test('The walletInfoInput does not contain publicKey, contain keyPair', () => {
     const res = formatAccountInfo(
@@ -156,15 +158,15 @@ describe('getAccountByMnemonic', () => {
     const res = getAccountByMnemonic({ AESEncryptMnemonic, password, BIP44Path });
     expect(aes.decrypt).toHaveBeenCalledTimes(1);
     expect((AElf as any).wallet.getWalletByMnemonic).toHaveBeenCalledTimes(1);
-    expect(res).toBeFalsy;
+    expect(res).toBeFalsy();
   });
   test('The mnemonic does not exist', () => {
     aes.decrypt = jest.fn().mockReturnValue(false);
-    expect(getAccountByMnemonic({ AESEncryptMnemonic, password, BIP44Path })).toBeFalsy;
+    expect(getAccountByMnemonic({ AESEncryptMnemonic, password, BIP44Path })).toBeFalsy();
   });
   test('The AESEncryptMnemonic does not exist', () => {
     aes.decrypt = jest.fn().mockReturnValue(false);
-    expect(getAccountByMnemonic({ AESEncryptMnemonic: '', password, BIP44Path })).toBeFalsy;
+    expect(getAccountByMnemonic({ AESEncryptMnemonic: '', password, BIP44Path })).toBeFalsy();
   });
 });
 
@@ -220,7 +222,7 @@ describe('checkWalletNameInput', () => {
     expect(checkWalletNameInput('``test')).toBe(WalletNameErrorMessage.invalidWalletName);
   });
   test('the walletName is valid', () => {
-    expect(checkWalletNameInput('12345678')).toBeTruthy;
+    expect(checkWalletNameInput('12345678')).toBeTruthy();
   });
 });
 

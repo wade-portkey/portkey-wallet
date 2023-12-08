@@ -8,7 +8,7 @@ import {
 } from 'model/verify/core';
 import { injectable } from 'inversify';
 import { callRemoveManagerMethod, getContractInstance } from 'model/contract/handler';
-import { UnlockedWallet, getUnlockedWallet } from 'model/wallet';
+import { getUnlockedWallet } from 'model/wallet';
 import { SendResult, ViewResult } from 'packages/contracts/types';
 import { BaseMethodResult } from 'service/JsModules/types';
 import { AccountError, errorMap } from 'service/error';

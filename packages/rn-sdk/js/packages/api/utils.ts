@@ -1,6 +1,6 @@
 import { BaseConfig, RequestConfig } from './types';
 
-export function spliceUrl(baseUrl: string, extendArg: string = '') {
+export function spliceUrl(baseUrl: string, extendArg = '') {
   const { [baseUrl.length - 1]: lastStr } = baseUrl;
   const { 0: startUrl } = extendArg ?? '';
   let _baserUrl = baseUrl;
