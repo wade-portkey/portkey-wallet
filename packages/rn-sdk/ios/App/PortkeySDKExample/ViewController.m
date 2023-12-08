@@ -188,22 +188,26 @@
 - (UIAlertController *)createOpenPageAlertController {
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Open Portkey Page" message:@"" preferredStyle:UIAlertControllerStyleActionSheet];
     UIAlertAction *scanQrcode = [UIAlertAction actionWithTitle:@"Scan QRCode" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        [[PortkeySDKRouterModule sharedInstance] navigateTo:@"scan_qr_code_entry" launchMode:@"" from:@"" targetScene:@"" closeCurrentScreen:NO params:@{}];
+        [[PortkeySDKRouterModule sharedInstance] navigateTo:@"portkey_scan_qr_code_entry" launchMode:@"" from:@"" targetScene:@"" closeCurrentScreen:NO params:@{}];
     }];
     UIAlertAction *guardianHome = [UIAlertAction actionWithTitle:@"Guardian Home" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        [[PortkeySDKRouterModule sharedInstance] navigateTo:@"guardian_home_entry" launchMode:@"" from:@"" targetScene:@"" closeCurrentScreen:NO params:@{}];
+        [[PortkeySDKRouterModule sharedInstance] navigateTo:@"portkey_guardian_home_entry" launchMode:@"" from:@"" targetScene:@"" closeCurrentScreen:NO params:@{}];
     }];
     UIAlertAction *accountSetting = [UIAlertAction actionWithTitle:@"Account Setting" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        [[PortkeySDKRouterModule sharedInstance] navigateTo:@"account_setting_entry" launchMode:@"single_task" from:@"" targetScene:@"" closeCurrentScreen:NO params:@{}];
+        [[PortkeySDKRouterModule sharedInstance] navigateTo:@"portkey_account_setting_entry" launchMode:@"single_task" from:@"" targetScene:@"" closeCurrentScreen:NO params:@{}];
     }];
     UIAlertAction *assetsHome = [UIAlertAction actionWithTitle:@"Assets Home" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        [[PortkeySDKRouterModule sharedInstance] navigateTo:@"assets_home_entry" launchMode:@"single_task" from:@"" targetScene:@"" closeCurrentScreen:NO params:@{}];
+        [[PortkeySDKRouterModule sharedInstance] navigateTo:@"portkey_assets_home_entry" launchMode:@"single_task" from:@"" targetScene:@"" closeCurrentScreen:NO params:@{}];
+    }];
+    UIAlertAction *paymentSecurity = [UIAlertAction actionWithTitle:@"PaymentSecurity" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [[PortkeySDKRouterModule sharedInstance] navigateTo:@"portkey_payment_security_home_entry" launchMode:@"single_task" from:@"" targetScene:@"" closeCurrentScreen:NO params:@{}];
     }];
     UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
     [alert addAction:scanQrcode];
     [alert addAction:guardianHome];
     [alert addAction:accountSetting];
     [alert addAction:assetsHome];
+    [alert addAction:paymentSecurity];
     [alert addAction:cancel];
     return alert;
 }
@@ -211,7 +215,7 @@
 #pragma mark - Selector
 
 - (void)loginButtonClicked:(id)sender {
-    [[PortkeySDKRouterModule sharedInstance] navigateToWithOptions:@"sign_in_entry"
+    [[PortkeySDKRouterModule sharedInstance] navigateToWithOptions:@"portkey_sign_in_entry"
                                                         launchMode:@""
                                                               from:@""
                                                             params:@{}
