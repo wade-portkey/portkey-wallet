@@ -199,11 +199,15 @@
     UIAlertAction *assetsHome = [UIAlertAction actionWithTitle:@"Assets Home" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [[PortkeySDKRouterModule sharedInstance] navigateTo:@"assets_home_entry" launchMode:@"single_task" from:@"" targetScene:@"" closeCurrentScreen:NO params:@{}];
     }];
+    UIAlertAction *paymentSecurity = [UIAlertAction actionWithTitle:@"PaymentSecurity" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [[PortkeySDKRouterModule sharedInstance] navigateTo:@"payment_security_home_entry" launchMode:@"single_task" from:@"" targetScene:@"" closeCurrentScreen:NO params:@{}];
+    }];
     UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
     [alert addAction:scanQrcode];
     [alert addAction:guardianHome];
     [alert addAction:accountSetting];
     [alert addAction:assetsHome];
+    [alert addAction:paymentSecurity];
     [alert addAction:cancel];
     return alert;
 }
