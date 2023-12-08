@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { request } from '@portkey-wallet/api/api-did';
+import { request } from 'packages/api/api-did';
 import { PortkeyConfig } from 'global/constants';
 
 export const useGetHolderInfo = () => {

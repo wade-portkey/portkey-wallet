@@ -1,6 +1,6 @@
-import { ChainId } from '@portkey-wallet/types';
-import { DeviceInfoType, DeviceType } from '@portkey-wallet/types/types-ca/device';
-import { sleep } from '@portkey-wallet/utils';
+import { ChainId } from 'packages/types';
+import { DeviceInfoType, DeviceType } from 'packages/types/types-ca/device';
+import { sleep } from 'packages/utils';
 import CommonToast from 'components/CommonToast';
 import { PortkeyConfig } from 'global/constants';
 import { requestSocialRecoveryOrRegister } from 'model/global';
@@ -13,9 +13,8 @@ import {
   isRecoveryStatusItem,
 } from 'network/dto/wallet';
 import { GlobalStorage, TempStorage } from 'service/storage';
-import { decrypt, encrypt, encryptLocal } from 'utils/crypto';
+import { decrypt, decryptLocal, encrypt, encryptLocal } from 'utils/crypto';
 
-const PIN_KEY = 'pin';
 const WALLET_CONFIG_KEY = 'walletConfig';
 const USE_BIOMETRIC_KEY = 'useBiometric';
 const LOCAL_WALLET_CONFIG_KEY = 'localWalletConfig';
@@ -208,9 +207,9 @@ export const lockWallet = async (): Promise<void> => {
 };
 
 export const exitWallet = async (): Promise<void> => {
-  GlobalStorage.remove(PIN_KEY);
   GlobalStorage.remove(USE_BIOMETRIC_KEY);
   GlobalStorage.remove(WALLET_CONFIG_KEY);
+  GlobalStorage.remove(LOCAL_WALLET_CONFIG_KEY);
   TempStorage.remove(WALLET_CONFIG_KEY);
 };
 
@@ -239,7 +238,10 @@ export const checkPin = async (pinValue: string): Promise<boolean> => {
   }
 };
 export const changePin = async (pinValue: string): Promise<void> => {
-  GlobalStorage.set(PIN_KEY, pinValue);
+  const unlockedWallet = await TempStorage.getString(WALLET_CONFIG_KEY);
+  if (!unlockedWallet) throw new Error('wallet not unlocked!');
+  const encrypted = encrypt(unlockedWallet, pinValue);
+  GlobalStorage.set(WALLET_CONFIG_KEY, encrypted);
 };
 
 export const unLockTempWallet = async (pinValue?: string, useBiometric = false): Promise<boolean> => {
@@ -252,7 +254,7 @@ export const unLockTempWallet = async (pinValue?: string, useBiometric = false):
       const encrypted = await GlobalStorage.getString(LOCAL_WALLET_CONFIG_KEY);
       console.log('encrypted', encrypted);
       if (!encrypted) throw new Error('wallet not exist');
-      decrypted = await encryptLocal(encrypted);
+      decrypted = await decryptLocal(encrypted);
     } else {
       const encrypted = await GlobalStorage.getString(WALLET_CONFIG_KEY);
       if (!encrypted || !pinValue) throw new Error('wallet not exist');

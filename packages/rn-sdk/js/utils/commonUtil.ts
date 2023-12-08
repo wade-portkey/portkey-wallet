@@ -1,7 +1,7 @@
 import CommonToast from 'components/CommonToast';
 import { setStringAsync } from 'expo-clipboard';
 import i18n from 'i18n';
-import { BackEndNetWorkMap } from '@portkey-wallet/constants/constants-ca/backend-network';
+import { BackEndNetWorkMap } from 'packages/constants/constants-ca/backend-network';
 
 // eslint-disable-next-line @typescript-eslint/ban-types
 export function myThrottle(fn: Function, delay: number) {
@@ -50,3 +50,8 @@ export const copyText = async (text: string) => {
     CommonToast.success(i18n.t('Copy Fail'));
   }
 };
+
+export function wrapEntry(entry: string) {
+  const prefix = 'portkey_';
+  return prefix + entry;
+}

@@ -1,22 +1,23 @@
 import * as WebBrowser from 'expo-web-browser';
 import { useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin';
-import { isIOS } from '@portkey-wallet/utils/mobile/device';
+import { isIOS } from 'packages/utils/mobile/device';
 import * as Google from 'expo-auth-session/providers/google';
 import Config from 'react-native-config';
 import * as Application from 'expo-application';
 import { AccessTokenRequest, makeRedirectUri } from 'expo-auth-session';
-import { request } from '@portkey-wallet/api/api-did';
-import { ChainId } from '@portkey-wallet/types';
-import { AppleUserInfo, getGoogleUserInfo, parseAppleIdentityToken } from '@portkey-wallet/utils/authentication';
-import { LoginType } from '@portkey-wallet/types/types-ca/wallet';
-import { handleErrorMessage, sleep } from '@portkey-wallet/utils';
+import { request } from 'packages/api/api-did';
+import { ChainId } from 'packages/types';
+import { AppleUserInfo, getGoogleUserInfo, parseAppleIdentityToken } from 'packages/utils/authentication';
+import { LoginType } from 'packages/types/types-ca/wallet';
+import { handleErrorMessage, sleep } from 'packages/utils';
 import { AppState } from 'react-native';
 import appleAuth, { appleAuthAndroid } from '@invertase/react-native-apple-authentication';
-import { OperationTypeEnum } from '@portkey-wallet/types/verifier';
+import { OperationTypeEnum } from 'packages/types/verifier';
 import NetworkContext, { NetworkContextState } from 'pages/Login/context/NetworkContext';
 import { appleLogin } from './apple-login';
 import { NetworkController } from 'network/controller';
+import { APPLE_CLIENT_ID, APPLE_MAIN_REDIRECT_URI, APPLE_TESTNET_REDIRECT_URI } from 'utils/const';
 
 if (!isIOS) {
   GoogleSignin.configure({
@@ -139,9 +140,8 @@ export function useAppleAuthentication() {
   useEffect(() => {
     if (isIOS) return;
     appleAuthAndroid.configure({
-      clientId: Config.APPLE_CLIENT_ID,
-      redirectUri:
-        currentNetwork?.networkType === 'MAIN' ? Config.APPLE_MAIN_REDIRECT_URI : Config.APPLE_TESTNET_REDIRECT_URI,
+      clientId: APPLE_CLIENT_ID,
+      redirectUri: currentNetwork?.networkType === 'MAIN' ? APPLE_MAIN_REDIRECT_URI : APPLE_TESTNET_REDIRECT_URI,
       scope: appleAuthAndroid.Scope.ALL,
       responseType: appleAuthAndroid.ResponseType.ALL,
     });

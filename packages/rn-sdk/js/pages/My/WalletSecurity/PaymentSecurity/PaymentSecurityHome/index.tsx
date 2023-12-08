@@ -12,7 +12,7 @@ import Touchable from 'components/Touchable';
 import isEqual from 'lodash/isEqual';
 import CommonAvatar from 'components/CommonAvatar';
 import Svg from 'components/Svg';
-import { formatChainInfoToShow } from '@portkey-wallet/utils';
+import { formatChainInfoToShow } from 'packages/utils';
 import NoData from 'components/NoData';
 import { ITransferLimitItem } from 'model/security';
 import { useTransferLimitList } from 'model/hooks/payment';

@@ -6,12 +6,12 @@ import { TextM } from 'components/CommonText';
 import { FontStyles } from 'assets/theme/styles';
 import { pTd } from 'utils/unit';
 import Touchable from 'components/Touchable';
-import { getHost } from '@portkey-wallet/utils/dapp/browser';
+import { getHost } from 'packages/utils/dapp/browser';
 import DiscoverWebsiteImage from 'pages/Discover/components/DiscoverWebsiteImage';
 import TextWithProtocolIcon from 'components/TextWithProtocolIcon';
 import Svg from 'components/Svg';
-import { DappStoreItem } from '@portkey-wallet/store/store-ca/dapp/type';
-import { useGetCmsWebsiteInfo } from '@portkey-wallet/hooks/hooks-ca/cms';
+import { DappStoreItem } from 'packages/store/store-ca/dapp/type';
+import { useGetCmsWebsiteInfo } from 'packages/hooks/hooks-ca/cms';
 
 interface DappListItemProps {
   type?: 'home' | 'detail';
