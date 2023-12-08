@@ -28,7 +28,6 @@ const _renderPaymentSecurityItem = ({ item }: { item: ITransferLimitItem }) => {
   const { defaultToken } = useCommonNetworkInfo();
   const symbolImages = useSymbolImages();
   const networkType = useCurrentNetworkInfo();
-  useInitCaches();
   const { navigateTo } = useBaseContainer({
     entryName: PortkeyEntries.PAYMENT_SECURITY_HOME_ENTRY,
   });
@@ -86,7 +85,7 @@ const ItemStyles = StyleSheet.create({
 const PaymentSecurityList = ({ containerId }: { containerId: string }) => {
   const [isRefreshing, setIsRefreshing] = useState(false);
   const { list, isNext, next, init } = useTransferLimitList();
-
+  useInitCaches();
   useBaseContainer({
     entryName: PortkeyEntries.PAYMENT_SECURITY_HOME_ENTRY,
     onNewIntent: (intent: GuardiansApprovalIntent) => {
@@ -97,9 +96,7 @@ const PaymentSecurityList = ({ containerId }: { containerId: string }) => {
     },
     containerId,
     onShow: () => {
-      setTimeout(() => {
-        init();
-      }, 100);
+      init();
     },
   });
 
