@@ -90,7 +90,7 @@ export const useVerifyEntry = (verifyConfig: VerifyConfig): VerifyEntryHooks => 
         },
       );
     },
-    [navigateForResult],
+    [navigateForResult, type],
   );
 
   const thirdPartyLogin = async (thirdPartyLoginType: 'google' | 'apple'): Promise<void> => {

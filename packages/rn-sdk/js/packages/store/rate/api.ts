@@ -15,7 +15,7 @@ export const rateApi = createApi({
     getRateByName: builder.query<string, { fsym: string; tsyms: string[] }>({
       query: ({ fsym, tsyms }) => `token/price?fsym=${fsym}&tsyms=${tsyms.join(',')}`,
     }),
-    getELFRate: builder.query<ELFRateResponseType, {}>({
+    getELFRate: builder.query<ELFRateResponseType, object>({
       query: () => `token/price?fsym=${'ELF'}&tsyms=${['USDT', 'BTC', 'CNY'].join(',')}`,
     }),
   }),

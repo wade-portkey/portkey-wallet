@@ -90,7 +90,7 @@ export function isValidInteger(num?: string) {
 }
 
 export const isValidUrl = (url: string) => {
-  var urlRegex = /^(https?|ftp):\/\/(-\.)?([^\s/?\.#]+\.?)+(\/[^\s]*)?$/i;
+  const urlRegex = /^(https?|ftp):\/\/(-\.)?([^\s/?\.#]+\.?)+(\/[^\s]*)?$/i;
   return urlRegex.test(url);
 };
 

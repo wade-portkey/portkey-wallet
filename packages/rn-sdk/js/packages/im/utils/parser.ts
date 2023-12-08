@@ -10,8 +10,8 @@ const imageMessageParser = (str: string): ParsedImage => {
     result[key] = value;
   });
   return {
-    type: result['type'] || '',
-    action: result['action'] || '',
+    type: result.type || '',
+    action: result.action || '',
     imgUrl: result['p1(Text)'] || '',
     s3Key: result['p2(Text)'] || '',
     thumbImgUrl: result['p3(Text)'],

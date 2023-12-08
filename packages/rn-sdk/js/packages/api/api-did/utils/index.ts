@@ -16,7 +16,7 @@ export type RefreshTokenConfig = {
   chainId: ChainId;
 };
 export const queryAuthorization = async (config: RefreshTokenConfig) => {
-  const { connectUrl, ..._config } = config;
+  const { ..._config } = config;
   const { access_token } = await customFetch(config.connectUrl + '/connect/token', {
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     method: 'POST',

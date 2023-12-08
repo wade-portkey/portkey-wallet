@@ -93,7 +93,7 @@ export class IMService<T extends IBaseRequest = IBaseRequest> extends BaseServic
     return this.getAuthTokenLoop(params, checkIsContinue, times - 1);
   }
 
-  getUserInfo<T = GetUserInfoDefaultResult>(params: GetUserInfoParams): IMServiceCommon<T> {
+  getUserInfo<R = GetUserInfoDefaultResult>(params: GetUserInfoParams): IMServiceCommon<R> {
     return this._request.send({
       url: '/api/v1/users/userInfo',
       params,

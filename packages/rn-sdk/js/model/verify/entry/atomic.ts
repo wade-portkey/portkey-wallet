@@ -32,9 +32,7 @@ export const useThirdPartyVerifyAtomic = (): {
   };
 };
 
-export const useNonThirdPartySignInAtomic = (
-  entryName: string,
-): {
+export const useNonThirdPartySignInAtomic = (): {
   phoneOrEmailVerify: (params: { accountIdentifier: string }) => Promise<GuardianConfig>;
 } => {
   throw new Error('Not implemented');

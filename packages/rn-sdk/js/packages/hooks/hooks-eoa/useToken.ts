@@ -1,13 +1,8 @@
+import { fetchTokenListAsync } from 'packages/store/store-ca/assets/slice';
 import { useAppEOASelector, useAppCommonDispatch } from '../index';
-import { addTokenInCurrentAccount, deleteTokenInCurrentAccount } from 'packages/types/token/action';
-import { fetchTokenListAsync } from 'packages/types/token/slice';
-import {
-  TokenItemType,
-  TokenState,
-  AddedTokenData,
-  TokenListShowInMarketType,
-} from 'packages/types/types-eoa/token';
+import { TokenItemType, TokenState, AddedTokenData, TokenListShowInMarketType } from 'packages/types/types-eoa/token';
 import { useMemo } from 'react';
+import { addTokenInCurrentAccount, deleteTokenInCurrentAccount } from 'packages/store/token/action';
 
 export interface TokenFuncsType {
   addToken: (tokenItem: TokenItemType) => void;
@@ -66,7 +61,7 @@ export const useCurrentAccountTokenList = (): TokenItemType[] => {
     }
 
     return [];
-  }, [addedTokenData, currentChain, currentAccount]);
+  }, [currentChain, addedTokenData, currentAccount, isFetchingTokenList, dispatch]);
 };
 
 export const useAllAccountTokenList = (): AddedTokenData => {

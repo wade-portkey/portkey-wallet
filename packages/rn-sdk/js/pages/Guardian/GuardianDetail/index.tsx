@@ -18,7 +18,6 @@ import fonts from 'assets/theme/fonts';
 import GuardianAccountItem from '../components/GuardianAccountItem';
 import Divider from 'components/Divider';
 import { useAppleAuthentication, useGoogleAuthentication } from 'model/hooks/authentication';
-import { UserGuardianItem } from 'packages/types/store-ca/guardians/type';
 import { GuardianConfig } from 'model/verify/guardian';
 import { PortkeyConfig } from 'global/constants';
 import useEffectOnce from 'hooks/useEffectOnce';
@@ -32,6 +31,7 @@ import { handlePhoneOrEmailGuardianVerify } from 'model/verify/entry/hooks';
 import useBaseContainer from 'model/container/UseBaseContainer';
 import { PortkeyEntries } from 'config/entries';
 import { verifyHumanMachine } from 'components/VerifyHumanMachine';
+import { UserGuardianItem } from 'packages/store/store-ca/guardians/type';
 
 export default function GuardianDetail(config: { info: string }) {
   const { t } = useLanguage();
@@ -42,7 +42,7 @@ export default function GuardianDetail(config: { info: string }) {
   const { appleSign } = useAppleAuthentication();
   const { googleSign } = useGoogleAuthentication();
 
-  const { navigateTo: navigationTo, onFinish } = useBaseContainer({
+  const { navigateTo, onFinish } = useBaseContainer({
     entryName: PortkeyEntries.GUARDIAN_DETAIL_ENTRY,
   });
 
@@ -332,7 +332,7 @@ export default function GuardianDetail(config: { info: string }) {
         <CommonButton
           type="primary"
           onPress={() => {
-            navigationTo(PortkeyEntries.MODIFY_GUARDIAN_ENTRY, {
+            navigateTo(PortkeyEntries.MODIFY_GUARDIAN_ENTRY, {
               closeCurrentScreen: false,
               params: {
                 info: JSON.stringify({

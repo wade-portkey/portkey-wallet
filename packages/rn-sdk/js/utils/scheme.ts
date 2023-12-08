@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape */
 export function checkIsPortKeyUrl(url: string): boolean {
   const pattern = /^(portkey):\/\/([^\/?#]+)(\/[^?#]*)?(\?[^#]*)?$/;
   const match = url.match(pattern);

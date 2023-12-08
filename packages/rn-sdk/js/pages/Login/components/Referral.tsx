@@ -21,8 +21,6 @@ import { defaultColors } from 'assets/theme';
 import { PageLoginType, PageType } from '../types';
 import { useVerifyEntry } from 'model/verify/entry';
 import { isIOS } from 'packages/utils/mobile/device';
-import { getOrReadCachedVerifierData } from 'model/contract/handler';
-import Loading from 'components/Loading';
 import { getUnlockedWallet } from 'model/wallet';
 
 const TitleMap = {
@@ -84,11 +82,6 @@ export default function Referral({
 
   useEffectOnce(async () => {
     walletCheck();
-    Loading.show();
-    try {
-      await getOrReadCachedVerifierData();
-    } catch (_) {}
-    Loading.hide();
   });
 
   const walletCheck = async () => {
