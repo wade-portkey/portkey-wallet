@@ -8,7 +8,7 @@
 
 // AppRegistry.registerComponent(appName, () => App);
 
-// import '@portkey/react-native-sdk';
+import '@portkey/react-native-sdk';
 import {AppRegistry} from 'react-native';
 import App from './App';
 import {name as appName} from './app.json';

@@ -12,11 +12,8 @@ import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint;
 import com.facebook.react.defaults.DefaultReactNativeHost;
 import com.facebook.soloader.SoLoader;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import io.aelf.core.PortKeySDKHolder;
-import io.aelf.core.PortkeyEntries;
 
 public class MainApplication extends Application implements ReactApplication {
     private static final String TAG = "MainApplication";
