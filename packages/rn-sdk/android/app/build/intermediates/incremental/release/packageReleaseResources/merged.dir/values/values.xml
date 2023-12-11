@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="white">#FFFFFFFF</color>
+    <integer name="react_native_dev_server_port">8081</integer>
+    <integer name="react_native_inspector_proxy_port">8081</integer>
+    <string name="APPLE_CLIENT_ID" translatable="false">"com.portkey.did.extension.service"</string>
+    <string name="APPLE_MAIN_REDIRECT_URI" translatable="false">"https://did-portkey.portkey.finance/api/app/AppleAuth/receive"</string>
+    <string name="APPLE_TESTNET_REDIRECT_URI" translatable="false">"https://did-portkey.portkey.finance/api/app/AppleAuth/receive"</string>
+    <string name="GOOGLE_ANDROID_CLIENT_ID" translatable="false">"57532195783-ue2c0a0otft40dp8jtfi6sgs06lv1q4b.apps.googleusercontent.com"</string>
+    <string name="GOOGLE_IOS_CLIENT_ID" translatable="false">"57532195783-66mios3b9fglgub9jut5fsr39mitasqu.apps.googleusercontent.com"</string>
+    <string name="GOOGLE_WEB_CLIENT_ID" translatable="false">"57532195783-kvl2qfsfu11o5aab35tgnauoqokv6mpv.apps.googleusercontent.com"</string>
+    <string name="RECAPTCHA_BASE_URL" translatable="false">"https://portkey.finance"</string>
+    <string name="RECAPTCHA_SITE_KEY" translatable="false">"6LfR_bElAAAAAJSOBuxle4dCFaciuu9zfxRQfQC0"</string>
+    <string name="RELEASE_KEY_ALIAS" translatable="false">"my-key-alias"</string>
+    <string name="RELEASE_KEY_PASSWORD" translatable="false">"portkey2022"</string>
+    <string name="RELEASE_STORE_FILE" translatable="false">"release-key.keystore"</string>
+    <string name="RELEASE_STORE_PASSWORD" translatable="false">"portkey2022"</string>
+    <string name="app_name">portkey-rn-sdk</string>
+    <style name="Theme.BaseTheme" parent="android:Theme.Material.Light.NoActionBar"/>
+</resources>

@@ -1,0 +1,3 @@
+{
+  "extends": "@portkey/rn-sdk/tsconfig.json"
+}

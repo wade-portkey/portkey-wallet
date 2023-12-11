@@ -1,0 +1,350 @@
+import CommonButton from '@portkey/rn-sdk/src/components/CommonButton';
+import { TextL, TextM } from '@portkey/rn-sdk/src/components/CommonText';
+import React, { useCallback, useState } from 'react';
+import { Text, View } from 'react-native';
+import { pTd } from '@portkey/rn-sdk/src/utils/unit';
+import PageContainer from '@portkey/rn-sdk/src/components/PageContainer';
+import { pageStyles } from '@portkey/rn-sdk/src/pages/Guardian/GuardianDetail/style';
+import { useLanguage } from '@portkey/rn-sdk/src/i18n/hooks';
+import CommonSwitch from '@portkey/rn-sdk/src/components/CommonSwitch';
+import ActionSheet from '@portkey/rn-sdk/src/components/ActionSheet';
+import Loading from '@portkey/rn-sdk/src/components/Loading';
+import CommonToast from '@portkey/rn-sdk/src/components/CommonToast';
+import { VerificationType, OperationTypeEnum } from '@portkey/rn-sdk/src/packages/types/verifier';
+import { VerifierImage } from '@portkey/rn-sdk/src/pages/Guardian/components/VerifierImage';
+import { cancelLoginAccount, setLoginAccount } from '@portkey/rn-sdk/src/utils/guardian';
+import { LoginType } from '@portkey/rn-sdk/src/packages/types/types-ca/wallet';
+import fonts from '@portkey/rn-sdk/src/assets/theme/fonts';
+import GuardianAccountItem from '@portkey/rn-sdk/src/pages/Guardian/components/GuardianAccountItem';
+import Divider from '@portkey/rn-sdk/src/components/Divider';
+import { useAppleAuthentication, useGoogleAuthentication } from '@portkey/rn-sdk/src/model/hooks/authentication';
+import { UserGuardianItem } from 'packages/types/store-ca/guardians/type';
+import { GuardianConfig } from '@portkey/rn-sdk/src/model/verify/guardian';
+import { PortkeyConfig } from '@portkey/rn-sdk/src/global/constants';
+import useEffectOnce from '@portkey/rn-sdk/src/hooks/useEffectOnce';
+import { getContractInstance, getOrReadCachedVerifierData } from '@portkey/rn-sdk/src/model/contract/handler';
+import { guardianEnumToTypeStr, guardianTypeStrToEnum, isReacptchaOpen, parseGuardianInfo } from '@portkey/rn-sdk/src/model/global';
+import { AccountOriginalType } from '@portkey/rn-sdk/src/model/verify/core';
+import { getUnlockedWallet } from '@portkey/rn-sdk/src/model/wallet';
+import { NetworkController } from '@portkey/rn-sdk/src/network/controller';
+import { ModifyGuardianProps, checkIsTheLastLoginGuardian } from '@portkey/rn-sdk/src/pages/Guardian/GuardianManage/ModifyGuardian';
+import { handlePhoneOrEmailGuardianVerify } from '@portkey/rn-sdk/src/model/verify/entry/hooks';
+import useBaseContainer from '@portkey/rn-sdk/src/model/container/UseBaseContainer';
+import { PortkeyEntries } from '@portkey/rn-sdk/src/config/entries';
+import { verifyHumanMachine } from '@portkey/rn-sdk/src/components/VerifyHumanMachine';
+
+export default function GuardianDetail(config: { info: string }) {
+  const { t } = useLanguage();
+  const [editGuardian, setEditGuardian] = useState<GuardianConfig>();
+  const [guardian, setOriginalGuardianItem] = useState<UserGuardianItem>();
+  const [userGuardiansList, setUserGuardiansList] = useState<Array<GuardianConfig>>([]);
+
+  const { appleSign } = useAppleAuthentication();
+  const { googleSign } = useGoogleAuthentication();
+
+  const { navigateTo: navigationTo, onFinish } = useBaseContainer({
+    entryName: PortkeyEntries.GUARDIAN_DETAIL_ENTRY,
+  });
+
+  const changeLoginAccountStatus = useCallback(
+    (newStatus: boolean) => {
+      if (guardian) {
+        setOriginalGuardianItem({ ...guardian, isLoginAccount: newStatus });
+      }
+      if (editGuardian) {
+        setEditGuardian({ ...editGuardian, isLoginGuardian: newStatus });
+      }
+    },
+    [editGuardian, guardian],
+  );
+
+  useEffectOnce(async () => {
+    Loading.show();
+    const { particularGuardianInfo, originalGuardianItem } = JSON.parse(config.info) as ModifyGuardianProps;
+    console.log('GuardianDetail info: ', config.info);
+    particularGuardianInfo && setEditGuardian(particularGuardianInfo);
+    originalGuardianItem && setOriginalGuardianItem(originalGuardianItem);
+    const {
+      caInfo: { caHash },
+    } = await getUnlockedWallet();
+    const chainId = await PortkeyConfig.currChainId();
+    const guardiansInfo = await NetworkController.getGuardianInfo('', caHash);
+    const cachedVerifierData = Object.values((await getOrReadCachedVerifierData()).data?.verifierServers ?? {});
+    const parsedGuardians = guardiansInfo?.guardianList?.guardians?.map(it => {
+      return parseGuardianInfo(
+        it,
+        chainId,
+        cachedVerifierData,
+        undefined,
+        undefined,
+        AccountOriginalType.Email,
+        OperationTypeEnum.editGuardian,
+      );
+    });
+    console.log('guardians:', JSON.stringify(parsedGuardians));
+    parsedGuardians && setUserGuardiansList(parsedGuardians);
+    Loading.hide();
+  });
+
+  const onCancelLoginAccount = useCallback(async () => {
+    if (!guardian) return;
+    Loading.show();
+    try {
+      Loading.show();
+      const {
+        address: managerAddress,
+        caInfo: { caHash },
+      } = await getUnlockedWallet();
+      const identifierHash = userGuardiansList?.find(
+        item => item.sendVerifyCodeParams.guardianIdentifier === guardian.guardianAccount,
+      )?.identifierHash;
+      if (identifierHash) guardian.identifierHash = identifierHash;
+      console.log('identifierHash', userGuardiansList);
+      const caContract = await getContractInstance();
+      const req = await cancelLoginAccount(caContract, managerAddress, caHash, guardian);
+      if (req && !req.error) {
+        changeLoginAccountStatus(false);
+        CommonToast.success('Cancel login account successfully');
+      } else {
+        CommonToast.fail(req?.error?.message || '');
+      }
+      Loading.hide();
+    } catch (error) {
+      CommonToast.failError(error);
+    }
+    Loading.hide();
+  }, [changeLoginAccountStatus, guardian, userGuardiansList]);
+
+  const onSetLoginAccount = useCallback(async () => {
+    try {
+      if (!guardian) return;
+      Loading.show();
+      const {
+        address: managerAddress,
+        caInfo: { caHash },
+      } = await getUnlockedWallet();
+      const identifierHash = userGuardiansList?.find(
+        item => item.sendVerifyCodeParams.guardianIdentifier === guardian.guardianAccount,
+      )?.identifierHash;
+      if (identifierHash) guardian.identifierHash = identifierHash;
+      const caContract = await getContractInstance();
+      const req = await setLoginAccount(caContract, managerAddress, caHash, guardian);
+      if (req && !req.error) {
+        changeLoginAccountStatus(true);
+        CommonToast.success('Set login account successfully');
+      } else {
+        CommonToast.fail(req?.error?.message || '');
+      }
+      Loading.hide();
+    } catch (error) {
+      CommonToast.failError(error);
+    }
+  }, [changeLoginAccountStatus, guardian, userGuardiansList]);
+
+  const sendLoginAccountVerify = useCallback(async () => {
+    if (!guardian) return;
+    try {
+      const originChainId = await PortkeyConfig.currChainId();
+      Loading.show();
+      const needRecaptcha = await isReacptchaOpen(OperationTypeEnum.setLoginAccount);
+      let token: string | undefined;
+      if (needRecaptcha) {
+        token = (await verifyHumanMachine('en')) as string;
+      }
+      const req = await NetworkController.sendVerifyCode(
+        {
+          type: guardianEnumToTypeStr(guardian.guardianType),
+          guardianIdentifier: guardian.guardianAccount || '',
+          verifierId: guardian.verifier?.id || '',
+          chainId: originChainId,
+          operationType: OperationTypeEnum.setLoginAccount,
+        },
+        {
+          reCaptchaToken: token,
+        },
+      );
+      if (req.verifierSessionId) {
+        const guardianVerifyResult = await handlePhoneOrEmailGuardianVerify({
+          verificationType: VerificationType.addGuardian,
+          accountIdentifier: guardian.guardianAccount,
+          accountOriginalType: AccountOriginalType.Email,
+          deliveredGuardianInfo: JSON.stringify(
+            Object.assign({}, editGuardian, {
+              alreadySent: true,
+              verifySessionId: req.verifierSessionId,
+            } as Partial<GuardianConfig>),
+          ),
+          operationType: OperationTypeEnum.setLoginAccount,
+        });
+        if (!guardianVerifyResult?.verifiedData) throw new Error('verify fail');
+        await onSetLoginAccount();
+      } else {
+        console.log('send fail');
+      }
+    } catch (error) {
+      CommonToast.failError(error);
+    }
+    Loading.hide();
+  }, [editGuardian, guardian, onSetLoginAccount]);
+
+  const onLoginAccountChange = useCallback(
+    async (value: boolean) => {
+      if (!guardian || !editGuardian || userGuardiansList === undefined) return;
+
+      if (!value) {
+        const isLastLoginAccount = checkIsTheLastLoginGuardian(userGuardiansList, editGuardian);
+        if (isLastLoginAccount) {
+          ActionSheet.alert({
+            title2: t('This guardian is the only login account and cannot be turned off'),
+            buttons: [
+              {
+                title: t('Close'),
+              },
+            ],
+          });
+          return;
+        }
+        onCancelLoginAccount();
+        return;
+      }
+
+      const loginIndex = userGuardiansList.findIndex(
+        item =>
+          item.isLoginGuardian &&
+          guardianTypeStrToEnum(item.sendVerifyCodeParams.type) === guardian.guardianType &&
+          item.sendVerifyCodeParams.guardianIdentifier === guardian.guardianAccount &&
+          item.sendVerifyCodeParams.verifierId !== guardian.verifier?.id,
+      );
+      if (loginIndex === -1) {
+        Loading.show();
+        try {
+          const guardiansInfo = await NetworkController.getGuardianInfo(guardian.guardianAccount);
+          console.log('guardiansInfo check:', guardiansInfo);
+          if (guardiansInfo?.guardianList?.guardians?.length) {
+            throw { code: '20004' };
+          }
+        } catch (error: any) {
+          if (error.code === '20004') {
+            Loading.hide();
+            ActionSheet.alert({
+              title2: t(`This account address is already a login account and cannot be used`),
+              buttons: [
+                {
+                  title: t('Close'),
+                },
+              ],
+            });
+            return;
+          }
+        } finally {
+          Loading.hide();
+        }
+      }
+
+      if ([LoginType.Apple, LoginType.Google].includes(guardian.guardianType)) {
+        Loading.show();
+        try {
+          const userInfo = await (guardian.guardianType === LoginType.Apple ? appleSign : googleSign)();
+          if (userInfo.user.id !== guardian.guardianAccount) throw new Error('Account does not match your guardian');
+          CommonToast.success('Verified Successfully');
+          await onSetLoginAccount();
+        } catch (error) {
+          CommonToast.failError(error);
+        }
+        Loading.hide();
+        return;
+      }
+
+      ActionSheet.alert({
+        title2: (
+          <Text>
+            <TextL>{`${guardian.verifier?.name} will send a verification code to `}</TextL>
+            <TextL style={fonts.mediumFont}>{guardian.guardianAccount}</TextL>
+            <TextL>{` to verify your ${
+              guardian.guardianType === LoginType.Phone ? 'phone number' : 'email address'
+            }.`}</TextL>
+          </Text>
+        ),
+        buttons: [
+          {
+            title: t('Cancel'),
+            type: 'outline',
+          },
+          {
+            title: t('Confirm'),
+            onPress: sendLoginAccountVerify,
+          },
+        ],
+      });
+    },
+    [
+      appleSign,
+      editGuardian,
+      googleSign,
+      guardian,
+      onCancelLoginAccount,
+      onSetLoginAccount,
+      sendLoginAccountVerify,
+      t,
+      userGuardiansList,
+    ],
+  );
+
+  return (
+    <PageContainer
+      safeAreaColor={['blue', 'gray']}
+      titleDom={t('Guardians')}
+      leftCallback={() => {
+        onFinish({
+          status: 'cancel',
+        });
+      }}
+      containerStyles={pageStyles.pageWrap}
+      scrollViewProps={{ disabled: true }}>
+      <View style={pageStyles.contentWrap}>
+        <View style={pageStyles.guardianInfoWrap}>
+          <GuardianAccountItem guardian={guardian} />
+          <Divider style={pageStyles.dividerStyle} />
+          <View style={pageStyles.verifierInfoWrap}>
+            <VerifierImage
+              style={pageStyles.verifierImageStyle}
+              size={pTd(28)}
+              label={guardian?.verifier?.name}
+              uri={guardian?.verifier?.imageUrl}
+            />
+            <TextL>{guardian?.verifier?.name || ''}</TextL>
+          </View>
+        </View>
+
+        <View style={pageStyles.loginSwitchWrap}>
+          <TextM>{t('Login account')}</TextM>
+          <CommonSwitch
+            value={guardian === undefined ? false : guardian.isLoginAccount}
+            onValueChange={onLoginAccountChange}
+          />
+        </View>
+
+        <TextM style={pageStyles.tips}>
+          {t('The login account will be able to log in and control all your assets')}
+        </TextM>
+      </View>
+      {userGuardiansList && userGuardiansList.length > 1 && (
+        <CommonButton
+          type="primary"
+          onPress={() => {
+            navigationTo(PortkeyEntries.MODIFY_GUARDIAN_ENTRY, {
+              closeCurrentScreen: false,
+              params: {
+                info: JSON.stringify({
+                  particularGuardianInfo: editGuardian,
+                  originalGuardianItem: guardian,
+                }),
+              },
+            });
+          }}>
+          {t('Edit')}
+        </CommonButton>
+      )}
+    </PageContainer>
+  );
+}

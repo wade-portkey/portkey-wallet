@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Automatically generated file. DO NOT MODIFY -->
+
+    <!-- Value from default config. -->
+    <integer name="react_native_dev_server_port">8081</integer>
+    <!-- Value from default config. -->
+    <integer name="react_native_inspector_proxy_port">8081</integer>
+    <!-- Value from default config. -->
+    <string name="APPLE_CLIENT_ID" translatable="false">"com.portkey.did.extension.service"</string>
+    <!-- Value from default config. -->
+    <string name="APPLE_MAIN_REDIRECT_URI" translatable="false">"https://did-portkey.portkey.finance/api/app/AppleAuth/receive"</string>
+    <!-- Value from default config. -->
+    <string name="APPLE_TESTNET_REDIRECT_URI" translatable="false">"https://did-portkey.portkey.finance/api/app/AppleAuth/receive"</string>
+    <!-- Value from default config. -->
+    <string name="GOOGLE_ANDROID_CLIENT_ID" translatable="false">"57532195783-ue2c0a0otft40dp8jtfi6sgs06lv1q4b.apps.googleusercontent.com"</string>
+    <!-- Value from default config. -->
+    <string name="GOOGLE_IOS_CLIENT_ID" translatable="false">"57532195783-66mios3b9fglgub9jut5fsr39mitasqu.apps.googleusercontent.com"</string>
+    <!-- Value from default config. -->
+    <string name="GOOGLE_WEB_CLIENT_ID" translatable="false">"57532195783-kvl2qfsfu11o5aab35tgnauoqokv6mpv.apps.googleusercontent.com"</string>
+    <!-- Value from default config. -->
+    <string name="RECAPTCHA_BASE_URL" translatable="false">"https://portkey.finance"</string>
+    <!-- Value from default config. -->
+    <string name="RECAPTCHA_SITE_KEY" translatable="false">"6LfR_bElAAAAAJSOBuxle4dCFaciuu9zfxRQfQC0"</string>
+    <!-- Value from default config. -->
+    <string name="RELEASE_KEY_ALIAS" translatable="false">"my-key-alias"</string>
+    <!-- Value from default config. -->
+    <string name="RELEASE_KEY_PASSWORD" translatable="false">"portkey2022"</string>
+    <!-- Value from default config. -->
+    <string name="RELEASE_STORE_FILE" translatable="false">"release-key.keystore"</string>
+    <!-- Value from default config. -->
+    <string name="RELEASE_STORE_PASSWORD" translatable="false">"portkey2022"</string>
+
+</resources>
