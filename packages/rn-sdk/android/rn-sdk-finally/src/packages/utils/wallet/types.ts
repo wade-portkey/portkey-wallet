@@ -1,4 +1,4 @@
-import type { AccountType, WalletInfoType, CreateType, Password } from '@portkey/rn-sdk/src/packages/types/wallet';
+import type { AccountType, WalletInfoType, CreateType, Password } from 'packages/types/wallet';
 
 export declare type FormatAccountInfo = (
   walletInfoInput: any,

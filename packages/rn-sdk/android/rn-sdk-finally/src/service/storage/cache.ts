@@ -1,4 +1,4 @@
-import { GlobalStorage, TempStorage } from '@portkey/rn-sdk/src/service/storage';
+import { GlobalStorage, TempStorage } from 'service/storage';
 
 export interface CacheStrategy<T> {
   getIdentifier: () => Promise<string>;

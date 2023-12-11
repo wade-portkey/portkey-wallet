@@ -1,8 +1,8 @@
 import { StyleSheet } from 'react-native';
-import { defaultColors } from '@portkey/rn-sdk/src/assets/theme';
-import { pTd } from '@portkey/rn-sdk/src/utils/unit';
-import GStyles from '@portkey/rn-sdk/src/assets/theme/GStyles';
-import { windowHeight } from '@portkey/rn-sdk/src/packages/utils/mobile/device';
+import { defaultColors } from 'assets/theme';
+import { pTd } from 'utils/unit';
+import GStyles from 'assets/theme/GStyles';
+import { windowHeight } from 'packages/utils/mobile/device';
 
 const { bg1, font3, bg4, error } = defaultColors;
 

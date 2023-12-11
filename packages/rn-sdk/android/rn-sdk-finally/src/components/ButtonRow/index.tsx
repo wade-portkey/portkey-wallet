@@ -1,9 +1,9 @@
-import { defaultColors } from '@portkey/rn-sdk/src/assets/theme';
-import GStyles from '@portkey/rn-sdk/src/assets/theme/GStyles';
-import CommonButton, { CommonButtonProps } from '@portkey/rn-sdk/src/components/CommonButton';
+import { defaultColors } from 'assets/theme';
+import GStyles from 'assets/theme/GStyles';
+import CommonButton, { CommonButtonProps } from 'components/CommonButton';
 import React from 'react';
 import { StyleProp, StyleSheet, TextStyle, View, ViewStyle } from 'react-native';
-import { pTd } from '@portkey/rn-sdk/src/utils/unit';
+import { pTd } from 'utils/unit';
 
 export type ButtonRowProps = {
   buttons?: {

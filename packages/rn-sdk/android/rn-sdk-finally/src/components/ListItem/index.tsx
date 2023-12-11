@@ -1,12 +1,12 @@
 import React, { memo, ReactNode, useMemo } from 'react';
 import { StyleSheet, View } from 'react-native';
-import { pTd } from '@portkey/rn-sdk/src/utils/unit';
-import { TextL, TextM, TextS } from '@portkey/rn-sdk/src/components/CommonText';
-import Touchable from '@portkey/rn-sdk/src/components/Touchable';
-import { defaultColors } from '@portkey/rn-sdk/src/assets/theme';
-import CommonSwitch from '@portkey/rn-sdk/src/components/CommonSwitch';
-import Svg from '@portkey/rn-sdk/src/components/Svg';
-import { TextStyleType, ViewStyleType } from '@portkey/rn-sdk/src/types/styles';
+import { pTd } from 'utils/unit';
+import { TextL, TextM, TextS } from 'components/CommonText';
+import Touchable from 'components/Touchable';
+import { defaultColors } from 'assets/theme';
+import CommonSwitch from 'components/CommonSwitch';
+import Svg from 'components/Svg';
+import { TextStyleType, ViewStyleType } from 'types/styles';
 
 export type ListItemProps = {
   title: string;

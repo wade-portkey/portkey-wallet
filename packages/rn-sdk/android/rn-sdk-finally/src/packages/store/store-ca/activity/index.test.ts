@@ -1,10 +1,10 @@
-import { ChainId, ChainType } from '@portkey/rn-sdk/src/packages/types';
-import { activitySlice, addFailedActivity, removeFailedActivity, resetActivity } from '@portkey/rn-sdk/src/packages/store/store-ca/activity/slice';
-import { fetchActivities } from '@portkey/rn-sdk/src/packages/store/store-ca/activity/api';
-import { getCurrentActivityMapKey } from '@portkey/rn-sdk/src/packages/utils/activity';
-import { getActivityListAsync } from '@portkey/rn-sdk/src/packages/store/store-ca/activity/action';
+import { ChainId, ChainType } from 'packages/types';
+import { activitySlice, addFailedActivity, removeFailedActivity, resetActivity } from 'packages/store/store-ca/activity/slice';
+import { fetchActivities } from 'packages/store/store-ca/activity/api';
+import { getCurrentActivityMapKey } from 'packages/utils/activity';
+import { getActivityListAsync } from 'packages/store/store-ca/activity/action';
 import { configureStore } from '@reduxjs/toolkit';
-import { TransactionTypes } from '@portkey/rn-sdk/src/packages/constants/constants-ca/activity';
+import { TransactionTypes } from 'packages/constants/constants-ca/activity';
 
 const reducer = activitySlice.reducer;
 const mockInitState = {

@@ -1,13 +1,13 @@
 import { useMemo, useCallback } from 'react';
-import { useAppCASelector } from '@portkey/rn-sdk/src/packages/hooks/hooks-ca';
-import { useCurrentWalletInfo, useWallet } from '@portkey/rn-sdk/src/packages/hooks/hooks-ca/wallet';
-import { useAppCommonDispatch } from '@portkey/rn-sdk/src/packages/hooks';
+import { useAppCASelector } from 'packages/hooks/hooks-ca';
+import { useCurrentWalletInfo, useWallet } from 'packages/hooks/hooks-ca/wallet';
+import { useAppCommonDispatch } from 'packages/hooks';
 import { updateSessionInfo } from 'packages/types/store-ca/dapp/actions';
-import { useCurrentNetworkInfo } from '@portkey/rn-sdk/src/packages/hooks/hooks-ca/network';
-import { NetworkType } from '@portkey/rn-sdk/src/packages/types';
-import { SessionExpiredPlan, SessionInfo } from '@portkey/rn-sdk/src/packages/types/session';
-import { formatExpiredTime, signSession } from '@portkey/rn-sdk/src/packages/utils/session';
-import { AElfWallet } from '@portkey/rn-sdk/src/packages/types/aelf';
+import { useCurrentNetworkInfo } from 'packages/hooks/hooks-ca/network';
+import { NetworkType } from 'packages/types';
+import { SessionExpiredPlan, SessionInfo } from 'packages/types/session';
+import { formatExpiredTime, signSession } from 'packages/utils/session';
+import { AElfWallet } from 'packages/types/aelf';
 export const useDapp = () => useAppCASelector(state => state.dapp);
 export const useDiscover = () => useAppCASelector(state => state.discover);
 

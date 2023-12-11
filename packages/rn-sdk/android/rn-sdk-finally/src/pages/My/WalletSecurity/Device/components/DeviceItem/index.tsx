@@ -1,13 +1,13 @@
 import React, { memo } from 'react';
 import { StyleSheet, View } from 'react-native';
-import { defaultColors } from '@portkey/rn-sdk/src/assets/theme';
-import { TextL, TextM, TextS } from '@portkey/rn-sdk/src/components/CommonText';
-import Touchable from '@portkey/rn-sdk/src/components/Touchable';
-import { pTd } from '@portkey/rn-sdk/src/utils/unit';
-import { FontStyles } from '@portkey/rn-sdk/src/assets/theme/styles';
+import { defaultColors } from 'assets/theme';
+import { TextL, TextM, TextS } from 'components/CommonText';
+import Touchable from 'components/Touchable';
+import { pTd } from 'utils/unit';
+import { FontStyles } from 'assets/theme/styles';
 import { formatTransferTime } from 'utils';
-import { DeviceItemType, DeviceType } from '@portkey/rn-sdk/src/packages/types/types-ca/device';
-import Svg, { IconName } from '@portkey/rn-sdk/src/components/Svg';
+import { DeviceItemType, DeviceType } from 'packages/types/types-ca/device';
+import Svg, { IconName } from 'components/Svg';
 
 const deviceTypeIconMap: Record<DeviceType, IconName> = {
   [DeviceType.IOS]: 'phone-iOS',

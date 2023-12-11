@@ -1,14 +1,14 @@
 import React from 'react';
-import OverlayModal from '@portkey/rn-sdk/src/components/OverlayModal';
+import OverlayModal from 'components/OverlayModal';
 import { Keyboard, ScrollView, View } from 'react-native';
-import Touchable from '@portkey/rn-sdk/src/components/Touchable';
-import styles from '@portkey/rn-sdk/src/pages/Guardian/components/VerifierSelectOverlay/styles';
-import Svg from '@portkey/rn-sdk/src/components/Svg';
-import { TextL } from '@portkey/rn-sdk/src/components/CommonText';
-import { pTd } from '@portkey/rn-sdk/src/utils/unit';
-import { useLanguage } from '@portkey/rn-sdk/src/i18n/hooks';
-import { VerifierImage } from '@portkey/rn-sdk/src/pages/Guardian/components/VerifierImage';
-import { ModalBody } from '@portkey/rn-sdk/src/components/ModalBody';
+import Touchable from 'components/Touchable';
+import styles from 'pages/Guardian/components/VerifierSelectOverlay/styles';
+import Svg from 'components/Svg';
+import { TextL } from 'components/CommonText';
+import { pTd } from 'utils/unit';
+import { useLanguage } from 'i18n/hooks';
+import { VerifierImage } from 'pages/Guardian/components/VerifierImage';
+import { ModalBody } from 'components/ModalBody';
 
 type ValueType = string | number;
 type DefaultValueType = string;

@@ -1,0 +1,1 @@
+Object.defineProperty(exports,"__esModule",{value:true});exports.useAssets=void 0;var _index=require("./index");var useAssets=exports.useAssets=function useAssets(){return(0,_index.useAppCASelector)(function(state){return state.assets;});};

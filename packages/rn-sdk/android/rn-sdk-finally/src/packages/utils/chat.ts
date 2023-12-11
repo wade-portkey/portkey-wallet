@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import { dateToDayjs } from '@portkey/rn-sdk/src/packages/utils/time';
+import { dateToDayjs } from 'packages/utils/time';
 
 export const formatMessageCountToStr = (num: number): string | undefined => {
   if (!num || num < 0) return undefined;

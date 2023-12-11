@@ -1,16 +1,16 @@
-import { usePayment, useGetAchTokenInfo, useSellTransfer } from '@portkey/rn-sdk/src/packages/hooks/hooks-ca/payment';
-import { renderHookWithProvider } from '@portkey/rn-sdk/src/test/utils/render';
-import { setupStore } from '@portkey/rn-sdk/src/test/utils/setup';
-import { PaymentState } from '@portkey/rn-sdk/src/test/data/paymentState';
-import { GuardianState } from '@portkey/rn-sdk/src/test/data/guardianState';
-import { getAchToken } from '@portkey/rn-sdk/src/packages/api/api-did/payment/util';
-import { useAppCommonDispatch } from '@portkey/rn-sdk/src/packages/hooks';
-import * as networkHook from '@portkey/rn-sdk/src/packages/hooks/hooks-ca/network';
+import { usePayment, useGetAchTokenInfo, useSellTransfer } from 'packages/hooks/hooks-ca/payment';
+import { renderHookWithProvider } from 'test/utils/render';
+import { setupStore } from 'test/utils/setup';
+import { PaymentState } from 'test/data/paymentState';
+import { GuardianState } from 'test/data/guardianState';
+import { getAchToken } from 'packages/api/api-did/payment/util';
+import { useAppCommonDispatch } from 'packages/hooks';
+import * as networkHook from 'packages/hooks/hooks-ca/network';
 import { renderHook } from '@testing-library/react';
-import { ACH_MERCHANT_NAME } from '@portkey/rn-sdk/src/packages/constants/constants-ca/payment';
-import { randomId } from '@portkey/rn-sdk/src/packages/utils';
-import signalrSell from '@portkey/rn-sdk/src/packages/socket/socket-sell';
-import { request } from '@portkey/rn-sdk/src/packages/api/api-did';
+import { ACH_MERCHANT_NAME } from 'packages/constants/constants-ca/payment';
+import { randomId } from 'packages/utils';
+import signalrSell from 'packages/socket/socket-sell';
+import { request } from 'packages/api/api-did';
 
 jest.mock('packages/api/api-did/payment/util');
 jest.mock('../index');

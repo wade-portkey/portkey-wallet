@@ -1,4 +1,4 @@
-import { ESBaseConfig } from '@portkey/rn-sdk/src/packages/api/api-did/es/type';
+import { ESBaseConfig } from 'packages/api/api-did/es/type';
 
 const Method = 'GET';
 const BaseESUrl = `/api/app/`;

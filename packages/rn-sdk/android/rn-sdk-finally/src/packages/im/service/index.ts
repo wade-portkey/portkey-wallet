@@ -27,9 +27,9 @@ import {
   VerifySignatureLoopParams,
   VerifySignatureParams,
   VerifySignatureResult,
-} from '@portkey/rn-sdk/src/packages/im/types/service';
-import { ChannelMemberInfo, ContactItemType, Message, MessageCount } from '@portkey/rn-sdk/src/packages/im/types';
-import { sleep } from '@portkey/rn-sdk/src/packages/utils';
+} from 'packages/im/types/service';
+import { ChannelMemberInfo, ContactItemType, Message, MessageCount } from 'packages/im/types';
+import { sleep } from 'packages/utils';
 
 export class IMService<T extends IBaseRequest = IBaseRequest> extends BaseService<T> implements IIMService {
   constructor(request: T) {

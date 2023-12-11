@@ -1,8 +1,8 @@
-import { NFTCollectionItemShowType } from '@portkey/rn-sdk/src/packages/types/types-ca/assets';
-import useEffectOnce from '@portkey/rn-sdk/src/hooks/useEffectOnce';
-import { getUnlockedWallet } from '@portkey/rn-sdk/src/model/wallet';
-import { NetworkController } from '@portkey/rn-sdk/src/network/controller';
-import { FetchAccountNftCollectionItemListResult, ITokenItemResponse, IUserTokenItem } from '@portkey/rn-sdk/src/network/dto/query';
+import { NFTCollectionItemShowType } from 'packages/types/types-ca/assets';
+import useEffectOnce from 'hooks/useEffectOnce';
+import { getUnlockedWallet } from 'model/wallet';
+import { NetworkController } from 'network/controller';
+import { FetchAccountNftCollectionItemListResult, ITokenItemResponse, IUserTokenItem } from 'network/dto/query';
 import { useState } from 'react';
 
 export const useTokenPrices = () => {

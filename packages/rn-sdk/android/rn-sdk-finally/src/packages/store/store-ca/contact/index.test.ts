@@ -1,5 +1,5 @@
-import { contactSlice } from '@portkey/rn-sdk/src/packages/store/store-ca/contact/slice';
-import * as utils from '@portkey/rn-sdk/src/packages/store/store-ca/contact/utils';
+import { contactSlice } from 'packages/store/store-ca/contact/slice';
+import * as utils from 'packages/store/store-ca/contact/utils';
 import { configureStore } from '@reduxjs/toolkit';
 import {
   addContactAction,
@@ -7,12 +7,12 @@ import {
   editContactAction,
   fetchContactListAsync,
   resetContact,
-} from '@portkey/rn-sdk/src/packages/store/store-ca/contact/actions';
+} from 'packages/store/store-ca/contact/actions';
 import {
   getContactList as getContactListEs,
   getContactEventList as getContactEventListEs,
-} from '@portkey/rn-sdk/src/packages/api/api-did/es/utils';
-import { ChainId } from '@portkey/rn-sdk/src/packages/types';
+} from 'packages/api/api-did/es/utils';
+import { ChainId } from 'packages/types';
 
 const reducer = contactSlice.reducer;
 jest.mock('packages/api/api-did/es/utils');

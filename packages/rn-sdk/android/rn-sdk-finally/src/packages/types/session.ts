@@ -1,4 +1,4 @@
-import { Timestamp } from '@portkey/rn-sdk/src/packages/types';
+import { Timestamp } from 'packages/types';
 
 export enum SessionExpiredPlan {
   // hours

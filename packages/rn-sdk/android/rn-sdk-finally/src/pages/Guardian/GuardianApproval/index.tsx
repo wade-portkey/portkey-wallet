@@ -1,47 +1,47 @@
-import { TextM, TextXXXL } from '@portkey/rn-sdk/src/components/CommonText';
-import PageContainer from '@portkey/rn-sdk/src/components/PageContainer';
-import { useLanguage } from '@portkey/rn-sdk/src/i18n/hooks';
+import { TextM, TextXXXL } from 'components/CommonText';
+import PageContainer from 'components/PageContainer';
+import { useLanguage } from 'i18n/hooks';
 import React, { useCallback, useMemo, useRef, useState } from 'react';
-import { GUARDIAN_EXPIRED_TIME, VERIFIER_EXPIRATION } from '@portkey/rn-sdk/src/packages/constants/misc';
+import { GUARDIAN_EXPIRED_TIME, VERIFIER_EXPIRATION } from 'packages/constants/misc';
 import { ScrollView, StyleSheet, View, Text } from 'react-native';
-import GStyles from '@portkey/rn-sdk/src/assets/theme/GStyles';
-import CommonButton from '@portkey/rn-sdk/src/components/CommonButton';
-import { BorderStyles, FontStyles } from '@portkey/rn-sdk/src/assets/theme/styles';
-import Svg from '@portkey/rn-sdk/src/components/Svg';
-import { pTd } from '@portkey/rn-sdk/src/utils/unit';
-import { getApprovalCount } from '@portkey/rn-sdk/src/packages/utils/guardian';
-import { ApprovalType, OperationTypeEnum, VerifyStatus } from '@portkey/rn-sdk/src/packages/types/verifier';
-import GuardianItem from '@portkey/rn-sdk/src/pages/Guardian/components/GuardianItem';
-import useEffectOnce from '@portkey/rn-sdk/src/hooks/useEffectOnce';
-import Touchable from '@portkey/rn-sdk/src/components/Touchable';
-import ActionSheet from '@portkey/rn-sdk/src/components/ActionSheet';
-import { GuardiansStatus, GuardiansStatusItem } from '@portkey/rn-sdk/src/pages/Guardian/types';
-import { GuardianVerifyConfig, GuardianVerifyType } from '@portkey/rn-sdk/src/model/verify/social-recovery';
-import { GuardianConfig } from '@portkey/rn-sdk/src/model/verify/guardian';
+import GStyles from 'assets/theme/GStyles';
+import CommonButton from 'components/CommonButton';
+import { BorderStyles, FontStyles } from 'assets/theme/styles';
+import Svg from 'components/Svg';
+import { pTd } from 'utils/unit';
+import { getApprovalCount } from 'packages/utils/guardian';
+import { ApprovalType, OperationTypeEnum, VerifyStatus } from 'packages/types/verifier';
+import GuardianItem from 'pages/Guardian/components/GuardianItem';
+import useEffectOnce from 'hooks/useEffectOnce';
+import Touchable from 'components/Touchable';
+import ActionSheet from 'components/ActionSheet';
+import { GuardiansStatus, GuardiansStatusItem } from 'pages/Guardian/types';
+import { GuardianVerifyConfig, GuardianVerifyType } from 'model/verify/social-recovery';
+import { GuardianConfig } from 'model/verify/guardian';
 import { UserGuardianItem } from 'packages/types/store-ca/guardians/type';
-import { GuardianApprovalPageResult } from '@portkey/rn-sdk/src/pages/Entries/GuardianApproval';
-import Loading from '@portkey/rn-sdk/src/components/Loading';
-import { verifyHumanMachine } from '@portkey/rn-sdk/src/components/VerifyHumanMachine';
-import { guardianTypeStrToEnum, isReacptchaOpen } from '@portkey/rn-sdk/src/model/global';
-import { NetworkController } from '@portkey/rn-sdk/src/network/controller';
-import { VerifierDetailsPageProps } from '@portkey/rn-sdk/src/pages/Entries/VerifierDetails';
-import { PortkeyEntries } from '@portkey/rn-sdk/src/config/entries';
-import { AccountOriginalType, AfterVerifiedConfig, VerifiedGuardianDoc } from '@portkey/rn-sdk/src/model/verify/core';
-import { VerifyPageResult } from '@portkey/rn-sdk/src/pages/Guardian/VerifierDetails';
-import useBaseContainer from '@portkey/rn-sdk/src/model/container/UseBaseContainer';
-import { defaultColors } from '@portkey/rn-sdk/src/assets/theme';
-import CommonToast from '@portkey/rn-sdk/src/components/CommonToast';
-import { PortkeyConfig } from '@portkey/rn-sdk/src/global/constants';
-import { ApprovedGuardianInfo } from '@portkey/rn-sdk/src/network/dto/wallet';
-import { AppleAccountInfo, GoogleAccountInfo, isAppleLogin } from '@portkey/rn-sdk/src/model/verify/third-party-account';
-import { useAppleAuthentication, useGoogleAuthentication } from '@portkey/rn-sdk/src/model/hooks/authentication';
-import { getBottomSpace } from '@portkey/rn-sdk/src/utils/screen';
+import { GuardianApprovalPageResult } from 'pages/Entries/GuardianApproval';
+import Loading from 'components/Loading';
+import { verifyHumanMachine } from 'components/VerifyHumanMachine';
+import { guardianTypeStrToEnum, isReacptchaOpen } from 'model/global';
+import { NetworkController } from 'network/controller';
+import { VerifierDetailsPageProps } from 'pages/Entries/VerifierDetails';
+import { PortkeyEntries } from 'config/entries';
+import { AccountOriginalType, AfterVerifiedConfig, VerifiedGuardianDoc } from 'model/verify/core';
+import { VerifyPageResult } from 'pages/Guardian/VerifierDetails';
+import useBaseContainer from 'model/container/UseBaseContainer';
+import { defaultColors } from 'assets/theme';
+import CommonToast from 'components/CommonToast';
+import { PortkeyConfig } from 'global/constants';
+import { ApprovedGuardianInfo } from 'network/dto/wallet';
+import { AppleAccountInfo, GoogleAccountInfo, isAppleLogin } from 'model/verify/third-party-account';
+import { useAppleAuthentication, useGoogleAuthentication } from 'model/hooks/authentication';
+import { getBottomSpace } from 'utils/screen';
 import {
   callAddGuardianMethod,
   callEditGuardianMethod,
   callEditPaymentSecurityMethod,
   callRemoveGuardianMethod,
-} from '@portkey/rn-sdk/src/model/contract/handler';
+} from 'model/contract/handler';
 
 export default function GuardianApproval({
   guardianVerifyConfig: guardianListConfig,

@@ -1,4 +1,4 @@
-import { ChainType } from '@portkey/rn-sdk/src/packages/types';
+import { ChainType } from 'packages/types';
 
 export enum SandboxEventTypes {
   getBalances = 'getBalances',

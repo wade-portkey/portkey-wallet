@@ -1,13 +1,13 @@
-import { request } from '@portkey/rn-sdk/src/packages/api/api-did';
+import { request } from 'packages/api/api-did';
 import {
   IntervalErrorMessage,
   SendVerificationConfig,
   Verification,
-} from '@portkey/rn-sdk/src/packages/api/api-did/verification/utils';
-import { IStorage } from '@portkey/rn-sdk/src/packages/types/storage';
-import { OperationTypeEnum } from '@portkey/rn-sdk/src/packages/types/verifier';
-import { baseStore } from '@portkey/rn-sdk/src/packages/utils/mobile/storage';
-import { verifyHumanMachine } from '@portkey/rn-sdk/src/components/VerifyHumanMachine';
+} from 'packages/api/api-did/verification/utils';
+import { IStorage } from 'packages/types/storage';
+import { OperationTypeEnum } from 'packages/types/verifier';
+import { baseStore } from 'packages/utils/mobile/storage';
+import { verifyHumanMachine } from 'components/VerifyHumanMachine';
 
 class MobileVerification extends Verification {
   constructor(store: IStorage) {

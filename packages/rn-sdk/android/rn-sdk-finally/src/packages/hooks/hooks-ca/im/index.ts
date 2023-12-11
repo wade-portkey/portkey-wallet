@@ -1,9 +1,9 @@
-import im, { ChannelStatusEnum, ChannelTypeEnum, IMStatusEnum, SocketMessage } from '@portkey/rn-sdk/src/packages/im';
+import im, { ChannelStatusEnum, ChannelTypeEnum, IMStatusEnum, SocketMessage } from 'packages/im';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { useAppCASelector } from '@portkey/rn-sdk/src/packages/hooks/hooks-ca';
-import { AElfWallet } from '@portkey/rn-sdk/src/packages/types/aelf';
-import { useCurrentNetworkInfo } from '@portkey/rn-sdk/src/packages/hooks/hooks-ca/network';
-import { useAppCommonDispatch } from '@portkey/rn-sdk/src/packages/hooks';
+import { useAppCASelector } from 'packages/hooks/hooks-ca';
+import { AElfWallet } from 'packages/types/aelf';
+import { useCurrentNetworkInfo } from 'packages/hooks/hooks-ca/network';
+import { useAppCommonDispatch } from 'packages/hooks';
 import {
   addChannel,
   setRelationId,
@@ -11,9 +11,9 @@ import {
   updateChannelAttribute,
 } from 'packages/types/store-ca/im/actions';
 import { UpdateChannelAttributeTypeEnum } from 'packages/types/store-ca/im/type';
-import { useEditContact } from '@portkey/rn-sdk/src/packages/hooks/hooks-ca/contact';
+import { useEditContact } from 'packages/hooks/hooks-ca/contact';
 import { EditContactItemApiType } from 'packages/types/types-ca/contact';
-import { useChannelList } from '@portkey/rn-sdk/src/packages/hooks/hooks-ca/im/channelList';
+import { useChannelList } from 'packages/hooks/hooks-ca/im/channelList';
 import { fetchContactListAsync } from 'packages/types/store-ca/contact/actions';
 
 export const useIMState = () => useAppCASelector(state => state.im);
@@ -210,5 +210,5 @@ export const useEditIMContact = () => {
   );
 };
 
-export * from '@portkey/rn-sdk/src/packages/hooks/hooks-ca/im/channelList';
-export * from '@portkey/rn-sdk/src/packages/hooks/hooks-ca/im/channel';
+export * from 'packages/hooks/hooks-ca/im/channelList';
+export * from 'packages/hooks/hooks-ca/im/channel';

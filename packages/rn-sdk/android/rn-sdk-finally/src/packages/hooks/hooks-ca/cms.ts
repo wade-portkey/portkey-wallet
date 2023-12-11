@@ -1,12 +1,12 @@
 import { useCallback, useEffect, useMemo } from 'react';
-import { useAppCASelector } from '@portkey/rn-sdk/src/packages/hooks/hooks-ca';
-import { useAppCommonDispatch } from '@portkey/rn-sdk/src/packages/hooks';
+import { useAppCASelector } from 'packages/hooks/hooks-ca';
+import { useAppCommonDispatch } from 'packages/hooks';
 import {
   useCurrentNetworkInfo,
   useIsIMServiceExist,
   useIsMainnet,
   useNetworkList,
-} from '@portkey/rn-sdk/src/packages/hooks/hooks-ca/network';
+} from 'packages/hooks/hooks-ca/network';
 import {
   getDiscoverGroupAsync,
   getSocialMediaAsync,
@@ -15,10 +15,10 @@ import {
   getTabMenuAsync,
 } from 'packages/types/store-ca/cms/actions';
 import { BuyButtonType } from 'packages/types/store-ca/cms/types';
-import { getOrigin } from '@portkey/rn-sdk/src/packages/utils/dapp/browser';
-import { checkSiteIsInBlackList } from '@portkey/rn-sdk/src/packages/utils/session';
-import { ChatTabName } from '@portkey/rn-sdk/src/packages/constants/constants-ca/chat';
-import { VersionDeviceType } from '@portkey/rn-sdk/src/packages/types/types-ca/device';
+import { getOrigin } from 'packages/utils/dapp/browser';
+import { checkSiteIsInBlackList } from 'packages/utils/session';
+import { ChatTabName } from 'packages/constants/constants-ca/chat';
+import { VersionDeviceType } from 'packages/types/types-ca/device';
 
 export const useCMS = () => useAppCASelector(state => state.cms);
 

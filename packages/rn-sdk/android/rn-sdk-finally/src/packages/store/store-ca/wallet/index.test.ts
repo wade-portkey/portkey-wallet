@@ -1,5 +1,5 @@
-import { ChainId, NetworkType } from '@portkey/rn-sdk/src/packages/types';
-import { VerificationType } from '@portkey/rn-sdk/src/packages/types/verifier';
+import { ChainId, NetworkType } from 'packages/types';
+import { VerificationType } from 'packages/types/verifier';
 import {
   changeNetworkType,
   resetWallet,
@@ -13,12 +13,12 @@ import {
   getCaHolderInfoAsync,
   setChainListAction,
   createWalletAction,
-} from '@portkey/rn-sdk/src/packages/store/store-ca/wallet/actions';
-import { changeEncryptStr } from '@portkey/rn-sdk/src/packages/store/wallet/utils';
-import { walletSlice } from '@portkey/rn-sdk/src/packages/store/store-ca/wallet/slice';
-import { WalletError, WalletType } from '@portkey/rn-sdk/src/packages/store/store-ca/wallet/type';
-import { checkPassword } from '@portkey/rn-sdk/src/packages/store/store-ca/wallet/utils';
-import { getCaHolder } from '@portkey/rn-sdk/src/packages/api/api-did/es/utils';
+} from 'packages/store/store-ca/wallet/actions';
+import { changeEncryptStr } from 'packages/store/wallet/utils';
+import { walletSlice } from 'packages/store/store-ca/wallet/slice';
+import { WalletError, WalletType } from 'packages/store/store-ca/wallet/type';
+import { checkPassword } from 'packages/store/store-ca/wallet/utils';
+import { getCaHolder } from 'packages/api/api-did/es/utils';
 import { configureStore } from '@reduxjs/toolkit';
 
 const reducer = walletSlice.reducer;

@@ -1,5 +1,5 @@
-import { ChainId, ChainType } from '@portkey/rn-sdk/src/packages/types';
-import type { SendType } from '@portkey/rn-sdk/src/packages/types/types-ca/send';
+import { ChainId, ChainType } from 'packages/types';
+import type { SendType } from 'packages/types/types-ca/send';
 
 export interface IToSendHomeAssetParamsBaseType {
   symbol: string;

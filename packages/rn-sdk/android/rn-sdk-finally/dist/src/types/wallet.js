@@ -1,0 +1,1 @@
+Object.defineProperty(exports,"__esModule",{value:true});exports.defaultCountryCode=void 0;var defaultCountryCode=exports.defaultCountryCode={country:'Singapore',code:'65',iso:'SG'};

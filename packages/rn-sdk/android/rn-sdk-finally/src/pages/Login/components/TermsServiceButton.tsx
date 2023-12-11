@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import { Text } from 'react-native';
-import GStyles from '@portkey/rn-sdk/src/assets/theme/GStyles';
-import { TextS } from '@portkey/rn-sdk/src/components/CommonText';
-import Touchable from '@portkey/rn-sdk/src/components/Touchable';
-import styles from '@portkey/rn-sdk/src/pages/Login/styles';
-import { OfficialWebsite } from '@portkey/rn-sdk/src/packages/constants/constants-ca/network';
-import { FontStyles } from '@portkey/rn-sdk/src/assets/theme/styles';
-import useBaseContainer from '@portkey/rn-sdk/src/model/container/UseBaseContainer';
-import { PortkeyEntries } from '@portkey/rn-sdk/src/config/entries';
-import { GlobalStorage } from '@portkey/rn-sdk/src/service/storage';
-import useEffectOnce from '@portkey/rn-sdk/src/hooks/useEffectOnce';
+import GStyles from 'assets/theme/GStyles';
+import { TextS } from 'components/CommonText';
+import Touchable from 'components/Touchable';
+import styles from 'pages/Login/styles';
+import { OfficialWebsite } from 'packages/constants/constants-ca/network';
+import { FontStyles } from 'assets/theme/styles';
+import useBaseContainer from 'model/container/UseBaseContainer';
+import { PortkeyEntries } from 'config/entries';
+import { GlobalStorage } from 'service/storage';
+import useEffectOnce from 'hooks/useEffectOnce';
 
 export default function TermsServiceButton() {
   const { navigateForResult } = useBaseContainer({});

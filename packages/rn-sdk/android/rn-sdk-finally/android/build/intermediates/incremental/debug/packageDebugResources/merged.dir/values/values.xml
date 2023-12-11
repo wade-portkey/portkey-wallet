@@ -7,7 +7,11 @@
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="white">#FFFFFFFF</color>
+    <string name="GOOGLE_ANDROID_CLIENT_ID" translatable="false">"57532195783-ue2c0a0otft40dp8jtfi6sgs06lv1q4b.apps.googleusercontent.com"</string>
+    <string name="GOOGLE_IOS_CLIENT_ID" translatable="false">"57532195783-66mios3b9fglgub9jut5fsr39mitasqu.apps.googleusercontent.com"</string>
+    <string name="GOOGLE_WEB_CLIENT_ID" translatable="false">"57532195783-kvl2qfsfu11o5aab35tgnauoqokv6mpv.apps.googleusercontent.com"</string>
     <string name="app_name">My-RN-Application</string>
+    <string name="build_config_package">io.aelf.portkey</string>
     <style name="ReactActivityAnimation" parent="Theme.AppCompat.DayNight.NoActionBar">
         <item name="android:activityOpenEnterAnimation">@anim/slide_in</item>
         <item name="android:activityOpenExitAnimation">@anim/slide_out</item>

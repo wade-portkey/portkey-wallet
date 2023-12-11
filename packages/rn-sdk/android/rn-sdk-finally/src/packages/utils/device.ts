@@ -1,12 +1,12 @@
-import { request } from '@portkey/rn-sdk/src/packages/api/api-did';
-import { DEVICE_TYPE_INFO, DEVICE_INFO_VERSION } from '@portkey/rn-sdk/src/packages/constants/constants-ca/device';
+import { request } from 'packages/api/api-did';
+import { DEVICE_TYPE_INFO, DEVICE_INFO_VERSION } from 'packages/constants/constants-ca/device';
 import {
   DeviceInfoType,
   DeviceType,
   ExtraDataDecodeType,
   ExtraDataType,
   QRExtraDataType,
-} from '@portkey/rn-sdk/src/packages/types/types-ca/device';
+} from 'packages/types/types-ca/device';
 
 const checkDateNumber = (value: number): boolean => {
   return !isNaN(value) && !isNaN(new Date(value).getTime());

@@ -1,8 +1,8 @@
-import { useGetRegisterInfo, useGuardiansInfo } from '@portkey/rn-sdk/src/packages/hooks/hooks-ca/guardian';
-import { request } from '@portkey/rn-sdk/src/packages/api/api-did';
+import { useGetRegisterInfo, useGuardiansInfo } from 'packages/hooks/hooks-ca/guardian';
+import { request } from 'packages/api/api-did';
 import { renderHook } from '@testing-library/react';
-import { renderHookWithProvider } from '@portkey/rn-sdk/src/test/utils/render';
-import { setupStore } from '@portkey/rn-sdk/src/test/utils/setup';
+import { renderHookWithProvider } from 'test/utils/render';
+import { setupStore } from 'test/utils/setup';
 
 jest.mock('packages/api/api-did');
 

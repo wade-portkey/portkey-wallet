@@ -1,10 +1,10 @@
-import { PIN_SIZE } from '@portkey/rn-sdk/src/packages/constants/misc';
+import { PIN_SIZE } from 'packages/constants/misc';
 import { InputProps } from '@rneui/base';
 import React, { useRef, useState, useCallback, memo, useMemo, forwardRef, useImperativeHandle } from 'react';
 import { StyleSheet, View, TextInput, TouchableHighlight } from 'react-native';
-import { screenWidth } from '@portkey/rn-sdk/src/packages/utils/mobile/device';
-import { isValidPositiveInteger } from '@portkey/rn-sdk/src/packages/utils/reg';
-import DigitText, { DigitTextProps } from '@portkey/rn-sdk/src/components/DigitText';
+import { screenWidth } from 'packages/utils/mobile/device';
+import { isValidPositiveInteger } from 'packages/utils/reg';
+import DigitText, { DigitTextProps } from 'components/DigitText';
 
 export type DigitInputProps = {
   onFinish?: (code: string) => void;

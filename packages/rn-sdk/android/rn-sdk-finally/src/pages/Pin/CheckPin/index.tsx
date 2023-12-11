@@ -1,18 +1,18 @@
 import React, { useCallback, useRef, useState } from 'react';
-import PageContainer from '@portkey/rn-sdk/src/components/PageContainer';
-import { DigitInputInterface } from '@portkey/rn-sdk/src/components/DigitInput';
-import { PIN_SIZE } from '@portkey/rn-sdk/src/packages/constants/misc';
-import PinContainer from '@portkey/rn-sdk/src/components/PinContainer';
+import PageContainer from 'components/PageContainer';
+import { DigitInputInterface } from 'components/DigitInput';
+import { PIN_SIZE } from 'packages/constants/misc';
+import PinContainer from 'components/PinContainer';
 import { StyleSheet } from 'react-native';
-import { PinErrorMessage } from '@portkey/rn-sdk/src/packages/utils/wallet/types';
-import useBaseContainer from '@portkey/rn-sdk/src/model/container/UseBaseContainer';
-import { PortkeyEntries } from '@portkey/rn-sdk/src/config/entries';
-import { checkPin, getUseBiometric, unLockTempWallet } from '@portkey/rn-sdk/src/model/verify/core';
-import { touchAuth } from '@portkey/rn-sdk/src/pages/Pin/SetBiometrics';
-import Loading from '@portkey/rn-sdk/src/components/Loading';
-import useEffectOnce from '@portkey/rn-sdk/src/hooks/useEffectOnce';
-import myEvents from '@portkey/rn-sdk/src/utils/deviceEvent';
-import { UnlockedWallet, getUnlockedWallet } from '@portkey/rn-sdk/src/model/wallet';
+import { PinErrorMessage } from 'packages/utils/wallet/types';
+import useBaseContainer from 'model/container/UseBaseContainer';
+import { PortkeyEntries } from 'config/entries';
+import { checkPin, getUseBiometric, unLockTempWallet } from 'model/verify/core';
+import { touchAuth } from 'pages/Pin/SetBiometrics';
+import Loading from 'components/Loading';
+import useEffectOnce from 'hooks/useEffectOnce';
+import myEvents from 'utils/deviceEvent';
+import { UnlockedWallet, getUnlockedWallet } from 'model/wallet';
 
 export default function CheckPin(props: CheckPinProps) {
   const { targetScene, openBiometrics } = props;

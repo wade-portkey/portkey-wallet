@@ -1,9 +1,9 @@
 import { TextProps } from '@rneui/base';
-import { defaultColors } from '@portkey/rn-sdk/src/assets/theme';
-import fonts from '@portkey/rn-sdk/src/assets/theme/fonts';
+import { defaultColors } from 'assets/theme';
+import fonts from 'assets/theme/fonts';
 import React from 'react';
 import { Text, StyleSheet } from 'react-native';
-import { pTd } from '@portkey/rn-sdk/src/utils/unit';
+import { pTd } from 'utils/unit';
 const styles = StyleSheet.create({
   TextS: {
     color: defaultColors.font5,

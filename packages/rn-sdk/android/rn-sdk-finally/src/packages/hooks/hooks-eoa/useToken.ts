@@ -1,4 +1,4 @@
-import { useAppEOASelector, useAppCommonDispatch } from '@portkey/rn-sdk/src/packages/hooks';
+import { useAppEOASelector, useAppCommonDispatch } from 'packages/hooks';
 import { addTokenInCurrentAccount, deleteTokenInCurrentAccount } from 'packages/types/token/action';
 import { fetchTokenListAsync } from 'packages/types/token/slice';
 import {
@@ -6,7 +6,7 @@ import {
   TokenState,
   AddedTokenData,
   TokenListShowInMarketType,
-} from '@portkey/rn-sdk/src/packages/types/types-eoa/token';
+} from 'packages/types/types-eoa/token';
 import { useMemo } from 'react';
 
 export interface TokenFuncsType {

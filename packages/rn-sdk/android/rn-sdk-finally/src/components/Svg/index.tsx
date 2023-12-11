@@ -1,8 +1,8 @@
 // Svg.js
 import React from 'react';
 import { ViewStyle, StyleSheet, StyleProp } from 'react-native';
-import SvgUri from '@portkey/rn-sdk/src/components/Svg/SvgUri.js';
-import svgs from '@portkey/rn-sdk/src/assets/image/svgs.js';
+import SvgUri from 'components/Svg/SvgUri.js';
+import svgs from 'assets/image/svgs.js';
 
 interface Svgs {
   [svgName: string]: any;

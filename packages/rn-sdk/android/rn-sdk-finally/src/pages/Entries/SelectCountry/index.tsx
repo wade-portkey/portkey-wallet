@@ -1,10 +1,10 @@
-import { CountryCodeDataDTO, CountryCodeItem, defaultCountryCode } from '@portkey/rn-sdk/src/types/wallet';
-import { PortkeyEntries } from '@portkey/rn-sdk/src/config/entries';
-import BaseContainer, { BaseContainerProps } from '@portkey/rn-sdk/src/model/container/BaseContainer';
-import { COUNTRY_CODE_DATA_KEY, CURRENT_USING_COUNTRY_CODE } from '@portkey/rn-sdk/src/model/global';
-import SelectCountry, { SelectCountryResult } from '@portkey/rn-sdk/src/pages/Login/SelectCountry';
+import { CountryCodeDataDTO, CountryCodeItem, defaultCountryCode } from 'types/wallet';
+import { PortkeyEntries } from 'config/entries';
+import BaseContainer, { BaseContainerProps } from 'model/container/BaseContainer';
+import { COUNTRY_CODE_DATA_KEY, CURRENT_USING_COUNTRY_CODE } from 'model/global';
+import SelectCountry, { SelectCountryResult } from 'pages/Login/SelectCountry';
 import React from 'react';
-import { GlobalStorage } from '@portkey/rn-sdk/src/service/storage';
+import { GlobalStorage } from 'service/storage';
 
 export default class SelectCountryEntryPage extends BaseContainer<
   SelectCountryPageProps,

@@ -1,13 +1,13 @@
 import React, { useCallback, useState, useEffect, useRef, useContext, useMemo } from 'react';
 import { StyleSheet } from 'react-native';
 import { View, FlatList } from 'react-native';
-import { TokenItemShowType } from '@portkey/rn-sdk/src/packages/types/types-ca/token';
-import { defaultColors } from '@portkey/rn-sdk/src/assets/theme';
-import { pTd } from '@portkey/rn-sdk/src/utils/unit';
-import TokenListItem from '@portkey/rn-sdk/src/components/TokenListItem';
-import { REFRESH_TIME } from '@portkey/rn-sdk/src/packages/constants/constants-ca/assets';
-import { useCommonNetworkInfo } from '@portkey/rn-sdk/src/components/TokenOverlay/hooks';
-import AssetsContext, { AssetsContextType } from '@portkey/rn-sdk/src/global/context/assets/AssetsContext';
+import { TokenItemShowType } from 'packages/types/types-ca/token';
+import { defaultColors } from 'assets/theme';
+import { pTd } from 'utils/unit';
+import TokenListItem from 'components/TokenListItem';
+import { REFRESH_TIME } from 'packages/constants/constants-ca/assets';
+import { useCommonNetworkInfo } from 'components/TokenOverlay/hooks';
+import AssetsContext, { AssetsContextType } from 'global/context/assets/AssetsContext';
 
 export interface TokenSectionProps {
   getAccountBalance?: () => void;

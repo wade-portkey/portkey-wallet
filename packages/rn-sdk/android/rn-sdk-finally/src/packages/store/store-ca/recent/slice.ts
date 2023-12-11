@@ -1,10 +1,10 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
 import { RecentContactItemType } from 'packages/types/types-ca/contact';
-import { fetchRecentTransactionUsers } from '@portkey/rn-sdk/src/packages/store/store-ca/recent/api';
-import { initialRecentData } from '@portkey/rn-sdk/src/packages/hooks/hooks-ca/useRecent';
+import { fetchRecentTransactionUsers } from 'packages/store/store-ca/recent/api';
+import { initialRecentData } from 'packages/hooks/hooks-ca/useRecent';
 
-import { RECENT_LIST_PAGE_SIZE } from '@portkey/rn-sdk/src/packages/constants/constants-ca/recent';
-import { ChainId } from '@portkey/rn-sdk/src/packages/types';
+import { RECENT_LIST_PAGE_SIZE } from 'packages/constants/constants-ca/recent';
+import { ChainId } from 'packages/types';
 
 export interface RecentStateType {
   [caAddress: string]: {

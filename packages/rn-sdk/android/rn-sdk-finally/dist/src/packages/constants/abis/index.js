@@ -1,0 +1,1 @@
+var _interopRequireDefault=require("@babel/runtime/helpers/interopRequireDefault");Object.defineProperty(exports,"__esModule",{value:true});Object.defineProperty(exports,"ERC20_ABI",{enumerable:true,get:function get(){return _erc.default;}});var _erc=_interopRequireDefault(require("./erc20.json"));

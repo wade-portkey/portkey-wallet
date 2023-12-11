@@ -1,12 +1,12 @@
-import { request } from '@portkey/rn-sdk/src/packages/api/api-did';
-import { NFT_MIDDLE_SIZE } from '@portkey/rn-sdk/src/packages/constants/constants-ca/assets';
-import { ActivityItemType } from '@portkey/rn-sdk/src/packages/types/types-ca/activity';
+import { request } from 'packages/api/api-did';
+import { NFT_MIDDLE_SIZE } from 'packages/constants/constants-ca/assets';
+import { ActivityItemType } from 'packages/types/types-ca/activity';
 import {
   IActivityApiParams,
   IActivitiesApiParams,
   IActivitiesApiResponse,
   IActivityListWithAddressApiParams,
-} from '@portkey/rn-sdk/src/packages/store/store-ca/activity/type';
+} from 'packages/store/store-ca/activity/type';
 
 export function fetchActivities(params: IActivitiesApiParams): Promise<IActivitiesApiResponse> {
   return request.activity.activityList({

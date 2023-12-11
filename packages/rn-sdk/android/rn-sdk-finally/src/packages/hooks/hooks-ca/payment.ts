@@ -1,15 +1,15 @@
-import { useAppCASelector } from '@portkey/rn-sdk/src/packages/hooks/hooks-ca';
-import { getAchToken } from '@portkey/rn-sdk/src/packages/api/api-did/payment/util';
+import { useAppCASelector } from 'packages/hooks/hooks-ca';
+import { getAchToken } from 'packages/api/api-did/payment/util';
 import { AchTokenInfoType } from 'packages/types/store-ca/payment/type';
 import { useCallback, useRef } from 'react';
-import { useGuardiansInfo } from '@portkey/rn-sdk/src/packages/hooks/hooks-ca/guardian';
-import { LoginType } from '@portkey/rn-sdk/src/packages/types/types-ca/wallet';
-import { useIsMainnet } from '@portkey/rn-sdk/src/packages/hooks/hooks-ca/network';
-import { ACH_MERCHANT_NAME, SELL_SOCKET_TIMEOUT } from '@portkey/rn-sdk/src/packages/constants/constants-ca/payment';
-import { RequestOrderTransferredType, SellTransferParams } from '@portkey/rn-sdk/src/packages/types/types-ca/payment';
-import signalrSell from '@portkey/rn-sdk/src/packages/socket/socket-sell';
-import { request } from '@portkey/rn-sdk/src/packages/api/api-did';
-import { randomId } from '@portkey/rn-sdk/src/packages/utils';
+import { useGuardiansInfo } from 'packages/hooks/hooks-ca/guardian';
+import { LoginType } from 'packages/types/types-ca/wallet';
+import { useIsMainnet } from 'packages/hooks/hooks-ca/network';
+import { ACH_MERCHANT_NAME, SELL_SOCKET_TIMEOUT } from 'packages/constants/constants-ca/payment';
+import { RequestOrderTransferredType, SellTransferParams } from 'packages/types/types-ca/payment';
+import signalrSell from 'packages/socket/socket-sell';
+import { request } from 'packages/api/api-did';
+import { randomId } from 'packages/utils';
 
 export const usePayment = () => useAppCASelector(state => state.payment);
 

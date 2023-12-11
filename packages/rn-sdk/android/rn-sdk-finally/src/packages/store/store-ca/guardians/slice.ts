@@ -1,4 +1,4 @@
-import { VerifierItem, VerifyStatus } from '@portkey/rn-sdk/src/packages/types/verifier';
+import { VerifierItem, VerifyStatus } from 'packages/types/verifier';
 import { createSlice } from '@reduxjs/toolkit';
 import moment from 'moment';
 import {
@@ -13,10 +13,10 @@ import {
   setPreGuardianAction,
   setOpGuardianAction,
   resetGuardians,
-} from '@portkey/rn-sdk/src/packages/store/store-ca/guardians/actions';
-import { GuardiansState } from '@portkey/rn-sdk/src/packages/store/store-ca/guardians/type';
-import { LoginType } from '@portkey/rn-sdk/src/packages/types/types-ca/wallet';
-import { GUARDIAN_EXPIRED_TIME } from '@portkey/rn-sdk/src/packages/constants/misc';
+} from 'packages/store/store-ca/guardians/actions';
+import { GuardiansState } from 'packages/store/store-ca/guardians/type';
+import { LoginType } from 'packages/types/types-ca/wallet';
+import { GUARDIAN_EXPIRED_TIME } from 'packages/constants/misc';
 
 const initialState: GuardiansState = {};
 export const guardiansSlice = createSlice({

@@ -1,22 +1,22 @@
 import * as WebBrowser from 'expo-web-browser';
 import { useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin';
-import { isIOS } from '@portkey/rn-sdk/src/packages/utils/mobile/device';
+import { isIOS } from 'packages/utils/mobile/device';
 import * as Google from 'expo-auth-session/providers/google';
 import Config from 'react-native-config';
 import * as Application from 'expo-application';
 import { AccessTokenRequest, makeRedirectUri } from 'expo-auth-session';
-import { request } from '@portkey/rn-sdk/src/packages/api/api-did';
-import { ChainId } from '@portkey/rn-sdk/src/packages/types';
-import { AppleUserInfo, getGoogleUserInfo, parseAppleIdentityToken } from '@portkey/rn-sdk/src/packages/utils/authentication';
-import { LoginType } from '@portkey/rn-sdk/src/packages/types/types-ca/wallet';
-import { handleErrorMessage, sleep } from '@portkey/rn-sdk/src/packages/utils';
+import { request } from 'packages/api/api-did';
+import { ChainId } from 'packages/types';
+import { AppleUserInfo, getGoogleUserInfo, parseAppleIdentityToken } from 'packages/utils/authentication';
+import { LoginType } from 'packages/types/types-ca/wallet';
+import { handleErrorMessage, sleep } from 'packages/utils';
 import { AppState } from 'react-native';
 import appleAuth, { appleAuthAndroid } from '@invertase/react-native-apple-authentication';
-import { OperationTypeEnum } from '@portkey/rn-sdk/src/packages/types/verifier';
-import NetworkContext, { NetworkContextState } from '@portkey/rn-sdk/src/pages/Login/context/NetworkContext';
-import { appleLogin } from '@portkey/rn-sdk/src/model/hooks/apple-login';
-import { NetworkController } from '@portkey/rn-sdk/src/network/controller';
+import { OperationTypeEnum } from 'packages/types/verifier';
+import NetworkContext, { NetworkContextState } from 'pages/Login/context/NetworkContext';
+import { appleLogin } from 'model/hooks/apple-login';
+import { NetworkController } from 'network/controller';
 
 if (!isIOS) {
   GoogleSignin.configure({

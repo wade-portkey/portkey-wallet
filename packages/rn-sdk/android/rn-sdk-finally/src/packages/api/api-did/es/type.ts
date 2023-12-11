@@ -1,5 +1,5 @@
-import { CustomFetchConfig } from '@portkey/rn-sdk/src/packages/utils/fetch';
-import { BaseConfig, RequestConfig } from '@portkey/rn-sdk/src/packages/api/types';
+import { CustomFetchConfig } from 'packages/utils/fetch';
+import { BaseConfig, RequestConfig } from 'packages/api/types';
 
 export interface ESConfig extends CustomFetchConfig {
   params?: {

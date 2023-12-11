@@ -1,9 +1,9 @@
-import { AccountType, CreateType, WalletInfoType } from '@portkey/rn-sdk/src/packages/types/wallet';
-import aes from '@portkey/rn-sdk/src/packages/utils/aes';
-import { isEqAddress } from '@portkey/rn-sdk/src/packages/utils/aelf';
-import { WalletError, WalletState } from '@portkey/rn-sdk/src/packages/store/wallet/type';
-import { enumToMap } from '@portkey/rn-sdk/src/packages/utils';
-import { formatAccountInfo, getAccountByMnemonic } from '@portkey/rn-sdk/src/packages/utils/wallet';
+import { AccountType, CreateType, WalletInfoType } from 'packages/types/wallet';
+import aes from 'packages/utils/aes';
+import { isEqAddress } from 'packages/utils/aelf';
+import { WalletError, WalletState } from 'packages/store/wallet/type';
+import { enumToMap } from 'packages/utils';
+import { formatAccountInfo, getAccountByMnemonic } from 'packages/utils/wallet';
 
 export function checkAccount(accountList: AccountType[], address: string) {
   return accountList.find(item => isEqAddress(item.address, address));

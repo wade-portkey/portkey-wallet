@@ -1,61 +1,61 @@
-import GStyles from '@portkey/rn-sdk/src/assets/theme/GStyles';
-import { TextL, TextM, TextS } from '@portkey/rn-sdk/src/components/CommonText';
-import Svg from '@portkey/rn-sdk/src/components/Svg';
+import GStyles from 'assets/theme/GStyles';
+import { TextL, TextM, TextS } from 'components/CommonText';
+import Svg from 'components/Svg';
 import React, { useCallback, useMemo, useRef, useState } from 'react';
 import { Text, View } from 'react-native';
-import { pTd } from '@portkey/rn-sdk/src/utils/unit';
-import PageContainer from '@portkey/rn-sdk/src/components/PageContainer';
-import { pageStyles } from '@portkey/rn-sdk/src/pages/Guardian/GuardianManage/style';
-import ListItem from '@portkey/rn-sdk/src/components/ListItem';
-import { useLanguage } from '@portkey/rn-sdk/src/i18n/hooks';
-import CommonInput from '@portkey/rn-sdk/src/components/CommonInput';
-import { checkEmail } from '@portkey/rn-sdk/src/packages/utils/check';
-import { LOGIN_TYPE_LIST } from '@portkey/rn-sdk/src/constants/misc';
-import { PRIVATE_GUARDIAN_ACCOUNT } from '@portkey/rn-sdk/src/packages/constants/constants-ca/guardian';
-import { OperationTypeEnum, VerificationType, VerifierItem } from '@portkey/rn-sdk/src/packages/types/verifier';
-import { INIT_HAS_ERROR, INIT_NONE_ERROR } from '@portkey/rn-sdk/src/constants/common';
-import GuardianTypeSelectOverlay from '@portkey/rn-sdk/src/pages/Guardian/components/GuardianTypeSelectOverlay';
-import VerifierSelectOverlay from '@portkey/rn-sdk/src/pages/Guardian/components/VerifierSelectOverlay';
-import ActionSheet from '@portkey/rn-sdk/src/components/ActionSheet';
-import { ErrorType } from '@portkey/rn-sdk/src/types/common';
-import { FontStyles } from '@portkey/rn-sdk/src/assets/theme/styles';
-import Loading from '@portkey/rn-sdk/src/components/Loading';
-import CommonToast from '@portkey/rn-sdk/src/components/CommonToast';
-import { LoginType } from '@portkey/rn-sdk/src/packages/types/types-ca/wallet';
-import { VerifierImage } from '@portkey/rn-sdk/src/pages/Guardian/components/VerifierImage';
-import fonts from '@portkey/rn-sdk/src/assets/theme/fonts';
-import PhoneInput from '@portkey/rn-sdk/src/components/PhoneInput';
-import Touchable from '@portkey/rn-sdk/src/components/Touchable';
-import { request } from '@portkey/rn-sdk/src/packages/api/api-did';
-import verificationApiConfig from '@portkey/rn-sdk/src/packages/api/api-did/verification';
+import { pTd } from 'utils/unit';
+import PageContainer from 'components/PageContainer';
+import { pageStyles } from 'pages/Guardian/GuardianManage/style';
+import ListItem from 'components/ListItem';
+import { useLanguage } from 'i18n/hooks';
+import CommonInput from 'components/CommonInput';
+import { checkEmail } from 'packages/utils/check';
+import { LOGIN_TYPE_LIST } from 'constants/misc';
+import { PRIVATE_GUARDIAN_ACCOUNT } from 'packages/constants/constants-ca/guardian';
+import { OperationTypeEnum, VerificationType, VerifierItem } from 'packages/types/verifier';
+import { INIT_HAS_ERROR, INIT_NONE_ERROR } from 'constants/common';
+import GuardianTypeSelectOverlay from 'pages/Guardian/components/GuardianTypeSelectOverlay';
+import VerifierSelectOverlay from 'pages/Guardian/components/VerifierSelectOverlay';
+import ActionSheet from 'components/ActionSheet';
+import { ErrorType } from 'types/common';
+import { FontStyles } from 'assets/theme/styles';
+import Loading from 'components/Loading';
+import CommonToast from 'components/CommonToast';
+import { LoginType } from 'packages/types/types-ca/wallet';
+import { VerifierImage } from 'pages/Guardian/components/VerifierImage';
+import fonts from 'assets/theme/fonts';
+import PhoneInput from 'components/PhoneInput';
+import Touchable from 'components/Touchable';
+import { request } from 'packages/api/api-did';
+import verificationApiConfig from 'packages/api/api-did/verification';
 import {
   AppleAuthentication,
   useAppleAuthentication,
   useGoogleAuthentication,
   useVerifyToken,
-} from '@portkey/rn-sdk/src/model/hooks/authentication';
-import { PortkeyConfig } from '@portkey/rn-sdk/src/global/constants';
-import useEffectOnce from '@portkey/rn-sdk/src/hooks/useEffectOnce';
-import { Verifier, getOrReadCachedVerifierData } from '@portkey/rn-sdk/src/model/contract/handler';
-import { NetworkController } from '@portkey/rn-sdk/src/network/controller';
-import { getUnlockedWallet } from '@portkey/rn-sdk/src/model/wallet';
+} from 'model/hooks/authentication';
+import { PortkeyConfig } from 'global/constants';
+import useEffectOnce from 'hooks/useEffectOnce';
+import { Verifier, getOrReadCachedVerifierData } from 'model/contract/handler';
+import { NetworkController } from 'network/controller';
+import { getUnlockedWallet } from 'model/wallet';
 import {
   getCachedCountryCodeData,
   guardianEnumToTypeStr,
   guardianTypeStrToEnum,
   parseGuardianInfo,
-} from '@portkey/rn-sdk/src/model/global';
-import { GuardianConfig } from '@portkey/rn-sdk/src/model/verify/guardian';
-import useBaseContainer from '@portkey/rn-sdk/src/model/container/UseBaseContainer';
-import { PortkeyEntries } from '@portkey/rn-sdk/src/config/entries';
-import { CountryCodeItem, defaultCountryCode } from '@portkey/rn-sdk/src/types/wallet';
-import CommonButton from '@portkey/rn-sdk/src/components/CommonButton';
-import { verifyHumanMachine } from '@portkey/rn-sdk/src/components/VerifyHumanMachine';
-import { handleGuardiansApproval, handlePhoneOrEmailGuardianVerify } from '@portkey/rn-sdk/src/model/verify/entry/hooks';
-import { AccountOriginalType } from '@portkey/rn-sdk/src/model/verify/core';
-import { GuardianVerifyType, VerifiedGuardianInfo } from '@portkey/rn-sdk/src/model/verify/social-recovery';
+} from 'model/global';
+import { GuardianConfig } from 'model/verify/guardian';
+import useBaseContainer from 'model/container/UseBaseContainer';
+import { PortkeyEntries } from 'config/entries';
+import { CountryCodeItem, defaultCountryCode } from 'types/wallet';
+import CommonButton from 'components/CommonButton';
+import { verifyHumanMachine } from 'components/VerifyHumanMachine';
+import { handleGuardiansApproval, handlePhoneOrEmailGuardianVerify } from 'model/verify/entry/hooks';
+import { AccountOriginalType } from 'model/verify/core';
+import { GuardianVerifyType, VerifiedGuardianInfo } from 'model/verify/social-recovery';
 import { Buffer } from 'buffer';
-import { sleep } from '@portkey/rn-sdk/src/packages/utils';
+import { sleep } from 'packages/utils';
 
 if (!global.Buffer) {
   global.Buffer = Buffer;

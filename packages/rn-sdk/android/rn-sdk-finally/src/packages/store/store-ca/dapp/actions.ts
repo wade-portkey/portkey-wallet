@@ -1,7 +1,7 @@
-import { NetworkType } from '@portkey/rn-sdk/src/packages/types';
+import { NetworkType } from 'packages/types';
 import { createAction } from '@reduxjs/toolkit';
-import { DappStoreItem } from '@portkey/rn-sdk/src/packages/store/store-ca/dapp/type';
-import { SessionInfo } from '@portkey/rn-sdk/src/packages/types/session';
+import { DappStoreItem } from 'packages/store/store-ca/dapp/type';
+import { SessionInfo } from 'packages/types/session';
 
 export const addDapp = createAction<{
   networkType: NetworkType;

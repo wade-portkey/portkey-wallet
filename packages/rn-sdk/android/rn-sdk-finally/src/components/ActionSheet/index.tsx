@@ -1,9 +1,9 @@
 import React, { ReactNode } from 'react';
-import OverlayModal from '@portkey/rn-sdk/src/components/OverlayModal';
+import OverlayModal from 'components/OverlayModal';
 import { View, Text, TouchableOpacity, Keyboard } from 'react-native';
-import { styles } from '@portkey/rn-sdk/src/components/ActionSheet/style/style';
-import { TextL, TextM, TextTitle } from '@portkey/rn-sdk/src/components/CommonText';
-import ButtonRow, { ButtonRowProps } from '@portkey/rn-sdk/src/components/ButtonRow';
+import { styles } from 'components/ActionSheet/style/style';
+import { TextL, TextM, TextTitle } from 'components/CommonText';
+import ButtonRow, { ButtonRowProps } from 'components/ButtonRow';
 
 const show = (
   items: {

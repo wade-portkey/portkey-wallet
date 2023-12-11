@@ -1,6 +1,6 @@
-import { defaultColors } from '@portkey/rn-sdk/src/assets/theme';
+import { defaultColors } from 'assets/theme';
 import { StyleSheet } from 'react-native';
-import { pTd } from '@portkey/rn-sdk/src/utils/unit';
+import { pTd } from 'utils/unit';
 
 const styles = StyleSheet.create({
   itemRow: {

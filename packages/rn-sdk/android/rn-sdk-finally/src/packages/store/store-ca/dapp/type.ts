@@ -1,5 +1,5 @@
-import { NetworkType, Timestamp } from '@portkey/rn-sdk/src/packages/types';
-import { SessionInfo } from '@portkey/rn-sdk/src/packages/types/session';
+import { NetworkType, Timestamp } from 'packages/types';
+import { SessionInfo } from 'packages/types/session';
 
 export type DappStoreItem = {
   origin: string;

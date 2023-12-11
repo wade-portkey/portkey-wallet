@@ -1,4 +1,4 @@
-import { ChainId, ChainType, NetworkType } from '@portkey/rn-sdk/src/packages/types';
+import { ChainId, ChainType, NetworkType } from 'packages/types';
 
 const enum IndexOfQrData {
   CHAIN_TYPE_INDEX = 0,

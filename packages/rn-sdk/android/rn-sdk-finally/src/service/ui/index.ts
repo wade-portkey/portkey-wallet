@@ -1,13 +1,13 @@
 import { injectable, inject } from 'inversify';
-import { PortkeyEntries } from '@portkey/rn-sdk/src/config/entries';
-import { LaunchMode, LaunchModeSet } from '@portkey/rn-sdk/src/global/init/entries';
-import { LoginResult } from '@portkey/rn-sdk/src/model/verify/entry';
-import { UnlockedWallet } from '@portkey/rn-sdk/src/model/wallet';
-import { CheckPinResult } from '@portkey/rn-sdk/src/pages/Pin/CheckPin';
-import { IPortkeyAccountService, IPortkeyUIManagerService } from '@portkey/rn-sdk/src/service/core/base';
-import { EntryResult, PortkeyModulesEntity } from '@portkey/rn-sdk/src/service/native-modules';
-import { TYPES, WalletState } from '@portkey/rn-sdk/src/service/core/types';
-import { AccountError } from '@portkey/rn-sdk/src/service/error';
+import { PortkeyEntries } from 'config/entries';
+import { LaunchMode, LaunchModeSet } from 'global/init/entries';
+import { LoginResult } from 'model/verify/entry';
+import { UnlockedWallet } from 'model/wallet';
+import { CheckPinResult } from 'pages/Pin/CheckPin';
+import { IPortkeyAccountService, IPortkeyUIManagerService } from 'service/core/base';
+import { EntryResult, PortkeyModulesEntity } from 'service/native-modules';
+import { TYPES, WalletState } from 'service/core/types';
+import { AccountError } from 'service/error';
 
 @injectable()
 export class UIManagerService implements IPortkeyUIManagerService {
@@ -63,6 +63,9 @@ export class UIManagerService implements IPortkeyUIManagerService {
 
   private async checkIsUnlocked() {
     const wallState = await this._accountService.getWalletState();
+    if(wallState !== WalletState.UNLOCKED){
+      console.warn("wallState state is error, wallet is not unlocked")
+    } 
     return wallState === WalletState.UNLOCKED;
   }
   private openFromExternal(target: PortkeyEntries) {
@@ -76,6 +79,7 @@ export class UIManagerService implements IPortkeyUIManagerService {
     );
   }
   private openResultFromExternal<R>(target: PortkeyEntries, callback: (res: EntryResult<R>) => void) {
+    console.log('target', target);
     PortkeyModulesEntity.RouterModule.navigateToWithOptions(
       target,
       LaunchModeSet.get(target) || LaunchMode.STANDARD,

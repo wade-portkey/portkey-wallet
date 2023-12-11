@@ -1,7 +1,7 @@
-import { ChainId } from '@portkey/rn-sdk/src/packages/types';
-import { LoginType } from '@portkey/rn-sdk/src/packages/types/types-ca/wallet';
-import { OperationTypeEnum } from '@portkey/rn-sdk/src/packages/types/verifier';
-import { TypedUrlParams } from '@portkey/rn-sdk/src/service/native-modules';
+import { ChainId } from 'packages/types';
+import { LoginType } from 'packages/types/types-ca/wallet';
+import { OperationTypeEnum } from 'packages/types/verifier';
+import { TypedUrlParams } from 'service/native-modules';
 
 export interface GetRecommendedGuardianParams {
   chainId: string;

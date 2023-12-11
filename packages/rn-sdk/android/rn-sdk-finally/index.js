@@ -1,7 +1,7 @@
 import 'reflect-metadata';
-import { initEntries } from '@portkey/rn-sdk/src/global/init/entries';
-import { initJsMethodService } from '@portkey/rn-sdk/src/global/init/services';
-import { initLanguage } from '@portkey/rn-sdk/src/i18n';
+import { initEntries } from './src/global/init/entries';
+import { initJsMethodService } from './src/global/init/services';
+import { initLanguage } from './src/i18n';
 
 // we use i18n to translate
 initLanguage();
@@ -13,5 +13,5 @@ initEntries();
 initJsMethodService();
 
 // export for npm
-export * from '@portkey/rn-sdk/src/service/core';
-export { UnlockedWallet } from '@portkey/rn-sdk/src/model/wallet';
+export * from './src/service/core';
+export { UnlockedWallet } from './src/model/wallet';

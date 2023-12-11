@@ -1,7 +1,7 @@
-import { ActivityItemType, the2ThFailedActivityItemType } from '@portkey/rn-sdk/src/packages/types/types-ca/activity';
-import { TransactionTypes } from '@portkey/rn-sdk/src/packages/constants/constants-ca/activity';
-import { ICaAddressInfoListItemType } from '@portkey/rn-sdk/src/packages/hooks/hooks-ca/wallet';
-import { ChainId } from '@portkey/rn-sdk/src/packages/types';
+import { ActivityItemType, the2ThFailedActivityItemType } from 'packages/types/types-ca/activity';
+import { TransactionTypes } from 'packages/constants/constants-ca/activity';
+import { ICaAddressInfoListItemType } from 'packages/hooks/hooks-ca/wallet';
+import { ChainId } from 'packages/types';
 
 export type ActivityStateType = {
   activityMap: ActivityStateMap;

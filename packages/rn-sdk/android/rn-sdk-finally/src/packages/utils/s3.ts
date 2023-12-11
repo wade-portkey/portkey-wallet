@@ -1,6 +1,6 @@
 import S3 from 'aws-sdk/clients/s3';
 import AWS from 'aws-sdk';
-import { randomId } from '@portkey/rn-sdk/src/packages/utils';
+import { randomId } from 'packages/utils';
 
 export interface IAWSConfig {
   Bucket: string;

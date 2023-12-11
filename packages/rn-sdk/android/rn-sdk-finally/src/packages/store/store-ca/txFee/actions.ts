@@ -1,7 +1,7 @@
-import { request } from '@portkey/rn-sdk/src/packages/api/api-did';
-import { ChainId, NetworkType } from '@portkey/rn-sdk/src/packages/types';
+import { request } from 'packages/api/api-did';
+import { ChainId, NetworkType } from 'packages/types';
 import { createAsyncThunk, createAction } from '@reduxjs/toolkit';
-import { WalletState } from '@portkey/rn-sdk/src/packages/store/store-ca/wallet/type';
+import { WalletState } from 'packages/store/store-ca/wallet/type';
 
 export const fetchTxFeeAsync = createAsyncThunk('fetchTxFeeAsync', async (chainIds: ChainId[], { getState }) => {
   const result = await request.txFee.fetchTxFee({

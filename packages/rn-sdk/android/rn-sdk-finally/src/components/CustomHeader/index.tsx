@@ -1,15 +1,15 @@
 import { View, TouchableOpacity, ViewStyle, StyleProp } from 'react-native';
 import React, { ReactNode, useMemo } from 'react';
-import Svg from '@portkey/rn-sdk/src/components/Svg';
-import { blueStyles, hideTitleStyles, whitStyles } from '@portkey/rn-sdk/src/components/CustomHeader/style/index.style';
-import { pTd } from '@portkey/rn-sdk/src/utils/unit';
-import GStyles from '@portkey/rn-sdk/src/assets/theme/GStyles';
-import { TextL } from '@portkey/rn-sdk/src/components/CommonText';
-import type { SafeAreaColorMapKeyUnit } from '@portkey/rn-sdk/src/components/PageContainer';
-import { useLanguage } from '@portkey/rn-sdk/src/i18n/hooks';
-import { ViewStyleType } from '@portkey/rn-sdk/src/types/styles';
-import { useHardwareBackPress } from '@portkey/rn-sdk/src/packages/hooks/mobile';
-import { PortkeyModulesEntity } from '@portkey/rn-sdk/src/service/native-modules';
+import Svg from 'components/Svg';
+import { blueStyles, hideTitleStyles, whitStyles } from 'components/CustomHeader/style/index.style';
+import { pTd } from 'utils/unit';
+import GStyles from 'assets/theme/GStyles';
+import { TextL } from 'components/CommonText';
+import type { SafeAreaColorMapKeyUnit } from 'components/PageContainer';
+import { useLanguage } from 'i18n/hooks';
+import { ViewStyleType } from 'types/styles';
+import { useHardwareBackPress } from 'packages/hooks/mobile';
+import { PortkeyModulesEntity } from 'service/native-modules';
 
 export type CustomHeaderProps = {
   themeType?: SafeAreaColorMapKeyUnit;

@@ -1,4 +1,4 @@
-import { ChainType, NetworkType } from '@portkey/rn-sdk/src/packages/types';
+import { ChainType, NetworkType } from 'packages/types';
 export type NetworkItem = {
   name: string;
   walletType: ChainType;

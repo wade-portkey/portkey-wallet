@@ -1,6 +1,6 @@
-import { NetworkType } from '@portkey/rn-sdk/src/packages/types';
-import { CountryItem } from '@portkey/rn-sdk/src/packages/types/types-ca/country';
-import { UpdateNotify, VersionDeviceType } from '@portkey/rn-sdk/src/packages/types/types-ca/device';
+import { NetworkType } from 'packages/types';
+import { CountryItem } from 'packages/types/types-ca/country';
+import { UpdateNotify, VersionDeviceType } from 'packages/types/types-ca/device';
 
 export interface UpdateVersionParams {
   deviceId?: string;

@@ -1,8 +1,8 @@
-import { IStorage, StorageBaseLoader } from '@portkey/rn-sdk/src/packages/types/storage';
-import { request } from '@portkey/rn-sdk/src/packages/api/api-did';
-import { RequestConfig } from '@portkey/rn-sdk/src/packages/api/types';
-import { LoginKeyType } from '@portkey/rn-sdk/src/packages/types/types-ca/wallet';
-import { OperationTypeEnum } from '@portkey/rn-sdk/src/packages/types/verifier';
+import { IStorage, StorageBaseLoader } from 'packages/types/storage';
+import { request } from 'packages/api/api-did';
+import { RequestConfig } from 'packages/api/types';
+import { LoginKeyType } from 'packages/types/types-ca/wallet';
+import { OperationTypeEnum } from 'packages/types/verifier';
 
 type VerifierInfo = {
   verifierSessionId: string;

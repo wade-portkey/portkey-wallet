@@ -37,7 +37,11 @@ drawable node_modules_rnteaset_icons_sad
 drawable node_modules_rnteaset_icons_smile
 drawable node_modules_rnteaset_icons_stop
 drawable node_modules_rnteaset_icons_success
+string GOOGLE_ANDROID_CLIENT_ID
+string GOOGLE_IOS_CLIENT_ID
+string GOOGLE_WEB_CLIENT_ID
 string app_name
+string build_config_package
 style ReactActivityAnimation
 style Theme.BaseTheme
 transition slide

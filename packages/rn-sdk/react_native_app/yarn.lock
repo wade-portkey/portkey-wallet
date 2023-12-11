@@ -1209,7 +1209,7 @@
     "@babel/types" "^7.4.4"
     esutils "^2.0.2"
 
-"@babel/preset-typescript@^7.13.0":
+"@babel/preset-typescript@^7.13.0", "@babel/preset-typescript@^7.23.3":
   version "7.23.3"
   resolved "https://registry.npmmirror.com/@babel/preset-typescript/-/preset-typescript-7.23.3.tgz#14534b34ed5b6d435aa05f1ae1c5e7adcc01d913"
   integrity sha512-17oIGVlqz6CchO9RFYn5U6ZpWRZIngayYCtrPRSgANSwC2V1Jb+iP74nVxzzXJte8b8BYxrL1yY96xfhTBrNNQ==
@@ -2208,15 +2208,7 @@
     lodash "^4.17.21"
     readable-stream "^4.4.0"
 
-"@portkey/request@^1.3.0-alpha.3", "@portkey/request@^1.5.1":
-  version "1.5.1"
-  resolved "https://registry.npmmirror.com/@portkey/request/-/request-1.5.1.tgz#201ac4694abec29d1bf42bb14f52a181db356520"
-  integrity sha512-1RTpZiKQ+KF6IIcPs63DttjLdp7ZuJyu2PHWJ5dZblD/ivQlMoOPVWlr7hZnZR0vp30msyCBn/jOpcQ7V0FV6g==
-  dependencies:
-    "@portkey/types" "^1.5.1"
-    query-string "^7.1.1"
-
-"@portkey/rn-sdk@file:../android/rn-sdk":
+"@portkey/react-native-sdk@file:../android/rn-sdk-finally":
   version "1.0.0"
   dependencies:
     "@apollo/client" "^3.7.3"
@@ -2302,6 +2294,14 @@
     subscriptions-transport-ws "^0.11.0"
     tslib "^2.6.2"
     web3-utils "^4.1.0"
+
+"@portkey/request@^1.3.0-alpha.3", "@portkey/request@^1.5.1":
+  version "1.5.1"
+  resolved "https://registry.npmmirror.com/@portkey/request/-/request-1.5.1.tgz#201ac4694abec29d1bf42bb14f52a181db356520"
+  integrity sha512-1RTpZiKQ+KF6IIcPs63DttjLdp7ZuJyu2PHWJ5dZblD/ivQlMoOPVWlr7hZnZR0vp30msyCBn/jOpcQ7V0FV6g==
+  dependencies:
+    "@portkey/types" "^1.5.1"
+    query-string "^7.1.1"
 
 "@portkey/services@^1.3.0-alpha.3":
   version "1.5.1"
@@ -2956,9 +2956,9 @@
     "@types/react" "*"
 
 "@types/react@*", "@types/react@^18.0.24":
-  version "18.2.42"
-  resolved "https://registry.npmmirror.com/@types/react/-/react-18.2.42.tgz#6f6b11a904f6d96dda3c2920328a97011a00aba7"
-  integrity sha512-c1zEr96MjakLYus/wPnuWDo1/zErfdU9rNsIGmE+NV71nx88FG9Ttgo5dqorXTu/LImX2f63WBP986gJkMPNbA==
+  version "18.2.43"
+  resolved "https://registry.npmmirror.com/@types/react/-/react-18.2.43.tgz#c58e5abe241e6f71f60ce30e2a9aceb9d3a2a374"
+  integrity sha512-nvOV01ZdBdd/KW6FahSbcNplt2jCJfyWdTos61RYHV+FVv5L/g9AOX1bmbVcWcLFL8+KHQfh1zVIQrud6ihyQA==
   dependencies:
     "@types/prop-types" "*"
     "@types/scheduler" "*"
@@ -3116,9 +3116,9 @@
     wonka "^4.0.14"
 
 "@urql/core@>=2.3.1":
-  version "4.2.0"
-  resolved "https://registry.npmmirror.com/@urql/core/-/core-4.2.0.tgz#7715491bc07e4af8b5d5039a19ea562cd109ae2f"
-  integrity sha512-GRkZ4kECR9UohWAjiSk2UYUetco6/PqSrvyC4AH6g16tyqEShA63M232cfbE1J9XJPaGNjia14Gi+oOqzp144w==
+  version "4.2.1"
+  resolved "https://registry.npmmirror.com/@urql/core/-/core-4.2.1.tgz#a42a0ec1bbeb612f62d1ff2836380f78ac9ac5d4"
+  integrity sha512-m6r0wcVg9zg50YjiJjEVWkjigae/NOhGen3QTZ6LRZw/KXo7P6JGESOv9SJNsGGj7s1zew4/jqKeiOXtwm6ZiQ==
   dependencies:
     "@0no-co/graphql.web" "^1.0.1"
     wonka "^6.3.2"
@@ -4049,9 +4049,9 @@ camelcase@^6.2.0:
   integrity sha512-Gmy6FhYlCY7uOElZUSbxo2UCDH8owEk996gkbrpsgGtrJLM3J7jGxl9Ic7Qwwj4ivOE5AWZWRMecDdF7hqGjFA==
 
 caniuse-lite@^1.0.30001565:
-  version "1.0.30001566"
-  resolved "https://registry.npmmirror.com/caniuse-lite/-/caniuse-lite-1.0.30001566.tgz#61a8e17caf3752e3e426d4239c549ebbb37fef0d"
-  integrity sha512-ggIhCsTxmITBAMmK8yZjEhCO5/47jKXPu6Dha/wuCS4JePVL+3uiDEBuhu2aIoT+bqTOR8L76Ip1ARL9xYsEJA==
+  version "1.0.30001568"
+  resolved "https://registry.npmmirror.com/caniuse-lite/-/caniuse-lite-1.0.30001568.tgz#53fa9297273c9a977a560663f48cbea1767518b7"
+  integrity sha512-vSUkH84HontZJ88MiNrOau1EBrCqEQYgkC5gIySiDlpsm8sGVrhU7Kx4V6h0tnqaHzIHZv08HlJIwPbL4XL9+A==
 
 chalk@^2.0.1, chalk@^2.4.2:
   version "2.4.2"
@@ -5958,9 +5958,9 @@ globals@^11.1.0:
   integrity sha512-WOBp/EEGUiIsJSp7wcv/y6MO+lV9UoncWqxuFfm8eBwzWNgyfBd6Gz+IeKQ9jCmyhoH99g15M3T+QaVHFjizVA==
 
 globals@^13.19.0:
-  version "13.23.0"
-  resolved "https://registry.npmmirror.com/globals/-/globals-13.23.0.tgz#ef31673c926a0976e1f61dab4dca57e0c0a8af02"
-  integrity sha512-XAmF0RjlrjY23MA51q3HltdlGxUpXPvg0GioKiD9X6HD28iMjo2dKC8Vqwm7lne4GNr78+RHTfliktR6ZH09wA==
+  version "13.24.0"
+  resolved "https://registry.npmmirror.com/globals/-/globals-13.24.0.tgz#8432a19d78ce0c1e833949c36adb345400bb1171"
+  integrity sha512-AhO5QUcj8llrbG09iWhPU2B204J1xnPeL8kQmVorSsy+Sjj1sk8gIyh6cUocGmH4L0UuhAJy+hJMRA4mgA4mFQ==
   dependencies:
     type-fest "^0.20.2"
 
@@ -8969,9 +8969,9 @@ react-native-pager-view@^6.2.2:
   integrity sha512-dqVpXWFtPNfD3D2QQQr8BP+ullS5MhjRJuF8Z/qml4QTILcrWaW8F5iAxKkQR3Jl0ikcEryG/+SQlNcwlo0Ggg==
 
 react-native-qrcode-styled@^0.2.1:
-  version "0.2.1"
-  resolved "https://registry.npmmirror.com/react-native-qrcode-styled/-/react-native-qrcode-styled-0.2.1.tgz#690a9b16768f0b057da775d704fb7de600080d06"
-  integrity sha512-SxjmUzHGCAyrH2/cWTErbzgfDE+aph4kJOb0EtYDmpL1pPDQ/7sjUIYYomsapf7SYqwGq+eYW5dPKPXT6gntgg==
+  version "0.2.2"
+  resolved "https://registry.npmmirror.com/react-native-qrcode-styled/-/react-native-qrcode-styled-0.2.2.tgz#6e920d59a7b945289318bd047a58cf80dee5a416"
+  integrity sha512-FrmaBGMPvjlFMXFLFPoJJ5Er3TmpYDV62WBtO/FmI5lStLFN1KjO++PkM8cKy2NAe2QabG44jobto9IrQVTFdg==
   dependencies:
     qrcode "^1.5.1"
 
@@ -10906,9 +10906,9 @@ ws@^6.2.2:
     async-limiter "~1.0.0"
 
 ws@^8.12.1:
-  version "8.14.2"
-  resolved "https://registry.npmmirror.com/ws/-/ws-8.14.2.tgz#6c249a806eb2db7a20d26d51e7709eab7b2e6c7f"
-  integrity sha512-wEBG1ftX4jcglPxgFCMJmZ2PLtSbJ2Peg6TmpJFTbe9GZYOQCDPdMYu/Tm0/bGZkw8paZnJY45J4K2PZrLYq8g==
+  version "8.15.0"
+  resolved "https://registry.npmmirror.com/ws/-/ws-8.15.0.tgz#db080a279260c5f532fc668d461b8346efdfcf86"
+  integrity sha512-H/Z3H55mrcrgjFwI+5jKavgXvwQLtfPCUEp6pi35VhoB0pfcHnSoyuTzkBEZpzq49g1193CUEwIvmsjcotenYw==
 
 xcode@^3.0.1:
   version "3.0.1"

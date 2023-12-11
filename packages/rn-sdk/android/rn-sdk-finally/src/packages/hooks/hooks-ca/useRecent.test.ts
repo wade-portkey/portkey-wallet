@@ -1,8 +1,8 @@
-import { useRecent, initialRecentData } from '@portkey/rn-sdk/src/packages/hooks/hooks-ca/useRecent';
-import { useAppCommonDispatch } from '@portkey/rn-sdk/src/packages/hooks';
+import { useRecent, initialRecentData } from 'packages/hooks/hooks-ca/useRecent';
+import { useAppCommonDispatch } from 'packages/hooks';
 import { initCurrentChainRecentData } from 'packages/types/store-ca/recent/slice';
-import { setupStore } from '@portkey/rn-sdk/src/test/utils/setup';
-import { renderHookWithProvider } from '@portkey/rn-sdk/src/test/utils/render';
+import { setupStore } from 'test/utils/setup';
+import { renderHookWithProvider } from 'test/utils/render';
 
 jest.mock('../index');
 jest.mock('packages/types/store-ca/recent/slice', () => {

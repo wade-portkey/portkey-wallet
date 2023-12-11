@@ -1,8 +1,8 @@
-import { ChainActionError } from '@portkey/rn-sdk/src/packages/store/network/types';
+import { ChainActionError } from 'packages/store/network/types';
 import AElf from 'aelf-sdk';
-import { ChainType } from '@portkey/rn-sdk/src/packages/types';
-import { enumToMap, formatRpcUrl, isUrl } from '@portkey/rn-sdk/src/packages/utils';
-import { ChainItemType } from '@portkey/rn-sdk/src/packages/types/chain';
+import { ChainType } from 'packages/types';
+import { enumToMap, formatRpcUrl, isUrl } from 'packages/utils';
+import { ChainItemType } from 'packages/types/chain';
 
 type CheckRpcUrlParam = {
   chainList?: ChainItemType[];
@@ -48,7 +48,7 @@ export const checkRpcUrl = async ({
   chainType,
   key,
 }: CheckRpcUrlParam & { key?: string }): Promise<string> => {
-  let flag = chainList.some(chain => chain.rpcUrl === rpcUrl && chain.key !== key);
+  const flag = chainList.some(chain => chain.rpcUrl === rpcUrl && chain.key !== key);
   if (flag) throw new Error(ChainActionError.rpcUrlAlreadyExists);
   const chainStatus = await checkRpcUrlFormat({ rpcUrl, chainType });
   return chainStatus.ChainId;

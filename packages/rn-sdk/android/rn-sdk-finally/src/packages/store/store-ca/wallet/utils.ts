@@ -1,4 +1,4 @@
-import aes from '@portkey/rn-sdk/src/packages/utils/aes';
+import aes from 'packages/utils/aes';
 
 export function checkPassword(AESEncryptMnemonic = '', password: string) {
   if (!AESEncryptMnemonic) return false;

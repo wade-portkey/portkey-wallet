@@ -1,117 +1,161 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
-import React from 'react';
-import type {PropsWithChildren} from 'react';
+import React, {useState} from 'react';
 import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
+  Modal,
   View,
+  Text,
+  StyleSheet,
+  TouchableWithoutFeedback,
+  TouchableOpacity,
 } from 'react-native';
+import {portkey} from '@portkey/react-native-sdk';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
-
-function Section({children, title}: SectionProps): JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
+function MyButton({title, onPress}) {
   return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
+    <TouchableOpacity style={styles.button} onPress={onPress}>
+      <Text style={styles.buttonText}>{title}</Text>
+    </TouchableOpacity>
+  );
+}
+
+const PortkeyUIManagerService = [
+  ['login'],
+  ['openAssetsDashboard'],
+  ['guardiansManager'],
+  ['settingsManager'],
+  ['paymentSecurityManager'],
+  ['unlockWallet'],
+];
+const PortkeyAccountService = [
+  ['callCaContractMethod'],
+  ['getWalletInfo'],
+  ['getWalletState'],
+  ['lockWallet'],
+  ['exitWallet'],
+];
+function App() {
+  const [modalVisible1, setModalVisible1] = useState(false);
+  const [modalVisible2, setModalVisible2] = useState(false);
+
+  return (
+    <View style={styles.container}>
+      <View style={styles.buttonContainer}>
+        <MyButton
+          title="PortkeyUIManagerService"
+          onPress={() => setModalVisible1(true)}
+        />
+      </View>
+      <MyButton
+        title="PortkeyAccountService"
+        onPress={() => setModalVisible2(true)}
+      />
+
+      <Modal
+        animationType="fade"
+        transparent={true}
+        visible={modalVisible1}
+        onRequestClose={() => setModalVisible1(false)}>
+        <TouchableWithoutFeedback onPress={() => setModalVisible1(false)}>
+          <View style={styles.mask} />
+        </TouchableWithoutFeedback>
+        <View style={styles.modalView}>
+          {PortkeyUIManagerService.map((value, i) => (
+            <View key={i} style={styles.buttonContainer}>
+              <MyButton
+                title={`Call Method: ${value[0]}`}
+                onPress={() => {
+                  portkey[value[0]]
+                    .apply(portkey, value.slice(1))
+                    .then(res => {
+                      console.log('res', res);
+                    })
+                    .catch(error => {
+                      console.log('error', error);
+                    })
+                    .finally(() => {
+                      console.log('over!');
+                    });
+                }}
+              />
+            </View>
+          ))}
+        </View>
+      </Modal>
+
+      <Modal
+        animationType="fade"
+        transparent={true}
+        visible={modalVisible2}
+        onRequestClose={() => setModalVisible2(false)}>
+        <TouchableWithoutFeedback onPress={() => setModalVisible2(false)}>
+          <View style={styles.mask} />
+        </TouchableWithoutFeedback>
+        <View style={styles.modalView}>
+          {PortkeyAccountService.map((value, i) => (
+            <View key={i} style={styles.buttonContainer}>
+              <MyButton
+                title={`Call Method: ${value[0]}`}
+                onPress={() => {
+                  portkey[value[0]]
+                    .apply(portkey, value.slice(1))
+                    .then(res => {
+                      console.log('res', res);
+                    })
+                    .catch(error => {
+                      console.log('error', error);
+                    })
+                    .finally(() => {
+                      console.log('over!');
+                    });
+                }}
+              />
+            </View>
+          ))}
+        </View>
+      </Modal>
     </View>
   );
 }
 
-function App(): JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
-  return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
-  );
-}
-
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'white',
   },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
+  mask: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
+  modalView: {
+    backgroundColor: 'white',
+    borderRadius: 20,
+    padding: 35,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+    position: 'absolute',
+    bottom: 0,
+    width: '100%',
   },
-  highlight: {
-    fontWeight: '700',
+  buttonContainer: {
+    marginBottom: 10,
+  },
+  button: {
+    backgroundColor: '#007BFF',
+    padding: 10,
+    borderRadius: 5,
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 16,
+    textTransform: 'none', // 设置为 'none' 可以取消大写
   },
 });
 

@@ -1,4 +1,4 @@
-import { BaseConfig, RequestConfig } from '@portkey/rn-sdk/src/packages/api/types';
+import { BaseConfig, RequestConfig } from 'packages/api/types';
 
 export function spliceUrl(baseUrl: string, extendArg: string = '') {
   const { [baseUrl.length - 1]: lastStr } = baseUrl;

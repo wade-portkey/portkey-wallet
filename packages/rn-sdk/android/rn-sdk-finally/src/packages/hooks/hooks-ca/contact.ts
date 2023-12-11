@@ -1,6 +1,6 @@
-import { request } from '@portkey/rn-sdk/src/packages/api/api-did';
-import { CheckContactNameResponseType } from '@portkey/rn-sdk/src/packages/api/api-did/contact/type';
-import { useCurrentNetworkInfo } from '@portkey/rn-sdk/src/packages/hooks/hooks-ca/network';
+import { request } from 'packages/api/api-did';
+import { CheckContactNameResponseType } from 'packages/api/api-did/contact/type';
+import { useCurrentNetworkInfo } from 'packages/hooks/hooks-ca/network';
 import {
   AddContactItemApiType,
   AddressItem,
@@ -17,11 +17,11 @@ import {
   readImputationAction,
   refreshContactMap,
 } from 'packages/types/store-ca/contact/actions';
-import { useAppCASelector, useAppCommonDispatch, useAppCommonSelector } from '@portkey/rn-sdk/src/packages/hooks';
-import { getAelfAddress, isAelfAddress } from '@portkey/rn-sdk/src/packages/utils/aelf';
-import { ContactsTab } from '@portkey/rn-sdk/src/packages/constants/constants-ca/assets';
-import { useAddStranger } from '@portkey/rn-sdk/src/packages/hooks/hooks-ca/im';
-import { useWallet } from '@portkey/rn-sdk/src/packages/hooks/hooks-ca/wallet';
+import { useAppCASelector, useAppCommonDispatch, useAppCommonSelector } from 'packages/hooks';
+import { getAelfAddress, isAelfAddress } from 'packages/utils/aelf';
+import { ContactsTab } from 'packages/constants/constants-ca/assets';
+import { useAddStranger } from 'packages/hooks/hooks-ca/im';
+import { useWallet } from 'packages/hooks/hooks-ca/wallet';
 
 export const REFRESH_DELAY_TIME = 1.5 * 1000;
 

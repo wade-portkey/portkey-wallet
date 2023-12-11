@@ -1,17 +1,17 @@
 import React, { memo, useCallback, useRef } from 'react';
-import Svg from '@portkey/rn-sdk/src/components/Svg';
-import { dashBoardBtnStyle, innerPageStyles } from '@portkey/rn-sdk/src/components/FaucetButton/style';
-import { TokenItemShowType } from '@portkey/rn-sdk/src/packages/types/types-ca/token';
+import Svg from 'components/Svg';
+import { dashBoardBtnStyle, innerPageStyles } from 'components/FaucetButton/style';
+import { TokenItemShowType } from 'packages/types/types-ca/token';
 
 import { View, TouchableOpacity } from 'react-native';
-import { TextM } from '@portkey/rn-sdk/src/components/CommonText';
-import { useLanguage } from '@portkey/rn-sdk/src/i18n/hooks';
-import { pTd } from '@portkey/rn-sdk/src/utils/unit';
-import GStyles from '@portkey/rn-sdk/src/assets/theme/GStyles';
-import CommonToast from '@portkey/rn-sdk/src/components/CommonToast';
-import { callFaucetMethod } from '@portkey/rn-sdk/src/model/contract/handler';
-import { isWalletUnlocked } from '@portkey/rn-sdk/src/model/verify/core';
-import { getCurrentNetworkType } from '@portkey/rn-sdk/src/model/hooks/network';
+import { TextM } from 'components/CommonText';
+import { useLanguage } from 'i18n/hooks';
+import { pTd } from 'utils/unit';
+import GStyles from 'assets/theme/GStyles';
+import CommonToast from 'components/CommonToast';
+import { callFaucetMethod } from 'model/contract/handler';
+import { isWalletUnlocked } from 'model/verify/core';
+import { getCurrentNetworkType } from 'model/hooks/network';
 interface SendButtonType {
   themeType?: 'dashBoard' | 'innerPage';
   sentToken?: TokenItemShowType;

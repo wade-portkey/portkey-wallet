@@ -1,9 +1,9 @@
 import React, { useMemo, useState } from 'react';
-import { defaultColors } from '@portkey/rn-sdk/src/assets/theme';
+import { defaultColors } from 'assets/theme';
 import { Image, StyleSheet, View, Text } from 'react-native';
-import { ViewStyleType } from '@portkey/rn-sdk/src/types/styles';
-import { pTd } from '@portkey/rn-sdk/src/utils/unit';
-import { isIOS } from '@portkey/rn-sdk/src/packages/utils/mobile/device';
+import { ViewStyleType } from 'types/styles';
+import { pTd } from 'utils/unit';
+import { isIOS } from 'packages/utils/mobile/device';
 
 export function VerifierImage({
   size = 36,

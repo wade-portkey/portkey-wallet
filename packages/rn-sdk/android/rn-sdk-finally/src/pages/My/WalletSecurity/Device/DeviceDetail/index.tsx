@@ -1,18 +1,18 @@
 import React, { useMemo } from 'react';
-import PageContainer from '@portkey/rn-sdk/src/components/PageContainer';
+import PageContainer from 'components/PageContainer';
 import { StyleSheet, View } from 'react-native';
-import { defaultColors } from '@portkey/rn-sdk/src/assets/theme';
-import GStyles from '@portkey/rn-sdk/src/assets/theme/GStyles';
-import { useCurrentWalletInfo } from '@portkey/rn-sdk/src/packages/hooks/hooks-ca/wallet';
-import DeviceItem from '@portkey/rn-sdk/src/pages/My/WalletSecurity/Device/components/DeviceItem';
-import useRouterParams from '@portkey/rn-sdk/src/packages/hooks/useRouterParams';
-import { DeviceItemType } from '@portkey/rn-sdk/src/packages/types/types-ca/device';
-import CommonButton from '@portkey/rn-sdk/src/components/CommonButton';
+import { defaultColors } from 'assets/theme';
+import GStyles from 'assets/theme/GStyles';
+import { useCurrentWalletInfo } from 'packages/hooks/hooks-ca/wallet';
+import DeviceItem from 'pages/My/WalletSecurity/Device/components/DeviceItem';
+import useRouterParams from 'packages/hooks/useRouterParams';
+import { DeviceItemType } from 'packages/types/types-ca/device';
+import CommonButton from 'components/CommonButton';
 import navigationService from 'utils/navigationService';
-import { ApprovalType } from '@portkey/rn-sdk/src/packages/types/verifier';
-import { TextM } from '@portkey/rn-sdk/src/components/CommonText';
-import { FontStyles } from '@portkey/rn-sdk/src/assets/theme/styles';
-import { pTd } from '@portkey/rn-sdk/src/utils/unit';
+import { ApprovalType } from 'packages/types/verifier';
+import { TextM } from 'components/CommonText';
+import { FontStyles } from 'assets/theme/styles';
+import { pTd } from 'utils/unit';
 
 interface RouterParams {
   deviceItem?: DeviceItemType;

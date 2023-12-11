@@ -1,32 +1,32 @@
-import { NetworkType } from '@portkey/rn-sdk/src/packages/types';
-import { getApolloClient } from '@portkey/rn-sdk/src/packages/graphql/cms/apollo';
+import { NetworkType } from 'packages/types';
+import { getApolloClient } from 'packages/graphql/cms/apollo';
 
 import {
   SocialMediaCustomDocument,
   SocialMediaCustomQuery,
   SocialMediaCustomQueryVariables,
-} from '@portkey/rn-sdk/src/packages/graphql/cms/__generated__/hooks/socialMediaCustom';
+} from 'packages/graphql/cms/__generated__/hooks/socialMediaCustom';
 import {
   TabMenuCustomDocument,
   TabMenuCustomQuery,
   TabMenuCustomQueryVariables,
-} from '@portkey/rn-sdk/src/packages/graphql/cms/__generated__/hooks/tabMenuCustom';
+} from 'packages/graphql/cms/__generated__/hooks/tabMenuCustom';
 import {
   DiscoverGroupCustomDocument,
   DiscoverGroupCustomQuery,
   DiscoverGroupCustomQueryVariables,
-} from '@portkey/rn-sdk/src/packages/graphql/cms/__generated__/hooks/discoverGroupCustom';
+} from 'packages/graphql/cms/__generated__/hooks/discoverGroupCustom';
 import {
   EntranceCustomDocument,
   EntranceCustomQuery,
   EntranceCustomQueryVariables,
-} from '@portkey/rn-sdk/src/packages/graphql/cms/__generated__/hooks/entranceCustom';
+} from 'packages/graphql/cms/__generated__/hooks/entranceCustom';
 
 import {
   RememberMeBlackListSitesCustomDocument,
   RememberMeBlackListSitesCustomQuery,
   RememberMeBlackListSitesCustomQueryVariables,
-} from '@portkey/rn-sdk/src/packages/graphql/cms/__generated__/hooks/rememberMeBlackListSitesCustom';
+} from 'packages/graphql/cms/__generated__/hooks/rememberMeBlackListSitesCustom';
 
 // SocialMedia
 const getSocialMedia = async (network: NetworkType, params: SocialMediaCustomQueryVariables) => {

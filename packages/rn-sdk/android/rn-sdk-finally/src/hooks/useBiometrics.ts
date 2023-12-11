@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
-import { authenticationReady } from '@portkey/rn-sdk/src/packages/utils/mobile/authentication';
-import useEffectOnce from '@portkey/rn-sdk/src/hooks/useEffectOnce';
+import { authenticationReady } from 'packages/utils/mobile/authentication';
+import useEffectOnce from 'hooks/useEffectOnce';
 
 export default function useBiometricsReady() {
   const [biometricsReady, setBiometricsReady] = useState<boolean>();

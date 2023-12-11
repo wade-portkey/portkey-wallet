@@ -1,4 +1,4 @@
-import { Message, ParsedImage } from '@portkey/rn-sdk/src/packages/im/types';
+import { Message, ParsedImage } from 'packages/im/types';
 
 const imageMessageParser = (str: string): ParsedImage => {
   str = str.replaceAll(/,/g, ';');

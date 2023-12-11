@@ -1,6 +1,6 @@
-import { TransactionTypes } from '@portkey/rn-sdk/src/packages/constants/constants-ca/activity';
-import { ChainId, ChainType } from '@portkey/rn-sdk/src/packages/types';
-import { BaseToken } from '@portkey/rn-sdk/src/packages/types/types-ca/token';
+import { TransactionTypes } from 'packages/constants/constants-ca/activity';
+import { ChainId, ChainType } from 'packages/types';
+import { BaseToken } from 'packages/types/types-ca/token';
 
 export type ActivityItemType = {
   chainId: string;

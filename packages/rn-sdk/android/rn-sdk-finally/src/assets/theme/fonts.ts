@@ -1,4 +1,4 @@
-import { LanguageValue } from '@portkey/rn-sdk/src/i18n/config';
+import { LanguageValue } from 'i18n/config';
 import { TextStyle } from 'react-native';
 
 const fonts: {

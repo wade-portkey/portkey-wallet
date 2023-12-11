@@ -1,8 +1,8 @@
-import { sleep } from '@portkey/rn-sdk/src/packages/utils';
-import { AElfInterface } from '@portkey/rn-sdk/src/packages/types/aelf';
-import { getTxResult } from '@portkey/rn-sdk/src/packages/utils/aelfUtils';
-import { ChainType } from '@portkey/rn-sdk/src/packages/types';
-import { encodedTx } from '@portkey/rn-sdk/src/packages/utils/aelf';
+import { sleep } from 'packages/utils';
+import { AElfInterface } from 'packages/types/aelf';
+import { getTxResult } from 'packages/utils/aelfUtils';
+import { ChainType } from 'packages/types';
+import { encodedTx } from 'packages/utils/aelf';
 type SendOptions = {
   from?: string;
   gasPrice?: string;

@@ -1,4 +1,4 @@
-import { NetworkType } from '@portkey/rn-sdk/src/packages/types';
+import { NetworkType } from 'packages/types';
 
 export interface SocialMediaItem {
   index: number;

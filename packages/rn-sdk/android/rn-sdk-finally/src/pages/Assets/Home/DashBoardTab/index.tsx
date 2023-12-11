@@ -1,8 +1,8 @@
 import React, { useMemo } from 'react';
-import TokenSection from '@portkey/rn-sdk/src/pages/Assets/Home/TokenSection';
-import NFTSection from '@portkey/rn-sdk/src/pages/Assets/Home/NFTSection';
-import { useLanguage } from '@portkey/rn-sdk/src/i18n/hooks';
-import { RNTabView } from '@portkey/rn-sdk/src/model/hooks/tabs';
+import TokenSection from 'pages/Assets/Home/TokenSection';
+import NFTSection from 'pages/Assets/Home/NFTSection';
+import { useLanguage } from 'i18n/hooks';
+import { RNTabView } from 'model/hooks/tabs';
 
 export enum DashBoardTabEnum {
   TOKENS = 'tokens',

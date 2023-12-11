@@ -1,10 +1,10 @@
-import { useCurrentWallet } from '@portkey/rn-sdk/src/packages/hooks/hooks-ca/wallet';
-import { NetworkList } from '@portkey/rn-sdk/src/packages/constants/constants-ca/network';
-import { useCurrentNetworkInfo, useCurrentApiUrl, useVerifierList, useIsTestnet, useIsMainnet } from '@portkey/rn-sdk/src/packages/hooks/hooks-ca/network';
+import { useCurrentWallet } from 'packages/hooks/hooks-ca/wallet';
+import { NetworkList } from 'packages/constants/constants-ca/network';
+import { useCurrentNetworkInfo, useCurrentApiUrl, useVerifierList, useIsTestnet, useIsMainnet } from 'packages/hooks/hooks-ca/network';
 import { renderHook } from '@testing-library/react';
-import { renderHookWithProvider } from '@portkey/rn-sdk/src/test/utils/render';
-import { setupStore } from '@portkey/rn-sdk/src/test/utils/setup';
-import { currentWallet } from '@portkey/rn-sdk/src/test/data/chainInfo';
+import { renderHookWithProvider } from 'test/utils/render';
+import { setupStore } from 'test/utils/setup';
+import { currentWallet } from 'test/data/chainInfo';
 
 jest.mock('./wallet');
 

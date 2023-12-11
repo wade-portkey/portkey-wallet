@@ -1,26 +1,26 @@
-import { DIGIT_CODE } from '@portkey/rn-sdk/src/packages/constants/misc';
-import GStyles from '@portkey/rn-sdk/src/assets/theme/GStyles';
-import { TextM } from '@portkey/rn-sdk/src/components/CommonText';
-import VerifierCountdown, { VerifierCountdownInterface } from '@portkey/rn-sdk/src/components/VerifierCountdown';
-import PageContainer from '@portkey/rn-sdk/src/components/PageContainer';
-import DigitInput, { DigitInputInterface } from '@portkey/rn-sdk/src/components/DigitInput';
+import { DIGIT_CODE } from 'packages/constants/misc';
+import GStyles from 'assets/theme/GStyles';
+import { TextM } from 'components/CommonText';
+import VerifierCountdown, { VerifierCountdownInterface } from 'components/VerifierCountdown';
+import PageContainer from 'components/PageContainer';
+import DigitInput, { DigitInputInterface } from 'components/DigitInput';
 import React, { useMemo, useRef } from 'react';
 import { StyleSheet, Text } from 'react-native';
-import { OperationTypeEnum, VerificationType } from '@portkey/rn-sdk/src/packages/types/verifier';
-import { FontStyles } from '@portkey/rn-sdk/src/assets/theme/styles';
-import { LoginType } from '@portkey/rn-sdk/src/packages/types/types-ca/wallet';
-import { AccountOriginalType } from '@portkey/rn-sdk/src/model/verify/core';
-import usePhoneOrEmailGuardian, { GuardianConfig, INIT_TIME_OUT } from '@portkey/rn-sdk/src/model/verify/guardian';
-import { NetworkController } from '@portkey/rn-sdk/src/network/controller';
-import { verifyHumanMachine } from '@portkey/rn-sdk/src/components/VerifyHumanMachine';
-import Loading from '@portkey/rn-sdk/src/components/Loading';
-import useBaseContainer from '@portkey/rn-sdk/src/model/container/UseBaseContainer';
-import { PortkeyEntries } from '@portkey/rn-sdk/src/config/entries';
-import { CheckVerifyCodeResultDTO } from '@portkey/rn-sdk/src/network/dto/guardian';
-import GuardianItem from '@portkey/rn-sdk/src/pages/Guardian/components/GuardianItem';
+import { OperationTypeEnum, VerificationType } from 'packages/types/verifier';
+import { FontStyles } from 'assets/theme/styles';
+import { LoginType } from 'packages/types/types-ca/wallet';
+import { AccountOriginalType } from 'model/verify/core';
+import usePhoneOrEmailGuardian, { GuardianConfig, INIT_TIME_OUT } from 'model/verify/guardian';
+import { NetworkController } from 'network/controller';
+import { verifyHumanMachine } from 'components/VerifyHumanMachine';
+import Loading from 'components/Loading';
+import useBaseContainer from 'model/container/UseBaseContainer';
+import { PortkeyEntries } from 'config/entries';
+import { CheckVerifyCodeResultDTO } from 'network/dto/guardian';
+import GuardianItem from 'pages/Guardian/components/GuardianItem';
 import { UserGuardianItem } from 'packages/types/store-ca/guardians/type';
-import CommonToast from '@portkey/rn-sdk/src/components/CommonToast';
-import useEffectOnce from '@portkey/rn-sdk/src/hooks/useEffectOnce';
+import CommonToast from 'components/CommonToast';
+import useEffectOnce from 'hooks/useEffectOnce';
 
 function TipText({ guardianAccount, isRegister }: { guardianAccount?: string; isRegister?: boolean }) {
   const [first, last] = useMemo(() => {

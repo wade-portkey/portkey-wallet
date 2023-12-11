@@ -1,15 +1,15 @@
 import RelationIM, { Im, config as relationConfig } from '@relationlabs/im';
-import * as utils from '@portkey/rn-sdk/src/packages/im/utils';
-import { AElfWallet } from '@portkey/rn-sdk/src/packages/types/aelf';
-import { IMStatusEnum, MessageCount, SocketMessage } from '@portkey/rn-sdk/src/packages/im/types';
-import { sleep } from '@portkey/rn-sdk/src/packages/utils';
-import { IIMService } from '@portkey/rn-sdk/src/packages/im/types/service';
-import { IMConfig } from '@portkey/rn-sdk/src/packages/im/config';
+import * as utils from 'packages/im/utils';
+import { AElfWallet } from 'packages/types/aelf';
+import { IMStatusEnum, MessageCount, SocketMessage } from 'packages/im/types';
+import { sleep } from 'packages/utils';
+import { IIMService } from 'packages/im/types/service';
+import { IMConfig } from 'packages/im/config';
 import { FetchRequest } from '@portkey/request';
 import { IBaseRequest } from '@portkey/types';
-import { IMService } from '@portkey/rn-sdk/src/packages/im/service';
-import { IM_TOKEN_ERROR_ARRAY } from '@portkey/rn-sdk/src/packages/im/constant';
-import { request } from '@portkey/rn-sdk/src/packages/api/api-did';
+import { IMService } from 'packages/im/service';
+import { IM_TOKEN_ERROR_ARRAY } from 'packages/im/constant';
+import { request } from 'packages/api/api-did';
 
 export class IM {
   private _imInstance?: RelationIM;
@@ -384,4 +384,4 @@ const im = new IM();
 
 export default im;
 export { utils };
-export * from '@portkey/rn-sdk/src/packages/im/types';
+export * from 'packages/im/types';

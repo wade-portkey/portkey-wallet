@@ -1,5 +1,5 @@
-import { ChainId } from '@portkey/rn-sdk/src/packages/types';
-import { GlobalStorage } from '@portkey/rn-sdk/src/service/storage';
+import { ChainId } from 'packages/types';
+import { GlobalStorage } from 'service/storage';
 
 export enum EndPoints {
   MAIN_NET = 'https://did-portkey.portkey.finance',

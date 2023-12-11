@@ -1,19 +1,19 @@
 import React, { useCallback, useMemo } from 'react';
-import PageContainer from '@portkey/rn-sdk/src/components/PageContainer';
-import useBiometricsReady from '@portkey/rn-sdk/src/hooks/useBiometrics';
+import PageContainer from 'components/PageContainer';
+import useBiometricsReady from 'hooks/useBiometrics';
 import { StyleSheet } from 'react-native';
-import { defaultColors } from '@portkey/rn-sdk/src/assets/theme';
-import { useLanguage } from '@portkey/rn-sdk/src/i18n/hooks';
-import MenuItem from '@portkey/rn-sdk/src/pages/My/components/MenuItem';
-import { pTd } from '@portkey/rn-sdk/src/utils/unit';
-import BaseContainerContext from '@portkey/rn-sdk/src/model/container/BaseContainerContext';
-import { PortkeyEntries } from '@portkey/rn-sdk/src/config/entries';
-import useBaseContainer from '@portkey/rn-sdk/src/model/container/UseBaseContainer';
-import { CheckPinProps } from '@portkey/rn-sdk/src/pages/Pin/CheckPin';
-import useEffectOnce from '@portkey/rn-sdk/src/hooks/useEffectOnce';
-import { isWalletUnlocked } from '@portkey/rn-sdk/src/model/verify/core';
-import { PortkeyModulesEntity } from '@portkey/rn-sdk/src/service/native-modules';
-import CommonToast from '@portkey/rn-sdk/src/components/CommonToast';
+import { defaultColors } from 'assets/theme';
+import { useLanguage } from 'i18n/hooks';
+import MenuItem from 'pages/My/components/MenuItem';
+import { pTd } from 'utils/unit';
+import BaseContainerContext from 'model/container/BaseContainerContext';
+import { PortkeyEntries } from 'config/entries';
+import useBaseContainer from 'model/container/UseBaseContainer';
+import { CheckPinProps } from 'pages/Pin/CheckPin';
+import useEffectOnce from 'hooks/useEffectOnce';
+import { isWalletUnlocked } from 'model/verify/core';
+import { PortkeyModulesEntity } from 'service/native-modules';
+import CommonToast from 'components/CommonToast';
 export default function AccountSettings() {
   const biometricsReady = useBiometricsReady();
   const { navigateTo: navigationTo, onFinish } = useBaseContainer({

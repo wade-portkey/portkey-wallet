@@ -1,6 +1,6 @@
 import type { ec } from 'elliptic';
-import { SessionExpiredPlan, SessionInfo } from '@portkey/rn-sdk/src/packages/types/session';
-import { Timestamp } from '@portkey/rn-sdk/src/packages/types';
+import { SessionExpiredPlan, SessionInfo } from 'packages/types/session';
+import { Timestamp } from 'packages/types';
 import AElf from 'aelf-sdk';
 import dayjs from 'dayjs';
 

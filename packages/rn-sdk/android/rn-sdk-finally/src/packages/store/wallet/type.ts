@@ -1,10 +1,6 @@
-import { ChainType } from '@portkey/rn-sdk/src/packages/types';
-import type { AccountType, WalletInfoType } from '@portkey/rn-sdk/src/packages/types/wallet';
-import {
-  AccountNameErrorMessage,
-  PasswordErrorMessage,
-  WalletNameErrorMessage,
-} from '@portkey/rn-sdk/src/packages/utils/wallet/types';
+import { ChainType } from 'packages/types';
+import type { AccountType, WalletInfoType } from 'packages/types/wallet';
+import { AccountNameErrorMessage, PasswordErrorMessage, WalletNameErrorMessage } from 'packages/utils/wallet/types';
 
 export type WalletType = ChainType;
 

@@ -1,5 +1,5 @@
-import GuardianApproval from '@portkey/rn-sdk/src/pages/Guardian/GuardianApproval';
-import VerifierDetails from '@portkey/rn-sdk/src/pages/Guardian/VerifierDetails';
+import GuardianApproval from 'pages/Guardian/GuardianApproval';
+import VerifierDetails from 'pages/Guardian/VerifierDetails';
 
 const stackNav = [
   { name: 'GuardianApproval', component: GuardianApproval },

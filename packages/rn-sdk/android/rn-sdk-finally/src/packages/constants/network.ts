@@ -1,5 +1,5 @@
-import { ChainType } from '@portkey/rn-sdk/src/packages/types';
-import { ChainItemType } from '@portkey/rn-sdk/src/packages/types/chain';
+import { ChainType } from 'packages/types';
+import { ChainItemType } from 'packages/types/chain';
 
 export const DefaultChain: ChainItemType = {
   chainId: 'AELF',

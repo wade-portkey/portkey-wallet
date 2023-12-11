@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { the2ThFailedActivityItemType } from '@portkey/rn-sdk/src/packages/types/types-ca/activity';
-import { getActivityListAsync } from '@portkey/rn-sdk/src/packages/store/store-ca/activity/action';
-import { ActivityStateType } from '@portkey/rn-sdk/src/packages/store/store-ca/activity/type';
-import { getCurrentActivityMapKey } from '@portkey/rn-sdk/src/packages/utils/activity';
+import { the2ThFailedActivityItemType } from 'packages/types/types-ca/activity';
+import { getActivityListAsync } from 'packages/store/store-ca/activity/action';
+import { ActivityStateType } from 'packages/store/store-ca/activity/type';
+import { getCurrentActivityMapKey } from 'packages/utils/activity';
 
 const initialState: ActivityStateType = {
   activityMap: {},

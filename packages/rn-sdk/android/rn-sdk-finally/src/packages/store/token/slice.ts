@@ -1,9 +1,9 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
-import { ChainItemType } from '@portkey/rn-sdk/src/packages/types/chain';
-import { TokenItemType, TokenState } from '@portkey/rn-sdk/src/packages/types/types-eoa/token';
-import { AccountType } from '@portkey/rn-sdk/src/packages/types/wallet';
-import { fetchTokenList } from '@portkey/rn-sdk/src/packages/store/token/api';
-import { isSameTypeToken } from '@portkey/rn-sdk/src/packages/utils/token';
+import { ChainItemType } from 'packages/types/chain';
+import { TokenItemType, TokenState } from 'packages/types/types-eoa/token';
+import { AccountType } from 'packages/types/wallet';
+import { fetchTokenList } from 'packages/store/token/api';
+import { isSameTypeToken } from 'packages/utils/token';
 
 const initialState: TokenState = {
   addedTokenData: {},

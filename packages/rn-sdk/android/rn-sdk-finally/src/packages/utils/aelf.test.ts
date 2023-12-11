@@ -13,7 +13,7 @@ import {
   transformArrayToMap,
   encodedTx,
   isCrossChain,
-} from '@portkey/rn-sdk/src/packages/utils/aelf';
+} from 'packages/utils/aelf';
 import AElf from 'aelf-sdk';
 
 jest.mock('aelf-sdk');

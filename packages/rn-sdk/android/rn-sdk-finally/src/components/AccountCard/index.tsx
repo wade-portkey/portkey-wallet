@@ -1,13 +1,13 @@
 import { ScreenWidth } from '@rneui/base';
-import { defaultColors } from '@portkey/rn-sdk/src/assets/theme';
-import { TextM } from '@portkey/rn-sdk/src/components/CommonText';
+import { defaultColors } from 'assets/theme';
+import { TextM } from 'components/CommonText';
 import React from 'react';
 import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
-import { pTd } from '@portkey/rn-sdk/src/utils/unit';
-import { TokenItemShowType } from '@portkey/rn-sdk/src/packages/types/types-ca/token';
-import { shrinkSendQrData, QRCodeDataObjType } from '@portkey/rn-sdk/src/packages/utils/qrCode';
-import CommonQRCodeStyled from '@portkey/rn-sdk/src/components/CommonQRCodeStyled';
-import { useCurrentNetworkInfo, useDefaultChainType } from '@portkey/rn-sdk/src/hooks/network';
+import { pTd } from 'utils/unit';
+import { TokenItemShowType } from 'packages/types/types-ca/token';
+import { shrinkSendQrData, QRCodeDataObjType } from 'packages/utils/qrCode';
+import CommonQRCodeStyled from 'components/CommonQRCodeStyled';
+import { useCurrentNetworkInfo, useDefaultChainType } from 'hooks/network';
 
 const cardWidth = ScreenWidth * 0.63;
 

@@ -1,4 +1,4 @@
-import { randomId } from '@portkey/rn-sdk/src/packages/utils';
+import { randomId } from 'packages/utils';
 
 const timeWorker: { [key: string]: NodeJS.Timeout } = {};
 

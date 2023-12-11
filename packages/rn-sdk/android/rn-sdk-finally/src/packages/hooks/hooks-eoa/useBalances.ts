@@ -1,10 +1,10 @@
 import { useCallback, useState, useMemo } from 'react';
 import BigNumber from 'bignumber.js';
-import useInterval from '@portkey/rn-sdk/src/packages/hooks/useInterval';
-import { useAppEOASelector } from '@portkey/rn-sdk/src/packages/hooks/hooks-eoa';
+import useInterval from 'packages/hooks/useInterval';
+import { useAppEOASelector } from 'packages/hooks/hooks-eoa';
 import AElf from 'aelf-sdk';
-import { TokenItemType } from '@portkey/rn-sdk/src/packages/types/types-eoa/token';
-import { getELFChainBalance } from '@portkey/rn-sdk/src/packages/utils/balance';
+import { TokenItemType } from 'packages/types/types-eoa/token';
+import { getELFChainBalance } from 'packages/utils/balance';
 
 const bigNAN = new BigNumber('');
 

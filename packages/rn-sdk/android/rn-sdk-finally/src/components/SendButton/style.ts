@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
-import { pTd } from '@portkey/rn-sdk/src/utils/unit';
-import { defaultColors } from '@portkey/rn-sdk/src/assets/theme';
+import { pTd } from 'utils/unit';
+import { defaultColors } from 'assets/theme';
 
 const { font2, font4 } = defaultColors;
 

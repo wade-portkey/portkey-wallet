@@ -1,0 +1,1 @@
+Object.defineProperty(exports,"__esModule",{value:true});exports.pTd=void 0;var _reactNative=require("react-native");var deviceWidthDp=_reactNative.Dimensions.get('window').width;var uiWidthPx=375;var pTd=exports.pTd=function pTd(uiElePx){return Math.round(uiElePx*deviceWidthDp/uiWidthPx);};

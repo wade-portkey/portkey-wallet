@@ -1,0 +1,1 @@
+Object.defineProperty(exports,"__esModule",{value:true});exports.DefaultBIP44Path=void 0;var DefaultBIP44Path=exports.DefaultBIP44Path="m/44'/1616'/0'/0/0";

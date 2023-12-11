@@ -2,12 +2,12 @@ import React, { ReactNode } from 'react';
 import Toast from 'rn-teaset/components/Toast/Toast';
 import Overlay from 'rn-teaset/components/Overlay/Overlay';
 import { StyleSheet, View } from 'react-native';
-import { defaultColors } from '@portkey/rn-sdk/src/assets/theme';
-import Svg from '@portkey/rn-sdk/src/components/Svg';
-import { TextL } from '@portkey/rn-sdk/src/components/CommonText';
-import { pTd } from '@portkey/rn-sdk/src/utils/unit';
-import { statusBarHeight } from '@portkey/rn-sdk/src/packages/utils/mobile/device';
-import { handleErrorMessage } from '@portkey/rn-sdk/src/packages/utils';
+import { defaultColors } from 'assets/theme';
+import Svg from 'components/Svg';
+import { TextL } from 'components/CommonText';
+import { pTd } from 'utils/unit';
+import { statusBarHeight } from 'packages/utils/mobile/device';
+import { handleErrorMessage } from 'packages/utils';
 import Lottie from 'lottie-react-native';
 
 type TostProps = [

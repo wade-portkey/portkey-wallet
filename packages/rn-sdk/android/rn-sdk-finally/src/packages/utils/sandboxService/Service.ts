@@ -1,5 +1,5 @@
-import { DispatchParam, SandboxDispatchData, SandboxEventTypes } from '@portkey/rn-sdk/src/packages/utils/sandboxService/types';
-import { randomId } from '@portkey/rn-sdk/src/packages/utils';
+import { DispatchParam, SandboxDispatchData, SandboxEventTypes } from 'packages/utils/sandboxService/types';
+import { randomId } from 'packages/utils';
 
 export class SandboxEventService {
   static dispatch(event: SandboxEventTypes, data?: any, ele = 'sandbox') {

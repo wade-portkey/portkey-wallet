@@ -1,6 +1,6 @@
-import type { ChainType, NetworkType, UpdateType } from '@portkey/rn-sdk/src/packages/types';
-import { BaseToken as EOABaseToken } from '@portkey/rn-sdk/src/packages/types/types-eoa/token';
-import { BaseToken as CABaseToken } from '@portkey/rn-sdk/src/packages/types/types-ca/token';
+import type { ChainType, NetworkType, UpdateType } from 'packages/types';
+import { BaseToken as EOABaseToken } from 'packages/types/types-eoa/token';
+import { BaseToken as CABaseToken } from 'packages/types/types-ca/token';
 
 export type BasicContracts = {
   tokenContract: string;

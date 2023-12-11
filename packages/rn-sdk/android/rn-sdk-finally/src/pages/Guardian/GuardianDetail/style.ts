@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
-import { defaultColors } from '@portkey/rn-sdk/src/assets/theme';
-import { pTd } from '@portkey/rn-sdk/src/utils/unit';
-import GStyles from '@portkey/rn-sdk/src/assets/theme/GStyles';
+import { defaultColors } from 'assets/theme';
+import { pTd } from 'utils/unit';
+import GStyles from 'assets/theme/GStyles';
 
 const { font3, bg1, bg4, border6 } = defaultColors;
 

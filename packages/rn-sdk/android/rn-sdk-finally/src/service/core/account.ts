@@ -1,18 +1,18 @@
-import { CallCaMethodProps } from '@portkey/rn-sdk/src/service/JsModules/SubModules/WalletModule';
-import { IPortkeyAccountService } from '@portkey/rn-sdk/src/service/core/base';
+import { CallCaMethodProps } from 'service/JsModules/SubModules/WalletModule';
+import { IPortkeyAccountService } from 'service/core/base';
 import {
   isWalletExists,
   isWalletUnlocked,
   lockWallet as lockInternalWallet,
   exitWallet as exitInternalWallet,
-} from '@portkey/rn-sdk/src/model/verify/core';
+} from 'model/verify/core';
 import { injectable } from 'inversify';
-import { callRemoveManagerMethod, getContractInstance } from '@portkey/rn-sdk/src/model/contract/handler';
-import { UnlockedWallet, getUnlockedWallet } from '@portkey/rn-sdk/src/model/wallet';
-import { SendResult, ViewResult } from '@portkey/rn-sdk/src/packages/contracts/types';
-import { BaseMethodResult } from '@portkey/rn-sdk/src/service/JsModules/types';
-import { AccountError, errorMap } from '@portkey/rn-sdk/src/service/error';
-import { WalletState } from '@portkey/rn-sdk/src/service/core/types';
+import { callRemoveManagerMethod, getContractInstance } from 'model/contract/handler';
+import { UnlockedWallet, getUnlockedWallet } from 'model/wallet';
+import { SendResult, ViewResult } from 'packages/contracts/types';
+import { BaseMethodResult } from 'service/JsModules/types';
+import { AccountError, errorMap } from 'service/error';
+import { WalletState } from 'service/core/types';
 
 @injectable()
 export class PortkeyAccountService implements IPortkeyAccountService {

@@ -1,10 +1,10 @@
 import React, { forwardRef } from 'react';
 import { Input, InputProps } from '@rneui/themed';
-import Svg from '@portkey/rn-sdk/src/components/Svg';
-import { generalStyles, searchStyle, bgWhiteStyles } from '@portkey/rn-sdk/src/components/CommonInput/style';
-import { pTd } from '@portkey/rn-sdk/src/utils/unit';
-import { useLanguage } from '@portkey/rn-sdk/src/i18n/hooks';
-import { defaultColors } from '@portkey/rn-sdk/src/assets/theme';
+import Svg from 'components/Svg';
+import { generalStyles, searchStyle, bgWhiteStyles } from 'components/CommonInput/style';
+import { pTd } from 'utils/unit';
+import { useLanguage } from 'i18n/hooks';
+import { defaultColors } from 'assets/theme';
 
 export type CommonInputProps = InputProps & { type?: 'search' | 'general'; theme?: 'white-bg' | 'gray-bg' };
 

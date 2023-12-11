@@ -1,7 +1,7 @@
-import { AssetsState } from '@portkey/rn-sdk/src/test/data/assetsState';
-import { renderHookWithProvider } from '@portkey/rn-sdk/src/test/utils/render';
-import { setupStore } from '@portkey/rn-sdk/src/test/utils/setup';
-import { useAssets } from '@portkey/rn-sdk/src/packages/hooks/hooks-ca/assets';
+import { AssetsState } from 'test/data/assetsState';
+import { renderHookWithProvider } from 'test/utils/render';
+import { setupStore } from 'test/utils/setup';
+import { useAssets } from 'packages/hooks/hooks-ca/assets';
 
 describe('useAssets', () => {
   test('get assets data successfully', () => {

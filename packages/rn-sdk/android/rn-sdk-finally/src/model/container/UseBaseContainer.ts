@@ -1,10 +1,10 @@
-import { PortkeyEntries } from '@portkey/rn-sdk/src/config/entries';
+import { PortkeyEntries } from 'config/entries';
 import { useCallback, useContext, useEffect, useMemo, useRef } from 'react';
 import { DeviceEventEmitter, EmitterSubscription } from 'react-native';
-import { EntryResult, PortkeyDeviceEventEmitter, RouterOptions, PortkeyModulesEntity } from '@portkey/rn-sdk/src/service/native-modules';
-import { AcceptableValueType } from '@portkey/rn-sdk/src/model/container/BaseContainer';
-import BaseContainerContext from '@portkey/rn-sdk/src/model/container/BaseContainerContext';
-import { LaunchMode, LaunchModeSet } from '@portkey/rn-sdk/src/global/init/entries';
+import { EntryResult, PortkeyDeviceEventEmitter, RouterOptions, PortkeyModulesEntity } from 'service/native-modules';
+import { AcceptableValueType } from 'model/container/BaseContainer';
+import BaseContainerContext from 'model/container/BaseContainerContext';
+import { LaunchMode, LaunchModeSet } from 'global/init/entries';
 
 const useBaseContainer = (props: BaseContainerHookedProps): BaseContainerHooks => {
   const onShowListener = useRef<EmitterSubscription | null>(null);

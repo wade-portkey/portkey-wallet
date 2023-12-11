@@ -1,10 +1,10 @@
-import { BGStyles, FontStyles } from '@portkey/rn-sdk/src/assets/theme/styles';
-import { TextM } from '@portkey/rn-sdk/src/components/CommonText';
-import Touchable from '@portkey/rn-sdk/src/components/Touchable';
+import { BGStyles, FontStyles } from 'assets/theme/styles';
+import { TextM } from 'components/CommonText';
+import Touchable from 'components/Touchable';
 import React from 'react';
 import { StyleSheet, TouchableOpacityProps } from 'react-native';
-import { TextStyleType, ViewStyleType } from '@portkey/rn-sdk/src/types/styles';
-import { pTd } from '@portkey/rn-sdk/src/utils/unit';
+import { TextStyleType, ViewStyleType } from 'types/styles';
+import { pTd } from 'utils/unit';
 
 export default function Button({
   onPress,

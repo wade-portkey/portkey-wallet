@@ -1,5 +1,5 @@
-import DeviceList from '@portkey/rn-sdk/src/pages/My/WalletSecurity/Device';
-import DeviceDetail from '@portkey/rn-sdk/src/pages/My/WalletSecurity/Device/DeviceDetail';
+import DeviceList from 'pages/My/WalletSecurity/Device';
+import DeviceDetail from 'pages/My/WalletSecurity/Device/DeviceDetail';
 
 const stackNav = [
   {

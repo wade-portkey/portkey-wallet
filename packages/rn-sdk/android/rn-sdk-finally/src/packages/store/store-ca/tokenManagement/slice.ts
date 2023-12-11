@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { TokenState } from '@portkey/rn-sdk/src/packages/types/types-ca/token';
-import { fetchAllTokenListAsync, getSymbolImagesAsync } from '@portkey/rn-sdk/src/packages/store/store-ca/tokenManagement/action';
-import { TokenItemShowType } from '@portkey/rn-sdk/src/packages/types/types-eoa/token';
+import { TokenState } from 'packages/types/types-ca/token';
+import { fetchAllTokenListAsync, getSymbolImagesAsync } from 'packages/store/store-ca/tokenManagement/action';
+import { TokenItemShowType } from 'packages/types/types-eoa/token';
 
 const initialState: TokenState = {
   tokenDataShowInMarket: [],

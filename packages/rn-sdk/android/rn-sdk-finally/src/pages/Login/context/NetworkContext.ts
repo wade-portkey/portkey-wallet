@@ -1,5 +1,5 @@
 import { createContext } from 'react';
-import { NetworkItem } from '@portkey/rn-sdk/src/packages/types/types-ca/network';
+import { NetworkItem } from 'packages/types/types-ca/network';
 
 export interface NetworkContextState {
   currentNetwork: NetworkItem | undefined;

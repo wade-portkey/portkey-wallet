@@ -1,4 +1,4 @@
-import { LoginKeyType } from '@portkey/rn-sdk/src/packages/types/types-ca/wallet';
+import { LoginKeyType } from 'packages/types/types-ca/wallet';
 export interface Verifier {
   id: string; // aelf.Hash
 }

@@ -3,13 +3,13 @@ import {
   useFreshTokenPrice,
   useAmountInUsdShow,
   useIsTokenHasPrice,
-} from '@portkey/rn-sdk/src/packages/hooks/hooks-ca/useTokensPrice';
+} from 'packages/hooks/hooks-ca/useTokensPrice';
 import * as assetSlice from 'packages/types/store-ca/assets/slice';
-import * as baseHooks from '@portkey/rn-sdk/src/packages/hooks';
-import { renderHookWithProvider } from '@portkey/rn-sdk/src/test/utils/render';
-import { setupStore } from '@portkey/rn-sdk/src/test/utils/setup';
-import { AssetsState } from '@portkey/rn-sdk/src/test/data/assetsState';
-import * as networkHooks from '@portkey/rn-sdk/src/packages/hooks/hooks-ca/network';
+import * as baseHooks from 'packages/hooks';
+import { renderHookWithProvider } from 'test/utils/render';
+import { setupStore } from 'test/utils/setup';
+import { AssetsState } from 'test/data/assetsState';
+import * as networkHooks from 'packages/hooks/hooks-ca/network';
 
 describe('useGetCurrentAccountTokenPrice', () => {
   beforeEach(() => {

@@ -1,13 +1,13 @@
-import { PortkeyConfig, setCurrChainId } from '@portkey/rn-sdk/src/global/constants';
-import useEffectOnce from '@portkey/rn-sdk/src/hooks/useEffectOnce';
-import { callGetHolderInfoMethod } from '@portkey/rn-sdk/src/model/contract/handler';
-import { getCaInfoByAccountIdentifierOrSessionId } from '@portkey/rn-sdk/src/model/global';
-import { getTempWalletConfig, isWalletUnlocked } from '@portkey/rn-sdk/src/model/verify/core';
-import { NetworkController } from '@portkey/rn-sdk/src/network/controller';
-import { CaInfo } from '@portkey/rn-sdk/src/network/dto/guardian';
-import { ManagerInfo } from '@portkey/rn-sdk/src/network/dto/wallet';
+import { PortkeyConfig, setCurrChainId } from 'global/constants';
+import useEffectOnce from 'hooks/useEffectOnce';
+import { callGetHolderInfoMethod } from 'model/contract/handler';
+import { getCaInfoByAccountIdentifierOrSessionId } from 'model/global';
+import { getTempWalletConfig, isWalletUnlocked } from 'model/verify/core';
+import { NetworkController } from 'network/controller';
+import { CaInfo } from 'network/dto/guardian';
+import { ManagerInfo } from 'network/dto/wallet';
 import { useState } from 'react';
-import { handleCachedValue } from '@portkey/rn-sdk/src/service/storage/cache';
+import { handleCachedValue } from 'service/storage/cache';
 
 export const getUnlockedWallet = async ({
   getMultiCaAddresses,

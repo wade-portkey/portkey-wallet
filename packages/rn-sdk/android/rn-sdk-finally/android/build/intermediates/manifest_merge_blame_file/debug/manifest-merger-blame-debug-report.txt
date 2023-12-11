@@ -17,7 +17,7 @@
 10-->/Users/fengfeiyang/aelf/portkey-wallet/packages/rn-sdk/react_native_app/node_modules/@portkey/rn-sdk/android/src/main/AndroidManifest.xml:8:22-73
 11
 12    <application>
-12-->/Users/fengfeiyang/aelf/portkey-wallet/packages/rn-sdk/react_native_app/node_modules/@portkey/rn-sdk/android/src/main/AndroidManifest.xml:10:5-22:19
+12-->/Users/fengfeiyang/aelf/portkey-wallet/packages/rn-sdk/react_native_app/node_modules/@portkey/rn-sdk/android/src/main/AndroidManifest.xml:10:5-26:19
 13        <activity
 13-->/Users/fengfeiyang/aelf/portkey-wallet/packages/rn-sdk/react_native_app/node_modules/@portkey/rn-sdk/android/src/main/AndroidManifest.xml:11:9-16:15
 14            android:name="io.aelf.portkey.components.activities.DefaultReactActivity"
@@ -35,6 +35,17 @@
 20        <service android:name="io.aelf.portkey.components.services.GeneralJSMethodService" />
 20-->/Users/fengfeiyang/aelf/portkey-wallet/packages/rn-sdk/react_native_app/node_modules/@portkey/rn-sdk/android/src/main/AndroidManifest.xml:20:9-78
 20-->/Users/fengfeiyang/aelf/portkey-wallet/packages/rn-sdk/react_native_app/node_modules/@portkey/rn-sdk/android/src/main/AndroidManifest.xml:20:18-76
-21    </application>
-22
-23</manifest>
+21
+22        <provider
+22-->/Users/fengfeiyang/aelf/portkey-wallet/packages/rn-sdk/react_native_app/node_modules/@portkey/rn-sdk/android/src/main/AndroidManifest.xml:21:9-25:36
+23            android:name="io.aelf.portkey.PortKeyInitiator"
+23-->/Users/fengfeiyang/aelf/portkey-wallet/packages/rn-sdk/react_native_app/node_modules/@portkey/rn-sdk/android/src/main/AndroidManifest.xml:22:13-45
+24            android:authorities="${applicationId}.MMKVInitializationProvider"
+24-->/Users/fengfeiyang/aelf/portkey-wallet/packages/rn-sdk/react_native_app/node_modules/@portkey/rn-sdk/android/src/main/AndroidManifest.xml:24:13-78
+25            android:exported="false"
+25-->/Users/fengfeiyang/aelf/portkey-wallet/packages/rn-sdk/react_native_app/node_modules/@portkey/rn-sdk/android/src/main/AndroidManifest.xml:23:13-37
+26            android:initOrder="1" />
+26-->/Users/fengfeiyang/aelf/portkey-wallet/packages/rn-sdk/react_native_app/node_modules/@portkey/rn-sdk/android/src/main/AndroidManifest.xml:25:13-34
+27    </application>
+28
+29</manifest>

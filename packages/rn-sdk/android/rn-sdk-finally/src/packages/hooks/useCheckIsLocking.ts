@@ -1,4 +1,4 @@
-import { useAppCommonSelector, useAppCommonDispatch } from '@portkey/rn-sdk/src/packages/hooks';
+import { useAppCommonSelector, useAppCommonDispatch } from 'packages/hooks';
 
 export const useCheckIsLocking = (): Boolean => {
   const dispatch = useAppCommonDispatch();

@@ -1,9 +1,9 @@
 import React, { memo } from 'react';
 import { StyleSheet, View, ViewStyle } from 'react-native';
-import { pTd } from '@portkey/rn-sdk/src/utils/unit';
-import { TextL } from '@portkey/rn-sdk/src/components/CommonText';
-import { defaultColors } from '@portkey/rn-sdk/src/assets/theme';
-import Svg, { IconName } from '@portkey/rn-sdk/src/components/Svg';
+import { pTd } from 'utils/unit';
+import { TextL } from 'components/CommonText';
+import { defaultColors } from 'assets/theme';
+import Svg, { IconName } from 'components/Svg';
 
 export type NoDataPropsType = {
   noPic?: boolean;

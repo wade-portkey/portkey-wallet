@@ -1,14 +1,14 @@
-import useInterval from '@portkey/rn-sdk/src/packages/hooks/useInterval';
-import { contractQueries } from '@portkey/rn-sdk/src/packages/graphql';
-import { ChainId, NetworkType } from '@portkey/rn-sdk/src/packages/types';
+import useInterval from 'packages/hooks/useInterval';
+import { contractQueries } from 'packages/graphql';
+import { ChainId, NetworkType } from 'packages/types';
 import { useState, useMemo, useEffect } from 'react';
-import { CAInfoType, ManagerInfo } from '@portkey/rn-sdk/src/packages/types/types-ca/wallet';
-import { VerificationType } from '@portkey/rn-sdk/src/packages/types/verifier';
-import { useCurrentWallet, useOriginChainId } from '@portkey/rn-sdk/src/packages/hooks/hooks-ca/wallet';
-import useLockCallback from '@portkey/rn-sdk/src/packages/hooks/useLockCallback';
-import { useGetChainInfo } from '@portkey/rn-sdk/src/packages/hooks/hooks-ca/chainList';
-import { DefaultChainId } from '@portkey/rn-sdk/src/packages/constants/constants-ca/network';
-import { useLatestRef } from '@portkey/rn-sdk/src/packages/hooks';
+import { CAInfoType, ManagerInfo } from 'packages/types/types-ca/wallet';
+import { VerificationType } from 'packages/types/verifier';
+import { useCurrentWallet, useOriginChainId } from 'packages/hooks/hooks-ca/wallet';
+import useLockCallback from 'packages/hooks/useLockCallback';
+import { useGetChainInfo } from 'packages/hooks/hooks-ca/chainList';
+import { DefaultChainId } from 'packages/constants/constants-ca/network';
+import { useLatestRef } from 'packages/hooks';
 export type CAWalletInfo = {
   caInfo: CAInfoType;
   originChainId: ChainId;

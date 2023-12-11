@@ -1,4 +1,4 @@
-import response from '@portkey/rn-sdk/src/packages/store/token/data.json';
+import response from 'packages/store/token/data.json';
 
 console.log(response);
 

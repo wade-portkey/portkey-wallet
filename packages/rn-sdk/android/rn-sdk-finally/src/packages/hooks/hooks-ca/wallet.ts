@@ -1,20 +1,20 @@
-import { useAppCASelector } from '@portkey/rn-sdk/src/packages/hooks/hooks-ca';
+import { useAppCASelector } from 'packages/hooks/hooks-ca';
 import { useMemo, useCallback, useState, useEffect } from 'react';
-import { WalletInfoType } from '@portkey/rn-sdk/src/packages/types/wallet';
-import { CAInfoType } from '@portkey/rn-sdk/src/packages/types/types-ca/wallet';
+import { WalletInfoType } from 'packages/types/wallet';
+import { CAInfoType } from 'packages/types/types-ca/wallet';
 import { WalletState } from 'packages/types/store-ca/wallet/type';
-import { useCurrentNetworkInfo } from '@portkey/rn-sdk/src/packages/hooks/hooks-ca/network';
-import { useCurrentChain, useCurrentChainList } from '@portkey/rn-sdk/src/packages/hooks/hooks-ca/chainList';
-import { request } from '@portkey/rn-sdk/src/packages/api/api-did';
-import { useAppCommonDispatch } from '@portkey/rn-sdk/src/packages/hooks';
+import { useCurrentNetworkInfo } from 'packages/hooks/hooks-ca/network';
+import { useCurrentChain, useCurrentChainList } from 'packages/hooks/hooks-ca/chainList';
+import { request } from 'packages/api/api-did';
+import { useAppCommonDispatch } from 'packages/hooks';
 import { setWalletNameAction } from 'packages/types/store-ca/wallet/actions';
-import { DeviceInfoType } from '@portkey/rn-sdk/src/packages/types/types-ca/device';
-import { extraDataListDecode } from '@portkey/rn-sdk/src/packages/utils/device';
-import { ChainId } from '@portkey/rn-sdk/src/packages/types';
-import { DefaultChainId } from '@portkey/rn-sdk/src/packages/constants/constants-ca/network';
+import { DeviceInfoType } from 'packages/types/types-ca/device';
+import { extraDataListDecode } from 'packages/utils/device';
+import { ChainId } from 'packages/types';
+import { DefaultChainId } from 'packages/constants/constants-ca/network';
 
-import { getCAHolderManagerInfo } from '@portkey/rn-sdk/src/packages/graphql/contract/queries';
-import { ManagerInfo, Maybe } from '@portkey/rn-sdk/src/packages/graphql/contract/__generated__/types';
+import { getCAHolderManagerInfo } from 'packages/graphql/contract/queries';
+import { ManagerInfo, Maybe } from 'packages/graphql/contract/__generated__/types';
 
 export interface CurrentWalletType extends WalletInfoType, CAInfoType {
   caHash?: string;

@@ -1,15 +1,15 @@
 import React, { useCallback } from 'react';
 import { Keyboard, StyleSheet, View } from 'react-native';
-import { TextL } from '@portkey/rn-sdk/src/components/CommonText';
-import OverlayModal from '@portkey/rn-sdk/src/components/OverlayModal';
-import Touchable from '@portkey/rn-sdk/src/components/Touchable';
-import Svg from '@portkey/rn-sdk/src/components/Svg';
-import { pTd } from '@portkey/rn-sdk/src/utils/unit';
-import { NetworkItem } from '@portkey/rn-sdk/src/packages/types/types-ca/network';
-import { BorderStyles } from '@portkey/rn-sdk/src/assets/theme/styles';
-import { NetworkList } from '@portkey/rn-sdk/src/packages/constants/constants-ca/network-mainnet';
-import { ModalBody } from '@portkey/rn-sdk/src/components/ModalBody';
-import ActionSheet from '@portkey/rn-sdk/src/components/ActionSheet';
+import { TextL } from 'components/CommonText';
+import OverlayModal from 'components/OverlayModal';
+import Touchable from 'components/Touchable';
+import Svg from 'components/Svg';
+import { pTd } from 'utils/unit';
+import { NetworkItem } from 'packages/types/types-ca/network';
+import { BorderStyles } from 'assets/theme/styles';
+import { NetworkList } from 'packages/constants/constants-ca/network-mainnet';
+import { ModalBody } from 'components/ModalBody';
+import ActionSheet from 'components/ActionSheet';
 
 function Network({
   network,

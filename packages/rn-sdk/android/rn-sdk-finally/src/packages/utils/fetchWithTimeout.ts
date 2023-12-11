@@ -1,5 +1,5 @@
 import memoize from 'lodash/memoize';
-import { SECOND } from '@portkey/rn-sdk/src/packages/constants';
+import { SECOND } from 'packages/constants';
 // How to use
 // const fetchWithTimeout = getFetchWithTimeout();
 // const response = await (

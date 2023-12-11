@@ -1,4 +1,4 @@
-import * as contractQueries from '@portkey/rn-sdk/src/packages/graphql/contract/queries';
-import * as cmsQueries from '@portkey/rn-sdk/src/packages/graphql/cms/queries';
+import * as contractQueries from 'packages/graphql/contract/queries';
+import * as cmsQueries from 'packages/graphql/cms/queries';
 
 export { contractQueries, cmsQueries };

@@ -1,4 +1,4 @@
-import { SessionExpiredPlan } from '@portkey/rn-sdk/src/packages/types/session';
+import { SessionExpiredPlan } from 'packages/types/session';
 import { MethodsBase } from '@portkey/provider-types';
 
 export const SessionKeyMap = {

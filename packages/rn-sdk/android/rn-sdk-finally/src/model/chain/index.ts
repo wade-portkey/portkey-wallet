@@ -1,7 +1,7 @@
-import { PortkeyConfig } from '@portkey/rn-sdk/src/global/constants';
-import { NetworkController } from '@portkey/rn-sdk/src/network/controller';
-import { AElfChainStatusItemDTO } from '@portkey/rn-sdk/src/network/dto/wallet';
-import { handleCachedValue } from '@portkey/rn-sdk/src/service/storage/cache';
+import { PortkeyConfig } from 'global/constants';
+import { NetworkController } from 'network/controller';
+import { AElfChainStatusItemDTO } from 'network/dto/wallet';
+import { handleCachedValue } from 'service/storage/cache';
 
 const NETWORK_CONFIG_KEY = 'network_config_key';
 export interface Token {

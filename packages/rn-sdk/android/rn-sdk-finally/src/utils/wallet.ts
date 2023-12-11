@@ -1,11 +1,11 @@
-import { CAInfo, ManagerInfo } from '@portkey/rn-sdk/src/packages/types/types-ca/wallet';
-import { VerificationType } from '@portkey/rn-sdk/src/packages/types/verifier';
-import { clearTimeoutInterval, setTimeoutInterval } from '@portkey/rn-sdk/src/packages/utils/interval';
+import { CAInfo, ManagerInfo } from 'packages/types/types-ca/wallet';
+import { VerificationType } from 'packages/types/verifier';
+import { clearTimeoutInterval, setTimeoutInterval } from 'packages/utils/interval';
 
-import { ContractBasic } from '@portkey/rn-sdk/src/packages/contracts/utils/ContractBasic';
-import { request } from '@portkey/rn-sdk/src/packages/api/api-did';
-import socket from '@portkey/rn-sdk/src/packages/socket/socket-did';
-import { LoginQRData } from '@portkey/rn-sdk/src/packages/types/types-ca/qrcode';
+import { ContractBasic } from 'packages/contracts/utils/ContractBasic';
+import { request } from 'packages/api/api-did';
+import socket from 'packages/socket/socket-did';
+import { LoginQRData } from 'packages/types/types-ca/qrcode';
 
 export type TimerResult = {
   remove: () => void;

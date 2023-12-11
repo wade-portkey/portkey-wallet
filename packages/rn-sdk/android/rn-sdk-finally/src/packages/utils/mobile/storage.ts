@@ -1,4 +1,4 @@
-import { IStorage } from '@portkey/rn-sdk/src/packages/types/storage';
+import { IStorage } from 'packages/types/storage';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export class BaseAsyncStorage implements IStorage {

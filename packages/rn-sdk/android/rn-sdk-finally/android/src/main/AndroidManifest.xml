@@ -18,7 +18,11 @@
         <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
 
         <service android:name=".components.services.GeneralJSMethodService"/>
-
+        <provider
+            android:name=".PortKeyInitiator"
+            android:exported="false"
+            android:authorities="${applicationId}.MMKVInitializationProvider"
+            android:initOrder="1"/>
     </application>
 
 </manifest>

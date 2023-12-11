@@ -1,8 +1,8 @@
 import { IDappStoreState } from 'packages/types/store-ca/dapp/type';
 import { WalletState } from 'packages/types/store-ca/wallet/type';
-import { CAInfo } from '@portkey/rn-sdk/src/packages/types/types-ca/wallet';
+import { CAInfo } from 'packages/types/types-ca/wallet';
 import { Accounts, ChainId, ChainIds } from '@portkey/provider-types';
-import { addressFormat } from '@portkey/rn-sdk/src/packages/utils';
+import { addressFormat } from 'packages/utils';
 export function handleCurrentCAInfo(wallet: WalletState) {
   const { walletInfo, currentNetwork } = wallet;
   return walletInfo?.caInfo[currentNetwork];

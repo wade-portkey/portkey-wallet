@@ -1,11 +1,11 @@
 import React, { forwardRef, useCallback, useImperativeHandle, useRef } from 'react';
 import { View, StyleSheet, TouchableOpacity, StyleProp, ViewStyle } from 'react-native';
 
-import GStyles from '@portkey/rn-sdk/src/assets/theme/GStyles';
-import { TextXXXL } from '@portkey/rn-sdk/src/components/CommonText';
-import { pTd } from '@portkey/rn-sdk/src/utils/unit';
-import Svg from '@portkey/rn-sdk/src/components/Svg';
-import { PIN_SIZE } from '@portkey/rn-sdk/src/packages/constants/misc';
+import GStyles from 'assets/theme/GStyles';
+import { TextXXXL } from 'components/CommonText';
+import { pTd } from 'utils/unit';
+import Svg from 'components/Svg';
+import { PIN_SIZE } from 'packages/constants/misc';
 
 export interface KeypadPropsType {
   onChange?: (value: string) => void;

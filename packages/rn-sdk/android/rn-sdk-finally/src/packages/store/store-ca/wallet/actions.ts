@@ -1,13 +1,13 @@
-import { getCaHolder } from '@portkey/rn-sdk/src/packages/api/api-did/es/utils';
-import { NetworkList } from '@portkey/rn-sdk/src/packages/constants/constants-ca/network';
-import { ChainId, NetworkType } from '@portkey/rn-sdk/src/packages/types';
-import { CAInfo, CAInfoType, ManagerInfo } from '@portkey/rn-sdk/src/packages/types/types-ca/wallet';
-import { WalletInfoType } from '@portkey/rn-sdk/src/packages/types/wallet';
-import { checkPinInput, formatWalletInfo } from '@portkey/rn-sdk/src/packages/utils/wallet';
+import { getCaHolder } from 'packages/api/api-did/es/utils';
+import { NetworkList } from 'packages/constants/constants-ca/network';
+import { ChainId, NetworkType } from 'packages/types';
+import { CAInfo, CAInfoType, ManagerInfo } from 'packages/types/types-ca/wallet';
+import { WalletInfoType } from 'packages/types/wallet';
+import { checkPinInput, formatWalletInfo } from 'packages/utils/wallet';
 import { createAction, createAsyncThunk } from '@reduxjs/toolkit';
 import AElf from 'aelf-sdk';
-import { getChainList } from '@portkey/rn-sdk/src/packages/store/store-ca/wallet/api';
-import { ChainItemType, WalletState } from '@portkey/rn-sdk/src/packages/store/store-ca/wallet/type';
+import { getChainList } from 'packages/store/store-ca/wallet/api';
+import { ChainItemType, WalletState } from 'packages/store/store-ca/wallet/type';
 
 export const createWallet =
   ({
@@ -105,7 +105,7 @@ export const getCaHolderInfoAsync = createAsyncThunk<
   const baseUrl = NetworkList.find(item => item.networkType === currentNetwork)?.apiUrl;
   const caHash = walletInfo?.caInfo[currentNetwork].AELF?.caHash;
   if (!caHash || !baseUrl) return undefined;
-  let caHolder = undefined;
+  let caHolder;
   try {
     const response = await getCaHolder(baseUrl, {
       caHash,

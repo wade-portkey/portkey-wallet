@@ -1,4 +1,4 @@
-import { ChainId, NetworkType } from '@portkey/rn-sdk/src/packages/types';
+import { ChainId, NetworkType } from 'packages/types';
 
 export type TxFeeItem = {
   [key in ChainId]?: {

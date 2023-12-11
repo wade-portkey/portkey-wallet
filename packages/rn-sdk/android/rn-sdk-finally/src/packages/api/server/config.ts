@@ -1,6 +1,6 @@
-import { customFetch } from '@portkey/rn-sdk/src/packages/utils/fetch';
-import { BaseConfig, RequestConfig, UrlObj } from '@portkey/rn-sdk/src/packages/api/types';
-import { getRequestConfig, spliceUrl } from '@portkey/rn-sdk/src/packages/api/utils';
+import { customFetch } from 'packages/utils/fetch';
+import { BaseConfig, RequestConfig, UrlObj } from 'packages/api/types';
+import { getRequestConfig, spliceUrl } from 'packages/api/utils';
 
 export class ServiceInit {
   [x: string]: any;

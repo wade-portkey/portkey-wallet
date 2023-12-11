@@ -1,12 +1,12 @@
-import { ServiceInit } from '@portkey/rn-sdk/src/packages/api/server/config';
-import { customFetch } from '@portkey/rn-sdk/src/packages/utils/fetch';
-import { IExceptionManager, Severity } from '@portkey/rn-sdk/src/packages/utils/ExceptionManager';
-import { BaseConfig, RequestConfig } from '@portkey/rn-sdk/src/packages/api/types';
-import { getRequestConfig, spliceUrl } from '@portkey/rn-sdk/src/packages/api/utils';
-import { isValidRefreshTokenConfig, queryAuthorization, RefreshTokenConfig } from '@portkey/rn-sdk/src/packages/api/api-did/utils';
-import { sleep } from '@portkey/rn-sdk/src/packages/utils';
-import im from '@portkey/rn-sdk/src/packages/im';
-import { IM_TOKEN_ERROR_ARRAY } from '@portkey/rn-sdk/src/packages/im/constant';
+import { ServiceInit } from 'packages/api/server/config';
+import { customFetch } from 'packages/utils/fetch';
+import { IExceptionManager, Severity } from 'packages/utils/ExceptionManager';
+import { BaseConfig, RequestConfig } from 'packages/api/types';
+import { getRequestConfig, spliceUrl } from 'packages/api/utils';
+import { isValidRefreshTokenConfig, queryAuthorization, RefreshTokenConfig } from 'packages/api/api-did/utils';
+import { sleep } from 'packages/utils';
+import im from 'packages/im';
+import { IM_TOKEN_ERROR_ARRAY } from 'packages/im/constant';
 export class DidService extends ServiceInit {
   protected refreshTokenConfig?: RefreshTokenConfig;
   protected onLockApp?: (expired?: boolean) => void;

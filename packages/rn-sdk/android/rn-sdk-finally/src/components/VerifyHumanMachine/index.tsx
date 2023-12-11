@@ -1,9 +1,9 @@
 import React from 'react';
-import Recaptcha from '@portkey/rn-sdk/src/components/Recaptcha';
-import OverlayModal from '@portkey/rn-sdk/src/components/OverlayModal';
-import { screenWidth, screenHeight } from '@portkey/rn-sdk/src/packages/utils/mobile/device';
+import Recaptcha from 'components/Recaptcha';
+import OverlayModal from 'components/OverlayModal';
+import { screenWidth, screenHeight } from 'packages/utils/mobile/device';
 
-import { clearBackgroundTimeout, setBackgroundTimeout } from '@portkey/rn-sdk/src/utils/backgroundTimer';
+import { clearBackgroundTimeout, setBackgroundTimeout } from 'utils/backgroundTimer';
 
 const TIME_OUT = 120000; // recaptcha timeout 20 seconds
 

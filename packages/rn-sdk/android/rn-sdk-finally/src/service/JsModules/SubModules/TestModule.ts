@@ -1,6 +1,6 @@
-import { NetworkTestCases } from '@portkey/rn-sdk/src/tests/network';
-import { BaseJSModule, BaseMethodParams, TestCase, TestContext, TestReport } from '@portkey/rn-sdk/src/service/JsModules/types';
-import { emitJSMethodResult } from '@portkey/rn-sdk/src/service/JsModules/SubModules/WalletModule';
+import { NetworkTestCases } from 'tests/network';
+import { BaseJSModule, BaseMethodParams, TestCase, TestContext, TestReport } from 'service/JsModules/types';
+import { emitJSMethodResult } from 'service/JsModules/SubModules/WalletModule';
 
 export const TestCases: Array<TestCase> = [];
 

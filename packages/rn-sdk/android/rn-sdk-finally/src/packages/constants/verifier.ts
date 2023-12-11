@@ -1,5 +1,5 @@
-import { LoginType } from '@portkey/rn-sdk/src/packages/types/types-ca/wallet';
-import { LoginGuardianTypeIcon } from '@portkey/rn-sdk/src/constants/misc';
+import { LoginType } from 'packages/types/types-ca/wallet';
+import { LoginGuardianTypeIcon } from 'constants/misc';
 
 export const LOGIN_TYPE_LABEL_MAP: { [key in LoginType]: string } = {
   [LoginType.Email]: 'Email',

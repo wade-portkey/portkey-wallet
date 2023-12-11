@@ -5,12 +5,12 @@ import {
   useDefaultToken,
   useIsValidSuffix,
   useGetChainInfo,
-} from '@portkey/rn-sdk/src/packages/hooks/hooks-ca/chainList';
+} from 'packages/hooks/hooks-ca/chainList';
 import { renderHook } from '@testing-library/react';
-import { useAppCommonDispatch } from '@portkey/rn-sdk/src/packages/hooks';
+import { useAppCommonDispatch } from 'packages/hooks';
 import { getChainListAsync } from 'packages/types/store-ca/wallet/actions';
-import { useCurrentWallet, useOriginChainId, useWallet } from '@portkey/rn-sdk/src/packages/hooks/hooks-ca/wallet';
-import { currentWallet } from '@portkey/rn-sdk/src/test/data/chainInfo';
+import { useCurrentWallet, useOriginChainId, useWallet } from 'packages/hooks/hooks-ca/wallet';
+import { currentWallet } from 'test/data/chainInfo';
 
 jest.mock('packages/types/store-ca/wallet/actions', () => {
   return {

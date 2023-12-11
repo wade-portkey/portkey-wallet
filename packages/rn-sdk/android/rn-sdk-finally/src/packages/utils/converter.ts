@@ -1,5 +1,5 @@
-import { isEffectiveNumber, ZERO } from '@portkey/rn-sdk/src/packages/constants/misc';
-import { DEFAULT_AMOUNT, DEFAULT_DECIMAL, DEFAULT_DIGITS } from '@portkey/rn-sdk/src/packages/constants/constants-ca/activity';
+import { isEffectiveNumber, ZERO } from 'packages/constants/misc';
+import { DEFAULT_AMOUNT, DEFAULT_DECIMAL, DEFAULT_DIGITS } from 'packages/constants/constants-ca/activity';
 import BigNumber from 'bignumber.js';
 
 // const zhList = [

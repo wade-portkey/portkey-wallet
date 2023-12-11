@@ -1,8 +1,13 @@
-import { initialRecentData } from '@portkey/rn-sdk/src/packages/hooks/hooks-ca/useRecent';
-import { fetchRecentListAsync, initCurrentChainRecentData, recentSlice, resetRecent } from '@portkey/rn-sdk/src/packages/store/store-ca/recent/slice';
-import { fetchRecentTransactionUsers } from '@portkey/rn-sdk/src/packages/store/store-ca/recent/api';
+import { initialRecentData } from 'packages/hooks/hooks-ca/useRecent';
+import {
+  fetchRecentListAsync,
+  initCurrentChainRecentData,
+  recentSlice,
+  resetRecent,
+} from 'packages/store/store-ca/recent/slice';
+import { fetchRecentTransactionUsers } from 'packages/store/store-ca/recent/api';
 import { configureStore } from '@reduxjs/toolkit';
-import { ChainId } from '@portkey/rn-sdk/src/packages/types';
+import { ChainId } from 'packages/types';
 
 jest.mock('./api');
 const reducer = recentSlice.reducer;

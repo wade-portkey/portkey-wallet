@@ -1,8 +1,8 @@
-import { AssetsState } from '@portkey/rn-sdk/src/test/data/assetsState';
-import { renderHookWithProvider } from '@portkey/rn-sdk/src/test/utils/render';
-import { setupStore } from '@portkey/rn-sdk/src/test/utils/setup';
-import { useAppCASelector, useResetStore } from '@portkey/rn-sdk/src/packages/hooks/hooks-ca';
-import * as indexHook from '@portkey/rn-sdk/src/packages/hooks';
+import { AssetsState } from 'test/data/assetsState';
+import { renderHookWithProvider } from 'test/utils/render';
+import { setupStore } from 'test/utils/setup';
+import { useAppCASelector, useResetStore } from 'packages/hooks/hooks-ca';
+import * as indexHook from 'packages/hooks';
 import { renderHook } from '@testing-library/react';
 import React from 'react';
 

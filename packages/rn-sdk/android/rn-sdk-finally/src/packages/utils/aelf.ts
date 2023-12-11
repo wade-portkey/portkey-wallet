@@ -1,8 +1,8 @@
 import AElf from 'aelf-sdk';
-import { COMMON_PRIVATE } from '@portkey/rn-sdk/src/packages/constants';
-import { AElfInterface } from '@portkey/rn-sdk/src/packages/types/aelf';
-import { ChainId } from '@portkey/rn-sdk/src/packages/types';
-import { isValidBase58 } from '@portkey/rn-sdk/src/packages/utils/reg';
+import { COMMON_PRIVATE } from 'packages/constants';
+import { AElfInterface } from 'packages/types/aelf';
+import { ChainId } from 'packages/types';
+import { isValidBase58 } from 'packages/utils/reg';
 const Wallet = AElf.wallet;
 
 export function isEqAddress(a1?: string, a2?: string) {

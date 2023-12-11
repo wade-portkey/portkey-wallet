@@ -1,10 +1,10 @@
-import { RootCommonState } from '@portkey/rn-sdk/src/packages/types/store';
+import { RootCommonState } from 'packages/types/store';
 import { tokenBalanceSlice } from 'packages/types/tokenBalance/slice';
 import { tokenManagementSlice } from 'packages/types/store-ca/tokenManagement/slice';
 import { recentSlice, RecentStateType } from 'packages/types/store-ca/recent/slice';
 
-import { TokenState } from '@portkey/rn-sdk/src/packages/types/types-ca/token';
-import { TokenBalanceState } from '@portkey/rn-sdk/src/packages/types/types-ca/tokenBalance';
+import { TokenState } from 'packages/types/types-ca/token';
+import { TokenBalanceState } from 'packages/types/types-ca/tokenBalance';
 import { assetsSlice, AssetsStateType } from 'packages/types/store-ca/assets/slice';
 import { activitySlice } from 'packages/types/store-ca/activity/slice';
 import { walletSlice } from 'packages/types/store-ca/wallet/slice';

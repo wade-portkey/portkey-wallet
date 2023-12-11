@@ -1,30 +1,30 @@
-import { handleErrorMessage } from '@portkey/rn-sdk/src/packages/utils';
-import ActionSheet from '@portkey/rn-sdk/src/components/ActionSheet';
-import Loading from '@portkey/rn-sdk/src/components/Loading';
-import { verifyHumanMachine } from '@portkey/rn-sdk/src/components/VerifyHumanMachine';
-import { PortkeyEntries } from '@portkey/rn-sdk/src/config/entries';
+import { handleErrorMessage } from 'packages/utils';
+import ActionSheet from 'components/ActionSheet';
+import Loading from 'components/Loading';
+import { verifyHumanMachine } from 'components/VerifyHumanMachine';
+import { PortkeyEntries } from 'config/entries';
 import {
   attemptAccountCheck,
   getSocialRecoveryPageData,
   getRegisterPageData,
   guardianTypeStrToEnum,
-} from '@portkey/rn-sdk/src/model/global';
-import { SetPinPageResult, SetPinPageProps } from '@portkey/rn-sdk/src/pages/Pin/SetPin';
-import { AccountOriginalType, AfterVerifiedConfig, VerifiedGuardianDoc } from '@portkey/rn-sdk/src/model/verify/core';
-import { GuardianConfig } from '@portkey/rn-sdk/src/model/verify/guardian';
-import useBaseContainer from '@portkey/rn-sdk/src/model/container/UseBaseContainer';
-import { SendVerifyCodeResultDTO } from '@portkey/rn-sdk/src/network/dto/guardian';
-import { OperationTypeEnum } from '@portkey/rn-sdk/src/packages/types/verifier';
-import { NetworkController } from '@portkey/rn-sdk/src/network/controller';
-import { PortkeyConfig } from '@portkey/rn-sdk/src/global/constants';
-import { VerifierDetailsPageProps } from '@portkey/rn-sdk/src/pages/Entries/VerifierDetails';
-import { VerifyPageResult } from '@portkey/rn-sdk/src/pages/Guardian/VerifierDetails';
+} from 'model/global';
+import { SetPinPageResult, SetPinPageProps } from 'pages/Pin/SetPin';
+import { AccountOriginalType, AfterVerifiedConfig, VerifiedGuardianDoc } from 'model/verify/core';
+import { GuardianConfig } from 'model/verify/guardian';
+import useBaseContainer from 'model/container/UseBaseContainer';
+import { SendVerifyCodeResultDTO } from 'network/dto/guardian';
+import { OperationTypeEnum } from 'packages/types/verifier';
+import { NetworkController } from 'network/controller';
+import { PortkeyConfig } from 'global/constants';
+import { VerifierDetailsPageProps } from 'pages/Entries/VerifierDetails';
+import { VerifyPageResult } from 'pages/Guardian/VerifierDetails';
 import { useCallback } from 'react';
-import { PageType } from '@portkey/rn-sdk/src/pages/Login/types';
-import { ThirdPartyAccountInfo, isAppleLogin } from '@portkey/rn-sdk/src/model/verify/third-party-account';
-import { GuardianApprovalPageProps, GuardianApprovalPageResult } from '@portkey/rn-sdk/src/pages/Entries/GuardianApproval';
-import { useThirdPartyVerifyAtomic } from '@portkey/rn-sdk/src/model/verify/entry/atomic';
-import { UnlockedWallet, getUnlockedWallet } from '@portkey/rn-sdk/src/model/wallet';
+import { PageType } from 'pages/Login/types';
+import { ThirdPartyAccountInfo, isAppleLogin } from 'model/verify/third-party-account';
+import { GuardianApprovalPageProps, GuardianApprovalPageResult } from 'pages/Entries/GuardianApproval';
+import { useThirdPartyVerifyAtomic } from 'model/verify/entry/atomic';
+import { UnlockedWallet, getUnlockedWallet } from 'model/wallet';
 
 export interface LoginResult {
   finished: boolean;

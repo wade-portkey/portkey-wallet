@@ -1,7 +1,7 @@
-import { request } from '@portkey/rn-sdk/src/packages/api/api-did';
+import { request } from 'packages/api/api-did';
 import { createAsyncThunk, createAction } from '@reduxjs/toolkit';
-import { FiatType, AchTokenInfoType, GetFiatType } from '@portkey/rn-sdk/src/packages/store/store-ca/payment/type';
-import { countryCodeMap } from '@portkey/rn-sdk/src/packages/constants/constants-ca/payment';
+import { FiatType, AchTokenInfoType, GetFiatType } from 'packages/store/store-ca/payment/type';
+import { countryCodeMap } from 'packages/constants/constants-ca/payment';
 
 export const fetchBuyFiatListAsync = createAsyncThunk<FiatType[]>('payment/fetchBuyFiatListAsync', async () => {
   const rst: { data: GetFiatType[] } = await request.payment.getFiatList({

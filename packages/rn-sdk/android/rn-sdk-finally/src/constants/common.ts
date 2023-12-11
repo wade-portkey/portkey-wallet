@@ -1,6 +1,6 @@
-import { ErrorType } from '@portkey/rn-sdk/src/types/common';
+import { ErrorType } from 'types/common';
 import { Platform } from 'react-native';
-import { DeviceType } from '@portkey/rn-sdk/src/packages/types/types-ca/device';
+import { DeviceType } from 'packages/types/types-ca/device';
 
 export const INIT_ERROR: ErrorType = {
   errorMsg: '',

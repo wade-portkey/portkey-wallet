@@ -1,8 +1,8 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /Users/fengfeiyang/aelf/portkey-wallet/packages/rn-sdk/react_native_app/node_modules/@portkey/rn-sdk/android/src/main/AndroidManifest.xml:2:1-24:12
-INJECTED from /Users/fengfeiyang/aelf/portkey-wallet/packages/rn-sdk/react_native_app/node_modules/@portkey/rn-sdk/android/src/main/AndroidManifest.xml:2:1-24:12
-INJECTED from /Users/fengfeiyang/aelf/portkey-wallet/packages/rn-sdk/react_native_app/node_modules/@portkey/rn-sdk/android/src/main/AndroidManifest.xml:2:1-24:12
+ADDED from /Users/fengfeiyang/aelf/portkey-wallet/packages/rn-sdk/react_native_app/node_modules/@portkey/rn-sdk/android/src/main/AndroidManifest.xml:2:1-28:12
+INJECTED from /Users/fengfeiyang/aelf/portkey-wallet/packages/rn-sdk/react_native_app/node_modules/@portkey/rn-sdk/android/src/main/AndroidManifest.xml:2:1-28:12
+INJECTED from /Users/fengfeiyang/aelf/portkey-wallet/packages/rn-sdk/react_native_app/node_modules/@portkey/rn-sdk/android/src/main/AndroidManifest.xml:2:1-28:12
 	package
 		ADDED from /Users/fengfeiyang/aelf/portkey-wallet/packages/rn-sdk/react_native_app/node_modules/@portkey/rn-sdk/android/src/main/AndroidManifest.xml:4:5-30
 		INJECTED from /Users/fengfeiyang/aelf/portkey-wallet/packages/rn-sdk/react_native_app/node_modules/@portkey/rn-sdk/android/src/main/AndroidManifest.xml
@@ -24,7 +24,7 @@ ADDED from /Users/fengfeiyang/aelf/portkey-wallet/packages/rn-sdk/react_native_a
 	android:name
 		ADDED from /Users/fengfeiyang/aelf/portkey-wallet/packages/rn-sdk/react_native_app/node_modules/@portkey/rn-sdk/android/src/main/AndroidManifest.xml:8:22-73
 application
-ADDED from /Users/fengfeiyang/aelf/portkey-wallet/packages/rn-sdk/react_native_app/node_modules/@portkey/rn-sdk/android/src/main/AndroidManifest.xml:10:5-22:19
+ADDED from /Users/fengfeiyang/aelf/portkey-wallet/packages/rn-sdk/react_native_app/node_modules/@portkey/rn-sdk/android/src/main/AndroidManifest.xml:10:5-26:19
 activity#io.aelf.portkey.components.activities.DefaultReactActivity
 ADDED from /Users/fengfeiyang/aelf/portkey-wallet/packages/rn-sdk/react_native_app/node_modules/@portkey/rn-sdk/android/src/main/AndroidManifest.xml:11:9-16:15
 	android:screenOrientation
@@ -43,6 +43,16 @@ service#io.aelf.portkey.components.services.GeneralJSMethodService
 ADDED from /Users/fengfeiyang/aelf/portkey-wallet/packages/rn-sdk/react_native_app/node_modules/@portkey/rn-sdk/android/src/main/AndroidManifest.xml:20:9-78
 	android:name
 		ADDED from /Users/fengfeiyang/aelf/portkey-wallet/packages/rn-sdk/react_native_app/node_modules/@portkey/rn-sdk/android/src/main/AndroidManifest.xml:20:18-76
+provider#io.aelf.portkey.PortKeyInitiator
+ADDED from /Users/fengfeiyang/aelf/portkey-wallet/packages/rn-sdk/react_native_app/node_modules/@portkey/rn-sdk/android/src/main/AndroidManifest.xml:21:9-25:36
+	android:authorities
+		ADDED from /Users/fengfeiyang/aelf/portkey-wallet/packages/rn-sdk/react_native_app/node_modules/@portkey/rn-sdk/android/src/main/AndroidManifest.xml:24:13-78
+	android:exported
+		ADDED from /Users/fengfeiyang/aelf/portkey-wallet/packages/rn-sdk/react_native_app/node_modules/@portkey/rn-sdk/android/src/main/AndroidManifest.xml:23:13-37
+	android:initOrder
+		ADDED from /Users/fengfeiyang/aelf/portkey-wallet/packages/rn-sdk/react_native_app/node_modules/@portkey/rn-sdk/android/src/main/AndroidManifest.xml:25:13-34
+	android:name
+		ADDED from /Users/fengfeiyang/aelf/portkey-wallet/packages/rn-sdk/react_native_app/node_modules/@portkey/rn-sdk/android/src/main/AndroidManifest.xml:22:13-45
 uses-sdk
 INJECTED from /Users/fengfeiyang/aelf/portkey-wallet/packages/rn-sdk/react_native_app/node_modules/@portkey/rn-sdk/android/src/main/AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from /Users/fengfeiyang/aelf/portkey-wallet/packages/rn-sdk/react_native_app/node_modules/@portkey/rn-sdk/android/src/main/AndroidManifest.xml

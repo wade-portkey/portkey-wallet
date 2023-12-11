@@ -1,5 +1,5 @@
-import { NEW_CLIENT_MOCK_ELF_LIST } from '@portkey/rn-sdk/src/packages/constants/constants-ca/assets';
-import { ChainId } from '@portkey/rn-sdk/src/packages/types';
+import { NEW_CLIENT_MOCK_ELF_LIST } from 'packages/constants/constants-ca/assets';
+import { ChainId } from 'packages/types';
 import {
   assetsSlice,
   clearNftCollection,
@@ -9,9 +9,15 @@ import {
   resetAssets,
   fetchAssetAsync,
   fetchTokensPriceAsync,
-} from '@portkey/rn-sdk/src/packages/store/store-ca/assets/slice';
+} from 'packages/store/store-ca/assets/slice';
 import { configureStore } from '@reduxjs/toolkit';
-import { fetchAssetList, fetchNFTSeriesList, fetchNFTList, fetchTokenList, fetchTokenPrices } from '@portkey/rn-sdk/src/packages/store/store-ca/assets/api';
+import {
+  fetchAssetList,
+  fetchNFTSeriesList,
+  fetchNFTList,
+  fetchTokenList,
+  fetchTokenPrices,
+} from 'packages/store/store-ca/assets/api';
 
 const mockInitState = {
   accountToken: {

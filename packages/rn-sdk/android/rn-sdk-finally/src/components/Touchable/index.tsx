@@ -1,7 +1,7 @@
-import { useThrottleCallback } from '@portkey/rn-sdk/src/packages/hooks';
+import { useThrottleCallback } from 'packages/hooks';
 import React, { memo } from 'react';
 import { TouchableOpacity, TouchableHighlight, TouchableOpacityProps, TouchableHighlightProps } from 'react-native';
-import { pTd } from '@portkey/rn-sdk/src/utils/unit';
+import { pTd } from 'utils/unit';
 
 type TouchableProps = {
   onPressWithSecond?: number;

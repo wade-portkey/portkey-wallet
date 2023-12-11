@@ -1,16 +1,16 @@
-import { MiscState } from '@portkey/rn-sdk/src/test/data/miscState';
-import { renderHookWithProvider } from '@portkey/rn-sdk/src/test/utils/render';
-import { setupStore } from '@portkey/rn-sdk/src/test/utils/setup';
-import { useMisc, useSetLocalPhoneCountryCode, usePhoneCountryCode, useIsScanQRCode } from '@portkey/rn-sdk/src/packages/hooks/hooks-ca/misc';
-import { useAppCommonDispatch } from '@portkey/rn-sdk/src/packages/hooks';
+import { MiscState } from 'test/data/miscState';
+import { renderHookWithProvider } from 'test/utils/render';
+import { setupStore } from 'test/utils/setup';
+import { useMisc, useSetLocalPhoneCountryCode, usePhoneCountryCode, useIsScanQRCode } from 'packages/hooks/hooks-ca/misc';
+import { useAppCommonDispatch } from 'packages/hooks';
 import { renderHook } from '@testing-library/react';
-import { CountryItem } from '@portkey/rn-sdk/src/packages/types/types-ca/country';
+import { CountryItem } from 'packages/types/types-ca/country';
 import * as MiscActions from 'packages/types/store-ca/misc/actions';
-import * as indexHook from '@portkey/rn-sdk/src/packages/hooks/hooks-ca';
-import * as networkHook from '@portkey/rn-sdk/src/packages/hooks/hooks-ca/network';
-import { MainnetNetworkInfo, TestnetNetworkInfo } from '@portkey/rn-sdk/src/test/data/networkState';
-import { DefaultCountry } from '@portkey/rn-sdk/src/packages/constants/constants-ca/country';
-import signalrDid from '@portkey/rn-sdk/src/packages/socket/socket-did';
+import * as indexHook from 'packages/hooks/hooks-ca';
+import * as networkHook from 'packages/hooks/hooks-ca/network';
+import { MainnetNetworkInfo, TestnetNetworkInfo } from 'test/data/networkState';
+import { DefaultCountry } from 'packages/constants/constants-ca/country';
+import signalrDid from 'packages/socket/socket-did';
 
 jest.mock('../index', () => ({
   useAppCommonDispatch: jest.fn(),

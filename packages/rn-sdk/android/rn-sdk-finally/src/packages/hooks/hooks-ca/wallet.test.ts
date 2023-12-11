@@ -1,8 +1,8 @@
 import { act } from '@testing-library/react';
 import { WalletType } from 'packages/types/store-ca/wallet/type';
-import { ChainId, NetworkType } from '@portkey/rn-sdk/src/packages/types';
-import { request } from '@portkey/rn-sdk/src/packages/api/api-did';
-import { useCurrentNetworkInfo } from '@portkey/rn-sdk/src/packages/hooks/hooks-ca/network';
+import { ChainId, NetworkType } from 'packages/types';
+import { request } from 'packages/api/api-did';
+import { useCurrentNetworkInfo } from 'packages/hooks/hooks-ca/network';
 import {
   useCurrentWalletInfo,
   useCurrentWallet,
@@ -14,16 +14,16 @@ import {
   useCaInfo,
   useOriginChainId,
   useOtherNetworkLogged,
-} from '@portkey/rn-sdk/src/packages/hooks/hooks-ca/wallet';
-import { setupStore } from '@portkey/rn-sdk/src/test/utils/setup';
-import { renderHookWithProvider } from '@portkey/rn-sdk/src/test/utils/render';
-import { getApolloClient } from '@portkey/rn-sdk/src/packages/graphql/contract/apollo';
-import { extraDataListDecode } from '@portkey/rn-sdk/src/packages/utils/device';
-import { useCaHolderManagerInfoQuery } from '@portkey/rn-sdk/src/packages/graphql/contract/__generated__/hooks/caHolderManagerInfo';
-import { DefaultChainId } from '@portkey/rn-sdk/src/packages/constants/constants-ca/network';
-import { ExtraDataDecodeType } from '@portkey/rn-sdk/src/packages/types/types-ca/device';
+} from 'packages/hooks/hooks-ca/wallet';
+import { setupStore } from 'test/utils/setup';
+import { renderHookWithProvider } from 'test/utils/render';
+import { getApolloClient } from 'packages/graphql/contract/apollo';
+import { extraDataListDecode } from 'packages/utils/device';
+import { useCaHolderManagerInfoQuery } from 'packages/graphql/contract/__generated__/hooks/caHolderManagerInfo';
+import { DefaultChainId } from 'packages/constants/constants-ca/network';
+import { ExtraDataDecodeType } from 'packages/types/types-ca/device';
 import { ApolloClient, NormalizedCacheObject } from '@apollo/client';
-import { TestnetNetworkInfo } from '@portkey/rn-sdk/src/test/data/networkState';
+import { TestnetNetworkInfo } from 'test/data/networkState';
 
 jest.mock('./network');
 jest.mock('packages/api/api-did');

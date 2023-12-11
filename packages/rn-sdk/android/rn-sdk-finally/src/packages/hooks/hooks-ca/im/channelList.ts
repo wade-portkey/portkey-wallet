@@ -1,10 +1,10 @@
-import im, { ChannelStatusEnum, ChannelTypeEnum } from '@portkey/rn-sdk/src/packages/im';
+import im, { ChannelStatusEnum, ChannelTypeEnum } from 'packages/im';
 import { useCallback, useMemo, useRef } from 'react';
 
-import { CHANNEL_LIST_LIMIT } from '@portkey/rn-sdk/src/packages/constants/constants-ca/im';
+import { CHANNEL_LIST_LIMIT } from 'packages/constants/constants-ca/im';
 
-import { useCurrentNetworkInfo } from '@portkey/rn-sdk/src/packages/hooks/hooks-ca/network';
-import { useAppCommonDispatch } from '@portkey/rn-sdk/src/packages/hooks';
+import { useCurrentNetworkInfo } from 'packages/hooks/hooks-ca/network';
+import { useAppCommonDispatch } from 'packages/hooks';
 import {
   addChannel,
   nextChannelList,
@@ -12,7 +12,7 @@ import {
   setHasNext,
   updateChannelAttribute,
 } from 'packages/types/store-ca/im/actions';
-import { useIMChannelListNetMapState, useIMHasNextNetMapState } from '@portkey/rn-sdk/src/packages/hooks/hooks-ca/im';
+import { useIMChannelListNetMapState, useIMHasNextNetMapState } from 'packages/hooks/hooks-ca/im';
 
 export const useNextChannelList = () => {
   const channelListNetMap = useIMChannelListNetMapState();

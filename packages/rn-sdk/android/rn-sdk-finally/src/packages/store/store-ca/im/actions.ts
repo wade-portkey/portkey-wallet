@@ -1,7 +1,7 @@
 import { createAction } from '@reduxjs/toolkit';
-import { ChannelList, UpdateChannelAttributeTypeEnum } from '@portkey/rn-sdk/src/packages/store/store-ca/im/type';
-import { ChannelItem, Message } from '@portkey/rn-sdk/src/packages/im';
-import { NetworkType } from '@portkey/rn-sdk/src/packages/types';
+import { ChannelList, UpdateChannelAttributeTypeEnum } from 'packages/store/store-ca/im/type';
+import { ChannelItem, Message } from 'packages/im';
+import { NetworkType } from 'packages/types';
 
 export const setChannelList = createAction<{
   network: NetworkType;

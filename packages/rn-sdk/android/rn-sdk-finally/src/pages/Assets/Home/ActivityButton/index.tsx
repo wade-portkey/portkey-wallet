@@ -1,12 +1,12 @@
 import React, { memo } from 'react';
-import Svg from '@portkey/rn-sdk/src/components/Svg';
-import { dashBoardBtnStyle, innerPageStyles } from '@portkey/rn-sdk/src/components/SendButton/style';
+import Svg from 'components/Svg';
+import { dashBoardBtnStyle, innerPageStyles } from 'components/SendButton/style';
 
 import { View, TouchableOpacity } from 'react-native';
-import { TextM } from '@portkey/rn-sdk/src/components/CommonText';
-import { useLanguage } from '@portkey/rn-sdk/src/i18n/hooks';
-import { pTd } from '@portkey/rn-sdk/src/utils/unit';
-import GStyles from '@portkey/rn-sdk/src/assets/theme/GStyles';
+import { TextM } from 'components/CommonText';
+import { useLanguage } from 'i18n/hooks';
+import { pTd } from 'utils/unit';
+import GStyles from 'assets/theme/GStyles';
 
 interface ActivityButtonProps {
   themeType?: 'dashBoard' | 'innerPage';

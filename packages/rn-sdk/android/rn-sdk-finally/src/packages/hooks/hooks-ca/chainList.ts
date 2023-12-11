@@ -1,9 +1,9 @@
 import { useEffect, useMemo, useCallback } from 'react';
-import { useAppCommonDispatch } from '@portkey/rn-sdk/src/packages/hooks';
+import { useAppCommonDispatch } from 'packages/hooks';
 import { getChainListAsync } from 'packages/types/store-ca/wallet/actions';
-import { useCurrentWallet, useOriginChainId, useWallet } from '@portkey/rn-sdk/src/packages/hooks/hooks-ca/wallet';
-import { ChainId } from '@portkey/rn-sdk/src/packages/types';
-import { DEFAULT_TOKEN } from '@portkey/rn-sdk/src/packages/constants/constants-ca/wallet';
+import { useCurrentWallet, useOriginChainId, useWallet } from 'packages/hooks/hooks-ca/wallet';
+import { ChainId } from 'packages/types';
+import { DEFAULT_TOKEN } from 'packages/constants/constants-ca/wallet';
 
 export function useChainListFetch() {
   const { currentNetwork } = useWallet();

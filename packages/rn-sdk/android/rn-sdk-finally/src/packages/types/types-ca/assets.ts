@@ -1,4 +1,4 @@
-import { ChainId } from '@portkey/rn-sdk/src/packages/types';
+import { ChainId } from 'packages/types';
 
 // nft collection types
 export type NFTCollectionItemBaseType = {

@@ -12,9 +12,9 @@ import {
   LayoutChangeEvent,
   EmitterSubscription,
 } from 'react-native';
-import { ViewStyleType } from '@portkey/rn-sdk/src/types/styles';
-import myEvents from '@portkey/rn-sdk/src/utils/deviceEvent';
-import { isIOS } from '@portkey/rn-sdk/src/packages/utils/mobile/device';
+import { ViewStyleType } from 'types/styles';
+import myEvents from 'utils/deviceEvent';
+import { isIOS } from 'packages/utils/mobile/device';
 
 type ScrollType = 'up' | 'down' | 'left' | 'right' | 'vertical' | 'horizontal';
 type PanResponderCallback = (e: GestureResponderEvent, gestureState: PanResponderGestureState) => void;

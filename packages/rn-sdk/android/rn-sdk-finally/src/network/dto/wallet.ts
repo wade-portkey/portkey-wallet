@@ -1,6 +1,6 @@
-import { AccountOriginalType, ContextInfo } from '@portkey/rn-sdk/src/model/verify/core';
+import { AccountOriginalType, ContextInfo } from 'model/verify/core';
 import AElf from 'aelf-sdk';
-import { ChainId } from '@portkey/rn-sdk/src/packages/types';
+import { ChainId } from 'packages/types';
 
 export interface RequestRegisterParams {
   chainId: string;

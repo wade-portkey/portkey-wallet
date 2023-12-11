@@ -1,5 +1,5 @@
-import { NetworkType } from '@portkey/rn-sdk/src/packages/types';
-import { ChainItemType } from '@portkey/rn-sdk/src/packages/types/chain';
+import { NetworkType } from 'packages/types';
+import { ChainItemType } from 'packages/types/chain';
 
 export interface ChainState {
   currentChain: ChainItemType;

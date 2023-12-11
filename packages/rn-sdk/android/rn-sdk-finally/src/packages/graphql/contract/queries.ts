@@ -1,20 +1,20 @@
-import { NetworkType } from '@portkey/rn-sdk/src/packages/types';
-import { getApolloClient } from '@portkey/rn-sdk/src/packages/graphql/contract/apollo';
-import { GetCAHolderByManagerParamsType, CaHolderWithGuardian } from '@portkey/rn-sdk/src/packages/graphql/contract/types';
+import { NetworkType } from 'packages/types';
+import { getApolloClient } from 'packages/graphql/contract/apollo';
+import { GetCAHolderByManagerParamsType, CaHolderWithGuardian } from 'packages/graphql/contract/types';
 
 import {
   CaHolderManagerInfoDocument,
   CaHolderManagerInfoQuery,
   CaHolderManagerInfoQueryVariables,
-} from '@portkey/rn-sdk/src/packages/graphql/contract/__generated__/hooks/caHolderManagerInfo';
+} from 'packages/graphql/contract/__generated__/hooks/caHolderManagerInfo';
 
 import {
   LoginGuardianInfoDocument,
   LoginGuardianInfoQuery,
   LoginGuardianInfoQueryVariables,
-} from '@portkey/rn-sdk/src/packages/graphql/contract/__generated__/hooks/loginGuardianInfo';
+} from 'packages/graphql/contract/__generated__/hooks/loginGuardianInfo';
 
-import { TokenInfoDocument, TokenInfoQuery, TokenInfoQueryVariables } from '@portkey/rn-sdk/src/packages/graphql/contract/__generated__/hooks/tokenInfo';
+import { TokenInfoDocument, TokenInfoQuery, TokenInfoQueryVariables } from 'packages/graphql/contract/__generated__/hooks/tokenInfo';
 
 // CAHolderManager
 const getCAHolderManagerInfo = async (network: NetworkType, params: CaHolderManagerInfoQueryVariables) => {

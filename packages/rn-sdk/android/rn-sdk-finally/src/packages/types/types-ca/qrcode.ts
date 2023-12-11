@@ -1,6 +1,6 @@
-import { ChainId, ChainType, NetworkType } from '@portkey/rn-sdk/src/packages/types';
-import { DeviceType, QRExtraDataType } from '@portkey/rn-sdk/src/packages/types/types-ca/device';
-import { IToSendAssetParamsType } from '@portkey/rn-sdk/src/packages/types/types-ca/routeParams';
+import { ChainId, ChainType, NetworkType } from 'packages/types';
+import { DeviceType, QRExtraDataType } from 'packages/types/types-ca/device';
+import { IToSendAssetParamsType } from 'packages/types/types-ca/routeParams';
 
 export interface QRData {
   type: 'login' | 'send';

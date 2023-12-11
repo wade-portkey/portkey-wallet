@@ -1,5 +1,5 @@
-import DappList from '@portkey/rn-sdk/src/pages/My/WalletSecurity/Dapp';
-import DappDetail from '@portkey/rn-sdk/src/pages/My/WalletSecurity/Dapp/DappDetail';
+import DappList from 'pages/My/WalletSecurity/Dapp';
+import DappDetail from 'pages/My/WalletSecurity/Dapp/DappDetail';
 
 const stackNav = [
   {

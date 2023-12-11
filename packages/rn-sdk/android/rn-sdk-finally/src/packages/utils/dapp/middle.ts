@@ -1,4 +1,4 @@
-import { CACommonState } from '@portkey/rn-sdk/src/packages/types/types-ca/store';
+import { CACommonState } from 'packages/types/types-ca/store';
 import { changeNetworkType, setCAInfo } from 'packages/types/store-ca/wallet/actions';
 import { addDapp, removeDapp, resetDappList } from 'packages/types/store-ca/dapp/actions';
 

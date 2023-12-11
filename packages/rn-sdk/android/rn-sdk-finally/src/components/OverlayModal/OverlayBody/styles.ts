@@ -1,7 +1,7 @@
-import { defaultColors } from '@portkey/rn-sdk/src/assets/theme';
+import { defaultColors } from 'assets/theme';
 import { StyleSheet } from 'react-native';
-import { screenHeight, screenWidth, windowHeight } from '@portkey/rn-sdk/src/packages/utils/mobile/device';
-import { pTd } from '@portkey/rn-sdk/src/utils/unit';
+import { screenHeight, screenWidth, windowHeight } from 'packages/utils/mobile/device';
+import { pTd } from 'utils/unit';
 
 export const overlayStyles = StyleSheet.create({
   // bottom

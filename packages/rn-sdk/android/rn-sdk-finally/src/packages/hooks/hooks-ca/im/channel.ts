@@ -1,10 +1,10 @@
-import im, { utils, MessageType, Message, TriggerMessageEventActionEnum } from '@portkey/rn-sdk/src/packages/im';
+import im, { utils, MessageType, Message, TriggerMessageEventActionEnum } from 'packages/im';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { randomId } from '@portkey/rn-sdk/src/packages/utils';
-import { MESSAGE_LIST_LIMIT, SEARCH_CHANNEL_LIMIT } from '@portkey/rn-sdk/src/packages/constants/constants-ca/im';
+import { randomId } from 'packages/utils';
+import { MESSAGE_LIST_LIMIT, SEARCH_CHANNEL_LIMIT } from 'packages/constants/constants-ca/im';
 
-import { useCurrentNetworkInfo } from '@portkey/rn-sdk/src/packages/hooks/hooks-ca/network';
-import { useAppCommonDispatch, useLatestRef } from '@portkey/rn-sdk/src/packages/hooks';
+import { useCurrentNetworkInfo } from 'packages/hooks/hooks-ca/network';
+import { useAppCommonDispatch, useLatestRef } from 'packages/hooks';
 import {
   removeChannel,
   updateChannelAttribute,
@@ -14,11 +14,11 @@ import {
   addChannelMessage,
   updateChannelMessageAttribute,
 } from 'packages/types/store-ca/im/actions';
-import { useChannelItemInfo, useIMChannelMessageListNetMapState, useRelationId } from '@portkey/rn-sdk/src/packages/hooks/hooks-ca/im';
-import s3Instance, { getThumbSize, UploadFileType } from '@portkey/rn-sdk/src/packages/utils/s3';
-import { messageParser } from '@portkey/rn-sdk/src/packages/im/utils';
-import { useContactRelationIdMap } from '@portkey/rn-sdk/src/packages/hooks/hooks-ca/contact';
-import { request } from '@portkey/rn-sdk/src/packages/api/api-did';
+import { useChannelItemInfo, useIMChannelMessageListNetMapState, useRelationId } from 'packages/hooks/hooks-ca/im';
+import s3Instance, { getThumbSize, UploadFileType } from 'packages/utils/s3';
+import { messageParser } from 'packages/im/utils';
+import { useContactRelationIdMap } from 'packages/hooks/hooks-ca/contact';
+import { request } from 'packages/api/api-did';
 
 export type ImageMessageFileType = {
   body: string | File;

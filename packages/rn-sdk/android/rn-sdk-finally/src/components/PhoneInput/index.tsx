@@ -1,18 +1,18 @@
 import React, { useRef } from 'react';
 import { StyleSheet } from 'react-native';
-import { useLanguage } from '@portkey/rn-sdk/src/i18n/hooks';
-import Touchable from '@portkey/rn-sdk/src/components/Touchable';
-import CommonInput, { CommonInputProps } from '@portkey/rn-sdk/src/components/CommonInput';
-import { CountryItem } from '@portkey/rn-sdk/src/packages/types/types-ca/country';
-import { pTd } from '@portkey/rn-sdk/src/utils/unit';
+import { useLanguage } from 'i18n/hooks';
+import Touchable from 'components/Touchable';
+import CommonInput, { CommonInputProps } from 'components/CommonInput';
+import { CountryItem } from 'packages/types/types-ca/country';
+import { pTd } from 'utils/unit';
 
-import Svg from '@portkey/rn-sdk/src/components/Svg';
-import { defaultColors } from '@portkey/rn-sdk/src/assets/theme';
-import { TextM } from '@portkey/rn-sdk/src/components/CommonText';
-import { EntryResult, RouterOptions } from '@portkey/rn-sdk/src/service/native-modules';
-import { PortkeyEntries } from '@portkey/rn-sdk/src/config/entries';
-import { SelectCountryResult } from '@portkey/rn-sdk/src/pages/Login/SelectCountry';
-import { AcceptableValueType } from '@portkey/rn-sdk/src/model/container/BaseContainer';
+import Svg from 'components/Svg';
+import { defaultColors } from 'assets/theme';
+import { TextM } from 'components/CommonText';
+import { EntryResult, RouterOptions } from 'service/native-modules';
+import { PortkeyEntries } from 'config/entries';
+import { SelectCountryResult } from 'pages/Login/SelectCountry';
+import { AcceptableValueType } from 'model/container/BaseContainer';
 
 interface PhoneInputProps extends CommonInputProps {
   selectCountry?: CountryItem;

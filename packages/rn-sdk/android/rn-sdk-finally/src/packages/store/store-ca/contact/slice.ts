@@ -8,7 +8,7 @@ import {
   resetContact,
   readImputationAction,
   refreshContactMap,
-} from '@portkey/rn-sdk/src/packages/store/store-ca/contact/actions';
+} from 'packages/store/store-ca/contact/actions';
 import {
   executeEventToContactIndexList,
   getInitContactIndexList,
@@ -16,7 +16,7 @@ import {
   transIndexesToContactIdMap,
   transIndexesToContactMap,
   transIndexesToContactRelationIdMap,
-} from '@portkey/rn-sdk/src/packages/store/store-ca/contact/utils';
+} from 'packages/store/store-ca/contact/utils';
 
 export interface ContactState {
   lastModified: number;

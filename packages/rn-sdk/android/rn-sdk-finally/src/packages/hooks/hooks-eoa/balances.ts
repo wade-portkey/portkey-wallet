@@ -1,7 +1,7 @@
-import { useCurrentNetwork } from '@portkey/rn-sdk/src/packages/hooks/network';
+import { useCurrentNetwork } from 'packages/hooks/network';
 import { useMemo } from 'react';
-import { Account } from '@portkey/rn-sdk/src/packages/types/types-eoa/tokenBalance';
-import { useAppEOASelector } from '@portkey/rn-sdk/src/packages/hooks/hooks-eoa';
+import { Account } from 'packages/types/types-eoa/tokenBalance';
+import { useAppEOASelector } from 'packages/hooks/hooks-eoa';
 
 export function useAllBalances() {
   return useAppEOASelector(state => state.tokenBalance.balances);

@@ -1,4 +1,4 @@
-import { ITransferLimitItem } from '@portkey/rn-sdk/src/model/security';
+import { ITransferLimitItem } from 'model/security';
 
 export interface CheckPaymentSecurityRuleParams {
   caHash: string;

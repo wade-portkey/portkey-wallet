@@ -1,0 +1,1 @@
+Object.defineProperty(exports,"__esModule",{value:true});exports.default=void 0;var _config=require("./config");var myServer=new _config.ServiceInit();var _default=exports.default=myServer;

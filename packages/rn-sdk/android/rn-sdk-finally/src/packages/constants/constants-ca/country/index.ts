@@ -1,5 +1,5 @@
-import { CountryItem } from '@portkey/rn-sdk/src/packages/types/types-ca/country';
-import countryCodeMap from '@portkey/rn-sdk/src/packages/constants/constants-ca/country/countryCodeList.json';
+import { CountryItem } from 'packages/types/types-ca/country';
+import countryCodeMap from 'packages/constants/constants-ca/country/countryCodeList.json';
 
 export const getCountryCodeJSON = (countryCode: CountryItem[]) => {
   const country: { [x: string]: CountryItem[] } = {};

@@ -1,7 +1,7 @@
-import { UnlockedWallet } from '@portkey/rn-sdk/src/model/wallet';
-import { CallCaMethodProps } from '@portkey/rn-sdk/src/service/JsModules/SubModules/WalletModule';
-import { BaseMethodResult } from '@portkey/rn-sdk/src/service/JsModules/types';
-import { WalletState } from '@portkey/rn-sdk/src/service/core/types';
+import { UnlockedWallet } from 'model/wallet';
+import { CallCaMethodProps } from 'service/JsModules/SubModules/WalletModule';
+import { BaseMethodResult } from 'service/JsModules/types';
+import { WalletState } from 'service/core/types';
 
 export interface IPortkeyAccountService {
   callCaContractMethod(props: CallCaMethodProps): Promise<BaseMethodResult>;

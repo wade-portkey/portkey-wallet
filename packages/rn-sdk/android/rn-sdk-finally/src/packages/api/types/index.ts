@@ -1,4 +1,4 @@
-import { CustomFetchConfig } from '@portkey/rn-sdk/src/packages/utils/fetch';
+import { CustomFetchConfig } from 'packages/utils/fetch';
 
 export interface RequestConfig extends CustomFetchConfig {
   baseURL?: string;

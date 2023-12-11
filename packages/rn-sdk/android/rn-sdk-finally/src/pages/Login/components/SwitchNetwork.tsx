@@ -1,14 +1,14 @@
 import { useContext } from 'react';
-import GStyles from '@portkey/rn-sdk/src/assets/theme/GStyles';
-import { FontStyles } from '@portkey/rn-sdk/src/assets/theme/styles';
-import { TextM } from '@portkey/rn-sdk/src/components/CommonText';
-import NetworkOverlay from '@portkey/rn-sdk/src/components/NetworkOverlay';
-import Svg from '@portkey/rn-sdk/src/components/Svg';
-import Touchable from '@portkey/rn-sdk/src/components/Touchable';
+import GStyles from 'assets/theme/GStyles';
+import { FontStyles } from 'assets/theme/styles';
+import { TextM } from 'components/CommonText';
+import NetworkOverlay from 'components/NetworkOverlay';
+import Svg from 'components/Svg';
+import Touchable from 'components/Touchable';
 import React from 'react';
-import { pTd } from '@portkey/rn-sdk/src/utils/unit';
-import styles from '@portkey/rn-sdk/src/pages/Login/styles';
-import NetworkContext from '@portkey/rn-sdk/src/pages/Login/context/NetworkContext';
+import { pTd } from 'utils/unit';
+import styles from 'pages/Login/styles';
+import NetworkContext from 'pages/Login/context/NetworkContext';
 
 export default function SwitchNetwork() {
   const networkContext = useContext(NetworkContext);

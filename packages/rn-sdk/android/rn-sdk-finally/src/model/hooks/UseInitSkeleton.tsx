@@ -1,5 +1,5 @@
 import React from 'react';
-import useEffectOnce from '@portkey/rn-sdk/src/hooks/useEffectOnce';
+import useEffectOnce from 'hooks/useEffectOnce';
 import { useState } from 'react';
 import { ImageBackground, StyleSheet } from 'react-native';
 

@@ -1,13 +1,13 @@
 import React from 'react';
-import PageContainer from '@portkey/rn-sdk/src/components/PageContainer';
+import PageContainer from 'components/PageContainer';
 import { StyleSheet } from 'react-native';
-import { defaultColors } from '@portkey/rn-sdk/src/assets/theme';
-import GStyles from '@portkey/rn-sdk/src/assets/theme/GStyles';
-import { pTd } from '@portkey/rn-sdk/src/utils/unit';
-import { useCurrentDappList } from '@portkey/rn-sdk/src/packages/hooks/hooks-ca/dapp';
-import NoData from '@portkey/rn-sdk/src/components/NoData';
+import { defaultColors } from 'assets/theme';
+import GStyles from 'assets/theme/GStyles';
+import { pTd } from 'utils/unit';
+import { useCurrentDappList } from 'packages/hooks/hooks-ca/dapp';
+import NoData from 'components/NoData';
 import navigationService from 'utils/navigationService';
-import DappListItem from '@portkey/rn-sdk/src/pages/My/WalletSecurity/Dapp/components/DappListItem';
+import DappListItem from 'pages/My/WalletSecurity/Dapp/components/DappListItem';
 
 const DappList: React.FC = () => {
   const dappList = useCurrentDappList();

@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getPhoneCountryCode, setLocalPhoneCountryCodeAction } from '@portkey/rn-sdk/src/packages/store/store-ca/misc/actions';
-import { MiscState } from '@portkey/rn-sdk/src/packages/store/store-ca/misc/types';
-import { DefaultCountry } from '@portkey/rn-sdk/src/packages/constants/constants-ca/country';
+import { getPhoneCountryCode, setLocalPhoneCountryCodeAction } from 'packages/store/store-ca/misc/actions';
+import { MiscState } from 'packages/store/store-ca/misc/types';
+import { DefaultCountry } from 'packages/constants/constants-ca/country';
 
 const initialState: MiscState = {
   phoneCountryCodeListChainMap: {},

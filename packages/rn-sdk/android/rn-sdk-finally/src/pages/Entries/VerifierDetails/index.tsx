@@ -1,10 +1,10 @@
-import { OperationTypeEnum, VerificationType } from '@portkey/rn-sdk/src/packages/types/verifier';
-import { PortkeyEntries } from '@portkey/rn-sdk/src/config/entries';
-import BaseContainer, { BaseContainerProps } from '@portkey/rn-sdk/src/model/container/BaseContainer';
-import VerifierDetails from '@portkey/rn-sdk/src/pages/Guardian/VerifierDetails';
+import { OperationTypeEnum, VerificationType } from 'packages/types/verifier';
+import { PortkeyEntries } from 'config/entries';
+import BaseContainer, { BaseContainerProps } from 'model/container/BaseContainer';
+import VerifierDetails from 'pages/Guardian/VerifierDetails';
 import React from 'react';
-import { AccountOriginalType } from '@portkey/rn-sdk/src/model/verify/core';
-import { GuardianConfig } from '@portkey/rn-sdk/src/model/verify/guardian';
+import { AccountOriginalType } from 'model/verify/core';
+import { GuardianConfig } from 'model/verify/guardian';
 
 export default class VerifierDetailsEntryPage extends BaseContainer<
   VerifierDetailsPageProps,

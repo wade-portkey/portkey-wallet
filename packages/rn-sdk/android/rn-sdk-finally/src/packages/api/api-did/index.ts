@@ -1,23 +1,23 @@
-import walletApi from '@portkey/rn-sdk/src/packages/api/api-did/wallet';
-import verificationApi from '@portkey/rn-sdk/src/packages/api/api-did/verification';
-import contactApi from '@portkey/rn-sdk/src/packages/api/api-did/contact';
-import chainApi from '@portkey/rn-sdk/src/packages/api/api-did/chain';
-import assetsApi from '@portkey/rn-sdk/src/packages/api/api-did/assets';
-import recentApi from '@portkey/rn-sdk/src/packages/api/api-did/recent';
-import tokenApi from '@portkey/rn-sdk/src/packages/api/api-did/token';
-import paymentApi from '@portkey/rn-sdk/src/packages/api/api-did/payment';
-import deviceApi from '@portkey/rn-sdk/src/packages/api/api-did/device';
-import messageApi from '@portkey/rn-sdk/src/packages/api/api-did/message';
-import switchApi from '@portkey/rn-sdk/src/packages/api/api-did/switch';
-import discoverApi from '@portkey/rn-sdk/src/packages/api/api-did/discover';
-import txFeeApi from '@portkey/rn-sdk/src/packages/api/api-did/txFee';
-import imApi from '@portkey/rn-sdk/src/packages/api/api-did/im';
+import walletApi from 'packages/api/api-did/wallet';
+import verificationApi from 'packages/api/api-did/verification';
+import contactApi from 'packages/api/api-did/contact';
+import chainApi from 'packages/api/api-did/chain';
+import assetsApi from 'packages/api/api-did/assets';
+import recentApi from 'packages/api/api-did/recent';
+import tokenApi from 'packages/api/api-did/token';
+import paymentApi from 'packages/api/api-did/payment';
+import deviceApi from 'packages/api/api-did/device';
+import messageApi from 'packages/api/api-did/message';
+import switchApi from 'packages/api/api-did/switch';
+import discoverApi from 'packages/api/api-did/discover';
+import txFeeApi from 'packages/api/api-did/txFee';
+import imApi from 'packages/api/api-did/im';
 
-import esApi from '@portkey/rn-sdk/src/packages/api/api-did/es';
-import myServer, { DidService } from '@portkey/rn-sdk/src/packages/api/api-did/server';
-import { API_REQ_FUNCTION } from '@portkey/rn-sdk/src/packages/api/types';
-import { ES_API_REQ_FUNCTION } from '@portkey/rn-sdk/src/packages/api/api-did/es/type';
-import activityApi from '@portkey/rn-sdk/src/packages/api/api-did/activity';
+import esApi from 'packages/api/api-did/es';
+import myServer, { DidService } from 'packages/api/api-did/server';
+import { API_REQ_FUNCTION } from 'packages/api/types';
+import { ES_API_REQ_FUNCTION } from 'packages/api/api-did/es/type';
+import activityApi from 'packages/api/api-did/activity';
 
 export const DEFAULT_METHOD = 'POST';
 

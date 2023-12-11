@@ -1,8 +1,8 @@
-import { PortkeyConfig } from '@portkey/rn-sdk/src/global/constants';
-import { AccountIdentifierStatusDTO, RegisterStatusDTO } from '@portkey/rn-sdk/src/network/dto/signIn';
-import { NetworkOptions, ResultWrapper, TypedUrlParams, nativeFetch } from '@portkey/rn-sdk/src/service/native-modules';
-import { APIPaths } from '@portkey/rn-sdk/src/network/path';
-import { ChainId } from '@portkey/rn-sdk/src/packages/types';
+import { PortkeyConfig } from 'global/constants';
+import { AccountIdentifierStatusDTO, RegisterStatusDTO } from 'network/dto/signIn';
+import { NetworkOptions, ResultWrapper, TypedUrlParams, nativeFetch } from 'service/native-modules';
+import { APIPaths } from 'network/path';
+import { ChainId } from 'packages/types';
 import {
   CheckVerifyCodeParams,
   CheckVerifyCodeResultDTO,
@@ -14,9 +14,9 @@ import {
   SendVerifyCodeResultDTO,
   VerifyAppleGuardianParams,
   VerifyGoogleGuardianParams,
-} from '@portkey/rn-sdk/src/network/dto/guardian';
-import { OperationTypeEnum } from '@portkey/rn-sdk/src/packages/types/verifier';
-import { CountryCodeDataDTO } from '@portkey/rn-sdk/src/types/wallet';
+} from 'network/dto/guardian';
+import { OperationTypeEnum } from 'packages/types/verifier';
+import { CountryCodeDataDTO } from 'types/wallet';
 import {
   AElfChainStatusDTO,
   CheckRegisterOrRecoveryProcessParams,
@@ -25,11 +25,11 @@ import {
   RequestRegisterOrSocialRecoveryResultDTO,
   RequestRegisterParams,
   RequestSocialRecoveryParams,
-} from '@portkey/rn-sdk/src/network/dto/wallet';
-import { sleep } from '@portkey/rn-sdk/src/packages/utils';
-import { getCachedNetworkToken } from '@portkey/rn-sdk/src/network/token';
-import { isWalletUnlocked } from '@portkey/rn-sdk/src/model/verify/core';
-import { SymbolImages } from '@portkey/rn-sdk/src/model/symbolImage';
+} from 'network/dto/wallet';
+import { sleep } from 'packages/utils';
+import { getCachedNetworkToken } from 'network/token';
+import { isWalletUnlocked } from 'model/verify/core';
+import { SymbolImages } from 'model/symbolImage';
 import {
   FetchTokenPriceResult,
   SearchTokenListParams,
@@ -40,9 +40,9 @@ import {
   FetchAccountNftCollectionListResult,
   FetchAccountNftCollectionItemListParams,
   FetchAccountNftCollectionItemListResult,
-} from '@portkey/rn-sdk/src/network/dto/query';
-import { selectCurrentBackendConfig } from '@portkey/rn-sdk/src/utils/commonUtil';
-import { CheckPaymentSecurityRuleParams, CheckPaymentSecurityRuleResult } from '@portkey/rn-sdk/src/network/dto/security';
+} from 'network/dto/query';
+import { selectCurrentBackendConfig } from 'utils/commonUtil';
+import { CheckPaymentSecurityRuleParams, CheckPaymentSecurityRuleResult } from 'network/dto/security';
 
 const DEFAULT_MAX_POLLING_TIMES = 50;
 

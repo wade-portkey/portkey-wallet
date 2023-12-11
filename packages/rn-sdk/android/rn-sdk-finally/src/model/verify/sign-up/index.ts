@@ -1,5 +1,5 @@
-import { GuardianConfig } from '@portkey/rn-sdk/src/model/verify/guardian';
-import { AccountOriginalType, VerifiedGuardianDoc } from '@portkey/rn-sdk/src/model/verify/core';
+import { GuardianConfig } from 'model/verify/guardian';
+import { AccountOriginalType, VerifiedGuardianDoc } from 'model/verify/core';
 
 export interface SignUpConfig {
   accountIdentifier: string;

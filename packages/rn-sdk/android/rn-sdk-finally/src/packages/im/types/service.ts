@@ -6,7 +6,7 @@ import {
   Message,
   MessageCount,
   TriggerMessageEventActionEnum,
-} from '@portkey/rn-sdk/src/packages/im/types';
+} from 'packages/im/types';
 
 export type IMServiceCommon<T> = Promise<{
   code: string;

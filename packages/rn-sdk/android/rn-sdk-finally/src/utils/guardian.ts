@@ -1,8 +1,8 @@
 import { UserGuardianItem } from 'packages/types/store-ca/guardians/type';
-import { VerifierInfo } from '@portkey/rn-sdk/src/packages/types/verifier';
-import { GuardiansStatus } from '@portkey/rn-sdk/src/pages/Guardian/types';
-import { ContractBasic } from '@portkey/rn-sdk/src/packages/contracts/utils/ContractBasic';
-import { handleVerificationDoc } from '@portkey/rn-sdk/src/packages/utils/guardian';
+import { VerifierInfo } from 'packages/types/verifier';
+import { GuardiansStatus } from 'pages/Guardian/types';
+import { ContractBasic } from 'packages/contracts/utils/ContractBasic';
+import { handleVerificationDoc } from 'packages/utils/guardian';
 
 const getGuardiansApproved = (userGuardiansList: UserGuardianItem[], guardiansStatus: GuardiansStatus) => {
   return userGuardiansList

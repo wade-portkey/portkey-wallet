@@ -1,11 +1,11 @@
-import { useAppCASelector } from '@portkey/rn-sdk/src/packages/hooks/hooks-ca';
+import { useAppCASelector } from 'packages/hooks/hooks-ca';
 import { useEffect, useMemo } from 'react';
-import { useAppCommonDispatch } from '@portkey/rn-sdk/src/packages/hooks';
-import { useCurrentNetwork } from '@portkey/rn-sdk/src/packages/hooks/hooks-ca/network';
+import { useAppCommonDispatch } from 'packages/hooks';
+import { useCurrentNetwork } from 'packages/hooks/hooks-ca/network';
 import { fetchTxFeeAsync } from 'packages/types/store-ca/txFee/actions';
-import { ChainId } from '@portkey/rn-sdk/src/packages/types';
-import { InitialTxFee } from '@portkey/rn-sdk/src/packages/constants/constants-ca/wallet';
-import { useCurrentChainList } from '@portkey/rn-sdk/src/packages/hooks/hooks-ca/chainList';
+import { ChainId } from 'packages/types';
+import { InitialTxFee } from 'packages/constants/constants-ca/wallet';
+import { useCurrentChainList } from 'packages/hooks/hooks-ca/chainList';
 
 export const useFetchTxFee = () => {
   const dispatch = useAppCommonDispatch();

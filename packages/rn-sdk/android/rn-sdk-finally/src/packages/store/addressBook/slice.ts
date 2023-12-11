@@ -1,9 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import type { AddressBookItem, AddressBookType } from '@portkey/rn-sdk/src/packages/types/addressBook';
-import { ChainItemType } from '@portkey/rn-sdk/src/packages/types/chain';
-import { addressFormat, isAddress } from '@portkey/rn-sdk/src/packages/utils';
-import { AddressBookError } from '@portkey/rn-sdk/src/packages/store/addressBook/types';
-import { UpdateType } from '@portkey/rn-sdk/src/packages/types';
+import type { AddressBookItem, AddressBookType } from 'packages/types/addressBook';
+import { ChainItemType } from 'packages/types/chain';
+import { addressFormat, isAddress } from 'packages/utils';
+import { AddressBookError } from 'packages/store/addressBook/types';
+import { UpdateType } from 'packages/types';
 
 export interface addressBookState {
   addressBook: AddressBookType;
@@ -49,7 +49,7 @@ export const addressBookSlice = createSlice({
           // illegal name
           if (flag) error.push(AddressBookError.alreadyExists);
 
-          if (!!error.length) throw new Error(JSON.stringify(error));
+          if (error.length) throw new Error(JSON.stringify(error));
 
           state.addressBook[`${rpcUrl}&${networkName}`] = (state.addressBook[`${rpcUrl}&${networkName}`] ?? []).concat([
             addressBookFormat,
@@ -67,7 +67,7 @@ export const addressBookSlice = createSlice({
 
           if (flag) error.push(AddressBookError.alreadyExists);
 
-          if (!!error.length) throw new Error(JSON.stringify(error));
+          if (error.length) throw new Error(JSON.stringify(error));
 
           state.addressBook[`${rpcUrl}&${networkName}`] = (state.addressBook[`${rpcUrl}&${networkName}`] ?? []).map(
             item => (item.key === addressBookFormat.key ? addressBookFormat : item),

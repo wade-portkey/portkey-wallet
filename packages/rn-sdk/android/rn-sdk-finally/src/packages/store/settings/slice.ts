@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { LockingTimeType, SettingsState } from '@portkey/rn-sdk/src/packages/store/settings/types';
+import { LockingTimeType, SettingsState } from 'packages/store/settings/types';
 
 const initialState: SettingsState = {
   autoLockingTime: 60,

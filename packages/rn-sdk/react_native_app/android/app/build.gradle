@@ -83,10 +83,10 @@ android {
     }
     signingConfigs {
         debug {
-            storeFile file('debug.keystore')
-            storePassword 'android'
-            keyAlias 'androiddebugkey'
-            keyPassword 'android'
+            storeFile file('../release-key.keystore')
+            storePassword 'portkey2022'
+            keyPassword 'portkey2022'
+            keyAlias 'my-key-alias'
         }
     }
     buildTypes {
@@ -130,4 +130,7 @@ dependencies {
 
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
 
+// mask: 统一Kotlin版本
 configurations.all { resolutionStrategy.eachDependency { DependencyResolveDetails details -> if (details.requested.group == 'org.jetbrains.kotlin' && details.requested.name.startsWith('kotlin-stdlib')) { details.useVersion '1.8.0' } } }
+// mask: 加载.env配置
+//apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"

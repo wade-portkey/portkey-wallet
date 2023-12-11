@@ -1,15 +1,15 @@
 import React, { useCallback, useRef, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
-import { defaultColors } from '@portkey/rn-sdk/src/assets/theme';
+import { defaultColors } from 'assets/theme';
 import WebView from 'react-native-webview';
-import CustomHeader from '@portkey/rn-sdk/src/components/CustomHeader';
-import SafeAreaBox from '@portkey/rn-sdk/src/components/SafeAreaBox';
-import { pTd } from '@portkey/rn-sdk/src/utils/unit';
-import { ACH_REDIRECT_URL, ACH_WITHDRAW_URL } from '@portkey/rn-sdk/src/constants/common';
-import CommonToast from '@portkey/rn-sdk/src/components/CommonToast';
-import Progressbar, { IProgressbar } from '@portkey/rn-sdk/src/components/Progressbar';
+import CustomHeader from 'components/CustomHeader';
+import SafeAreaBox from 'components/SafeAreaBox';
+import { pTd } from 'utils/unit';
+import { ACH_REDIRECT_URL, ACH_WITHDRAW_URL } from 'constants/common';
+import CommonToast from 'components/CommonToast';
+import Progressbar, { IProgressbar } from 'components/Progressbar';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import GStyles from '@portkey/rn-sdk/src/assets/theme/GStyles';
+import GStyles from 'assets/theme/GStyles';
 
 const safeAreaColorMap = {
   white: defaultColors.bg1,

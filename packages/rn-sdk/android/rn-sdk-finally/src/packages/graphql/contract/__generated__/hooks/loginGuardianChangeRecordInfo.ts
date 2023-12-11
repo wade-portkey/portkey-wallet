@@ -1,4 +1,4 @@
-import * as Types from '@portkey/rn-sdk/src/packages/graphql/contract/__generated__/types';
+import * as Types from 'packages/graphql/contract/__generated__/types';
 
 import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';

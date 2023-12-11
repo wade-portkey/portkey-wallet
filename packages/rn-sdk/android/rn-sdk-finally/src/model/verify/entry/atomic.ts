@@ -1,7 +1,7 @@
-import { useAppleAuthentication, useGoogleAuthentication } from '@portkey/rn-sdk/src/model/hooks/authentication';
+import { useAppleAuthentication, useGoogleAuthentication } from 'model/hooks/authentication';
 import { useCallback } from 'react';
-import { GuardianConfig } from '@portkey/rn-sdk/src/model/verify/guardian';
-import { AppleAccountInfo, GoogleAccountInfo } from '@portkey/rn-sdk/src/model/verify/third-party-account';
+import { GuardianConfig } from 'model/verify/guardian';
+import { AppleAccountInfo, GoogleAccountInfo } from 'model/verify/third-party-account';
 
 export const useThirdPartyVerifyAtomic = (): {
   appleLoginAdapter: () => Promise<AppleAccountInfo>;

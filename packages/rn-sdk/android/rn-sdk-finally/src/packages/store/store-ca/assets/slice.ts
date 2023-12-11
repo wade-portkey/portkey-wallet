@@ -1,11 +1,17 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
-import { NFTCollectionItemShowType } from '@portkey/rn-sdk/src/packages/types/types-ca/assets';
-import { fetchAssetList, fetchNFTSeriesList, fetchNFTList, fetchTokenList, fetchTokenPrices } from '@portkey/rn-sdk/src/packages/store/store-ca/assets/api';
-import { AccountAssets, TokenItemShowType } from '@portkey/rn-sdk/src/packages/types/types-ca/token';
-import { ChainId } from '@portkey/rn-sdk/src/packages/types';
-import { NEW_CLIENT_MOCK_ELF_LIST, PAGE_SIZE_IN_NFT_ITEM } from '@portkey/rn-sdk/src/packages/constants/constants-ca/assets';
-import { ZERO } from '@portkey/rn-sdk/src/packages/constants/misc';
-import { formatAmountShow } from '@portkey/rn-sdk/src/packages/utils/converter';
+import { NFTCollectionItemShowType } from 'packages/types/types-ca/assets';
+import {
+  fetchAssetList,
+  fetchNFTSeriesList,
+  fetchNFTList,
+  fetchTokenList,
+  fetchTokenPrices,
+} from 'packages/store/store-ca/assets/api';
+import { AccountAssets, TokenItemShowType } from 'packages/types/types-ca/token';
+import { ChainId } from 'packages/types';
+import { NEW_CLIENT_MOCK_ELF_LIST, PAGE_SIZE_IN_NFT_ITEM } from 'packages/constants/constants-ca/assets';
+import { ZERO } from 'packages/constants/misc';
+import { formatAmountShow } from 'packages/utils/converter';
 
 // asset = token + nft
 export type AssetsStateType = {

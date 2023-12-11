@@ -1,15 +1,15 @@
 import React from 'react';
-import Svg from '@portkey/rn-sdk/src/components/Svg';
+import Svg from 'components/Svg';
 import { TouchableOpacity, View } from 'react-native';
-import { dashBoardBtnStyle, innerPageStyles } from '@portkey/rn-sdk/src/components/SendButton/style';
-import { TextM } from '@portkey/rn-sdk/src/components/CommonText';
-import { useLanguage } from '@portkey/rn-sdk/src/i18n/hooks';
-import TokenOverlay from '@portkey/rn-sdk/src/components/TokenOverlay';
-import { TokenItemShowType } from '@portkey/rn-sdk/src/packages/types/types-ca/token';
-import { pTd } from '@portkey/rn-sdk/src/utils/unit';
-import GStyles from '@portkey/rn-sdk/src/assets/theme/GStyles';
-import { PortkeyEntries } from '@portkey/rn-sdk/src/config/entries';
-import useBaseContainer from '@portkey/rn-sdk/src/model/container/UseBaseContainer';
+import { dashBoardBtnStyle, innerPageStyles } from 'components/SendButton/style';
+import { TextM } from 'components/CommonText';
+import { useLanguage } from 'i18n/hooks';
+import TokenOverlay from 'components/TokenOverlay';
+import { TokenItemShowType } from 'packages/types/types-ca/token';
+import { pTd } from 'utils/unit';
+import GStyles from 'assets/theme/GStyles';
+import { PortkeyEntries } from 'config/entries';
+import useBaseContainer from 'model/container/UseBaseContainer';
 
 interface SendButtonType {
   currentTokenInfo?: TokenItemShowType;

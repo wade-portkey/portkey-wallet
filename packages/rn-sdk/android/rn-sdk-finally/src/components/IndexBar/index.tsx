@@ -8,10 +8,10 @@ import {
   PanResponderCallbacks,
   Animated,
 } from 'react-native';
-import { TextL, TextS } from '@portkey/rn-sdk/src/components/CommonText';
-import { TextStyleType, ViewStyleType } from '@portkey/rn-sdk/src/types/styles';
-import { defaultColors } from '@portkey/rn-sdk/src/assets/theme';
-import { pTd } from '@portkey/rn-sdk/src/utils/unit';
+import { TextL, TextS } from 'components/CommonText';
+import { TextStyleType, ViewStyleType } from 'types/styles';
+import { defaultColors } from 'assets/theme';
+import { pTd } from 'utils/unit';
 export interface IndexBarProps {
   data: string[];
   style?: ViewStyleType;

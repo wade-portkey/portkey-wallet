@@ -1,5 +1,5 @@
-import { renderHookWithProvider } from '@portkey/rn-sdk/src/test/utils/render';
-import { setupStore } from '@portkey/rn-sdk/src/test/utils/setup';
+import { renderHookWithProvider } from 'test/utils/render';
+import { setupStore } from 'test/utils/setup';
 import { fetchAllTokenListAsync, getSymbolImagesAsync } from 'packages/types/store-ca/tokenManagement/action';
 import {
   useToken,
@@ -7,12 +7,12 @@ import {
   useIsFetchingTokenList,
   useFetchSymbolImages,
   useSymbolImages,
-} from '@portkey/rn-sdk/src/packages/hooks/hooks-ca/useToken';
-import { TokenManagementState } from '@portkey/rn-sdk/src/test/data/tokenManagementState';
-import * as baseHooks from '@portkey/rn-sdk/src/packages/hooks';
-import * as networkHooks from '@portkey/rn-sdk/src/packages/hooks/hooks-ca/network';
-import { request } from '@portkey/rn-sdk/src/packages/api/api-did';
-import { TestnetNetworkInfo } from '@portkey/rn-sdk/src/test/data/networkState';
+} from 'packages/hooks/hooks-ca/useToken';
+import { TokenManagementState } from 'test/data/tokenManagementState';
+import * as baseHooks from 'packages/hooks';
+import * as networkHooks from 'packages/hooks/hooks-ca/network';
+import { request } from 'packages/api/api-did';
+import { TestnetNetworkInfo } from 'test/data/networkState';
 
 jest.mock('packages/types/store-ca/tokenManagement/action');
 jest.mock('packages/api/api-did');

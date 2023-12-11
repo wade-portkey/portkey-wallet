@@ -1,19 +1,19 @@
 import React, { useState, useRef } from 'react';
 import { View } from 'react-native';
-import { checkEmail } from '@portkey/rn-sdk/src/packages/utils/check';
-import { BGStyles } from '@portkey/rn-sdk/src/assets/theme/styles';
-import { useLanguage } from '@portkey/rn-sdk/src/i18n/hooks';
-import styles from '@portkey/rn-sdk/src/pages/Login/styles';
-import CommonInput from '@portkey/rn-sdk/src/components/CommonInput';
-import CommonButton from '@portkey/rn-sdk/src/components/CommonButton';
-import GStyles from '@portkey/rn-sdk/src/assets/theme/GStyles';
-import { PageLoginType, PageType } from '@portkey/rn-sdk/src/pages/Login/types';
-import Button from '@portkey/rn-sdk/src/pages/Login/components/Button';
-import { AccountOriginalType } from '@portkey/rn-sdk/src/model/verify/core';
-import { PortkeyEntries } from '@portkey/rn-sdk/src/config/entries';
-import TermsServiceButton from '@portkey/rn-sdk/src/pages/Login/components/TermsServiceButton';
-import { useVerifyEntry } from '@portkey/rn-sdk/src/model/verify/entry';
-import { doubleClick } from '@portkey/rn-sdk/src/utils/commonUtil';
+import { checkEmail } from 'packages/utils/check';
+import { BGStyles } from 'assets/theme/styles';
+import { useLanguage } from 'i18n/hooks';
+import styles from 'pages/Login/styles';
+import CommonInput from 'components/CommonInput';
+import CommonButton from 'components/CommonButton';
+import GStyles from 'assets/theme/GStyles';
+import { PageLoginType, PageType } from 'pages/Login/types';
+import Button from 'pages/Login/components/Button';
+import { AccountOriginalType } from 'model/verify/core';
+import { PortkeyEntries } from 'config/entries';
+import TermsServiceButton from 'pages/Login/components/TermsServiceButton';
+import { useVerifyEntry } from 'model/verify/entry';
+import { doubleClick } from 'utils/commonUtil';
 
 const TitleMap = {
   [PageType.login]: {

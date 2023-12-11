@@ -1,7 +1,7 @@
-import CommonToast from '@portkey/rn-sdk/src/components/CommonToast';
+import CommonToast from 'components/CommonToast';
 import { setStringAsync } from 'expo-clipboard';
-import i18n from '@portkey/rn-sdk/src/i18n';
-import { BackEndNetWorkMap } from '@portkey/rn-sdk/src/packages/constants/constants-ca/backend-network';
+import i18n from 'i18n';
+import { BackEndNetWorkMap } from 'packages/constants/constants-ca/backend-network';
 
 // eslint-disable-next-line @typescript-eslint/ban-types
 export function myThrottle(fn: Function, delay: number) {

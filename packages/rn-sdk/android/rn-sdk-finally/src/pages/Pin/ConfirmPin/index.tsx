@@ -1,17 +1,17 @@
-import { PIN_SIZE } from '@portkey/rn-sdk/src/packages/constants/misc';
-import PageContainer from '@portkey/rn-sdk/src/components/PageContainer';
-import { DigitInputInterface } from '@portkey/rn-sdk/src/components/DigitInput';
+import { PIN_SIZE } from 'packages/constants/misc';
+import PageContainer from 'components/PageContainer';
+import { DigitInputInterface } from 'components/DigitInput';
 import React, { useCallback, useRef, useState } from 'react';
-import myEvents from '@portkey/rn-sdk/src/utils/deviceEvent';
-import PinContainer from '@portkey/rn-sdk/src/components/PinContainer';
+import myEvents from 'utils/deviceEvent';
+import PinContainer from 'components/PinContainer';
 import { StyleSheet } from 'react-native';
-import useBaseContainer from '@portkey/rn-sdk/src/model/container/UseBaseContainer';
-import { PortkeyEntries } from '@portkey/rn-sdk/src/config/entries';
-import { changePin, getVerifiedAndLockWallet } from '@portkey/rn-sdk/src/model/verify/core';
-import Loading from '@portkey/rn-sdk/src/components/Loading';
-import { SetBiometricsProps, SetBiometricsResult, touchAuth } from '@portkey/rn-sdk/src/pages/Pin/SetBiometrics';
-import CommonToast from '@portkey/rn-sdk/src/components/CommonToast';
-import { authenticateBioReady, isBiometricsCanUse } from '@portkey/rn-sdk/src/service/biometric';
+import useBaseContainer from 'model/container/UseBaseContainer';
+import { PortkeyEntries } from 'config/entries';
+import { changePin, getVerifiedAndLockWallet } from 'model/verify/core';
+import Loading from 'components/Loading';
+import { SetBiometricsProps, SetBiometricsResult, touchAuth } from 'pages/Pin/SetBiometrics';
+import CommonToast from 'components/CommonToast';
+import { authenticateBioReady, isBiometricsCanUse } from 'service/biometric';
 
 export default function ConfirmPin({ oldPin, pin, deliveredSetPinInfo }: ConfirmPinPageProps) {
   const [errorMessage, setErrorMessage] = useState<string>();

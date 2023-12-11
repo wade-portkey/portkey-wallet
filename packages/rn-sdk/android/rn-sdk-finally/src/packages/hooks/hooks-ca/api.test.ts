@@ -1,12 +1,12 @@
-import { useRefreshTokenConfig } from '@portkey/rn-sdk/src/packages/hooks/hooks-ca/api';
+import { useRefreshTokenConfig } from 'packages/hooks/hooks-ca/api';
 import { renderHook, act } from '@testing-library/react';
-import * as networkHooks from '@portkey/rn-sdk/src/packages/hooks/hooks-ca/network';
-import * as walletHooks from '@portkey/rn-sdk/src/packages/hooks/hooks-ca/wallet';
-import aes from '@portkey/rn-sdk/src/packages/utils/aes';
+import * as networkHooks from 'packages/hooks/hooks-ca/network';
+import * as walletHooks from 'packages/hooks/hooks-ca/wallet';
+import aes from 'packages/utils/aes';
 import AElf from 'aelf-sdk';
-import * as utils from '@portkey/rn-sdk/src/packages/api/api-did/utils';
-import { TestnetNetworkInfo } from '@portkey/rn-sdk/src/test/data/networkState';
-import { currentWallet } from '@portkey/rn-sdk/src/test/data/chainInfo';
+import * as utils from 'packages/api/api-did/utils';
+import { TestnetNetworkInfo } from 'test/data/networkState';
+import { currentWallet } from 'test/data/chainInfo';
 
 describe('useRefreshTokenConfig', () => {
   beforeEach(() => {

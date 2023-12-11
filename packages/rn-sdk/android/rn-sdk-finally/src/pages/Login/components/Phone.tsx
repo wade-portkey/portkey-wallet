@@ -1,22 +1,22 @@
 import React, { useCallback, useState } from 'react';
 import { View } from 'react-native';
-import { BGStyles } from '@portkey/rn-sdk/src/assets/theme/styles';
-import useEffectOnce from '@portkey/rn-sdk/src/hooks/useEffectOnce';
-import { useLanguage } from '@portkey/rn-sdk/src/i18n/hooks';
-import styles from '@portkey/rn-sdk/src/pages/Login/styles';
-import CommonButton from '@portkey/rn-sdk/src/components/CommonButton';
-import GStyles from '@portkey/rn-sdk/src/assets/theme/GStyles';
-import { PageLoginType, PageType } from '@portkey/rn-sdk/src/pages/Login/types';
-import Button from '@portkey/rn-sdk/src/pages/Login/components/Button';
-import PhoneInput from '@portkey/rn-sdk/src/components/PhoneInput';
-import { getCachedCountryCodeData } from '@portkey/rn-sdk/src/model/global';
-import { CountryCodeItem, defaultCountryCode } from '@portkey/rn-sdk/src/types/wallet';
-import { PortkeyEntries } from '@portkey/rn-sdk/src/config/entries';
-import { AccountOriginalType } from '@portkey/rn-sdk/src/model/verify/core';
-import useBaseContainer from '@portkey/rn-sdk/src/model/container/UseBaseContainer';
-import TermsServiceButton from '@portkey/rn-sdk/src/pages/Login/components/TermsServiceButton';
-import { useVerifyEntry } from '@portkey/rn-sdk/src/model/verify/entry';
-import { doubleClick } from '@portkey/rn-sdk/src/utils/commonUtil';
+import { BGStyles } from 'assets/theme/styles';
+import useEffectOnce from 'hooks/useEffectOnce';
+import { useLanguage } from 'i18n/hooks';
+import styles from 'pages/Login/styles';
+import CommonButton from 'components/CommonButton';
+import GStyles from 'assets/theme/GStyles';
+import { PageLoginType, PageType } from 'pages/Login/types';
+import Button from 'pages/Login/components/Button';
+import PhoneInput from 'components/PhoneInput';
+import { getCachedCountryCodeData } from 'model/global';
+import { CountryCodeItem, defaultCountryCode } from 'types/wallet';
+import { PortkeyEntries } from 'config/entries';
+import { AccountOriginalType } from 'model/verify/core';
+import useBaseContainer from 'model/container/UseBaseContainer';
+import TermsServiceButton from 'pages/Login/components/TermsServiceButton';
+import { useVerifyEntry } from 'model/verify/entry';
+import { doubleClick } from 'utils/commonUtil';
 
 const TitleMap = {
   [PageType.login]: {

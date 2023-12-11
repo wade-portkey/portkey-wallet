@@ -1,8 +1,8 @@
-import { ZERO } from '@portkey/rn-sdk/src/packages/constants/misc';
+import { ZERO } from 'packages/constants/misc';
 import { UserGuardianItem } from 'packages/types/store-ca/guardians/type';
-import { GuardiansInfo } from '@portkey/rn-sdk/src/packages/types/types-ca/guardian';
-import { LoginType } from '@portkey/rn-sdk/src/packages/types/types-ca/wallet';
-import { VerifierItem } from '@portkey/rn-sdk/src/packages/types/verifier';
+import { GuardiansInfo } from 'packages/types/types-ca/guardian';
+import { LoginType } from 'packages/types/types-ca/wallet';
+import { VerifierItem } from 'packages/types/verifier';
 import BigNumber from 'bignumber.js';
 
 const APPROVAL_COUNT = ZERO.plus(3).div(5);

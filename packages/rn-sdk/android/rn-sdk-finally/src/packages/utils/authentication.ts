@@ -1,4 +1,4 @@
-import { customFetch } from '@portkey/rn-sdk/src/packages/utils/fetch';
+import { customFetch } from 'packages/utils/fetch';
 import { Buffer } from 'buffer';
 
 if (!global.Buffer) {

@@ -1,7 +1,7 @@
-import Loading from '@portkey/rn-sdk/src/components/Loading';
-import { ITransferLimitItem } from '@portkey/rn-sdk/src/model/security';
-import { getUnlockedWallet } from '@portkey/rn-sdk/src/model/wallet';
-import { NetworkController } from '@portkey/rn-sdk/src/network/controller';
+import Loading from 'components/Loading';
+import { ITransferLimitItem } from 'model/security';
+import { getUnlockedWallet } from 'model/wallet';
+import { NetworkController } from 'network/controller';
 import { useState, useCallback, useMemo } from 'react';
 
 const PAYMENT_SECURITY_PAGE_LIMIT = 20;

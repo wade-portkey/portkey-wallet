@@ -1,8 +1,8 @@
 import React from 'react';
-import AppleLogin from '@portkey/rn-sdk/src/model/hooks/apple-login/AppleLogin';
-import OverlayModal from '@portkey/rn-sdk/src/components/OverlayModal';
-import { screenWidth } from '@portkey/rn-sdk/src/packages/utils/mobile/device';
-import { clearBackgroundTimeout, setBackgroundTimeout } from '@portkey/rn-sdk/src/utils/backgroundTimer';
+import AppleLogin from 'model/hooks/apple-login/AppleLogin';
+import OverlayModal from 'components/OverlayModal';
+import { screenWidth } from 'packages/utils/mobile/device';
+import { clearBackgroundTimeout, setBackgroundTimeout } from 'utils/backgroundTimer';
 
 const TIME_OUT = 120000; // timeout 20 seconds
 

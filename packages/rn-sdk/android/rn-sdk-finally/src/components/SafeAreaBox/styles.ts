@@ -1,5 +1,5 @@
-import { bottomBarHeight } from '@portkey/rn-sdk/src/packages/utils/mobile/device';
-import { defaultColors } from '@portkey/rn-sdk/src/assets/theme';
+import { bottomBarHeight } from 'packages/utils/mobile/device';
+import { defaultColors } from 'assets/theme';
 import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({

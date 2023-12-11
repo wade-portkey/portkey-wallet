@@ -1,10 +1,10 @@
 import { createAsyncThunk, createAction } from '@reduxjs/toolkit';
-import { request } from '@portkey/rn-sdk/src/packages/api/api-did';
-import { NetworkType } from '@portkey/rn-sdk/src/packages/types';
-import { MiscState } from '@portkey/rn-sdk/src/packages/store/store-ca/misc/types';
-import { NetworkList } from '@portkey/rn-sdk/src/packages/constants/constants-ca/network';
-import { DefaultCountry } from '@portkey/rn-sdk/src/packages/constants/constants-ca/country';
-import { CountryItem } from '@portkey/rn-sdk/src/packages/types/types-ca/country';
+import { request } from 'packages/api/api-did';
+import { NetworkType } from 'packages/types';
+import { MiscState } from 'packages/store/store-ca/misc/types';
+import { NetworkList } from 'packages/constants/constants-ca/network';
+import { DefaultCountry } from 'packages/constants/constants-ca/country';
+import { CountryItem } from 'packages/types/types-ca/country';
 
 export const getPhoneCountryCode = createAsyncThunk<
   Required<Pick<MiscState, 'phoneCountryCodeListChainMap' | 'defaultPhoneCountryCode'>>,

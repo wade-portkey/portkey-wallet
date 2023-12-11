@@ -1,11 +1,11 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { defaultColors } from '@portkey/rn-sdk/src/assets/theme';
-import { TextStyleType, ViewStyleType } from '@portkey/rn-sdk/src/types/styles';
-import GStyles from '@portkey/rn-sdk/src/assets/theme/GStyles';
-import { TextM } from '@portkey/rn-sdk/src/components/CommonText';
-import { FontStyles } from '@portkey/rn-sdk/src/assets/theme/styles';
-import { pTd } from '@portkey/rn-sdk/src/utils/unit';
+import { defaultColors } from 'assets/theme';
+import { TextStyleType, ViewStyleType } from 'types/styles';
+import GStyles from 'assets/theme/GStyles';
+import { TextM } from 'components/CommonText';
+import { FontStyles } from 'assets/theme/styles';
+import { pTd } from 'utils/unit';
 
 export interface DividerProps {
   style?: ViewStyleType;

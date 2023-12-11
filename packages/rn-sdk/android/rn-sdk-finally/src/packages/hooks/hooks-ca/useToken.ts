@@ -1,9 +1,9 @@
-import { useAppCASelector, useAppCommonDispatch } from '@portkey/rn-sdk/src/packages/hooks';
+import { useAppCASelector, useAppCommonDispatch } from 'packages/hooks';
 import { fetchAllTokenListAsync, getSymbolImagesAsync } from 'packages/types/store-ca/tokenManagement/action';
-import { TokenState, TokenItemShowType } from '@portkey/rn-sdk/src/packages/types/types-ca/token';
+import { TokenState, TokenItemShowType } from 'packages/types/types-ca/token';
 import { useMemo, useCallback, useEffect } from 'react';
-import { useCurrentNetworkInfo } from '@portkey/rn-sdk/src/packages/hooks/hooks-ca/network';
-import { request } from '@portkey/rn-sdk/src/packages/api/api-did';
+import { useCurrentNetworkInfo } from 'packages/hooks/hooks-ca/network';
+import { request } from 'packages/api/api-did';
 
 export interface TokenFuncsType {
   fetchTokenList: (params: { keyword: string; chainIdArray: string[] }) => void;

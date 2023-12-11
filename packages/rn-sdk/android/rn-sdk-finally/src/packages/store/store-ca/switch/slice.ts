@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { request } from '@portkey/rn-sdk/src/packages/api/api-did';
+import { request } from 'packages/api/api-did';
 
 export type SwitchStateTypes = {
   isShowBuyFeature: boolean;

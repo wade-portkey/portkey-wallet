@@ -1,5 +1,5 @@
-import { ChannelItem, Message } from '@portkey/rn-sdk/src/packages/im/types';
-import { NetworkType } from '@portkey/rn-sdk/src/packages/types';
+import { ChannelItem, Message } from 'packages/im/types';
+import { NetworkType } from 'packages/types';
 
 export type ChannelList = {
   list: ChannelItem[];

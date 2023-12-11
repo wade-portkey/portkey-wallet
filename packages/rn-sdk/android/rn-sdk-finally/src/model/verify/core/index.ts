@@ -1,19 +1,19 @@
-import { ChainId } from '@portkey/rn-sdk/src/packages/types';
-import { DeviceInfoType, DeviceType } from '@portkey/rn-sdk/src/packages/types/types-ca/device';
-import { sleep } from '@portkey/rn-sdk/src/packages/utils';
-import CommonToast from '@portkey/rn-sdk/src/components/CommonToast';
-import { PortkeyConfig } from '@portkey/rn-sdk/src/global/constants';
-import { requestSocialRecoveryOrRegister } from '@portkey/rn-sdk/src/model/global';
-import { NetworkController, handleRequestPolling } from '@portkey/rn-sdk/src/network/controller';
+import { ChainId } from 'packages/types';
+import { DeviceInfoType, DeviceType } from 'packages/types/types-ca/device';
+import { sleep } from 'packages/utils';
+import CommonToast from 'components/CommonToast';
+import { PortkeyConfig } from 'global/constants';
+import { requestSocialRecoveryOrRegister } from 'model/global';
+import { NetworkController, handleRequestPolling } from 'network/controller';
 import {
   ProgressStatus,
   RecoveryProgressDTO,
   RegisterProgressDTO,
   ManagerInfo,
   isRecoveryStatusItem,
-} from '@portkey/rn-sdk/src/network/dto/wallet';
-import { GlobalStorage, TempStorage } from '@portkey/rn-sdk/src/service/storage';
-import { decrypt, encrypt, encryptLocal } from '@portkey/rn-sdk/src/utils/crypto';
+} from 'network/dto/wallet';
+import { GlobalStorage, TempStorage } from 'service/storage';
+import { decrypt, encrypt, encryptLocal } from 'utils/crypto';
 
 const PIN_KEY = 'pin';
 const WALLET_CONFIG_KEY = 'walletConfig';

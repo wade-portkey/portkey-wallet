@@ -1,13 +1,13 @@
 import React, { forwardRef, useState } from 'react';
 import { View, StyleSheet } from 'react-native';
-import { windowHeight } from '@portkey/rn-sdk/src/packages/utils/mobile/device';
-import GStyles from '@portkey/rn-sdk/src/assets/theme/GStyles';
-import { TextL } from '@portkey/rn-sdk/src/components/CommonText';
+import { windowHeight } from 'packages/utils/mobile/device';
+import GStyles from 'assets/theme/GStyles';
+import { TextL } from 'components/CommonText';
 
-import { pTd } from '@portkey/rn-sdk/src/utils/unit';
-import { headerHeight } from '@portkey/rn-sdk/src/components/CustomHeader/style/index.style';
-import Keypad, { KeypadPropsType } from '@portkey/rn-sdk/src/components/Keypad';
-import DigitText, { DigitTextProps } from '@portkey/rn-sdk/src/components/DigitText';
+import { pTd } from 'utils/unit';
+import { headerHeight } from 'components/CustomHeader/style/index.style';
+import Keypad, { KeypadPropsType } from 'components/Keypad';
+import DigitText, { DigitTextProps } from 'components/DigitText';
 
 type PinContainerProps = {
   title: string;

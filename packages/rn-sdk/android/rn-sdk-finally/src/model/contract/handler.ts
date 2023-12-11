@@ -1,20 +1,20 @@
-import { getContractBasic } from '@portkey/rn-sdk/src/packages/contracts/utils';
-import { ContractBasic } from '@portkey/rn-sdk/src/packages/contracts/utils/ContractBasic';
-import { timesDecimals } from '@portkey/rn-sdk/src/packages/utils/converter';
-import { handleVerificationDoc } from '@portkey/rn-sdk/src/packages/utils/guardian';
-import { PortkeyConfig } from '@portkey/rn-sdk/src/global/constants';
-import { getCachedNetworkConfig } from '@portkey/rn-sdk/src/model/chain';
-import { guardianTypeStrToEnum } from '@portkey/rn-sdk/src/model/global';
-import { getCurrentNetworkType } from '@portkey/rn-sdk/src/model/hooks/network';
-import { ITransferLimitItem } from '@portkey/rn-sdk/src/model/security';
-import { isWalletUnlocked } from '@portkey/rn-sdk/src/model/verify/core';
-import { GuardianConfig } from '@portkey/rn-sdk/src/model/verify/guardian';
-import { getUnlockedWallet } from '@portkey/rn-sdk/src/model/wallet';
-import { NetworkController } from '@portkey/rn-sdk/src/network/controller';
-import { AElfChainStatusItemDTO, AElfWeb3SDK, ApprovedGuardianInfo } from '@portkey/rn-sdk/src/network/dto/wallet';
-import { handleCachedValue } from '@portkey/rn-sdk/src/service/storage/cache';
-import { selectCurrentBackendConfig } from '@portkey/rn-sdk/src/utils/commonUtil';
-import { addManager } from '@portkey/rn-sdk/src/utils/wallet';
+import { getContractBasic } from 'packages/contracts/utils';
+import { ContractBasic } from 'packages/contracts/utils/ContractBasic';
+import { timesDecimals } from 'packages/utils/converter';
+import { handleVerificationDoc } from 'packages/utils/guardian';
+import { PortkeyConfig } from 'global/constants';
+import { getCachedNetworkConfig } from 'model/chain';
+import { guardianTypeStrToEnum } from 'model/global';
+import { getCurrentNetworkType } from 'model/hooks/network';
+import { ITransferLimitItem } from 'model/security';
+import { isWalletUnlocked } from 'model/verify/core';
+import { GuardianConfig } from 'model/verify/guardian';
+import { getUnlockedWallet } from 'model/wallet';
+import { NetworkController } from 'network/controller';
+import { AElfChainStatusItemDTO, AElfWeb3SDK, ApprovedGuardianInfo } from 'network/dto/wallet';
+import { handleCachedValue } from 'service/storage/cache';
+import { selectCurrentBackendConfig } from 'utils/commonUtil';
+import { addManager } from 'utils/wallet';
 
 export interface Verifier {
   id: string;

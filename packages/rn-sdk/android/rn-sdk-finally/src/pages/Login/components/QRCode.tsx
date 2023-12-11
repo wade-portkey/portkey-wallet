@@ -1,25 +1,25 @@
 import React, { useCallback, useEffect, useMemo, useState, useContext } from 'react';
 import { View, Image } from 'react-native';
-import { BGStyles, FontStyles } from '@portkey/rn-sdk/src/assets/theme/styles';
-import myEvents from '@portkey/rn-sdk/src/utils/deviceEvent';
-import styles from '@portkey/rn-sdk/src/pages/Login/styles';
-import Touchable from '@portkey/rn-sdk/src/components/Touchable';
-import GStyles from '@portkey/rn-sdk/src/assets/theme/GStyles';
-import { TextS, TextXXXL } from '@portkey/rn-sdk/src/components/CommonText';
-import { PageLoginType } from '@portkey/rn-sdk/src/pages/Login/types';
-import { useIntervalQueryCAInfoByAddress } from '@portkey/rn-sdk/src/hooks/useIntervalQueryCAInfoByAddress';
-import { LoginQRData } from '@portkey/rn-sdk/src/packages/types/types-ca/qrcode';
-import { useGetDeviceInfo } from '@portkey/rn-sdk/src/hooks/device';
-import { DEVICE_INFO_VERSION } from '@portkey/rn-sdk/src/packages/constants/constants-ca/device';
-import CommonQRCodeStyled from '@portkey/rn-sdk/src/components/CommonQRCodeStyled';
+import { BGStyles, FontStyles } from 'assets/theme/styles';
+import myEvents from 'utils/deviceEvent';
+import styles from 'pages/Login/styles';
+import Touchable from 'components/Touchable';
+import GStyles from 'assets/theme/GStyles';
+import { TextS, TextXXXL } from 'components/CommonText';
+import { PageLoginType } from 'pages/Login/types';
+import { useIntervalQueryCAInfoByAddress } from 'hooks/useIntervalQueryCAInfoByAddress';
+import { LoginQRData } from 'packages/types/types-ca/qrcode';
+import { useGetDeviceInfo } from 'hooks/device';
+import { DEVICE_INFO_VERSION } from 'packages/constants/constants-ca/device';
+import CommonQRCodeStyled from 'components/CommonQRCodeStyled';
 import { usePreventScreenCapture } from 'expo-screen-capture';
-import NetworkContext from '@portkey/rn-sdk/src/pages/Login/context/NetworkContext';
-import useBaseContainer from '@portkey/rn-sdk/src/model/container/UseBaseContainer';
-import { SetPinPageResult, SetPinPageProps } from '@portkey/rn-sdk/src/pages/Pin/SetPin';
-import { PortkeyEntries } from '@portkey/rn-sdk/src/config/entries';
-import { AfterVerifiedConfig } from '@portkey/rn-sdk/src/model/verify/core';
-import { AElfWeb3SDK, ManagerInfo } from '@portkey/rn-sdk/src/network/dto/wallet';
-import { isIOS } from '@portkey/rn-sdk/src/packages/utils/mobile/device';
+import NetworkContext from 'pages/Login/context/NetworkContext';
+import useBaseContainer from 'model/container/UseBaseContainer';
+import { SetPinPageResult, SetPinPageProps } from 'pages/Pin/SetPin';
+import { PortkeyEntries } from 'config/entries';
+import { AfterVerifiedConfig } from 'model/verify/core';
+import { AElfWeb3SDK, ManagerInfo } from 'network/dto/wallet';
+import { isIOS } from 'packages/utils/mobile/device';
 
 // When wallet does not exist, DEFAULT_WALLET is populated as the default data
 const DEFAULT_WALLET: LoginQRData = {

@@ -1,1 +1,1 @@
-export * from '@portkey/rn-sdk/src/packages/constants/constants-ca/network-mainnet';
+export * from 'packages/constants/constants-ca/network-mainnet';

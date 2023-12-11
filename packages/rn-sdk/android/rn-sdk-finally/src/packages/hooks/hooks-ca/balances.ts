@@ -1,8 +1,8 @@
-import { useCurrentNetwork } from '@portkey/rn-sdk/src/packages/hooks/network';
+import { useCurrentNetwork } from 'packages/hooks/network';
 import { useMemo } from 'react';
-import { useAppCASelector } from '@portkey/rn-sdk/src/packages/hooks/hooks-ca';
-import { divDecimals, formatAmountShow } from '@portkey/rn-sdk/src/packages/utils/converter';
-import { ZERO } from '@portkey/rn-sdk/src/packages/constants/misc';
+import { useAppCASelector } from 'packages/hooks/hooks-ca';
+import { divDecimals, formatAmountShow } from 'packages/utils/converter';
+import { ZERO } from 'packages/constants/misc';
 
 export function useAllBalances() {
   return useAppCASelector(state => state.tokenBalance.balances);

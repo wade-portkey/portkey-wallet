@@ -1,6 +1,6 @@
-import aes from '@portkey/rn-sdk/src/packages/utils/aes';
+import aes from 'packages/utils/aes';
 import AElf from 'aelf-sdk';
-import { DefaultBIP44Path } from '@portkey/rn-sdk/src/packages/constants/wallet';
+import { DefaultBIP44Path } from 'packages/constants/wallet';
 import {
   AccountNameErrorMessage,
   FormatAccountInfo,
@@ -10,11 +10,11 @@ import {
   PasswordErrorMessage,
   PinErrorMessage,
   WalletNameErrorMessage,
-} from '@portkey/rn-sdk/src/packages/utils/wallet/types';
-import { isValidPassword, isValidPin, isValidWalletName } from '@portkey/rn-sdk/src/packages/utils/reg';
-import { AccountType, Password, WalletInfoType } from '@portkey/rn-sdk/src/packages/types/wallet';
-import { PIN_SIZE, ZERO } from '@portkey/rn-sdk/src/packages/constants/misc';
-import { isExtension } from '@portkey/rn-sdk/src/packages/utils';
+} from 'packages/utils/wallet/types';
+import { isValidPassword, isValidPin, isValidWalletName } from 'packages/utils/reg';
+import { AccountType, Password, WalletInfoType } from 'packages/types/wallet';
+import { PIN_SIZE, ZERO } from 'packages/constants/misc';
+import { isExtension } from 'packages/utils';
 
 export const handleWalletInfo = (walletInfo: any) => {
   const tmpWallet = { ...walletInfo };

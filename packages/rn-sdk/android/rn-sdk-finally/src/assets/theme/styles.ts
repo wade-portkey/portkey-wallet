@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
-import { defaultColors } from '@portkey/rn-sdk/src/assets/theme';
-import fonts from '@portkey/rn-sdk/src/assets/theme/fonts';
-import { pTd } from '@portkey/rn-sdk/src/utils/unit';
+import { defaultColors } from 'assets/theme';
+import fonts from 'assets/theme/fonts';
+import { pTd } from 'utils/unit';
 
 export const BGStyles = StyleSheet.create({
   bg1: { backgroundColor: defaultColors.bg1 },

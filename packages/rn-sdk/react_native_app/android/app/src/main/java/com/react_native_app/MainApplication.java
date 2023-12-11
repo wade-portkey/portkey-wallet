@@ -15,6 +15,7 @@ import com.facebook.soloader.SoLoader;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.aelf.core.PortKeySDKHolder;
 import io.aelf.core.PortkeyEntries;
 
 public class MainApplication extends Application implements ReactApplication {
@@ -68,5 +69,6 @@ public class MainApplication extends Application implements ReactApplication {
     }
       Log.i(TAG, "Portkey: "+ PortkeyEntries.ACCOUNT_SETTING_ENTRY.getEntryName());
     ReactNativeFlipper.initializeFlipper(this, getReactNativeHost().getReactInstanceManager());
+      PortKeySDKHolder.INSTANCE.initialize(this);
   }
 }

@@ -1,10 +1,10 @@
-import { DEFAULT_TOKEN } from '@portkey/rn-sdk/src/packages/constants/constants-ca/wallet';
-import { NetworkType } from '@portkey/rn-sdk/src/packages/types';
-import useEffectOnce from '@portkey/rn-sdk/src/hooks/useEffectOnce';
-import { Token, getCachedNetworkConfig } from '@portkey/rn-sdk/src/model/chain';
-import { getCurrentNetworkType } from '@portkey/rn-sdk/src/model/hooks/network';
-import { getTempWalletConfig } from '@portkey/rn-sdk/src/model/verify/core';
-import { NetworkController } from '@portkey/rn-sdk/src/network/controller';
+import { DEFAULT_TOKEN } from 'packages/constants/constants-ca/wallet';
+import { NetworkType } from 'packages/types';
+import useEffectOnce from 'hooks/useEffectOnce';
+import { Token, getCachedNetworkConfig } from 'model/chain';
+import { getCurrentNetworkType } from 'model/hooks/network';
+import { getTempWalletConfig } from 'model/verify/core';
+import { NetworkController } from 'network/controller';
 import { useState } from 'react';
 
 export function useSymbolImages() {

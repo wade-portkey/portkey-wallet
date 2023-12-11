@@ -1,14 +1,14 @@
 import React, { useRef, useState } from 'react';
-import PageContainer from '@portkey/rn-sdk/src/components/PageContainer';
-import { DigitInputInterface } from '@portkey/rn-sdk/src/components/DigitInput';
-import ActionSheet from '@portkey/rn-sdk/src/components/ActionSheet';
-import { VerificationType } from '@portkey/rn-sdk/src/packages/types/verifier';
-import PinContainer from '@portkey/rn-sdk/src/components/PinContainer';
+import PageContainer from 'components/PageContainer';
+import { DigitInputInterface } from 'components/DigitInput';
+import ActionSheet from 'components/ActionSheet';
+import { VerificationType } from 'packages/types/verifier';
+import PinContainer from 'components/PinContainer';
 import { StyleSheet } from 'react-native';
-import useBaseContainer from '@portkey/rn-sdk/src/model/container/UseBaseContainer';
-import { PortkeyEntries } from '@portkey/rn-sdk/src/config/entries';
-import { ConfirmPinPageProps } from '@portkey/rn-sdk/src/pages/Pin/ConfirmPin';
-import CommonToast from '@portkey/rn-sdk/src/components/CommonToast';
+import useBaseContainer from 'model/container/UseBaseContainer';
+import { PortkeyEntries } from 'config/entries';
+import { ConfirmPinPageProps } from 'pages/Pin/ConfirmPin';
+import CommonToast from 'components/CommonToast';
 
 const scrollViewProps = {
   disabled: true,

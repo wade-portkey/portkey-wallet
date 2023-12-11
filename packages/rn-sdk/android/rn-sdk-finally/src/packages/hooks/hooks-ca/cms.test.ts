@@ -1,11 +1,11 @@
-import * as networkHook from '@portkey/rn-sdk/src/packages/hooks/hooks-ca/network'; //{ useCurrentNetworkInfo, useNetworkList }
+import * as networkHook from 'packages/hooks/hooks-ca/network'; //{ useCurrentNetworkInfo, useNetworkList }
 import * as cmsStore from 'packages/types/store-ca/cms/actions'; //{ getDiscoverGroupAsync, getSocialMediaAsync }
-import { useCMS, useSocialMediaList, useDiscoverGroupList, useBuyButton, useBuyButtonShow } from '@portkey/rn-sdk/src/packages/hooks/hooks-ca/cms';
-import * as indexHook from '@portkey/rn-sdk/src/packages/hooks';
-import { MainnetNetworkInfo, TestnetNetworkInfo } from '@portkey/rn-sdk/src/test/data/networkState';
-import { setupStore } from '@portkey/rn-sdk/src/test/utils/setup';
-import { renderHookWithProvider } from '@portkey/rn-sdk/src/test/utils/render';
-import { CmsState } from '@portkey/rn-sdk/src/test/data/cmsState';
+import { useCMS, useSocialMediaList, useDiscoverGroupList, useBuyButton, useBuyButtonShow } from 'packages/hooks/hooks-ca/cms';
+import * as indexHook from 'packages/hooks';
+import { MainnetNetworkInfo, TestnetNetworkInfo } from 'test/data/networkState';
+import { setupStore } from 'test/utils/setup';
+import { renderHookWithProvider } from 'test/utils/render';
+import { CmsState } from 'test/data/cmsState';
 
 const dispatchMock = jest.fn();
 jest.spyOn(indexHook, 'useAppCommonDispatch').mockReturnValue(dispatchMock);

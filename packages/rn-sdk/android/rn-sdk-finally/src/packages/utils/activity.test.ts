@@ -1,5 +1,5 @@
-import { MAIN_CHAIN, SIDE_CHAIN, TEST_NET } from '@portkey/rn-sdk/src/packages/constants/constants-ca/activity';
-import { getCurrentActivityMapKey, transNetworkText } from '@portkey/rn-sdk/src/packages/utils/activity';
+import { MAIN_CHAIN, SIDE_CHAIN, TEST_NET } from 'packages/constants/constants-ca/activity';
+import { getCurrentActivityMapKey, transNetworkText } from 'packages/utils/activity';
 
 describe('transNetworkText', () => {
   test('MainChain and Testnet', () => {

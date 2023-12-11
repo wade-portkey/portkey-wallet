@@ -1,9 +1,9 @@
-import { ChainId } from '@portkey/rn-sdk/src/packages/types';
-import { clearMarketToken, resetToken, tokenManagementSlice } from '@portkey/rn-sdk/src/packages/store/store-ca/tokenManagement/slice';
-import { fetchAllTokenList } from '@portkey/rn-sdk/src/packages/store/store-ca/tokenManagement/api';
+import { ChainId } from 'packages/types';
+import { clearMarketToken, resetToken, tokenManagementSlice } from 'packages/store/store-ca/tokenManagement/slice';
+import { fetchAllTokenList } from 'packages/store/store-ca/tokenManagement/api';
 import { configureStore } from '@reduxjs/toolkit';
-import { fetchAllTokenListAsync, getSymbolImagesAsync } from '@portkey/rn-sdk/src/packages/store/store-ca/tokenManagement/action';
-import { request } from '@portkey/rn-sdk/src/packages/api/api-did';
+import { fetchAllTokenListAsync, getSymbolImagesAsync } from 'packages/store/store-ca/tokenManagement/action';
+import { request } from 'packages/api/api-did';
 
 jest.mock('./api');
 jest.mock('packages/api/api-did');

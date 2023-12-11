@@ -1,10 +1,10 @@
-import Socket from '@portkey/rn-sdk/src/packages/socket/socket-did';
-import { useCurrentApiUrl } from '@portkey/rn-sdk/src/packages/hooks/hooks-ca/network';
-import { CreateWalletResult } from '@portkey/rn-sdk/src/packages/types/types-ca/wallet';
-import { requestCreateWallet } from '@portkey/rn-sdk/src/packages/api/api-did/utils/wallet';
-import { sleep } from '@portkey/rn-sdk/src/packages/utils';
+import Socket from 'packages/socket/socket-did';
+import { useCurrentApiUrl } from 'packages/hooks/hooks-ca/network';
+import { CreateWalletResult } from 'packages/types/types-ca/wallet';
+import { requestCreateWallet } from 'packages/api/api-did/utils/wallet';
+import { sleep } from 'packages/utils';
 import { useCallback } from 'react';
-import { VerificationType } from '@portkey/rn-sdk/src/packages/types/verifier';
+import { VerificationType } from 'packages/types/verifier';
 
 const getCreateResultBySocket = ({
   type,

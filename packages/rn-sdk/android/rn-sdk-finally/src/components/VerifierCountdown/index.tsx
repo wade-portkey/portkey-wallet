@@ -1,12 +1,12 @@
-import { defaultColors } from '@portkey/rn-sdk/src/assets/theme';
-import GStyles from '@portkey/rn-sdk/src/assets/theme/GStyles';
-import { TextM } from '@portkey/rn-sdk/src/components/CommonText';
-import Touchable from '@portkey/rn-sdk/src/components/Touchable';
-import useEffectOnce from '@portkey/rn-sdk/src/hooks/useEffectOnce';
+import { defaultColors } from 'assets/theme';
+import GStyles from 'assets/theme/GStyles';
+import { TextM } from 'components/CommonText';
+import Touchable from 'components/Touchable';
+import useEffectOnce from 'hooks/useEffectOnce';
 import React, { useCallback, useRef, useState, forwardRef, useImperativeHandle } from 'react';
 import { StyleSheet, View } from 'react-native';
-import { ViewStyleType } from '@portkey/rn-sdk/src/types/styles';
-import { clearBackgroundInterval, setBackgroundInterval } from '@portkey/rn-sdk/src/utils/backgroundTimer';
+import { ViewStyleType } from 'types/styles';
+import { clearBackgroundInterval, setBackgroundInterval } from 'utils/backgroundTimer';
 
 export type VerifierCountdownInterface = {
   resetTime: (t: number) => void;

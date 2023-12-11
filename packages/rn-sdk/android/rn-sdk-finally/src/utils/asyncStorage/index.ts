@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { ILocalStorage } from '@portkey/rn-sdk/src/utils/asyncStorage/type';
+import { ILocalStorage } from 'utils/asyncStorage/type';
 
 export type TStorageKey = keyof ILocalStorage;
 export type TStoreData = string | TStoreObjectData;

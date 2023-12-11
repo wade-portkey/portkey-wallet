@@ -1,9 +1,9 @@
 import { StyleSheet } from 'react-native';
-import { defaultColors } from '@portkey/rn-sdk/src/assets/theme';
-import { pTd } from '@portkey/rn-sdk/src/utils/unit';
-import { screenWidth } from '@portkey/rn-sdk/src/packages/utils/mobile/device';
-import fonts from '@portkey/rn-sdk/src/assets/theme/fonts';
-import { getStatusBarHeight } from '@portkey/rn-sdk/src/utils/screen';
+import { defaultColors } from 'assets/theme';
+import { pTd } from 'utils/unit';
+import { screenWidth } from 'packages/utils/mobile/device';
+import fonts from 'assets/theme/fonts';
+import { getStatusBarHeight } from 'utils/screen';
 
 const { bg5, font2 } = defaultColors;
 

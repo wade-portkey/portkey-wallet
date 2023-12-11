@@ -1,10 +1,10 @@
-import { PIN_SIZE } from '@portkey/rn-sdk/src/packages/constants/misc';
+import { PIN_SIZE } from 'packages/constants/misc';
 import { Text } from '@rneui/base';
-import { defaultColors } from '@portkey/rn-sdk/src/assets/theme';
-import { TextS } from '@portkey/rn-sdk/src/components/CommonText';
+import { defaultColors } from 'assets/theme';
+import { TextS } from 'components/CommonText';
 import React, { useCallback, memo, useMemo } from 'react';
 import { StyleSheet, View, StyleProp, ViewStyle } from 'react-native';
-import { screenWidth } from '@portkey/rn-sdk/src/packages/utils/mobile/device';
+import { screenWidth } from 'packages/utils/mobile/device';
 
 export type DigitTextProps = {
   maxLength?: number;

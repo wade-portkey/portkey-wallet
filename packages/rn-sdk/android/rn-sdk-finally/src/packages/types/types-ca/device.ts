@@ -1,4 +1,4 @@
-import { PartialOption } from '@portkey/rn-sdk/src/packages/types/common';
+import { PartialOption } from 'packages/types/common';
 
 export interface DeviceInfoType {
   deviceName?: string;

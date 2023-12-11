@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { fetchActivities } from '@portkey/rn-sdk/src/packages/store/store-ca/activity/api';
-import { ActivityStateMapAttributes, IActivitiesApiParams } from '@portkey/rn-sdk/src/packages/store/store-ca/activity/type';
+import { fetchActivities } from 'packages/store/store-ca/activity/api';
+import { ActivityStateMapAttributes, IActivitiesApiParams } from 'packages/store/store-ca/activity/type';
 
 export const getActivityListAsync = createAsyncThunk(
   'activity/getActivityList',

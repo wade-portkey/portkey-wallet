@@ -1,18 +1,18 @@
 import React from 'react';
-import OverlayModal from '@portkey/rn-sdk/src/components/OverlayModal';
+import OverlayModal from 'components/OverlayModal';
 import { Keyboard, View, ViewProps } from 'react-native';
 import { StyleSheet, ViewStyle } from 'react-native';
-import { screenWidth } from '@portkey/rn-sdk/src/packages/utils/mobile/device';
-import { pTd } from '@portkey/rn-sdk/src/utils/unit';
-import { defaultColors } from '@portkey/rn-sdk/src/assets/theme';
-import { TextXL } from '@portkey/rn-sdk/src/components/CommonText';
-import Svg from '@portkey/rn-sdk/src/components/Svg';
-import GStyles from '@portkey/rn-sdk/src/assets/theme/GStyles';
-import fonts from '@portkey/rn-sdk/src/assets/theme/fonts';
-import ButtonRow from '@portkey/rn-sdk/src/components/ButtonRow';
-import { CommonButtonProps } from '@portkey/rn-sdk/src/components/CommonButton';
-import { isIOS } from '@portkey/rn-sdk/src/packages/utils/mobile/device';
-import { windowHeight } from '@portkey/rn-sdk/src/packages/utils/mobile/device';
+import { screenWidth } from 'packages/utils/mobile/device';
+import { pTd } from 'utils/unit';
+import { defaultColors } from 'assets/theme';
+import { TextXL } from 'components/CommonText';
+import Svg from 'components/Svg';
+import GStyles from 'assets/theme/GStyles';
+import fonts from 'assets/theme/fonts';
+import ButtonRow from 'components/ButtonRow';
+import { CommonButtonProps } from 'components/CommonButton';
+import { isIOS } from 'packages/utils/mobile/device';
+import { windowHeight } from 'packages/utils/mobile/device';
 
 export interface ModalBodyProps extends ViewProps {
   title?: string;

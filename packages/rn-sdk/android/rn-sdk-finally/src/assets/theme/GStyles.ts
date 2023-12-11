@@ -1,4 +1,4 @@
-import { pTd } from '@portkey/rn-sdk/src/utils/unit';
+import { pTd } from 'utils/unit';
 
 export default {
   pwTip: {

@@ -1,10 +1,10 @@
-import { PortkeyConfig } from '@portkey/rn-sdk/src/global/constants';
-import { isWalletUnlocked } from '@portkey/rn-sdk/src/model/verify/core';
-import { getUnlockedWallet } from '@portkey/rn-sdk/src/model/wallet';
-import { NetworkController } from '@portkey/rn-sdk/src/network/controller';
-import { AElfWeb3SDK } from '@portkey/rn-sdk/src/network/dto/wallet';
-import { TempStorage } from '@portkey/rn-sdk/src/service/storage';
-import { handleCachedValue } from '@portkey/rn-sdk/src/service/storage/cache';
+import { PortkeyConfig } from 'global/constants';
+import { isWalletUnlocked } from 'model/verify/core';
+import { getUnlockedWallet } from 'model/wallet';
+import { NetworkController } from 'network/controller';
+import { AElfWeb3SDK } from 'network/dto/wallet';
+import { TempStorage } from 'service/storage';
+import { handleCachedValue } from 'service/storage/cache';
 
 const NETWORK_TOKEN_IDENTIFIER = 'network-token-identifier';
 const EXPIRE_TIME_IDENTIFIER = 'network-token-expire-time-identifier';

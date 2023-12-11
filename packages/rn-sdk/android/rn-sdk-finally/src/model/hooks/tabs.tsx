@@ -1,4 +1,4 @@
-import { AELFColors } from '@portkey/rn-sdk/src/assets/theme';
+import { AELFColors } from 'assets/theme';
 import React, { FC, useMemo, useState } from 'react';
 import { StyleSheet } from 'react-native';
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';

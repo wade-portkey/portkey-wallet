@@ -1,11 +1,11 @@
-import { defaultColors } from '@portkey/rn-sdk/src/assets/theme';
-import { TextL, TextM } from '@portkey/rn-sdk/src/components/CommonText';
-import Svg, { IconName } from '@portkey/rn-sdk/src/components/Svg';
-import SvgUri from '@portkey/rn-sdk/src/components/Svg/SvgUri';
+import { defaultColors } from 'assets/theme';
+import { TextL, TextM } from 'components/CommonText';
+import Svg, { IconName } from 'components/Svg';
+import SvgUri from 'components/Svg/SvgUri';
 
 import React, { memo } from 'react';
 import { TouchableOpacity, StyleSheet, StyleProp, ViewStyle, TextProps, View } from 'react-native';
-import { pTd } from '@portkey/rn-sdk/src/utils/unit';
+import { pTd } from 'utils/unit';
 
 interface MenuItemProps {
   title: string;

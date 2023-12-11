@@ -1,4 +1,4 @@
-import { MAIN_CHAIN, MAIN_CHAIN_ID, SIDE_CHAIN, TEST_NET } from '@portkey/rn-sdk/src/packages/constants/constants-ca/activity';
+import { MAIN_CHAIN, MAIN_CHAIN_ID, SIDE_CHAIN, TEST_NET } from 'packages/constants/constants-ca/activity';
 
 export function transNetworkText(chainId: string, isTestnet: boolean): string {
   return `${chainId === MAIN_CHAIN_ID ? MAIN_CHAIN : SIDE_CHAIN} ${chainId}${isTestnet ? ' ' + TEST_NET : ''}`;

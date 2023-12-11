@@ -1,7 +1,7 @@
-import { request } from '@portkey/rn-sdk/src/packages/api/api-did';
-import { CryptoInfoType, GetAchTokenDataType, OrderQuoteType } from '@portkey/rn-sdk/src/packages/api/api-did/payment/type';
-import { TransDirectEnum } from '@portkey/rn-sdk/src/packages/constants/constants-ca/payment';
-import { PaymentTypeEnum } from '@portkey/rn-sdk/src/packages/types/types-ca/payment';
+import { request } from 'packages/api/api-did';
+import { CryptoInfoType, GetAchTokenDataType, OrderQuoteType } from 'packages/api/api-did/payment/type';
+import { TransDirectEnum } from 'packages/constants/constants-ca/payment';
+import { PaymentTypeEnum } from 'packages/types/types-ca/payment';
 
 export interface GetOrderQuoteParamsType {
   crypto: string;

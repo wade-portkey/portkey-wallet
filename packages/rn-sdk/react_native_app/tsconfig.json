@@ -1,3 +1,6 @@
 {
-  "extends": "@portkey/rn-sdk/tsconfig.json"
+  "extends": "@portkey/react-native-sdk/tsconfig.json",
+  "compilerOptions": {
+    
+  }
 }

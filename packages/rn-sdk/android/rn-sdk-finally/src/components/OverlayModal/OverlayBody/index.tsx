@@ -1,8 +1,8 @@
-import OverlayModal from '@portkey/rn-sdk/src/components/OverlayModal';
-import Touchable from '@portkey/rn-sdk/src/components/Touchable';
+import OverlayModal from 'components/OverlayModal';
+import Touchable from 'components/Touchable';
 import React, { ReactNode } from 'react';
 import { View, ViewStyle } from 'react-native';
-import { overlayStyles } from '@portkey/rn-sdk/src/components/OverlayModal/OverlayBody/styles';
+import { overlayStyles } from 'components/OverlayModal/OverlayBody/styles';
 
 export default function OverlayBody({
   type = 'bottom',

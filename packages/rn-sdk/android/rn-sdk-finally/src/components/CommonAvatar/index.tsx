@@ -1,12 +1,12 @@
 import React, { useMemo } from 'react';
-import Svg, { IconName } from '@portkey/rn-sdk/src/components/Svg';
-import { pTd } from '@portkey/rn-sdk/src/utils/unit';
+import Svg, { IconName } from 'components/Svg';
+import { pTd } from 'utils/unit';
 import { Text } from 'react-native';
 import { StyleSheet } from 'react-native';
-import { defaultColors } from '@portkey/rn-sdk/src/assets/theme';
-import { checkIsSvgUrl } from '@portkey/rn-sdk/src/utils/commonUtil';
+import { defaultColors } from 'assets/theme';
+import { checkIsSvgUrl } from 'utils/commonUtil';
 import { SvgCssUri } from 'react-native-svg';
-import FastImage from '@portkey/rn-sdk/src/components/FastImage';
+import FastImage from 'components/FastImage';
 import { ResizeMode } from 'react-native-fast-image';
 
 export interface CommonAvatarProps {

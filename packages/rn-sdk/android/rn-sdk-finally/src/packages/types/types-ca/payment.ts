@@ -1,4 +1,4 @@
-import { ACH_MERCHANT_NAME } from '@portkey/rn-sdk/src/packages/constants/constants-ca/payment';
+import { ACH_MERCHANT_NAME } from 'packages/constants/constants-ca/payment';
 
 export interface CountryItem {
   country: string;

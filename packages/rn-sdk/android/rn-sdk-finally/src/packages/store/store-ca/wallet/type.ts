@@ -1,6 +1,6 @@
-import { ChainId, ChainType, NetworkType } from '@portkey/rn-sdk/src/packages/types';
-import { CAWalletInfoType } from '@portkey/rn-sdk/src/packages/types/types-ca/wallet';
-import { PinErrorMessage } from '@portkey/rn-sdk/src/packages/utils/wallet/types';
+import { ChainId, ChainType, NetworkType } from 'packages/types';
+import { CAWalletInfoType } from 'packages/types/types-ca/wallet';
+import { PinErrorMessage } from 'packages/utils/wallet/types';
 
 export type WalletType = ChainType;
 

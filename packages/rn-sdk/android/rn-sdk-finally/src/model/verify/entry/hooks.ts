@@ -1,16 +1,16 @@
-import { PortkeyEntries } from '@portkey/rn-sdk/src/config/entries';
-import { LaunchModeSet, LaunchMode } from '@portkey/rn-sdk/src/global/init/entries';
-import { EntryResult, PortkeyModulesEntity } from '@portkey/rn-sdk/src/service/native-modules';
-import { GuardianVerifyConfig, GuardianVerifyType } from '@portkey/rn-sdk/src/model/verify/social-recovery';
-import { NetworkController } from '@portkey/rn-sdk/src/network/controller';
-import { parseGuardianInfo } from '@portkey/rn-sdk/src/model/global';
-import { PortkeyConfig } from '@portkey/rn-sdk/src/global/constants';
-import Loading from '@portkey/rn-sdk/src/components/Loading';
-import { GuardiansApprovalIntent } from '@portkey/rn-sdk/src/pages/GuardianManage/GuardianHome';
-import { GuardianApprovalPageProps, GuardianApprovalPageResult } from '@portkey/rn-sdk/src/pages/Entries/GuardianApproval';
-import { VerifierDetailsPageProps, VerifierDetailsPageResult } from '@portkey/rn-sdk/src/pages/Entries/VerifierDetails';
-import { getUnlockedWallet } from '@portkey/rn-sdk/src/model/wallet';
-import { getOrReadCachedVerifierData } from '@portkey/rn-sdk/src/model/contract/handler';
+import { PortkeyEntries } from 'config/entries';
+import { LaunchModeSet, LaunchMode } from 'global/init/entries';
+import { EntryResult, PortkeyModulesEntity } from 'service/native-modules';
+import { GuardianVerifyConfig, GuardianVerifyType } from 'model/verify/social-recovery';
+import { NetworkController } from 'network/controller';
+import { parseGuardianInfo } from 'model/global';
+import { PortkeyConfig } from 'global/constants';
+import Loading from 'components/Loading';
+import { GuardiansApprovalIntent } from 'pages/GuardianManage/GuardianHome';
+import { GuardianApprovalPageProps, GuardianApprovalPageResult } from 'pages/Entries/GuardianApproval';
+import { VerifierDetailsPageProps, VerifierDetailsPageResult } from 'pages/Entries/VerifierDetails';
+import { getUnlockedWallet } from 'model/wallet';
+import { getOrReadCachedVerifierData } from 'model/contract/handler';
 
 export const navigateToForResult = async <P, R>(entryName: string, props: P, from = 'UNKNOWN'): Promise<R | null> => {
   return new Promise<R | null>((resolve, _) => {

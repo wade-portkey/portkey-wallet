@@ -1,11 +1,11 @@
 import React, { ReactNode, useMemo } from 'react';
-import CustomHeader, { CustomHeaderProps } from '@portkey/rn-sdk/src/components/CustomHeader';
-import SafeAreaBox, { SafeAreaBoxProps } from '@portkey/rn-sdk/src/components/SafeAreaBox';
+import CustomHeader, { CustomHeaderProps } from 'components/CustomHeader';
+import SafeAreaBox, { SafeAreaBoxProps } from 'components/SafeAreaBox';
 import { KeyboardAwareScrollView, KeyboardAwareScrollViewProps } from 'react-native-keyboard-aware-scroll-view';
 import { TouchableWithoutFeedback, View, Keyboard, StatusBar, StyleSheet } from 'react-native';
-import { defaultColors } from '@portkey/rn-sdk/src/assets/theme';
-import { ViewStyleType } from '@portkey/rn-sdk/src/types/styles';
-import { getStatusBarHeight } from '@portkey/rn-sdk/src/utils/screen';
+import { defaultColors } from 'assets/theme';
+import { ViewStyleType } from 'types/styles';
+import { getStatusBarHeight } from 'utils/screen';
 
 const safeAreaColorMap = {
   white: defaultColors.bg1,

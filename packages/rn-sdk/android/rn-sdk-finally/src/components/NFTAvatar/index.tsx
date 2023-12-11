@@ -1,10 +1,10 @@
 import React, { memo } from 'react';
 import { StyleSheet, TouchableOpacity, View, ViewStyle } from 'react-native';
-import { pTd } from '@portkey/rn-sdk/src/utils/unit';
-import { TextM, TextS } from '@portkey/rn-sdk/src/components/CommonText';
-import { defaultColors } from '@portkey/rn-sdk/src/assets/theme';
-import GStyles from '@portkey/rn-sdk/src/assets/theme/GStyles';
-import CommonAvatar from '@portkey/rn-sdk/src/components/CommonAvatar';
+import { pTd } from 'utils/unit';
+import { TextM, TextS } from 'components/CommonText';
+import { defaultColors } from 'assets/theme';
+import GStyles from 'assets/theme/GStyles';
+import CommonAvatar from 'components/CommonAvatar';
 
 export type NoDataPropsType = {
   style?: ViewStyle | ViewStyle[];

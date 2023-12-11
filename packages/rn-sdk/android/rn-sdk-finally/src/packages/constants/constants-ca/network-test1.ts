@@ -1,5 +1,5 @@
-import { NetworkItem } from '@portkey/rn-sdk/src/packages/types/types-ca/network';
-import { BackEndNetWorkMap } from '@portkey/rn-sdk/src/packages/constants/constants-ca/backend-network';
+import { NetworkItem } from 'packages/types/types-ca/network';
+import { BackEndNetWorkMap } from 'packages/constants/constants-ca/backend-network';
 
 export const NetworkList: NetworkItem[] = [BackEndNetWorkMap['back-end-test2'], BackEndNetWorkMap['back-end-test1']];
 

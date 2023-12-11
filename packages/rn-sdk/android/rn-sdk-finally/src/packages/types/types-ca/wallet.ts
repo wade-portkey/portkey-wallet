@@ -1,6 +1,6 @@
-import { WalletInfoType } from '@portkey/rn-sdk/src/packages/types/wallet';
-import { ChainId, NetworkType } from '@portkey/rn-sdk/src/packages/types';
-import { VerificationType } from '@portkey/rn-sdk/src/packages/types/verifier';
+import { WalletInfoType } from 'packages/types/wallet';
+import { ChainId, NetworkType } from 'packages/types';
+import { VerificationType } from 'packages/types/verifier';
 
 export type ManagerInfo = {
   managerUniqueId: string;

@@ -103,9 +103,10 @@ dependencies {
     implementation 'androidx.biometric:biometric-ktx:1.2.0-alpha05'
     implementation "org.jetbrains.kotlin:kotlin-stdlib:1.8.0"
     // implementation project(':react-native-config')
-    implementation project(path: ':expo')
-    implementation project(path: ':react-native-localize')
+    implementation project(path: ':expo-modules-core')
+//    implementation project(path: ':react-native-localize')
 
 }
-
+apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"
+//rootProject.findProject()
 // apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)

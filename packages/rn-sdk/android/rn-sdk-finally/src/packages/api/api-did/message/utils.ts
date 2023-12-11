@@ -1,4 +1,4 @@
-import { request } from '@portkey/rn-sdk/src/packages/api/api-did';
+import { request } from 'packages/api/api-did';
 type sendScanLoginSuccessParams = {
   targetClientId: string;
 };

@@ -1,0 +1,1 @@
+var fs=require('fs');var path=require('path');var filePath=path.resolve(__dirname,"../constants-ca/network.ts");var fileName='network-testnet';if(process.argv[2]){var arg=process.argv[2].replace(/^[-]+|[-]+$/g,'');if(/^network/.test(arg))fileName=arg;}fs.writeFileSync(filePath,"export * from './"+fileName+"';\n");

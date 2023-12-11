@@ -1,8 +1,8 @@
-import { myContainer } from '@portkey/rn-sdk/src/service/core/inversify.config';
-import { IPortkeyAccountService, IPortkeyUIManagerService } from '@portkey/rn-sdk/src/service/core/base';
-import { TYPES } from '@portkey/rn-sdk/src/service/core/types';
-import { CallCaMethodProps } from '@portkey/rn-sdk/src/service/JsModules/SubModules/WalletModule';
-export * from '@portkey/rn-sdk/src/service/core/types';
+import { myContainer } from 'service/core/inversify.config';
+import { IPortkeyAccountService, IPortkeyUIManagerService } from 'service/core/base';
+import { TYPES } from 'service/core/types';
+import { CallCaMethodProps } from 'service/JsModules/SubModules/WalletModule';
+export * from 'service/core/types';
 
 class Portkey implements IPortkeyAccountService, IPortkeyUIManagerService {
   private _portkeyAccountService: IPortkeyAccountService;

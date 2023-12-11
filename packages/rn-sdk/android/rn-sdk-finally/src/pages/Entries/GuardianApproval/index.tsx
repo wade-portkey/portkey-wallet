@@ -1,11 +1,12 @@
-import { GuardianVerifyConfig, GuardianVerifyType } from '@portkey/rn-sdk/src/model/verify/social-recovery';
-import { PortkeyEntries } from '@portkey/rn-sdk/src/config/entries';
-import BaseContainer, { BaseContainerProps } from '@portkey/rn-sdk/src/model/container/BaseContainer';
-import GuardianApproval from '@portkey/rn-sdk/src/pages/Guardian/GuardianApproval';
+import { GuardianVerifyConfig, GuardianVerifyType } from 'model/verify/social-recovery';
+import { PortkeyEntries } from 'config/entries';
+import BaseContainer, { BaseContainerProps } from 'model/container/BaseContainer';
+import GuardianApproval from 'pages/Guardian/GuardianApproval';
 import React from 'react';
-import { AfterVerifiedConfig } from '@portkey/rn-sdk/src/model/verify/core';
-import { SetPinPageProps, SetPinPageResult } from '@portkey/rn-sdk/src/pages/Pin/SetPin';
-import CommonToast from '@portkey/rn-sdk/src/components/CommonToast';
+import { AfterVerifiedConfig } from 'model/verify/core';
+import { SetPinPageProps, SetPinPageResult } from 'pages/Pin/SetPin';
+import CommonToast from 'components/CommonToast';
+import { getUnlockedWallet } from 'model/wallet';
 
 export default class GuardianApprovalEntryPage extends BaseContainer<
   GuardianApprovalPageProps,
@@ -52,13 +53,15 @@ export default class GuardianApprovalEntryPage extends BaseContainer<
             typeof afterVerifiedData === 'string' ? afterVerifiedData : JSON.stringify(afterVerifiedData),
         },
       },
-      res => {
+      async res => {
         const { data } = res;
         if (data?.finished) {
+          const walletInfo = await getUnlockedWallet();
           this.onFinish({
             status: 'success',
             data: {
               isVerified: true,
+              walletInfo,
             },
           });
         }
@@ -92,4 +95,5 @@ export interface GuardianApprovalPageResult {
   isVerified: boolean;
   deliveredVerifiedData?: string;
   errorMessage?: string;
+  walletInfo?: any;
 }

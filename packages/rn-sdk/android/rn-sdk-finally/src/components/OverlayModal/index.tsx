@@ -1,11 +1,11 @@
 import React, { ReactNode } from 'react';
 import { StyleProp, StyleSheet, ViewStyle } from 'react-native';
 import Overlay from 'rn-teaset/components/Overlay/Overlay';
-import { bottomBarHeight, screenHeight, screenWidth, statusBarHeight } from '@portkey/rn-sdk/src/packages/utils/mobile/device';
-import { defaultColors } from '@portkey/rn-sdk/src/assets/theme';
-import GStyles from '@portkey/rn-sdk/src/assets/theme/GStyles';
-import TransformView from '@portkey/rn-sdk/src/components/TransformView';
-import { ViewStyleType } from '@portkey/rn-sdk/src/types/styles';
+import { bottomBarHeight, screenHeight, screenWidth, statusBarHeight } from 'packages/utils/mobile/device';
+import { defaultColors } from 'assets/theme';
+import GStyles from 'assets/theme/GStyles';
+import TransformView from 'components/TransformView';
+import { ViewStyleType } from 'types/styles';
 
 export type OverlayInterface = {
   close?: () => void;

@@ -1,18 +1,18 @@
 import React from 'react';
-import PageContainer from '@portkey/rn-sdk/src/components/PageContainer';
-import { TextL, TextM, TextXL, TextS } from '@portkey/rn-sdk/src/components/CommonText';
+import PageContainer from 'components/PageContainer';
+import { TextL, TextM, TextXL, TextS } from 'components/CommonText';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
-import { pTd } from '@portkey/rn-sdk/src/utils/unit';
-import Svg from '@portkey/rn-sdk/src/components/Svg';
-import { defaultColors } from '@portkey/rn-sdk/src/assets/theme';
-import { useLanguage } from '@portkey/rn-sdk/src/i18n/hooks';
-import CommonAvatar from '@portkey/rn-sdk/src/components/CommonAvatar';
-import GStyles from '@portkey/rn-sdk/src/assets/theme/GStyles';
-import { formatChainInfoToShow } from '@portkey/rn-sdk/src/packages/utils';
-import AccountCard from '@portkey/rn-sdk/src/components/AccountCard';
-import { copyText } from '@portkey/rn-sdk/src/utils/commonUtil';
-import { useSymbolImages } from '@portkey/rn-sdk/src/components/TokenOverlay/hooks';
-import { NetworkType } from '@portkey/rn-sdk/src/packages/types';
+import { pTd } from 'utils/unit';
+import Svg from 'components/Svg';
+import { defaultColors } from 'assets/theme';
+import { useLanguage } from 'i18n/hooks';
+import CommonAvatar from 'components/CommonAvatar';
+import GStyles from 'assets/theme/GStyles';
+import { formatChainInfoToShow } from 'packages/utils';
+import AccountCard from 'components/AccountCard';
+import { copyText } from 'utils/commonUtil';
+import { useSymbolImages } from 'components/TokenOverlay/hooks';
+import { NetworkType } from 'packages/types';
 
 export default function ReceiveTokenPage(props: {
   token: string;

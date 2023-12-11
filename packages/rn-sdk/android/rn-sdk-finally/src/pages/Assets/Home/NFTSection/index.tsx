@@ -1,16 +1,16 @@
 import React, { useState, useCallback, memo, useContext } from 'react';
-import NoData from '@portkey/rn-sdk/src/components/NoData';
+import NoData from 'components/NoData';
 import { StyleSheet, View, FlatList } from 'react-native';
-import { defaultColors } from '@portkey/rn-sdk/src/assets/theme';
-import { useLanguage } from '@portkey/rn-sdk/src/i18n/hooks';
-import { pTd } from '@portkey/rn-sdk/src/utils/unit';
-import NFTCollectionItem from '@portkey/rn-sdk/src/pages/Assets/Home/NFTSection/NFTCollectionItem';
-import { NFTCollectionItemShowType } from '@portkey/rn-sdk/src/packages/types/types-ca/assets';
-import Touchable from '@portkey/rn-sdk/src/components/Touchable';
-import { ChainId } from '@portkey/rn-sdk/src/packages/types';
-import useLockCallback from '@portkey/rn-sdk/src/packages/hooks/useLockCallback';
-import AssetsContext, { AssetsContextType } from '@portkey/rn-sdk/src/global/context/assets/AssetsContext';
-import Loading from '@portkey/rn-sdk/src/components/Loading';
+import { defaultColors } from 'assets/theme';
+import { useLanguage } from 'i18n/hooks';
+import { pTd } from 'utils/unit';
+import NFTCollectionItem from 'pages/Assets/Home/NFTSection/NFTCollectionItem';
+import { NFTCollectionItemShowType } from 'packages/types/types-ca/assets';
+import Touchable from 'components/Touchable';
+import { ChainId } from 'packages/types';
+import useLockCallback from 'packages/hooks/useLockCallback';
+import AssetsContext, { AssetsContextType } from 'global/context/assets/AssetsContext';
+import Loading from 'components/Loading';
 
 export interface OpenCollectionObjType {
   // key = symbol+chainId

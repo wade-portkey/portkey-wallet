@@ -1,0 +1,1 @@
+Object.defineProperty(exports,"__esModule",{value:true});var _networkMainnet=require("./network-mainnet");Object.keys(_networkMainnet).forEach(function(key){if(key==="default"||key==="__esModule")return;if(key in exports&&exports[key]===_networkMainnet[key])return;Object.defineProperty(exports,key,{enumerable:true,get:function get(){return _networkMainnet[key];}});});

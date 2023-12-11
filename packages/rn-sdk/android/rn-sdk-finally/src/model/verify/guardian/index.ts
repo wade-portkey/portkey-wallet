@@ -1,8 +1,8 @@
-import { NetworkController } from '@portkey/rn-sdk/src/network/controller';
+import { NetworkController } from 'network/controller';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { CheckVerifyCodeResultDTO, SendVerifyCodeParams } from '@portkey/rn-sdk/src/network/dto/guardian';
-import { AccountOriginalType } from '@portkey/rn-sdk/src/model/verify/core';
-import { VerifiedGuardianDoc } from '@portkey/rn-sdk/src/model/verify/core';
+import { CheckVerifyCodeResultDTO, SendVerifyCodeParams } from 'network/dto/guardian';
+import { AccountOriginalType } from 'model/verify/core';
+import { VerifiedGuardianDoc } from 'model/verify/core';
 
 export const INIT_TIME_OUT = 60;
 

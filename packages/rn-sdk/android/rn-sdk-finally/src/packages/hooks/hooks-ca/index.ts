@@ -1,14 +1,14 @@
 import { useCallback } from 'react';
 import { TypedUseSelectorHook, useSelector } from 'react-redux';
-import { CACommonState } from '@portkey/rn-sdk/src/packages/types/types-ca/store';
-import { useAppCommonDispatch } from '@portkey/rn-sdk/src/packages/hooks';
-import { resetAssets } from '@portkey/rn-sdk/src/packages/store/store-ca/assets/slice';
-import { resetRecent } from '@portkey/rn-sdk/src/packages/store/store-ca/recent/slice';
-import { resetActivity } from '@portkey/rn-sdk/src/packages/store/store-ca/activity/slice';
-import { resetContact } from '@portkey/rn-sdk/src/packages/store/store-ca/contact/actions';
-import { resetGuardiansState } from '@portkey/rn-sdk/src/packages/store/store-ca/guardians/actions';
-import { resetPayment } from '@portkey/rn-sdk/src/packages/store/store-ca/payment/actions';
-import { resetTokenManagement } from '@portkey/rn-sdk/src/packages/store/store-ca/tokenManagement/slice';
+import { CACommonState } from 'packages/types/types-ca/store';
+import { useAppCommonDispatch } from 'packages/hooks';
+import { resetAssets } from 'packages/store/store-ca/assets/slice';
+import { resetRecent } from 'packages/store/store-ca/recent/slice';
+import { resetActivity } from 'packages/store/store-ca/activity/slice';
+import { resetContact } from 'packages/store/store-ca/contact/actions';
+import { resetGuardiansState } from 'packages/store/store-ca/guardians/actions';
+import { resetPayment } from 'packages/store/store-ca/payment/actions';
+import { resetTokenManagement } from 'packages/store/store-ca/tokenManagement/slice';
 
 export const useAppCASelector: TypedUseSelectorHook<CACommonState> = useSelector;
 

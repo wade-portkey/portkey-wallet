@@ -1,6 +1,6 @@
-import { CountryItem } from '@portkey/rn-sdk/src/packages/types/types-ca/payment';
-import countryCodeMapJson from '@portkey/rn-sdk/src/packages/constants/constants-ca/payment/countryCodeList.json';
-import { ChainId } from '@portkey/rn-sdk/src/packages/types';
+import { CountryItem } from 'packages/types/types-ca/payment';
+import countryCodeMapJson from 'packages/constants/constants-ca/payment/countryCodeList.json';
+import { ChainId } from 'packages/types';
 
 const getCountryCodeMap = (list: CountryItem[]) => {
   const country: { [key: string]: CountryItem } = {};

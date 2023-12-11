@@ -1,5 +1,5 @@
-import { LoginType } from '@portkey/rn-sdk/src/packages/types/types-ca/wallet';
-import { VerifierItem, VerifyStatus } from '@portkey/rn-sdk/src/packages/types/verifier';
+import { LoginType } from 'packages/types/types-ca/wallet';
+import { VerifierItem, VerifyStatus } from 'packages/types/verifier';
 
 type VerifyName = string;
 export interface BaseGuardianItem {

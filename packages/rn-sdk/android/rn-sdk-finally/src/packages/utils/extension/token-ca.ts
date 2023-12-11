@@ -1,4 +1,4 @@
-import { TokenItemShowType, UserTokenItemType } from '@portkey/rn-sdk/src/packages/types/types-ca/token';
+import { TokenItemShowType, UserTokenItemType } from 'packages/types/types-ca/token';
 
 export const filterTokenList = (tokenList: UserTokenItemType[], keyword: string): UserTokenItemType[] => {
   return tokenList.filter(ele => {

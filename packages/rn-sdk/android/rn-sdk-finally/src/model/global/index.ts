@@ -1,24 +1,24 @@
-import { OperationTypeEnum } from '@portkey/rn-sdk/src/packages/types/verifier';
-import { PortkeyConfig, setCurrChainId } from '@portkey/rn-sdk/src/global/constants';
-import { AccountOriginalType, NormalVerifyPathInfo, VerifiedGuardianDoc, wrapExtraData } from '@portkey/rn-sdk/src/model/verify/core';
-import { GuardianConfig } from '@portkey/rn-sdk/src/model/verify/guardian';
-import { SignUpConfig } from '@portkey/rn-sdk/src/model/verify/sign-up';
-import { GuardianVerifyConfig, GuardianVerifyType } from '@portkey/rn-sdk/src/model/verify/social-recovery';
-import { NetworkController } from '@portkey/rn-sdk/src/network/controller';
-import { AccountOrGuardianOriginalTypeStr, CheckVerifyCodeResultDTO, GuardianInfo } from '@portkey/rn-sdk/src/network/dto/guardian';
+import { OperationTypeEnum } from 'packages/types/verifier';
+import { PortkeyConfig, setCurrChainId } from 'global/constants';
+import { AccountOriginalType, NormalVerifyPathInfo, VerifiedGuardianDoc, wrapExtraData } from 'model/verify/core';
+import { GuardianConfig } from 'model/verify/guardian';
+import { SignUpConfig } from 'model/verify/sign-up';
+import { GuardianVerifyConfig, GuardianVerifyType } from 'model/verify/social-recovery';
+import { NetworkController } from 'network/controller';
+import { AccountOrGuardianOriginalTypeStr, CheckVerifyCodeResultDTO, GuardianInfo } from 'network/dto/guardian';
 import {
   AElfWeb3SDK,
   RequestProcessResult,
   RequestRegisterParams,
   RequestSocialRecoveryParams,
-} from '@portkey/rn-sdk/src/network/dto/wallet';
-import { CountryCodeDataDTO } from '@portkey/rn-sdk/src/types/wallet';
-import { randomId, sleep } from '@portkey/rn-sdk/src/packages/utils';
-import { ThirdPartyAccountInfo } from '@portkey/rn-sdk/src/model/verify/third-party-account';
-import { GlobalStorage } from '@portkey/rn-sdk/src/service/storage';
-import { ChainId } from '@portkey/rn-sdk/src/packages/types';
-import { LoginType } from '@portkey/rn-sdk/src/packages/types/types-ca/wallet';
-import { Verifier, getOrReadCachedVerifierData } from '@portkey/rn-sdk/src/model/contract/handler';
+} from 'network/dto/wallet';
+import { CountryCodeDataDTO } from 'types/wallet';
+import { randomId, sleep } from 'packages/utils';
+import { ThirdPartyAccountInfo } from 'model/verify/third-party-account';
+import { GlobalStorage } from 'service/storage';
+import { ChainId } from 'packages/types';
+import { LoginType } from 'packages/types/types-ca/wallet';
+import { Verifier, getOrReadCachedVerifierData } from 'model/contract/handler';
 
 export const COUNTRY_CODE_DATA_KEY = 'countryCodeData';
 export const CURRENT_USING_COUNTRY_CODE = 'currentUsingCountryCode';

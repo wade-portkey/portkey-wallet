@@ -1,4 +1,4 @@
-import { GlobalStorage } from '@portkey/rn-sdk/src/service/storage';
+import { GlobalStorage } from 'service/storage';
 
 export const PIN_STORAGE_KEY = 'PIN_STORAGE_KEY';
 export const PIN_LENGTH = 6;

@@ -1,15 +1,15 @@
-import { TextM, TextS } from '@portkey/rn-sdk/src/components/CommonText';
+import { TextM, TextS } from 'components/CommonText';
 import React, { memo, useCallback, useMemo } from 'react';
 import { StyleSheet, View } from 'react-native';
-import { pTd } from '@portkey/rn-sdk/src/utils/unit';
+import { pTd } from 'utils/unit';
 import { UserGuardianItem } from 'packages/types/store-ca/guardians/type';
-import { LoginType } from '@portkey/rn-sdk/src/packages/types/types-ca/wallet';
-import { PRIVATE_GUARDIAN_ACCOUNT } from '@portkey/rn-sdk/src/packages/constants/constants-ca/guardian';
-import Svg from '@portkey/rn-sdk/src/components/Svg';
-import { LoginGuardianTypeIcon } from '@portkey/rn-sdk/src/constants/misc';
-import { defaultColors } from '@portkey/rn-sdk/src/assets/theme';
-import GStyles from '@portkey/rn-sdk/src/assets/theme/GStyles';
-import { FontStyles } from '@portkey/rn-sdk/src/assets/theme/styles';
+import { LoginType } from 'packages/types/types-ca/wallet';
+import { PRIVATE_GUARDIAN_ACCOUNT } from 'packages/constants/constants-ca/guardian';
+import Svg from 'components/Svg';
+import { LoginGuardianTypeIcon } from 'constants/misc';
+import { defaultColors } from 'assets/theme';
+import GStyles from 'assets/theme/GStyles';
+import { FontStyles } from 'assets/theme/styles';
 
 type GuardianAccountItemProps = {
   guardian?: UserGuardianItem;

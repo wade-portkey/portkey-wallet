@@ -1,6 +1,6 @@
-import { paymentSlice } from '@portkey/rn-sdk/src/packages/store/store-ca/payment/slice';
-import { resetPayment, setAchTokenInfo, fetchBuyFiatListAsync, fetchSellFiatListAsync } from '@portkey/rn-sdk/src/packages/store/store-ca/payment/actions';
-import { request } from '@portkey/rn-sdk/src/packages/api/api-did';
+import { paymentSlice } from 'packages/store/store-ca/payment/slice';
+import { resetPayment, setAchTokenInfo, fetchBuyFiatListAsync, fetchSellFiatListAsync } from 'packages/store/store-ca/payment/actions';
+import { request } from 'packages/api/api-did';
 import { configureStore } from '@reduxjs/toolkit';
 
 jest.mock('packages/api/api-did');

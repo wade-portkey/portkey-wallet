@@ -1,5 +1,6 @@
 package io.aelf.portkey.components.activities
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import com.facebook.react.ReactActivity
@@ -164,7 +165,7 @@ internal fun getReactActivityClass(entry: String): Class<out BasePortkeyReactAct
 }
 
 @Synchronized
-internal fun BasePortkeyReactActivity.navigateToAnotherReactActivity(
+internal fun Activity.navigateToAnotherReactActivity(
     entryName: String,
     callbackId: String = NO_CALLBACK_METHOD,
     params: ReadableMap? = null,

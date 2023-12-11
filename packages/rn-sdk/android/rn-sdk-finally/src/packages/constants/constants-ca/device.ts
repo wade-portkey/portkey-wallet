@@ -1,4 +1,4 @@
-import { DeviceInfoType, DeviceType } from '@portkey/rn-sdk/src/packages/types/types-ca/device';
+import { DeviceInfoType, DeviceType } from 'packages/types/types-ca/device';
 
 export const DEVICE_INFO_VERSION = '2.0.0';
 

@@ -1,4 +1,4 @@
-import { NFT_SMALL_SIZE } from '@portkey/rn-sdk/src/packages/constants/constants-ca/assets';
+import { NFT_SMALL_SIZE } from 'packages/constants/constants-ca/assets';
 
 export const getAWSUrlWithSize = (
   url?: string,

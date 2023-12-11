@@ -1,8 +1,8 @@
-import { DappState } from '@portkey/rn-sdk/src/test/data/dappState';
-import { renderHookWithProvider } from '@portkey/rn-sdk/src/test/utils/render';
-import { setupStore } from '@portkey/rn-sdk/src/test/utils/setup';
-import { useDapp, useCurrentDappList } from '@portkey/rn-sdk/src/packages/hooks/hooks-ca/dapp';
-import * as walletHook from '@portkey/rn-sdk/src/packages/hooks/hooks-ca/wallet';
+import { DappState } from 'test/data/dappState';
+import { renderHookWithProvider } from 'test/utils/render';
+import { setupStore } from 'test/utils/setup';
+import { useDapp, useCurrentDappList } from 'packages/hooks/hooks-ca/dapp';
+import * as walletHook from 'packages/hooks/hooks-ca/wallet';
 
 describe('useDapp', () => {
   test('get assets data successfully', () => {

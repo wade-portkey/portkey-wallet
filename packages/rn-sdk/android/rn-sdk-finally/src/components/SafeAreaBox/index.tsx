@@ -1,7 +1,7 @@
-import { bottomBarHeight } from '@portkey/rn-sdk/src/packages/utils/mobile/device';
+import { bottomBarHeight } from 'packages/utils/mobile/device';
 import React, { useMemo } from 'react';
 import { SafeAreaView, SafeAreaViewProps } from 'react-native-safe-area-context';
-import styles from '@portkey/rn-sdk/src/components/SafeAreaBox/styles';
+import styles from 'components/SafeAreaBox/styles';
 
 export type SafeAreaBoxProps = SafeAreaViewProps & {
   pageSafeBottomPadding?: boolean;

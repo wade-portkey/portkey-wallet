@@ -1,8 +1,8 @@
-import { AccountOriginalType } from '@portkey/rn-sdk/src/model/verify/core';
-import { GuardianConfig } from '@portkey/rn-sdk/src/model/verify/guardian';
-import { CheckVerifyCodeResultDTO } from '@portkey/rn-sdk/src/network/dto/guardian';
-import { ThirdPartyAccountInfo } from '@portkey/rn-sdk/src/model/verify/third-party-account';
-import { ITransferLimitItem } from '@portkey/rn-sdk/src/model/security';
+import { AccountOriginalType } from 'model/verify/core';
+import { GuardianConfig } from 'model/verify/guardian';
+import { CheckVerifyCodeResultDTO } from 'network/dto/guardian';
+import { ThirdPartyAccountInfo } from 'model/verify/third-party-account';
+import { ITransferLimitItem } from 'model/security';
 
 export interface GuardianVerifyConfig {
   guardianVerifyType: GuardianVerifyType;

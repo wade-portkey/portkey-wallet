@@ -1,4 +1,4 @@
-import { guardiansSlice } from '@portkey/rn-sdk/src/packages/store/store-ca/guardians/slice';
+import { guardiansSlice } from 'packages/store/store-ca/guardians/slice';
 import {
   resetGuardiansState,
   setVerifierListAction,
@@ -11,8 +11,8 @@ import {
   resetUserGuardianStatus,
   setUserGuardianSessionIdAction,
   resetGuardians,
-} from '@portkey/rn-sdk/src/packages/store/store-ca/guardians/actions';
-import { VerifyStatus } from '@portkey/rn-sdk/src/packages/types/verifier';
+} from 'packages/store/store-ca/guardians/actions';
+import { VerifyStatus } from 'packages/types/verifier';
 const reducer = guardiansSlice.reducer;
 
 const mockUserGuardiansListItem1 = {

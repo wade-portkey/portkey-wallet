@@ -1,4 +1,4 @@
-import { TokenItemShowType } from '@portkey/rn-sdk/src/packages/types/types-eoa/token';
+import { TokenItemShowType } from 'packages/types/types-eoa/token';
 
 export const filterTokenList = (tokenList: TokenItemShowType[], keyword: string): TokenItemShowType[] => {
   return tokenList.filter((ele): void | boolean => {

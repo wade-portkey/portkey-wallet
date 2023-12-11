@@ -1,12 +1,12 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import * as RNLocalize from 'react-native-localize';
-import { getStorageData } from '@portkey/rn-sdk/src/utils/asyncStorage';
-import { DEFAULT_LANGUAGE, getLocalLanguage, isValidLanguage } from '@portkey/rn-sdk/src/i18n/config';
-import commonEn from '@portkey/rn-sdk/src/packages/i18n/en';
-import commonZh from '@portkey/rn-sdk/src/packages/i18n/zh';
-import en from '@portkey/rn-sdk/src/i18n/languages/en.json';
-import zh from '@portkey/rn-sdk/src/i18n/languages/zh.json';
+import { getStorageData } from 'utils/asyncStorage';
+import { DEFAULT_LANGUAGE, getLocalLanguage, isValidLanguage } from 'i18n/config';
+import commonEn from 'packages/i18n/en';
+import commonZh from 'packages/i18n/zh';
+import en from 'i18n/languages/en.json';
+import zh from 'i18n/languages/zh.json';
 // the translations
 // (tip move them in a JSON file and import them,
 // or even better, manage them separated from your code: https://react.i18next.com/guides/multiple-translation-files)

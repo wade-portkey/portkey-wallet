@@ -1,9 +1,9 @@
-import { request } from '@portkey/rn-sdk/src/packages/api/api-did';
-import { useAppCASelector, useAppCommonDispatch } from '@portkey/rn-sdk/src/packages/hooks';
-import { useCurrentNetworkInfo } from '@portkey/rn-sdk/src/packages/hooks/hooks-ca/network';
+import { request } from 'packages/api/api-did';
+import { useAppCASelector, useAppCommonDispatch } from 'packages/hooks';
+import { useCurrentNetworkInfo } from 'packages/hooks/hooks-ca/network';
 import { cleanBookmarkList, addBookmarkList } from 'packages/types/store-ca/discover/slice';
 import { IBookmarkItem } from 'packages/types/store-ca/discover/type';
-import { DISCOVER_BOOKMARK_MAX_COUNT } from '@portkey/rn-sdk/src/packages/constants/constants-ca/discover';
+import { DISCOVER_BOOKMARK_MAX_COUNT } from 'packages/constants/constants-ca/discover';
 import { useCallback, useMemo } from 'react';
 
 export const useBookmarkList = () => {

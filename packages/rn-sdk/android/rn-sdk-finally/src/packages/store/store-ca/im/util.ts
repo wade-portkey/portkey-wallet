@@ -1,4 +1,4 @@
-import { ChannelList } from '@portkey/rn-sdk/src/packages/store/store-ca/im/type';
+import { ChannelList } from 'packages/store/store-ca/im/type';
 
 export const formatChannelList = (channelList: ChannelList): ChannelList => {
   const pinList: ChannelList['list'] = [];

@@ -1,12 +1,12 @@
-import { useAppCASelector } from '@portkey/rn-sdk/src/packages/hooks/hooks-ca';
+import { useAppCASelector } from 'packages/hooks/hooks-ca';
 import { getPhoneCountryCode, setLocalPhoneCountryCodeAction } from 'packages/types/store-ca/misc/actions';
 import { useEffect, useMemo, useCallback, useState, useRef } from 'react';
-import { useCurrentNetworkInfo, useNetworkList } from '@portkey/rn-sdk/src/packages/hooks/hooks-ca/network';
-import { useAppCommonDispatch } from '@portkey/rn-sdk/src/packages/hooks';
-import { DefaultCountry, getCountryCodeIndex } from '@portkey/rn-sdk/src/packages/constants/constants-ca/country';
-import { CountryItem } from '@portkey/rn-sdk/src/packages/types/types-ca/country';
-import signalrDid from '@portkey/rn-sdk/src/packages/socket/socket-did';
-import { request } from '@portkey/rn-sdk/src/packages/api/api-did';
+import { useCurrentNetworkInfo, useNetworkList } from 'packages/hooks/hooks-ca/network';
+import { useAppCommonDispatch } from 'packages/hooks';
+import { DefaultCountry, getCountryCodeIndex } from 'packages/constants/constants-ca/country';
+import { CountryItem } from 'packages/types/types-ca/country';
+import signalrDid from 'packages/socket/socket-did';
+import { request } from 'packages/api/api-did';
 
 export const useMisc = () => useAppCASelector(state => state.misc);
 

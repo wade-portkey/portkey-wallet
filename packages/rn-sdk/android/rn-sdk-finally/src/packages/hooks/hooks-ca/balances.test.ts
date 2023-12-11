@@ -1,6 +1,6 @@
-import { useCurrentNetworkBalances, useAccountBalanceUSD } from '@portkey/rn-sdk/src/packages/hooks/hooks-ca/balances';
-import { renderHookWithProvider } from '@portkey/rn-sdk/src/test/utils/render';
-import { setupStore } from '@portkey/rn-sdk/src/test/utils/setup';
+import { useCurrentNetworkBalances, useAccountBalanceUSD } from 'packages/hooks/hooks-ca/balances';
+import { renderHookWithProvider } from 'test/utils/render';
+import { setupStore } from 'test/utils/setup';
 
 describe('useCurrentNetworkBalances', () => {
   test('rpcUrl undefined, and return undefined', () => {

@@ -1,9 +1,9 @@
 import { useMemo } from 'react';
-import { useCurrentNetworkInfo } from '@portkey/rn-sdk/src/packages/hooks/hooks-ca/network';
-import { useCurrentWalletInfo, useOriginChainId } from '@portkey/rn-sdk/src/packages/hooks/hooks-ca/wallet';
-import aes from '@portkey/rn-sdk/src/packages/utils/aes';
+import { useCurrentNetworkInfo } from 'packages/hooks/hooks-ca/network';
+import { useCurrentWalletInfo, useOriginChainId } from 'packages/hooks/hooks-ca/wallet';
+import aes from 'packages/utils/aes';
 import AElf from 'aelf-sdk';
-import { setRefreshTokenConfig } from '@portkey/rn-sdk/src/packages/api/api-did/utils';
+import { setRefreshTokenConfig } from 'packages/api/api-did/utils';
 
 export function useRefreshTokenConfig(pin?: string) {
   const { caHash, AESEncryptPrivateKey } = useCurrentWalletInfo();

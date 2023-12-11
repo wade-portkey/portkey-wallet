@@ -1,13 +1,13 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { CMSState } from '@portkey/rn-sdk/src/packages/store/store-ca/cms/types';
-import { NetworkType } from '@portkey/rn-sdk/src/packages/types';
+import { CMSState } from 'packages/store/store-ca/cms/types';
+import { NetworkType } from 'packages/types';
 import {
   getDiscoverGroup,
   getSocialMedia,
   getTabMenu,
   getBuyButton,
   getRememberMeBlackListSites,
-} from '@portkey/rn-sdk/src/packages/graphql/cms/queries';
+} from 'packages/graphql/cms/queries';
 
 export const getSocialMediaAsync = createAsyncThunk<Required<Pick<CMSState, 'socialMediaListNetMap'>>, NetworkType>(
   'cms/getSocialMediaAsync',

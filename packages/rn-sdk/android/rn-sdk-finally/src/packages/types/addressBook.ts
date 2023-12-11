@@ -1,4 +1,4 @@
-import { RpcUrlNetworkName } from '@portkey/rn-sdk/src/packages/types';
+import { RpcUrlNetworkName } from 'packages/types';
 export interface AddressBookItem {
   name: string;
   address: string;

@@ -1,19 +1,19 @@
 import React, { useMemo } from 'react';
 import { View, Text } from 'react-native';
-import { styles } from '@portkey/rn-sdk/src/pages/Assets/Home/AssetsHome/style';
-import ReceiveButton from '@portkey/rn-sdk/src/components/ReceiveButton';
-import { TextM } from '@portkey/rn-sdk/src/components/CommonText';
-import FaucetButton from '@portkey/rn-sdk/src/components/FaucetButton';
-import { useUnlockedWallet } from '@portkey/rn-sdk/src/model/wallet';
-import { useCurrentNetworkType } from '@portkey/rn-sdk/src/model/hooks/network';
-import SendButton from '@portkey/rn-sdk/src/components/SendButton';
-import DashBoardTab from '@portkey/rn-sdk/src/pages/Assets/Home/DashBoardTab';
-import { useAccountTokenBalanceList, useSearchTokenList, useTokenPrices, useNftCollections } from '@portkey/rn-sdk/src/model/hooks/balance';
-import CustomHeader from '@portkey/rn-sdk/src/components/CustomHeader';
-import useBaseContainer from '@portkey/rn-sdk/src/model/container/UseBaseContainer';
-import AssetsContext, { AssetsContextType } from '@portkey/rn-sdk/src/global/context/assets/AssetsContext';
-import { divDecimals } from '@portkey/rn-sdk/src/packages/utils/converter';
-import { ZERO } from '@portkey/rn-sdk/src/packages/constants/misc';
+import { styles } from 'pages/Assets/Home/AssetsHome/style';
+import ReceiveButton from 'components/ReceiveButton';
+import { TextM } from 'components/CommonText';
+import FaucetButton from 'components/FaucetButton';
+import { useUnlockedWallet } from 'model/wallet';
+import { useCurrentNetworkType } from 'model/hooks/network';
+import SendButton from 'components/SendButton';
+import DashBoardTab from 'pages/Assets/Home/DashBoardTab';
+import { useAccountTokenBalanceList, useSearchTokenList, useTokenPrices, useNftCollections } from 'model/hooks/balance';
+import CustomHeader from 'components/CustomHeader';
+import useBaseContainer from 'model/container/UseBaseContainer';
+import AssetsContext, { AssetsContextType } from 'global/context/assets/AssetsContext';
+import { divDecimals } from 'packages/utils/converter';
+import { ZERO } from 'packages/constants/misc';
 
 const AssetsHome: React.FC = () => {
   const { wallet } = useUnlockedWallet();

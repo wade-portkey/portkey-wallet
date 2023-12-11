@@ -1,5 +1,5 @@
 import AElf from 'aelf-sdk';
-import { AElfWallet } from '@portkey/rn-sdk/src/packages/types/aelf';
+import { AElfWallet } from 'packages/types/aelf';
 
 export const getVerifyData = (account: AElfWallet, caHash: string) => {
   if (!account.keyPair) {

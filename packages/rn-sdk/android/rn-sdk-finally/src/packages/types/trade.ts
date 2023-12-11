@@ -1,4 +1,4 @@
-import { AddressBookItem } from '@portkey/rn-sdk/src/packages/types/addressBook';
+import { AddressBookItem } from 'packages/types/addressBook';
 type RpcUrl = string;
 
 export interface RecentContactItem extends AddressBookItem {

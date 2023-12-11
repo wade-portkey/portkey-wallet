@@ -1,4 +1,4 @@
-import { StorageModule, PortkeyModulesEntity } from '@portkey/rn-sdk/src/service/native-modules';
+import { StorageModule, PortkeyModulesEntity } from 'service/native-modules';
 
 export const GlobalStorage: StorageModule & {
   set: (key: string, value: string | number | boolean | null | undefined, allowSharpSymbol?: boolean) => void;

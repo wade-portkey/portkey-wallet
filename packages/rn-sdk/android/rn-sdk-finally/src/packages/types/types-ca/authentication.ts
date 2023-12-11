@@ -1,5 +1,5 @@
-import { ChainId } from '@portkey/rn-sdk/src/packages/types';
-import { OperationTypeEnum } from '@portkey/rn-sdk/src/packages/types/verifier';
+import { ChainId } from 'packages/types';
+import { OperationTypeEnum } from 'packages/types/verifier';
 
 export type VerifyTokenParams = {
   accessToken?: string;

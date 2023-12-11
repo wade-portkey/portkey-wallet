@@ -1,5 +1,5 @@
-import { sellListenList } from '@portkey/rn-sdk/src/packages/constants/constants-ca/socket';
-import { AchTxAddressReceivedType, RequestOrderTransferredType } from '@portkey/rn-sdk/src/packages/types/types-ca/payment';
+import { sellListenList } from 'packages/constants/constants-ca/socket';
+import { AchTxAddressReceivedType, RequestOrderTransferredType } from 'packages/types/types-ca/payment';
 import { BaseSignalr } from '@portkey/socket';
 
 export class SignalrSell extends BaseSignalr {

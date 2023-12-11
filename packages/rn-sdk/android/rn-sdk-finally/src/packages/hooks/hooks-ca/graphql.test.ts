@@ -1,13 +1,13 @@
 import { renderHook, act } from '@testing-library/react';
-import { useIntervalQueryCAInfoByAddress, useCheckManager } from '@portkey/rn-sdk/src/packages/hooks/hooks-ca/graphql';
-import { useCurrentChain } from '@portkey/rn-sdk/src/packages/hooks/hooks-ca/chainList';
-import { useAppCommonDispatch } from '@portkey/rn-sdk/src/packages/hooks';
-import * as graphqlQuery from '@portkey/rn-sdk/src/packages/graphql';
-import { ChainId, NetworkType } from '@portkey/rn-sdk/src/packages/types';
-import { CaHolderWithGuardian } from '@portkey/rn-sdk/src/packages/graphql/contract/types';
-import * as chainListHooks from '@portkey/rn-sdk/src/packages/hooks/hooks-ca/chainList';
-import { AELFChainInfo, currentWallet } from '@portkey/rn-sdk/src/test/data/chainInfo';
-import { useCurrentWallet, useOriginChainId } from '@portkey/rn-sdk/src/packages/hooks/hooks-ca/wallet';
+import { useIntervalQueryCAInfoByAddress, useCheckManager } from 'packages/hooks/hooks-ca/graphql';
+import { useCurrentChain } from 'packages/hooks/hooks-ca/chainList';
+import { useAppCommonDispatch } from 'packages/hooks';
+import * as graphqlQuery from 'packages/graphql';
+import { ChainId, NetworkType } from 'packages/types';
+import { CaHolderWithGuardian } from 'packages/graphql/contract/types';
+import * as chainListHooks from 'packages/hooks/hooks-ca/chainList';
+import { AELFChainInfo, currentWallet } from 'test/data/chainInfo';
+import { useCurrentWallet, useOriginChainId } from 'packages/hooks/hooks-ca/wallet';
 
 jest.mock('./chainList');
 jest.mock('../index');

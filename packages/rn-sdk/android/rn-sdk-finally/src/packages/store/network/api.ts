@@ -1,4 +1,4 @@
-import { customFetch } from '@portkey/rn-sdk/src/packages/utils/fetch';
+import { customFetch } from 'packages/utils/fetch';
 
 const baseCMSUrl = 'http://192.168.66.186:1337';
 const defaultChainList = '/api/networks';

@@ -1,9 +1,9 @@
-import { ZERO } from '@portkey/rn-sdk/src/packages/constants/misc';
+import { ZERO } from 'packages/constants/misc';
 import { fetchTokensPriceAsync } from 'packages/types/store-ca/assets/slice';
-import { divDecimals, formatAmountShow } from '@portkey/rn-sdk/src/packages/utils/converter';
+import { divDecimals, formatAmountShow } from 'packages/utils/converter';
 import { useMemo, useCallback, useEffect } from 'react';
-import { useAppCASelector, useAppCommonDispatch } from '@portkey/rn-sdk/src/packages/hooks';
-import { useIsMainnet } from '@portkey/rn-sdk/src/packages/hooks/hooks-ca/network';
+import { useAppCASelector, useAppCommonDispatch } from 'packages/hooks';
+import { useIsMainnet } from 'packages/hooks/hooks-ca/network';
 
 export function useGetCurrentAccountTokenPrice(): [
   Record<string, number | string>,

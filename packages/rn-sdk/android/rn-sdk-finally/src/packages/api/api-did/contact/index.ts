@@ -1,4 +1,4 @@
-import { BaseConfig } from '@portkey/rn-sdk/src/packages/api/types';
+import { BaseConfig } from 'packages/api/types';
 
 const BASE_URL = `/api/app/contacts`;
 const KeyList = ['addContact', 'editContact', 'deleteContact', 'checkContactName', 'readImputation'] as const;

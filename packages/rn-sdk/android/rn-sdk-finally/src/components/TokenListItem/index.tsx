@@ -1,13 +1,13 @@
 import React from 'react';
-import { divDecimals, formatAmountShow } from '@portkey/rn-sdk/src/packages/utils/converter';
-import { defaultColors } from '@portkey/rn-sdk/src/assets/theme';
-import { FontStyles } from '@portkey/rn-sdk/src/assets/theme/styles';
-import CommonAvatar from '@portkey/rn-sdk/src/components/CommonAvatar';
-import { TextL, TextS } from '@portkey/rn-sdk/src/components/CommonText';
+import { divDecimals, formatAmountShow } from 'packages/utils/converter';
+import { defaultColors } from 'assets/theme';
+import { FontStyles } from 'assets/theme/styles';
+import CommonAvatar from 'components/CommonAvatar';
+import { TextL, TextS } from 'components/CommonText';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
-import { formatChainInfoToShow } from '@portkey/rn-sdk/src/packages/utils';
-import { pTd } from '@portkey/rn-sdk/src/utils/unit';
-import { CommonInfo } from '@portkey/rn-sdk/src/components/TokenOverlay/hooks';
+import { formatChainInfoToShow } from 'packages/utils';
+import { pTd } from 'utils/unit';
+import { CommonInfo } from 'components/TokenOverlay/hooks';
 interface TokenListItemType {
   noBalanceShow?: boolean;
   item?: any;

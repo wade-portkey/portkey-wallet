@@ -1,6 +1,6 @@
-import { ChainId } from '@portkey/rn-sdk/src/packages/types';
-import { ChainItemType } from '@portkey/rn-sdk/src/packages/types/chain';
-import { AccountType } from '@portkey/rn-sdk/src/packages/types/wallet';
+import { ChainId } from 'packages/types';
+import { ChainItemType } from 'packages/types/chain';
+import { AccountType } from 'packages/types/wallet';
 
 export interface BaseToken {
   id?: string; // id

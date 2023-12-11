@@ -1,7 +1,7 @@
-import { useCurrentWallet } from '@portkey/rn-sdk/src/packages/hooks/hooks-ca/wallet';
+import { useCurrentWallet } from 'packages/hooks/hooks-ca/wallet';
 import { useMemo } from 'react';
-import { NetworkList } from '@portkey/rn-sdk/src/packages/constants/constants-ca/network';
-import { useAppCASelector } from '@portkey/rn-sdk/src/packages/hooks/hooks-ca';
+import { NetworkList } from 'packages/constants/constants-ca/network';
+import { useAppCASelector } from 'packages/hooks/hooks-ca';
 
 export function useNetworkList() {
   return NetworkList;

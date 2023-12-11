@@ -1,6 +1,6 @@
 import { NativeEventEmitter, NativeModules, Platform } from 'react-native';
-import { PortkeyEntries } from '@portkey/rn-sdk/src/config/entries';
-import { AcceptableValueType } from '@portkey/rn-sdk/src/model/container/BaseContainer';
+import { PortkeyEntries } from 'config/entries';
+import { AcceptableValueType } from 'model/container/BaseContainer';
 
 export const PortkeyModulesEntity = NativeModules as PortkeyNativeModules;
 

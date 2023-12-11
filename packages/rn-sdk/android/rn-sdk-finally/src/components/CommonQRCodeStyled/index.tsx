@@ -1,9 +1,9 @@
 import React from 'react';
 import QRCodeStyled, { SVGQRCodeStyledProps } from 'react-native-qrcode-styled';
 // import portkeyLogo from '../../assets/image/pngs/portkeyBlackBorderRadius.png';
-import { pTd } from '@portkey/rn-sdk/src/utils/unit';
+import { pTd } from 'utils/unit';
 import { StyleSheet, View } from 'react-native';
-import { TextL } from '@portkey/rn-sdk/src/components/CommonText';
+import { TextL } from 'components/CommonText';
 
 type CommonQRCodeStyledPropsType = {
   qrData: string;

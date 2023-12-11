@@ -11,15 +11,15 @@ import {
   setBackup,
   setCurrentAccount,
   updateAccountName,
-} from '@portkey/rn-sdk/src/packages/store/wallet/actions';
+} from 'packages/store/wallet/actions';
 import {
   checkAccountNameInput,
   checkPasswordInput,
   getAccountByPrivateKey,
   getNextBIP44Path,
-} from '@portkey/rn-sdk/src/packages/utils/wallet';
-import { DefaultBIP44Path } from '@portkey/rn-sdk/src/packages/constants/wallet';
-import { WalletError, WalletState } from '@portkey/rn-sdk/src/packages/store/wallet/type';
+} from 'packages/utils/wallet';
+import { DefaultBIP44Path } from 'packages/constants/wallet';
+import { WalletError, WalletState } from 'packages/store/wallet/type';
 import {
   changeEncryptStr,
   checkAccount,
@@ -29,9 +29,9 @@ import {
   createAccount,
   getAccountByWalletState,
   handlePrivateKey,
-} from '@portkey/rn-sdk/src/packages/store/wallet/utils';
-import { isEqAddress } from '@portkey/rn-sdk/src/packages/utils/aelf';
-import { isPrivateKey } from '@portkey/rn-sdk/src/packages/utils';
+} from 'packages/store/wallet/utils';
+import { isEqAddress } from 'packages/utils/aelf';
+import { isPrivateKey } from 'packages/utils';
 const initialState: WalletState = {
   nextBIP44Path: DefaultBIP44Path,
   walletType: 'aelf',

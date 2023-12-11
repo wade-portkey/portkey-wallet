@@ -1,27 +1,27 @@
 import React, { memo, useCallback, useState } from 'react';
-import PageContainer from '@portkey/rn-sdk/src/components/PageContainer';
+import PageContainer from 'components/PageContainer';
 import { StyleSheet, FlatList, View } from 'react-native';
-import { defaultColors } from '@portkey/rn-sdk/src/assets/theme';
-import GStyles from '@portkey/rn-sdk/src/assets/theme/GStyles';
-import { TextL, TextM } from '@portkey/rn-sdk/src/components/CommonText';
+import { defaultColors } from 'assets/theme';
+import GStyles from 'assets/theme/GStyles';
+import { TextL, TextM } from 'components/CommonText';
 
-import { BGStyles, FontStyles } from '@portkey/rn-sdk/src/assets/theme/styles';
-import { pTd } from '@portkey/rn-sdk/src/utils/unit';
-import CommonToast from '@portkey/rn-sdk/src/components/CommonToast';
-import Touchable from '@portkey/rn-sdk/src/components/Touchable';
+import { BGStyles, FontStyles } from 'assets/theme/styles';
+import { pTd } from 'utils/unit';
+import CommonToast from 'components/CommonToast';
+import Touchable from 'components/Touchable';
 import isEqual from 'lodash/isEqual';
-import CommonAvatar from '@portkey/rn-sdk/src/components/CommonAvatar';
-import Svg from '@portkey/rn-sdk/src/components/Svg';
-import { formatChainInfoToShow } from '@portkey/rn-sdk/src/packages/utils';
-import NoData from '@portkey/rn-sdk/src/components/NoData';
-import { ITransferLimitItem } from '@portkey/rn-sdk/src/model/security';
-import { useTransferLimitList } from '@portkey/rn-sdk/src/model/hooks/payment';
-import { useCurrentNetworkInfo } from '@portkey/rn-sdk/src/hooks/network';
-import { useCommonNetworkInfo, useSymbolImages } from '@portkey/rn-sdk/src/components/TokenOverlay/hooks';
-import useBaseContainer from '@portkey/rn-sdk/src/model/container/UseBaseContainer';
-import { PortkeyEntries } from '@portkey/rn-sdk/src/config/entries';
-import { PaymentSecurityDetailProps } from '@portkey/rn-sdk/src/pages/My/WalletSecurity/PaymentSecurity/PaymentSecurityDetail';
-import { GuardiansApprovalIntent } from '@portkey/rn-sdk/src/pages/GuardianManage/GuardianHome';
+import CommonAvatar from 'components/CommonAvatar';
+import Svg from 'components/Svg';
+import { formatChainInfoToShow } from 'packages/utils';
+import NoData from 'components/NoData';
+import { ITransferLimitItem } from 'model/security';
+import { useTransferLimitList } from 'model/hooks/payment';
+import { useCurrentNetworkInfo } from 'hooks/network';
+import { useCommonNetworkInfo, useSymbolImages } from 'components/TokenOverlay/hooks';
+import useBaseContainer from 'model/container/UseBaseContainer';
+import { PortkeyEntries } from 'config/entries';
+import { PaymentSecurityDetailProps } from 'pages/My/WalletSecurity/PaymentSecurity/PaymentSecurityDetail';
+import { GuardiansApprovalIntent } from 'pages/GuardianManage/GuardianHome';
 
 const _renderPaymentSecurityItem = ({ item }: { item: ITransferLimitItem }) => {
   const { defaultToken } = useCommonNetworkInfo();

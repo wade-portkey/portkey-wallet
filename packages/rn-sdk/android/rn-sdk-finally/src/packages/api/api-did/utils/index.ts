@@ -1,9 +1,9 @@
-import { AElfWallet } from '@portkey/rn-sdk/src/packages/types/aelf';
-import { customFetch } from '@portkey/rn-sdk/src/packages/utils/fetch';
+import { AElfWallet } from 'packages/types/aelf';
+import { customFetch } from 'packages/utils/fetch';
 import { stringify } from 'query-string';
 import AElf from 'aelf-sdk';
-import { request } from '@portkey/rn-sdk/src/packages/api/api-did';
-import { ChainId } from '@portkey/rn-sdk/src/packages/types';
+import { request } from 'packages/api/api-did';
+import { ChainId } from 'packages/types';
 export type RefreshTokenConfig = {
   grant_type: 'signature';
   client_id: 'CAServer_App';

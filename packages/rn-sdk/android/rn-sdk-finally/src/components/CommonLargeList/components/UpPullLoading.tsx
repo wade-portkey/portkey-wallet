@@ -2,8 +2,8 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import Spinner from 'react-native-spinkit';
 import { RefreshHeader } from 'react-native-spring-scrollview/RefreshHeader';
-import { defaultColors } from '@portkey/rn-sdk/src/assets/theme';
-import GStyles from '@portkey/rn-sdk/src/assets/theme/GStyles';
+import { defaultColors } from 'assets/theme';
+import GStyles from 'assets/theme/GStyles';
 export default class UpPullLoading extends RefreshHeader {
   static height = 50;
 

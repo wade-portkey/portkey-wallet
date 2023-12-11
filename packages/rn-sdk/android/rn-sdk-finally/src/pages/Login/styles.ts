@@ -1,6 +1,6 @@
-import { screenHeight, screenWidth, windowHeight } from '@portkey/rn-sdk/src/packages/utils/mobile/device';
+import { screenHeight, screenWidth, windowHeight } from 'packages/utils/mobile/device';
 import { StyleSheet } from 'react-native';
-import { pTd } from '@portkey/rn-sdk/src/utils/unit';
+import { pTd } from 'utils/unit';
 
 const styles = StyleSheet.create({
   backgroundContainer: {

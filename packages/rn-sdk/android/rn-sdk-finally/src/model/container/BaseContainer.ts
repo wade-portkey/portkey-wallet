@@ -4,10 +4,10 @@ import {
   EntryResult,
   RouterOptions,
   PortkeyModulesEntity,
-} from '@portkey/rn-sdk/src/service/native-modules';
-import { PortkeyEntries } from '@portkey/rn-sdk/src/config/entries';
-import { VoidResult } from '@portkey/rn-sdk/src/model/container/UseBaseContainer';
-import { LaunchMode, LaunchModeSet } from '@portkey/rn-sdk/src/global/init/entries';
+} from 'service/native-modules';
+import { PortkeyEntries } from 'config/entries';
+import { VoidResult } from 'model/container/UseBaseContainer';
+import { LaunchMode, LaunchModeSet } from 'global/init/entries';
 
 export default abstract class BaseContainer<
   P extends BaseContainerProps,

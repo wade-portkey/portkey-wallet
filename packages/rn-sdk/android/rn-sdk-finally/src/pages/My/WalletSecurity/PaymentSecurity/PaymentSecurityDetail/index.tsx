@@ -1,20 +1,20 @@
 import React, { useCallback, useMemo, useState } from 'react';
-import PageContainer from '@portkey/rn-sdk/src/components/PageContainer';
+import PageContainer from 'components/PageContainer';
 import { StyleSheet, View } from 'react-native';
-import { defaultColors } from '@portkey/rn-sdk/src/assets/theme';
-import GStyles from '@portkey/rn-sdk/src/assets/theme/GStyles';
+import { defaultColors } from 'assets/theme';
+import GStyles from 'assets/theme/GStyles';
 
-import CommonButton from '@portkey/rn-sdk/src/components/CommonButton';
-import { TextM } from '@portkey/rn-sdk/src/components/CommonText';
-import { FontStyles } from '@portkey/rn-sdk/src/assets/theme/styles';
-import { pTd } from '@portkey/rn-sdk/src/utils/unit';
-import { divDecimalsToShow } from '@portkey/rn-sdk/src/packages/utils/converter';
-import { ITransferLimitItem } from '@portkey/rn-sdk/src/model/security';
-import { callGetTransferLimitMethod } from '@portkey/rn-sdk/src/model/contract/handler';
-import Loading from '@portkey/rn-sdk/src/components/Loading';
-import useBaseContainer from '@portkey/rn-sdk/src/model/container/UseBaseContainer';
-import { PortkeyEntries } from '@portkey/rn-sdk/src/config/entries';
-import { PaymentSecurityEditProps } from '@portkey/rn-sdk/src/pages/My/WalletSecurity/PaymentSecurity/PaymentSecurityEdit';
+import CommonButton from 'components/CommonButton';
+import { TextM } from 'components/CommonText';
+import { FontStyles } from 'assets/theme/styles';
+import { pTd } from 'utils/unit';
+import { divDecimalsToShow } from 'packages/utils/converter';
+import { ITransferLimitItem } from 'model/security';
+import { callGetTransferLimitMethod } from 'model/contract/handler';
+import Loading from 'components/Loading';
+import useBaseContainer from 'model/container/UseBaseContainer';
+import { PortkeyEntries } from 'config/entries';
+import { PaymentSecurityEditProps } from 'pages/My/WalletSecurity/PaymentSecurity/PaymentSecurityEdit';
 
 export interface PaymentSecurityDetailProps {
   transferLimitDetail?: ITransferLimitItem;

@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchBuyFiatListAsync, fetchSellFiatListAsync, resetPayment, setAchTokenInfo } from '@portkey/rn-sdk/src/packages/store/store-ca/payment/actions';
-import { PaymentStateType } from '@portkey/rn-sdk/src/packages/store/store-ca/payment/type';
+import { fetchBuyFiatListAsync, fetchSellFiatListAsync, resetPayment, setAchTokenInfo } from 'packages/store/store-ca/payment/actions';
+import { PaymentStateType } from 'packages/store/store-ca/payment/type';
 
 const initialState: PaymentStateType = {
   buyFiatList: [],

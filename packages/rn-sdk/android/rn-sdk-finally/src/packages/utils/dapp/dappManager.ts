@@ -1,15 +1,15 @@
 import { addDapp, updateDapp } from 'packages/types/store-ca/dapp/actions';
 import { DappStoreItem } from 'packages/types/store-ca/dapp/type';
 import { ChainItemType } from 'packages/types/store-ca/wallet/type';
-import { DappManagerOptions, IDappManager, IDappManagerStore } from '@portkey/rn-sdk/src/packages/types/types-ca/dapp';
-import { CACommonState } from '@portkey/rn-sdk/src/packages/types/types-ca/store';
-import { CAInfo } from '@portkey/rn-sdk/src/packages/types/types-ca/wallet';
+import { DappManagerOptions, IDappManager, IDappManagerStore } from 'packages/types/types-ca/dapp';
+import { CACommonState } from 'packages/types/types-ca/store';
+import { CAInfo } from 'packages/types/types-ca/wallet';
 import { ChainId, ChainsInfo } from '@portkey/provider-types';
-import { handleAccounts, handleChainIds, handleCurrentCAInfo, handleOriginInfo } from '@portkey/rn-sdk/src/packages/utils/dapp';
-import { isEqDapp } from '@portkey/rn-sdk/src/packages/utils/dapp/browser';
-import { NetworkType } from '@portkey/rn-sdk/src/packages/types';
-import { DefaultChainId } from '@portkey/rn-sdk/src/packages/constants/constants-ca/network';
-import { SessionInfo } from '@portkey/rn-sdk/src/packages/types/session';
+import { handleAccounts, handleChainIds, handleCurrentCAInfo, handleOriginInfo } from 'packages/utils/dapp';
+import { isEqDapp } from 'packages/utils/dapp/browser';
+import { NetworkType } from 'packages/types';
+import { DefaultChainId } from 'packages/constants/constants-ca/network';
+import { SessionInfo } from 'packages/types/session';
 
 export abstract class BaseDappManager<T extends IDappManagerStore> {
   protected store: T;

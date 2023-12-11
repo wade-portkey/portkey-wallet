@@ -1,4 +1,4 @@
-import { isValidEmail } from '@portkey/rn-sdk/src/packages/utils/reg';
+import { isValidEmail } from 'packages/utils/reg';
 export enum EmailError {
   noEmail = 'Please enter email address',
   invalidEmail = 'Invalid email address',

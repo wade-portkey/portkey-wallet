@@ -1,17 +1,17 @@
 import React, { useCallback, useEffect, useRef } from 'react';
-import PageContainer from '@portkey/rn-sdk/src/components/PageContainer';
+import PageContainer from 'components/PageContainer';
 import { StyleSheet, FlatList } from 'react-native';
-import { defaultColors } from '@portkey/rn-sdk/src/assets/theme';
-import GStyles from '@portkey/rn-sdk/src/assets/theme/GStyles';
-import { TextM } from '@portkey/rn-sdk/src/components/CommonText';
-import { IDeviceItem, useCurrentWalletInfo, useDeviceList } from '@portkey/rn-sdk/src/packages/hooks/hooks-ca/wallet';
-import DeviceItem from '@portkey/rn-sdk/src/pages/My/WalletSecurity/Device/components/DeviceItem';
+import { defaultColors } from 'assets/theme';
+import GStyles from 'assets/theme/GStyles';
+import { TextM } from 'components/CommonText';
+import { IDeviceItem, useCurrentWalletInfo, useDeviceList } from 'packages/hooks/hooks-ca/wallet';
+import DeviceItem from 'pages/My/WalletSecurity/Device/components/DeviceItem';
 import navigationService from 'utils/navigationService';
-import { FontStyles } from '@portkey/rn-sdk/src/assets/theme/styles';
-import { pTd } from '@portkey/rn-sdk/src/utils/unit';
-import myEvents from '@portkey/rn-sdk/src/utils/deviceEvent';
-import useEffectOnce from '@portkey/rn-sdk/src/hooks/useEffectOnce';
-import CommonToast from '@portkey/rn-sdk/src/components/CommonToast';
+import { FontStyles } from 'assets/theme/styles';
+import { pTd } from 'utils/unit';
+import myEvents from 'utils/deviceEvent';
+import useEffectOnce from 'hooks/useEffectOnce';
+import CommonToast from 'components/CommonToast';
 
 const DeviceList: React.FC = () => {
   const onError = useCallback(() => {

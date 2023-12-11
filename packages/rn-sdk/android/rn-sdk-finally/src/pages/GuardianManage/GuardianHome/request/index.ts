@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
-import { request } from '@portkey/rn-sdk/src/packages/api/api-did';
-import { PortkeyConfig } from '@portkey/rn-sdk/src/global/constants';
+import { request } from 'packages/api/api-did';
+import { PortkeyConfig } from 'global/constants';
 
 export const useGetHolderInfo = () => {
   return useCallback(async (loginInfo: LoginInfo) => {

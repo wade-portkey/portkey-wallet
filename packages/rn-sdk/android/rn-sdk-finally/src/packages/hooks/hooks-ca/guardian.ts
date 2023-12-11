@@ -1,8 +1,8 @@
 import { useCallback } from 'react';
-import { request } from '@portkey/rn-sdk/src/packages/api/api-did';
-import { checkHolderError } from '@portkey/rn-sdk/src/packages/utils/check';
-import { handleErrorCode, handleErrorMessage } from '@portkey/rn-sdk/src/packages/utils';
-import { useAppCASelector } from '@portkey/rn-sdk/src/packages/hooks/hooks-ca';
+import { request } from 'packages/api/api-did';
+import { checkHolderError } from 'packages/utils/check';
+import { handleErrorCode, handleErrorMessage } from 'packages/utils';
+import { useAppCASelector } from 'packages/hooks/hooks-ca';
 
 export const useGetRegisterInfo = () => {
   return useCallback(async (info: { loginGuardianIdentifier?: string; caHash?: string }) => {

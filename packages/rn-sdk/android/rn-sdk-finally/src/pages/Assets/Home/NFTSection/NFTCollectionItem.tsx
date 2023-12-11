@@ -1,20 +1,20 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
-import { defaultColors } from '@portkey/rn-sdk/src/assets/theme';
-import { pTd } from '@portkey/rn-sdk/src/utils/unit';
-import Collapsible from '@portkey/rn-sdk/src/components/Collapsible';
-import NFTAvatar from '@portkey/rn-sdk/src/components/NFTAvatar';
-import GStyles from '@portkey/rn-sdk/src/assets/theme/GStyles';
-import CommonAvatar from '@portkey/rn-sdk/src/components/CommonAvatar';
-import Svg from '@portkey/rn-sdk/src/components/Svg';
-import { TextL, TextM, TextS, TextXL } from '@portkey/rn-sdk/src/components/CommonText';
-import { FontStyles } from '@portkey/rn-sdk/src/assets/theme/styles';
-import { NFTCollectionItemShowType } from '@portkey/rn-sdk/src/packages/types/types-ca/assets';
-import Touchable from '@portkey/rn-sdk/src/components/Touchable';
-import { OpenCollectionObjType } from '@portkey/rn-sdk/src/pages/Assets/Home/NFTSection';
-import { ChainId } from '@portkey/rn-sdk/src/packages/types';
-import { formatChainInfoToShow } from '@portkey/rn-sdk/src/packages/utils';
-import { useCurrentNetworkType } from '@portkey/rn-sdk/src/model/hooks/network';
+import { defaultColors } from 'assets/theme';
+import { pTd } from 'utils/unit';
+import Collapsible from 'components/Collapsible';
+import NFTAvatar from 'components/NFTAvatar';
+import GStyles from 'assets/theme/GStyles';
+import CommonAvatar from 'components/CommonAvatar';
+import Svg from 'components/Svg';
+import { TextL, TextM, TextS, TextXL } from 'components/CommonText';
+import { FontStyles } from 'assets/theme/styles';
+import { NFTCollectionItemShowType } from 'packages/types/types-ca/assets';
+import Touchable from 'components/Touchable';
+import { OpenCollectionObjType } from 'pages/Assets/Home/NFTSection';
+import { ChainId } from 'packages/types';
+import { formatChainInfoToShow } from 'packages/utils';
+import { useCurrentNetworkType } from 'model/hooks/network';
 
 export enum NoDataMessage {
   CustomNetWorkNoData = 'No transaction records accessible from the current custom network',

@@ -1,7 +1,7 @@
-import { useAppCASelector } from '@portkey/rn-sdk/src/packages/hooks/hooks-ca';
+import { useAppCASelector } from 'packages/hooks/hooks-ca';
 import { useMemo } from 'react';
-import { useAppCommonDispatch } from '@portkey/rn-sdk/src/packages/hooks';
-import { initCurrentChainRecentData } from '@portkey/rn-sdk/src/packages/store/store-ca/recent/slice';
+import { useAppCommonDispatch } from 'packages/hooks';
+import { initCurrentChainRecentData } from 'packages/store/store-ca/recent/slice';
 
 export const initialRecentData = {
   isFetching: false,

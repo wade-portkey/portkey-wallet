@@ -1,4 +1,4 @@
-import { ApprovalType, OperationTypeEnum, VerificationType } from '@portkey/rn-sdk/src/packages/types/verifier';
+import { ApprovalType, OperationTypeEnum, VerificationType } from 'packages/types/verifier';
 
 export const APPROVAL_TO_OPERATION_MAP = {
   [ApprovalType.communityRecovery]: OperationTypeEnum.communityRecovery,

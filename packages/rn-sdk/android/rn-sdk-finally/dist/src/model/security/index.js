@@ -1,0 +1,1 @@
+Object.defineProperty(exports,"__esModule",{value:true});exports.ICheckLimitBusiness=void 0;var ICheckLimitBusiness=exports.ICheckLimitBusiness=function(ICheckLimitBusiness){ICheckLimitBusiness["SEND"]="send";ICheckLimitBusiness["RAMP_SELL"]="ramp-sell";return ICheckLimitBusiness;}({});

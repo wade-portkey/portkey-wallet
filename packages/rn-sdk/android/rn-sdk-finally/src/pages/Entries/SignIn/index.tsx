@@ -1,11 +1,11 @@
-import { PortkeyEntries } from '@portkey/rn-sdk/src/config/entries';
-import BaseContainer, { BaseContainerProps, BaseContainerState } from '@portkey/rn-sdk/src/model/container/BaseContainer';
-import SignInPortkey from '@portkey/rn-sdk/src/pages/Login/LoginPortkey';
+import { PortkeyEntries } from 'config/entries';
+import BaseContainer, { BaseContainerProps, BaseContainerState } from 'model/container/BaseContainer';
+import SignInPortkey from 'pages/Login/LoginPortkey';
 import React from 'react';
-import BaseContainerContext from '@portkey/rn-sdk/src/model/container/BaseContainerContext';
-import { CountryCodeItem } from '@portkey/rn-sdk/src/types/wallet';
-import { GlobalStorage } from '@portkey/rn-sdk/src/service/storage';
-import { CURRENT_USING_COUNTRY_CODE } from '@portkey/rn-sdk/src/model/global';
+import BaseContainerContext from 'model/container/BaseContainerContext';
+import { CountryCodeItem } from 'types/wallet';
+import { GlobalStorage } from 'service/storage';
+import { CURRENT_USING_COUNTRY_CODE } from 'model/global';
 
 export default class SignInEntryPage extends BaseContainer<SignInPageProps, SignInPageState, SignInPageResult> {
   constructor(props: BaseContainerProps) {

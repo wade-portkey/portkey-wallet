@@ -1,6 +1,6 @@
-import { fetchIsShowBuyFeatureAsync, switchSlice } from '@portkey/rn-sdk/src/packages/store/store-ca/switch/slice';
+import { fetchIsShowBuyFeatureAsync, switchSlice } from 'packages/store/store-ca/switch/slice';
 import { configureStore } from '@reduxjs/toolkit';
-import { request } from '@portkey/rn-sdk/src/packages/api/api-did';
+import { request } from 'packages/api/api-did';
 
 jest.mock('packages/api/api-did');
 const reducer = switchSlice.reducer;

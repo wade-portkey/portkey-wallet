@@ -1,4 +1,4 @@
-import { SCHEME_ACTION } from '@portkey/rn-sdk/src/constants/scheme';
+import { SCHEME_ACTION } from 'constants/scheme';
 import type { ParsedQuery } from 'query-string';
 
 export type ErrorType = {

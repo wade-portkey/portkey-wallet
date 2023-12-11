@@ -1,0 +1,1 @@
+var _interopRequireDefault=require("@babel/runtime/helpers/interopRequireDefault");Object.defineProperty(exports,"__esModule",{value:true});exports.PUB_KEY=void 0;var _reactNativeConfig=_interopRequireDefault(require("react-native-config"));var PUB_KEY=exports.PUB_KEY='-----BEGIN PUBLIC KEY-----\n'+_reactNativeConfig.default.BACKEND_PUBKEY+'\n-----END PUBLIC KEY-----';

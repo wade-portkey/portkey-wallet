@@ -1,8 +1,8 @@
-import { screenWidth } from '@portkey/rn-sdk/src/packages/utils/mobile/device';
-import { defaultColors } from '@portkey/rn-sdk/src/assets/theme';
+import { screenWidth } from 'packages/utils/mobile/device';
+import { defaultColors } from 'assets/theme';
 import React, { forwardRef, useImperativeHandle, useMemo, useState } from 'react';
 import { View, StyleSheet } from 'react-native';
-import { pTd } from '@portkey/rn-sdk/src/utils/unit';
+import { pTd } from 'utils/unit';
 export interface IProgressbar {
   changeInnerBarWidth: (per: number) => void;
 }

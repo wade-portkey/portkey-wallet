@@ -9,13 +9,13 @@ import {
   getAccountByMnemonic,
   getAccountByPrivateKey,
   checkPinInput,
-} from '@portkey/rn-sdk/src/packages/utils/wallet';
-import { AccountNameErrorMessage, PasswordErrorMessage, PinErrorMessage, WalletNameErrorMessage } from '@portkey/rn-sdk/src/packages/utils/wallet/types';
-import aes from '@portkey/rn-sdk/src/packages/utils/aes';
+} from 'packages/utils/wallet';
+import { AccountNameErrorMessage, PasswordErrorMessage, PinErrorMessage, WalletNameErrorMessage } from 'packages/utils/wallet/types';
+import aes from 'packages/utils/aes';
 import AElf from 'aelf-sdk';
-import { isExtension } from '@portkey/rn-sdk/src/packages/utils';
-import { DefaultBIP44Path } from '@portkey/rn-sdk/src/packages/constants/wallet';
-import { isValidPassword, isValidPin, isValidWalletName } from '@portkey/rn-sdk/src/packages/utils/reg';
+import { isExtension } from 'packages/utils';
+import { DefaultBIP44Path } from 'packages/constants/wallet';
+import { isValidPassword, isValidPin, isValidWalletName } from 'packages/utils/reg';
 
 declare module 'aelf-sdk';
 

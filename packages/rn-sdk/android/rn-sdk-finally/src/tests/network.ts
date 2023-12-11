@@ -1,7 +1,7 @@
-import { getUnlockedWallet } from '@portkey/rn-sdk/src/model/wallet';
-import { NetworkController } from '@portkey/rn-sdk/src/network/controller';
-import { TestCase } from '@portkey/rn-sdk/src/service/JsModules/types';
-import { encryptLocal } from '@portkey/rn-sdk/src/utils/crypto';
+import { getUnlockedWallet } from 'model/wallet';
+import { NetworkController } from 'network/controller';
+import { TestCase } from 'service/JsModules/types';
+import { encryptLocal } from 'utils/crypto';
 
 export const NetworkTestCases: Array<TestCase> = [
   {

@@ -1,9 +1,9 @@
-import { sleep } from '@portkey/rn-sdk/src/packages/utils';
-import { AElfInterface } from '@portkey/rn-sdk/src/packages/types/aelf';
-import { getTxResult, handleContractError, handleContractParams, handleFunctionName } from '@portkey/rn-sdk/src/packages/contracts/utils';
-import { ChainType } from '@portkey/rn-sdk/src/packages/types';
-import { encodedTx } from '@portkey/rn-sdk/src/packages/utils/aelf';
-import { AElfCallSendMethod, AElfCallViewMethod, CallSendMethod, CallViewMethod, ContractProps } from '@portkey/rn-sdk/src/packages/contracts/types';
+import { sleep } from 'packages/utils';
+import { AElfInterface } from 'packages/types/aelf';
+import { getTxResult, handleContractError, handleContractParams, handleFunctionName } from 'packages/contracts/utils';
+import { ChainType } from 'packages/types';
+import { encodedTx } from 'packages/utils/aelf';
+import { AElfCallSendMethod, AElfCallViewMethod, CallSendMethod, CallViewMethod, ContractProps } from 'packages/contracts/types';
 
 export class ContractBasic {
   public address?: string;

@@ -1,2 +1,2 @@
-export * from '@portkey/rn-sdk/src/packages/im/utils/sign';
-export * from '@portkey/rn-sdk/src/packages/im/utils/parser';
+export * from 'packages/im/utils/sign';
+export * from 'packages/im/utils/parser';

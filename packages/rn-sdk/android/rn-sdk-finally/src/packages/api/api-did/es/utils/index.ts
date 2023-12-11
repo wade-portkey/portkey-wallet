@@ -1,6 +1,6 @@
-import { request } from '@portkey/rn-sdk/src/packages/api/api-did';
+import { request } from 'packages/api/api-did';
 import { GetContractListApiType } from 'packages/types/types-ca/contact';
-import { IGetContactListParams } from '@portkey/rn-sdk/src/packages/api/api-did/es/type';
+import { IGetContactListParams } from 'packages/api/api-did/es/type';
 
 export const getContactList = (
   baseURL: string,
