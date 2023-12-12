@@ -3,9 +3,9 @@
 **Step 1: Install npm package**
 
 ```
-npm install @portkey/rn-sdk --save
+npm install @portkey/react-native-sdk --save
 // or
-yarn add @portkey/rn-sdk
+yarn add @portkey/react-native-sdk
 ```
 <br>
 
@@ -50,7 +50,7 @@ if you already extends other tsconfig.json, you can config like this:
 **Step 3: Init**
 ```
 // Please import the following statement in your entry file
-import '@portkey/rn-sdk';
+import '@portkey/react-native-sdk';
 ```
 > Note: We use autolink, you don't need to configure Android/IOS dependencies. But you need to recompile your Android/IOS project so that the autolink takes effect.
 
@@ -59,7 +59,7 @@ Now, all configuration is complete and you can use the portkey service freely.
 
 ## API Usage
 ```
-import { portkey } from '@portkey/rn-sdk';
+import { portkey } from '@portkey/react-native-sdk';
 // get walletInfo
 const walletInfo = await portkey.getWalletInfo();
 // open assets dashboard
@@ -68,7 +68,7 @@ portkey.openAssetsDashboard();
 
 ## Function Introduction
 ```
-import { portkey } from '@portkey/rn-sdk';
+import { portkey } from '@portkey/react-native-sdk';
 
 // Open login page and return UnlockedWallet object after login
 function login(): Promise<UnlockedWallet | undefined>;
