@@ -68,7 +68,7 @@ class RouterModule(reactContext: ReactApplicationContext) :
         val activity = NavigationHolder.getTopComponent()
         val targetScene = params.getString("targetScene")
         val closeSelf = if(params.hasKey("closeCurrentScreen")) params.getBoolean("closeCurrentScreen") else false
-        val callbackId = generateUniqueCallbackID()
+        val callbackId = generateUniqueID()
         if(closeSelf) {
             NavigationHolder.popAndFinish(activity)
         }
