@@ -68,7 +68,7 @@ class RouterModule(reactContext: ReactApplicationContext) :
     ) {
         val activity = NavigationHolder.getTopComponent()
         val targetScene = params.getString("targetScene")
-        val closeSelf = params.getBoolean("closeCurrentScreen")
+        val closeSelf = if(params.hasKey("closeCurrentScreen")) params.getBoolean("closeCurrentScreen") else false
         val callbackId = generateUniqueCallbackID()
         if(closeSelf) {
             NavigationHolder.popAndFinish(activity)
@@ -85,7 +85,8 @@ class RouterModule(reactContext: ReactApplicationContext) :
         if(startLaunchModeActivity(launchMode, targetEntry, bundle)){
             return
         }
-        activity?.navigateToAnotherReactActivity(
+
+        currentActivity?.navigateToAnotherReactActivity(
             entryName = targetEntry,
             params = params.getMap("params"),
             targetScene = targetScene,

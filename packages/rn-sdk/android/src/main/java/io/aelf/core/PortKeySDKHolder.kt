@@ -17,7 +17,7 @@ object PortKeySDKHolder {
     }
 
     fun initialize(application: Application) {
-//        MMKV.initialize(application)
+        MMKV.initialize(application)
         navHost = createNewHost(application)
         navHost?.reactInstanceManager?.createReactContextInBackground();
         navHost?.reactInstanceManager?.addReactInstanceEventListener {

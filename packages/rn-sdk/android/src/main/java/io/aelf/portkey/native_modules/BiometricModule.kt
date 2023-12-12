@@ -26,7 +26,6 @@ import expo.modules.kotlin.exception.Exceptions
 import expo.modules.kotlin.exception.UnexpectedException
 import expo.modules.kotlin.records.Field
 import expo.modules.kotlin.records.Record
-import expo.modules.localauthentication.addIf
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -296,22 +295,18 @@ class BiometricModule(private val context: ReactApplicationContext) : ReactConte
         // note(cedric): replace hardcoded system feature strings with constants from
         // PackageManager when dropping support for Android SDK 28
         results.apply {
-            addIf(
-                hasSystemFeature("android.hardware.fingerprint"),
-                AUTHENTICATION_TYPE_FINGERPRINT
-            )
-            addIf(
-                hasSystemFeature("android.hardware.biometrics.face"),
-                AUTHENTICATION_TYPE_FACIAL_RECOGNITION
-            )
-            addIf(
-                hasSystemFeature("android.hardware.biometrics.iris"),
-                AUTHENTICATION_TYPE_IRIS
-            )
-            addIf(
-                hasSystemFeature("com.samsung.android.bio.face"),
-                AUTHENTICATION_TYPE_FACIAL_RECOGNITION
-            )
+            if (hasSystemFeature("android.hardware.fingerprint")) {
+                add(AUTHENTICATION_TYPE_FINGERPRINT)
+            }
+            if (hasSystemFeature("android.hardware.biometrics.face")) {
+                add(AUTHENTICATION_TYPE_FACIAL_RECOGNITION)
+            }
+            if (hasSystemFeature("android.hardware.biometrics.iris")) {
+                add(AUTHENTICATION_TYPE_IRIS)
+            }
+            if (hasSystemFeature("com.samsung.android.bio.face")) {
+                add(AUTHENTICATION_TYPE_FACIAL_RECOGNITION)
+            }
         }
         promise.resolve(results)
     }

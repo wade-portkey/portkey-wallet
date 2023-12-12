@@ -2,8 +2,9 @@ package io.aelf.portkey.components.logic
 
 import android.annotation.SuppressLint
 import android.app.Application
+import android.os.Environment
 import com.facebook.hermes.reactexecutor.HermesExecutorFactory
-import com.facebook.react.PackageList
+//import com.facebook.react.PackageList
 import com.facebook.react.ReactNativeHost
 import com.facebook.react.ReactPackage
 import com.facebook.react.bridge.Arguments
@@ -26,9 +27,8 @@ class PortkeyReactNativeHost(
 
     override fun getUseDeveloperSupport(): Boolean = isDebug
     override fun getPackages(): MutableList<ReactPackage> {
-        return PackageList(this).packages.apply {
-            add(PortkeyNativePackages())
-        }
+
+        return mutableListOf(PortkeyNativePackages())
     }
 
     override fun getJSMainModuleName(): String {

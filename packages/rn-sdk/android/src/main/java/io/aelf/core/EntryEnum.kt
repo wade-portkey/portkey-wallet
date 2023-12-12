@@ -1,5 +1,5 @@
 package io.aelf.core
-const val PREFIX = "portkey_";
+
 enum class PortkeyEntries {
     SIGN_IN_ENTRY,
     SCAN_QR_CODE_ENTRY,
@@ -9,5 +9,5 @@ enum class PortkeyEntries {
     PAYMENT_SECURITY_HOME_ENTRY;
 
     val entryName: String
-        get() = PREFIX + name.lowercase()
+        get() = name.lowercase()
 }

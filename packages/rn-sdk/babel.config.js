@@ -1,25 +1,18 @@
 const plugins = [
-  // [
-  //   require.resolve('babel-plugin-module-resolver'),
-  //   {
-  //     root: ['./js/'],
-  //     alias: {
-  //       'portkey-app': '../mobile-app-did/js',
-  //     },
-  //   },
-  // ],
   [
     'module-resolver',
     {
-      // alias: getAliasesFromTsConfig(),
+      root: ['./src'],
       extensions: ['.ios.js', '.android.js', '.js', '.ts', '.tsx', '.json'],
-      root: ['./js'],
+      alias: {
+        '**/*': './src/**/*',
+      },
     },
   ],
   ['@babel/plugin-proposal-decorators', { legacy: true }],
+  ['@babel/plugin-proposal-class-properties'],
 ];
-
 module.exports = {
-  presets: ['module:metro-react-native-babel-preset'],
+  presets: ['module:metro-react-native-babel-preset', '@babel/preset-typescript'],
   plugins: [...plugins],
 };
