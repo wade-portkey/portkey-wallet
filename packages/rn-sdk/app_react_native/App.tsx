@@ -7,7 +7,7 @@ import {
   TouchableWithoutFeedback,
   TouchableOpacity,
 } from 'react-native';
-import {portkey} from '@portkey/react-native-sdk';
+import {portkey, UnlockedWallet} from '@portkey/react-native-sdk';
 
 function MyButton({title, onPress}) {
   return (
@@ -35,7 +35,7 @@ const PortkeyAccountService = [
 function App() {
   const [modalVisible1, setModalVisible1] = useState(false);
   const [modalVisible2, setModalVisible2] = useState(false);
-
+  const a: UnlockedWallet = {};
   return (
     <View style={styles.container}>
       <View style={styles.buttonContainer}>

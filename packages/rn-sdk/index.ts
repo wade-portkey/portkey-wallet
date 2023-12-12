@@ -14,4 +14,18 @@ initJsMethodService();
 
 // export for npm
 export * from './src/service/core';
-export type { UnlockedWallet } from './src/model/wallet';
+export type UnlockedWallet = {
+  caInfo: {
+    caHash: string;
+    caAddress: string;
+  };
+  multiCaAddresses: {
+    [key: string]: string;
+  };
+  name: string;
+  originChainId: string;
+} & {
+  privateKey: string;
+  publicKey: string;
+  address: string;
+};

@@ -9,7 +9,15 @@ yarn add @portkey/rn-sdk
 ```
 <br>
 
-**Step 2: Create .env file** <br>
+**Step 2: Config android** <br>
+We are using expo-related libraries, so you need to configure the expo autolinking plugin
+```
+// in settings.gradle
+apply from: new File(["node", "--print", "require.resolve('expo/package.json')"].execute(null, rootDir).text.trim(), "../scripts/autolinking.gradle");
+useExpoModules()
+```
+
+**Step 3: Create .env file** <br>
 In order to use Google login, You need to create an **.env** file in the same directory as **package.json**, the file  must contain **GOOGLE_WEB_CLIENT_ID**, **GOOGLE_IOS_CLIENT_ID**,**GOOGLE_ANDROID_CLIENT_ID**
 ```
 # .env file
@@ -18,7 +26,7 @@ GOOGLE_IOS_CLIENT_ID = "your google ios client id"
 GOOGLE_ANDROID_CLIENT_ID = "your google android client id"
 ```
 
-**Step 3: Init**
+**Step 4: Init**
 ```
 // Please import the following statement in your entry file
 import '@portkey/rn-sdk';
@@ -73,6 +81,8 @@ function lockWallet(): Promise<boolean>();
 // Exit wallet
 function exitWallet(): Promise<boolean>();
 ```
+
+ Feel free to open an issue or contact us if you have any questions
 
 ## Q&A
 

@@ -5,7 +5,6 @@ import { getCaInfoByAccountIdentifierOrSessionId } from 'model/global';
 import { getTempWalletConfig, isWalletUnlocked } from 'model/verify/core';
 import { NetworkController } from 'network/controller';
 import { CaInfo } from 'network/dto/guardian';
-import { ManagerInfo } from 'network/dto/wallet';
 import { useState } from 'react';
 import { handleCachedValue } from 'service/storage/cache';
 
@@ -111,4 +110,8 @@ export type UnlockedWallet = {
   };
   name: string;
   originChainId: string;
-} & ManagerInfo;
+} & {
+  privateKey: string;
+  publicKey: string;
+  address: string;
+};
