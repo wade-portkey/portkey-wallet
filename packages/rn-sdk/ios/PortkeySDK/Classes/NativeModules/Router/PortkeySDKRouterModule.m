@@ -7,6 +7,7 @@
 
 #import "PortkeySDKRouterModule.h"
 #import <PortkeySDK/PortkeySDKRNViewController.h>
+#import <PortkeySDK/PortkeySDKNavigationController.h>
 #import <PortkeySDK/PortkeySDKNativeWrapperModule.h>
 #import <PortkeySDK/PortkeySDKJSCallModule.h>
 
@@ -50,7 +51,7 @@ RCT_EXPORT_METHOD(navigateTo:(NSString *)entry
         PortkeySDKRNViewController *vc = [[PortkeySDKRNViewController alloc] initWithModuleName:entry initialProperties:props];
         vc.containerId = containerId;
         if (launchMode.length) vc.launchMode = launchMode;
-        [navigationController pushViewController:vc animated:YES];
+        [self pushToNextViewController:vc withTopViewController:topViewController];
     });
 }
 
@@ -86,7 +87,7 @@ RCT_EXPORT_METHOD(navigateToWithOptions:(NSString *)entry
             UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:vc];
             [topViewController presentViewController:nc animated:YES completion:^{}];
         } else {
-            [navigationController pushViewController:vc animated:YES];
+            [self pushToNextViewController:vc withTopViewController:topViewController];
         }
         
         if (launchMode.length) vc.launchMode = launchMode;
@@ -188,6 +189,17 @@ RCT_EXPORT_METHOD(navigateBack:(NSDictionary *)result)
         NSArray<UIViewController *> *subViewControllers = [viewControllers subarrayWithRange:NSMakeRange(0, singleTaskIndex + 1)];
         navigationController.viewControllers = subViewControllers;
         [PortkeySDKNativeWrapperModule sendOnNewIntentWithParams:params bridge:[PortkeySDKJSCallModule sharedInstance].bridge];
+    }
+}
+
+- (void)pushToNextViewController:(PortkeySDKRNViewController *)viewController
+           withTopViewController:(UIViewController *)topViewController {
+    if ([topViewController.navigationController isKindOfClass:PortkeySDKNavigationController.class]) {
+        [topViewController.navigationController pushViewController:viewController animated:YES];
+    } else {
+        PortkeySDKNavigationController *navigationController = [[PortkeySDKNavigationController alloc] initWithRootViewController:viewController];
+        navigationController.modalPresentationStyle = UIModalPresentationFullScreen;
+        [topViewController presentViewController:navigationController animated:YES completion:nil];
     }
 }
 
