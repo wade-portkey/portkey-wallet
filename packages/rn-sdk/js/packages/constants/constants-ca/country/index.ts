@@ -21,8 +21,8 @@ export const countryCode = getCountryCodeJSON(countryCodeList);
 
 export const countryCodeIndex = getCountryCodeIndex(countryCodeList);
 
-export const countryCodeFilter = (filterFelid: string, countryCodeList: CountryItem[]) => {
-  if (!filterFelid) return countryCodeList;
+export const countryCodeFilter = (filterFelid: string, itemList: CountryItem[]) => {
+  if (!filterFelid) return itemList;
   filterFelid = filterFelid.toLocaleLowerCase();
   if (/\d/.test(filterFelid)) {
     // all numbers
@@ -34,14 +34,14 @@ export const countryCodeFilter = (filterFelid: string, countryCodeList: CountryI
       .trim();
     const list: CountryItem[] = [];
     if (numStr) {
-      list.push(...countryCodeList.filter(country => country.code.includes(numStr)));
+      list.push(...itemList.filter(country => country.code.includes(numStr)));
     }
     if (str) {
-      list.push(...countryCodeList.filter(country => country.country.toLocaleLowerCase().includes(str)));
+      list.push(...itemList.filter(country => country.country.toLocaleLowerCase().includes(str)));
     }
     return Array.from(new Set(list));
   } else {
-    return countryCodeList.filter(country => country.country.toLocaleLowerCase().includes(filterFelid));
+    return itemList.filter(country => country.country.toLocaleLowerCase().includes(filterFelid));
   }
 };
 

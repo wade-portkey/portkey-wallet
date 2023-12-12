@@ -1,5 +1,4 @@
 import { NativeEventEmitter, NativeModules, Platform } from 'react-native';
-import { PortkeyEntries } from '../../config/entries';
 import { AcceptableValueType } from '../../model/container/BaseContainer';
 
 export const PortkeyModulesEntity = NativeModules as PortkeyNativeModules;
@@ -76,6 +75,7 @@ export interface StorageModule {
   getString: (key: string) => Promise<string | undefined>;
   getBoolean: (key: string) => Promise<boolean | undefined>;
   getNumber: (key: string) => Promise<number | undefined>;
+  internalEncryptKey: string;
 }
 
 export interface NetworkModule {

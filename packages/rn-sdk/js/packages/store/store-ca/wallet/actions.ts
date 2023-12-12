@@ -105,7 +105,7 @@ export const getCaHolderInfoAsync = createAsyncThunk<
   const baseUrl = NetworkList.find(item => item.networkType === currentNetwork)?.apiUrl;
   const caHash = walletInfo?.caInfo[currentNetwork].AELF?.caHash;
   if (!caHash || !baseUrl) return undefined;
-  let caHolder = undefined;
+  let caHolder;
   try {
     const response = await getCaHolder(baseUrl, {
       caHash,

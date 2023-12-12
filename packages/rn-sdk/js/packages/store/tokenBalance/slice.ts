@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { tokenBalanceState, Symbol } from 'packages/types/types-eoa/tokenBalance';
+import { tokenBalanceState } from 'packages/types/types-eoa/tokenBalance';
 
 export const initialState: tokenBalanceState = {
   balances: {},
@@ -23,7 +23,7 @@ export const tokenBalanceSlice = createSlice({
     ) => {
       if (!state.balances) state.balances = {};
       const { rpcUrl, balances, account } = action.payload;
-      const balanceMap: { [key: Symbol]: string } = {};
+      const balanceMap: { [key: string]: string } = {};
       balances.forEach(item => {
         balanceMap[item.symbol] = item.balance;
       });

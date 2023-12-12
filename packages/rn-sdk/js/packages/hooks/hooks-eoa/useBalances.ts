@@ -57,7 +57,7 @@ const useBalances = ({ tokens, tokenAddress, rpcUrl, delay = 10000 }: useBalance
     const bs = await Promise.all(promise);
 
     setBalances(bs?.map(i => new BigNumber(i ?? '')));
-  }, []);
+  }, [currentAccount?.address, currentChain.chainType, getTokenContract, tokens]);
 
   useInterval(onGetBalance, delay, [currentAccount, tokens]);
 

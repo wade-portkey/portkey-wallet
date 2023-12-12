@@ -101,7 +101,7 @@ export function formatAmount({
   digits = DEFAULT_DIGITS,
   sign = AmountSign.EMPTY,
 }: IFormatAmountProps): string {
-  let amountTrans = `${unitConverter(
+  const amountTrans = `${unitConverter(
     ZERO.plus(amount).div(`1e${decimals || DEFAULT_DECIMAL}`),
     digits || DEFAULT_DIGITS,
   )}`;

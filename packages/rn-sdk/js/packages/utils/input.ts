@@ -36,9 +36,7 @@ export function parseInputNumberChange(value: string, max: number | BigNumber = 
     return pivot.gt(maxLimit)
       ? maxLimit === Infinity
         ? ''
-        : ZERO.plus(maxLimit)
-            .dp(+decimal, 1)
-            .toFixed()
+        : ZERO.plus(maxLimit).dp(+decimal, 1).toFixed()
       : (dec?.length || 0) >= +decimal
       ? pivot.dp(+decimal, 1).toFixed()
       : value;
@@ -47,7 +45,7 @@ export function parseInputNumberChange(value: string, max: number | BigNumber = 
   }
 }
 
-export function parseInputIntegerChange(value: string, max: number | BigNumber = Infinity, decimal = 8) {
+export function parseInputIntegerChange(value: string) {
   if (!isValidNumber(value)) return '';
   return value.trim().replace(/^(0+)|[^\d]+/g, '');
 }

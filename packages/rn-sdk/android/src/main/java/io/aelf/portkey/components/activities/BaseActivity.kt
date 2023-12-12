@@ -17,7 +17,7 @@ import io.aelf.portkey.native_modules.NativeWrapperModuleInstance
 import io.aelf.portkey.native_modules.PORTKEY_CHOOSE_IMAGE_ACTION_CODE
 import io.aelf.portkey.native_modules.PORTKEY_REQUEST_PERMISSION_ACTION_CODE
 import io.aelf.portkey.navigation.NavigationHolder
-import io.aelf.portkey.tools.generateUniqueCallbackID
+import io.aelf.portkey.tools.generateUniqueID
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -57,7 +57,7 @@ abstract class BasePortkeyReactActivity : ReactActivity() {
     }
 
     override fun createReactActivityDelegate(): ReactActivityDelegate {
-        val containerId = generateUniqueCallbackID()
+        val containerId = generateUniqueID()
         return object : ReactActivityDelegate(
             this,
             null

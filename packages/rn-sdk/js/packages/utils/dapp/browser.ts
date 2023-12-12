@@ -1,5 +1,5 @@
-import { DappStoreItem } from 'packages/types/store-ca/dapp/type';
 import isUrl from 'is-url';
+import { DappStoreItem } from 'packages/store/store-ca/dapp/type';
 import Url from 'url-parse';
 
 /**
@@ -81,7 +81,7 @@ export function getOrigin(url: string) {
  * @param size
  * @returns string
  */
-export function getFaviconUrl(url: string, size: number = 50): string {
+export function getFaviconUrl(url: string, size = 50): string {
   return `https://icon.horse/icon/${getHost(url)}/${size}`;
 }
 

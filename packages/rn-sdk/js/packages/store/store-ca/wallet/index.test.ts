@@ -20,6 +20,7 @@ import { WalletError, WalletType } from './type';
 import { checkPassword } from './utils';
 import { getCaHolder } from 'packages/api/api-did/es/utils';
 import { configureStore } from '@reduxjs/toolkit';
+import { jest, describe, test, expect, beforeEach } from '@jest/globals';
 
 const reducer = walletSlice.reducer;
 jest.mock('./utils');

@@ -1,9 +1,5 @@
 import { request } from 'packages/api/api-did';
-import {
-  IntervalErrorMessage,
-  SendVerificationConfig,
-  Verification,
-} from 'packages/api/api-did/verification/utils';
+import { IntervalErrorMessage, SendVerificationConfig, Verification } from 'packages/api/api-did/verification/utils';
 import { IStorage } from 'packages/types/storage';
 import { OperationTypeEnum } from 'packages/types/verifier';
 import { baseStore } from 'packages/utils/mobile/storage';

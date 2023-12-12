@@ -88,7 +88,8 @@ export const getOrReadCachedVerifierData = async (): Promise<{
     },
     getValueIfNonExist: async () => {
       const contractInstance = await getContractInstance(true);
-      const result = await contractInstance.callViewMethod('GetVerifierServers');
+      const result = await contractInstance.callViewMethod('GetVerifierServers', '');
+      if (!result?.data) throw new Error('getOrReadCachedVerifierData: result is invalid');
       return result;
     },
   });

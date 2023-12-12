@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import PageContainer from 'components/PageContainer';
 import ListItem from 'components/ListItem';
 import CommonToast from 'components/CommonToast';
@@ -13,11 +13,11 @@ import myEvents from 'utils/deviceEvent';
 import { checkPin, getUseBiometric, rememberUseBiometric } from 'model/verify/core';
 import useBaseContainer from 'model/container/UseBaseContainer';
 import { PortkeyEntries } from 'config/entries';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
 import BaseContainerContext from 'model/container/BaseContainerContext';
 // import { touchAuth } from 'pages/Pin/SetBiometrics';
 import { authenticationReady } from 'packages/utils/mobile/authentication';
 import { authenticateBioAsync, authenticateBioReady } from 'service/biometric';
+import { getUnlockedWallet } from 'model/wallet';
 
 export default function Biometric() {
   const [biometricsSwitch, setBiometricsSwitch] = useState<boolean>(false);
@@ -32,10 +32,11 @@ export default function Biometric() {
         console.log(error); // reject
       });
   }, []);
-  const { navigateTo: navigationTo } = useBaseContainer({ entryName: PortkeyEntries.BIOMETRIC_SWITCH_ENTRY });
+  const { navigateTo } = useBaseContainer({ entryName: PortkeyEntries.BIOMETRIC_SWITCH_ENTRY });
   const { t } = useLanguage();
   const openBiometrics = useCallback(async (pin: string) => {
     // when use bio to verify, the pin value is 'use-bio'
+    const walletConfig = await getUnlockedWallet();
     if (pin === 'use-bio' || (await checkPin(pin))) {
       try {
         if (await authenticateBioReady()) {
@@ -44,16 +45,16 @@ export default function Biometric() {
           console.log('authenticateBioAsyncauthenticateBioAsyncauthenticateBioAsync', enrolled);
           if (enrolled.success) {
             setBiometricsSwitch(true);
-            await rememberUseBiometric(true);
+            await rememberUseBiometric(true, walletConfig);
           } else CommonToast.fail(enrolled.warning || enrolled.error);
         } else {
           setBiometricsSwitch(true);
-          await rememberUseBiometric(true);
+          await rememberUseBiometric(true, walletConfig);
         }
       } catch (error: any) {
         console.log('error', error);
         CommonToast.failError(error, i18n.t('Failed to enable biometrics'));
-        await rememberUseBiometric(false);
+        await rememberUseBiometric(false, walletConfig);
       }
     }
   }, []);
@@ -66,7 +67,7 @@ export default function Biometric() {
       if (value) {
         // const result = await authenticationReady();
         // if (!result) return CommonToast.fail('This device does not currently support biometrics');
-        navigationTo(PortkeyEntries.CHECK_PIN, { params: { openBiometrics: true } });
+        navigateTo(PortkeyEntries.CHECK_PIN, { params: { openBiometrics: true } });
       } else {
         ActionSheet.alert({
           title2: 'Disable fingerprint login?',
@@ -77,10 +78,11 @@ export default function Biometric() {
               title: 'Confirm',
               onPress: async () => {
                 try {
+                  const walletConfig = await getUnlockedWallet();
                   const enrolled = await authenticateBioAsync();
                   if (enrolled.success) {
                     setBiometricsSwitch(value);
-                    await rememberUseBiometric(value);
+                    await rememberUseBiometric(value, walletConfig);
                   } else CommonToast.fail(enrolled.warning || enrolled.error);
                 } catch (error) {
                   CommonToast.failError(error, i18n.t('Failed to enable biometrics'));
@@ -91,7 +93,7 @@ export default function Biometric() {
         });
       }
     },
-    [navigationTo],
+    [navigateTo],
   );
   return (
     // <SafeAreaProvider style={{ backgroundColor: 'white' }}>

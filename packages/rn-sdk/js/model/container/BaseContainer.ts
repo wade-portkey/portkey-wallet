@@ -44,7 +44,7 @@ export default abstract class BaseContainer<
     }
   }
 
-  navigationTo = (entry: PortkeyEntries, targetScene?: string, closeCurrentScreen?: boolean, params?: any) => {
+  navigateTo = (entry: PortkeyEntries, targetScene?: string, closeCurrentScreen?: boolean, params?: any) => {
     PortkeyModulesEntity.RouterModule.navigateTo(
       wrapEntry(entry),
       LaunchModeSet.get(entry) || LaunchMode.STANDARD,

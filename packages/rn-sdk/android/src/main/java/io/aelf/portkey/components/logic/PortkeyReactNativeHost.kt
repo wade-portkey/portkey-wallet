@@ -2,7 +2,6 @@ package io.aelf.portkey.components.logic
 
 import android.annotation.SuppressLint
 import android.app.Application
-import android.os.Environment
 import com.facebook.hermes.reactexecutor.HermesExecutorFactory
 //import com.facebook.react.PackageList
 import com.facebook.react.ReactNativeHost
@@ -12,8 +11,7 @@ import com.facebook.react.bridge.CatalystInstance
 import com.facebook.react.bridge.ReactContext
 import com.facebook.react.bridge.WritableNativeArray
 import io.aelf.portkey.native_modules.PortkeyNativePackages
-import io.aelf.portkey.tools.generateUniqueCallbackID
-import java.io.File
+import io.aelf.portkey.tools.generateUniqueID
 
 var hostInstance: PortkeyReactNativeHost? = null
 
@@ -60,7 +58,7 @@ fun <T> CatalystInstance.callJSMethodWithCallback(
     callback: (T) -> Unit,
     tClass: Class<T>
 ) {
-    val callbackId = generateUniqueCallbackID()
+    val callbackId = generateUniqueID()
     if (this.isDestroyed) {
         throw UnsupportedOperationException("CatalystInstance is destroyed")
     }
