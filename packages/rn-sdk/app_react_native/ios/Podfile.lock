@@ -50,11 +50,11 @@ PODS:
     - React-NativeModulesApple
     - React-RCTAppDelegate
     - ReactCommon/turbomodule/core
+  - ExpoSecureStore (12.5.0):
+    - ExpoModulesCore
   - ExpoWebBrowser (12.5.0):
     - ExpoModulesCore
-  - EXScreenCapture (4.3.0):
-    - ExpoModulesCore
-  - EXSecureStore (11.3.0):
+  - EXScreenCapture (5.5.0):
     - ExpoModulesCore
   - FBLazyVector (0.72.7)
   - FBReactNativeSpec (0.72.7):
@@ -608,9 +608,9 @@ DEPENDENCIES:
   - ExpoKeepAwake (from `../node_modules/expo-keep-awake/ios`)
   - ExpoLocalAuthentication (from `../node_modules/expo-local-authentication/ios`)
   - ExpoModulesCore (from `../node_modules/expo-modules-core`)
+  - ExpoSecureStore (from `../node_modules/expo-secure-store/ios`)
   - ExpoWebBrowser (from `../node_modules/expo-web-browser/ios`)
   - EXScreenCapture (from `../node_modules/expo-screen-capture/ios`)
-  - EXSecureStore (from `../node_modules/expo-secure-store/ios`)
   - FBLazyVector (from `../node_modules/react-native/Libraries/FBLazyVector`)
   - FBReactNativeSpec (from `../node_modules/react-native/React/FBReactNativeSpec`)
   - Flipper (= 0.182.0)
@@ -755,12 +755,12 @@ EXTERNAL SOURCES:
     :path: "../node_modules/expo-local-authentication/ios"
   ExpoModulesCore:
     :path: "../node_modules/expo-modules-core"
+  ExpoSecureStore:
+    :path: "../node_modules/expo-secure-store/ios"
   ExpoWebBrowser:
     :path: "../node_modules/expo-web-browser/ios"
   EXScreenCapture:
     :path: "../node_modules/expo-screen-capture/ios"
-  EXSecureStore:
-    :path: "../node_modules/expo-secure-store/ios"
   FBLazyVector:
     :path: "../node_modules/react-native/Libraries/FBLazyVector"
   FBReactNativeSpec:
@@ -893,9 +893,9 @@ SPEC CHECKSUMS:
   ExpoKeepAwake: be4cbd52d9b177cde0fd66daa1913afa3161fc1d
   ExpoLocalAuthentication: 2fed4b25cf8e54d36d5d1ebc9917e8325b3b5911
   ExpoModulesCore: c480fd4e3c7c8e81f0a6ba3a7c56869f25fe016d
+  ExpoSecureStore: 5372610a4bbcf5e50fafbe6f38f8d9c22edf8253
   ExpoWebBrowser: b6e56949734089d75f758f21cfe93fad02bd828c
-  EXScreenCapture: 23de056fdb02edd1fb8f147b0fd198c6d5cada3d
-  EXSecureStore: ac4b3c89dd5810528074d9422d5fed5a9e684467
+  EXScreenCapture: 6ba7b396fd8afd19cb9a5e0ac8820188baf5415e
   FBLazyVector: 5fbbff1d7734827299274638deb8ba3024f6c597
   FBReactNativeSpec: 638095fe8a01506634d77b260ef8a322019ac671
   Flipper: 6edb735e6c3e332975d1b17956bcc584eccf5818
