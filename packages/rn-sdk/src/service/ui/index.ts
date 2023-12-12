@@ -6,7 +6,7 @@ import { UnlockedWallet } from 'model/wallet';
 import { CheckPinResult } from 'pages/Pin/CheckPin';
 import { IPortkeyAccountService, IPortkeyUIManagerService } from 'service/core/base';
 import { EntryResult, PortkeyModulesEntity } from 'service/native-modules';
-import { TYPES, WalletState } from 'service/core/types';
+import { TYPES, WalletState } from 'service/core/type';
 import { AccountError } from 'service/error';
 import { wrapEntry } from 'utils/commonUtil';
 

@@ -15,4 +15,5 @@ const plugins = [
 module.exports = {
   presets: ['module:metro-react-native-babel-preset', '@babel/preset-typescript'],
   plugins: [...plugins],
+  ignore: ['.babelignore'],
 };

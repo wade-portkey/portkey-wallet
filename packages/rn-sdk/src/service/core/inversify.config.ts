@@ -1,5 +1,5 @@
 import { Container } from 'inversify';
-import { TYPES } from './types';
+import { TYPES } from './type';
 import { IPortkeyAccountService, IPortkeyUIManagerService } from './base';
 import { PortkeyAccountService } from './account';
 import { UIManagerService } from 'service/ui';
