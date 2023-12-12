@@ -88,6 +88,12 @@ android {
             keyPassword 'portkey2022'
             keyAlias 'my-key-alias'
         }
+        release {
+            storeFile file('../release-key.keystore')
+            storePassword 'portkey2022'
+            keyPassword 'portkey2022'
+            keyAlias 'my-key-alias'
+        }
     }
     buildTypes {
         debug {
