@@ -1,9 +1,9 @@
-import { ServiceInit } from 'packages/api/server/config';
+import { ServiceInit } from '../server/config';
 import { customFetch } from 'packages/utils/fetch';
 import { IExceptionManager, Severity } from 'packages/utils/ExceptionManager';
-import { BaseConfig, RequestConfig } from 'packages/api/types';
-import { getRequestConfig, spliceUrl } from 'packages/api/utils';
-import { isValidRefreshTokenConfig, queryAuthorization, RefreshTokenConfig } from 'packages/api/api-did/utils';
+import { BaseConfig, RequestConfig } from '../types';
+import { getRequestConfig, spliceUrl } from '../utils';
+import { isValidRefreshTokenConfig, queryAuthorization, RefreshTokenConfig } from './utils/index';
 import { sleep } from 'packages/utils';
 import im from 'packages/im';
 import { IM_TOKEN_ERROR_ARRAY } from 'packages/im/constant';

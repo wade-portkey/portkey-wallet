@@ -1,23 +1,23 @@
-import walletApi from 'packages/api/api-did/wallet';
-import verificationApi from 'packages/api/api-did/verification';
-import contactApi from 'packages/api/api-did/contact';
-import chainApi from 'packages/api/api-did/chain';
-import assetsApi from 'packages/api/api-did/assets';
-import recentApi from 'packages/api/api-did/recent';
-import tokenApi from 'packages/api/api-did/token';
-import paymentApi from 'packages/api/api-did/payment';
-import deviceApi from 'packages/api/api-did/device';
-import messageApi from 'packages/api/api-did/message';
-import switchApi from 'packages/api/api-did/switch';
-import discoverApi from 'packages/api/api-did/discover';
-import txFeeApi from 'packages/api/api-did/txFee';
-import imApi from 'packages/api/api-did/im';
+import walletApi from './wallet';
+import verificationApi from './verification';
+import contactApi from './contact';
+import chainApi from './chain';
+import assetsApi from './assets';
+import recentApi from './recent';
+import tokenApi from './token';
+import paymentApi from './payment';
+import deviceApi from './device';
+import messageApi from './message';
+import switchApi from './switch';
+import discoverApi from './discover';
+import txFeeApi from './txFee';
+import imApi from './im';
 
-import esApi from 'packages/api/api-did/es';
-import myServer, { DidService } from 'packages/api/api-did/server';
-import { API_REQ_FUNCTION } from 'packages/api/types';
-import { ES_API_REQ_FUNCTION } from 'packages/api/api-did/es/type';
-import activityApi from 'packages/api/api-did/activity';
+import esApi from './es';
+import myServer, { DidService } from './server';
+import { API_REQ_FUNCTION } from '../types';
+import { ES_API_REQ_FUNCTION } from './es/type';
+import activityApi from './activity';
 
 export const DEFAULT_METHOD = 'POST';
 

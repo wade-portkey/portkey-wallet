@@ -1,7 +1,7 @@
 import { PortkeyEntries } from 'config/entries';
 import { LaunchModeSet, LaunchMode } from 'global/init/entries';
 import { EntryResult, PortkeyModulesEntity } from 'service/native-modules';
-import { GuardianVerifyConfig, GuardianVerifyType } from 'model/verify/social-recovery';
+import { GuardianVerifyConfig, GuardianVerifyType } from '../social-recovery';
 import { NetworkController } from 'network/controller';
 import { parseGuardianInfo } from 'model/global';
 import { PortkeyConfig } from 'global/constants';
@@ -11,11 +11,12 @@ import { GuardianApprovalPageProps, GuardianApprovalPageResult } from 'pages/Ent
 import { VerifierDetailsPageProps, VerifierDetailsPageResult } from 'pages/Entries/VerifierDetails';
 import { getUnlockedWallet } from 'model/wallet';
 import { getOrReadCachedVerifierData } from 'model/contract/handler';
+import { wrapEntry } from 'utils/commonUtil';
 
 export const navigateToForResult = async <P, R>(entryName: string, props: P, from = 'UNKNOWN'): Promise<R | null> => {
   return new Promise<R | null>((resolve, _) => {
     PortkeyModulesEntity.RouterModule.navigateToWithOptions<R, P>(
-      entryName,
+      wrapEntry(entryName),
       LaunchModeSet.get(entryName) || LaunchMode.STANDARD,
       from,
       {
@@ -46,7 +47,7 @@ const returnToParticularBasePage = async (intent: GuardiansApprovalIntent) => {
 
 const returnToGuardianHome = async (intent: GuardiansApprovalIntent) => {
   PortkeyModulesEntity.RouterModule.navigateTo<GuardiansApprovalIntent>(
-    PortkeyEntries.GUARDIAN_HOME_ENTRY,
+    wrapEntry(PortkeyEntries.GUARDIAN_HOME_ENTRY),
     LaunchMode.SINGLE_TASK,
     `GuardianVerifyType#${intent.type}`,
     'none',

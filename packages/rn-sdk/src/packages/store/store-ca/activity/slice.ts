@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { the2ThFailedActivityItemType } from 'packages/types/types-ca/activity';
-import { getActivityListAsync } from 'packages/store/store-ca/activity/action';
-import { ActivityStateType } from 'packages/store/store-ca/activity/type';
+import { getActivityListAsync } from './action';
+import { ActivityStateType } from './type';
 import { getCurrentActivityMapKey } from 'packages/utils/activity';
 
 const initialState: ActivityStateType = {

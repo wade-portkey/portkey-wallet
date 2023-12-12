@@ -3,7 +3,7 @@ import { forwardRef, useMemo, useState, useCallback, useRef, useImperativeHandle
 import { StyleSheet, View, ViewStyle, StyleProp } from 'react-native';
 
 import WebView, { WebViewMessageEvent, WebViewProps } from 'react-native-webview';
-import getTemplate from 'components/Recaptcha/getTemplate';
+import getTemplate from './getTemplate';
 
 export declare type RecaptchaInterface = {
   open(): void;

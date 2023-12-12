@@ -1,6 +1,6 @@
 import { NetworkType } from 'packages/types';
 import { createAction } from '@reduxjs/toolkit';
-import { DappStoreItem } from 'packages/store/store-ca/dapp/type';
+import { DappStoreItem } from './type';
 import { SessionInfo } from 'packages/types/session';
 
 export const addDapp = createAction<{

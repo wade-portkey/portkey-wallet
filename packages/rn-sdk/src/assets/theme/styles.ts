@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
-import { defaultColors } from 'assets/theme';
-import fonts from 'assets/theme/fonts';
+import { defaultColors } from '.';
+import fonts from './fonts';
 import { pTd } from 'utils/unit';
 
 export const BGStyles = StyleSheet.create({

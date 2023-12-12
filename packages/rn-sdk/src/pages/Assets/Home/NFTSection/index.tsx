@@ -4,7 +4,7 @@ import { StyleSheet, View, FlatList } from 'react-native';
 import { defaultColors } from 'assets/theme';
 import { useLanguage } from 'i18n/hooks';
 import { pTd } from 'utils/unit';
-import NFTCollectionItem from 'pages/Assets/Home/NFTSection/NFTCollectionItem';
+import NFTCollectionItem from './NFTCollectionItem';
 import { NFTCollectionItemShowType } from 'packages/types/types-ca/assets';
 import Touchable from 'components/Touchable';
 import { ChainId } from 'packages/types';

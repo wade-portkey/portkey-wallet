@@ -1,4 +1,4 @@
-import { GlobalStorage, TempStorage } from 'service/storage';
+import { GlobalStorage, TempStorage } from './index';
 
 export interface CacheStrategy<T> {
   getIdentifier: () => Promise<string>;

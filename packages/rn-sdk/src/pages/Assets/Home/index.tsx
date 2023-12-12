@@ -1,6 +1,6 @@
 import React from 'react';
-import AssetsHome from 'pages/Assets/Home/AssetsHome';
-import DashBoardTab from 'pages/Assets/Home/DashBoardTab';
+import AssetsHome from './AssetsHome';
+import DashBoardTab from './DashBoardTab';
 import SafeAreaBox from 'components/SafeAreaBox';
 import { BGStyles } from 'assets/theme/styles';
 

@@ -11,7 +11,7 @@ import {
   setBackup,
   setCurrentAccount,
   updateAccountName,
-} from 'packages/store/wallet/actions';
+} from './actions';
 import {
   checkAccountNameInput,
   checkPasswordInput,
@@ -19,7 +19,7 @@ import {
   getNextBIP44Path,
 } from 'packages/utils/wallet';
 import { DefaultBIP44Path } from 'packages/constants/wallet';
-import { WalletError, WalletState } from 'packages/store/wallet/type';
+import { WalletError, WalletState } from './type';
 import {
   changeEncryptStr,
   checkAccount,
@@ -29,7 +29,7 @@ import {
   createAccount,
   getAccountByWalletState,
   handlePrivateKey,
-} from 'packages/store/wallet/utils';
+} from './utils';
 import { isEqAddress } from 'packages/utils/aelf';
 import { isPrivateKey } from 'packages/utils';
 const initialState: WalletState = {

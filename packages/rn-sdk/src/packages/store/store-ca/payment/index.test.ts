@@ -1,8 +1,8 @@
-import { paymentSlice } from 'packages/store/store-ca/payment/slice';
-import { resetPayment, setAchTokenInfo, fetchBuyFiatListAsync, fetchSellFiatListAsync } from 'packages/store/store-ca/payment/actions';
+import { paymentSlice } from './slice';
+import { resetPayment, setAchTokenInfo, fetchBuyFiatListAsync, fetchSellFiatListAsync } from './actions';
 import { request } from 'packages/api/api-did';
 import { configureStore } from '@reduxjs/toolkit';
-
+import { jest, describe, test, expect } from '@jest/globals';
 jest.mock('packages/api/api-did');
 const reducer = paymentSlice.reducer;
 const state = {

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { IDappStoreState } from 'packages/store/store-ca/dapp/type';
+import { IDappStoreState } from './type';
 import { createSlice } from '@reduxjs/toolkit';
-import { addDapp, removeDapp, resetDapp, resetDappList, updateDapp, updateSessionInfo } from 'packages/store/store-ca/dapp/actions';
+import { addDapp, removeDapp, resetDapp, resetDappList, updateDapp, updateSessionInfo } from './actions';
 
 const initialState: IDappStoreState = {
   dappMap: {},

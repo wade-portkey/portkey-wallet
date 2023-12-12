@@ -1,1 +1,1 @@
-export * from 'packages/contracts/elf';
+export * from './elf';

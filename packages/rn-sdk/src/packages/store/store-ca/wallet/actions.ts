@@ -6,8 +6,8 @@ import { WalletInfoType } from 'packages/types/wallet';
 import { checkPinInput, formatWalletInfo } from 'packages/utils/wallet';
 import { createAction, createAsyncThunk } from '@reduxjs/toolkit';
 import AElf from 'aelf-sdk';
-import { getChainList } from 'packages/store/store-ca/wallet/api';
-import { ChainItemType, WalletState } from 'packages/store/store-ca/wallet/type';
+import { getChainList } from './api';
+import { ChainItemType, WalletState } from './type';
 
 export const createWallet =
   ({

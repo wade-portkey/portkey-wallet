@@ -8,7 +8,7 @@ import { PinErrorMessage } from 'packages/utils/wallet/types';
 import useBaseContainer from 'model/container/UseBaseContainer';
 import { PortkeyEntries } from 'config/entries';
 import { checkPin, getUseBiometric, unLockTempWallet } from 'model/verify/core';
-import { touchAuth } from 'pages/Pin/SetBiometrics';
+import { touchAuth } from '../SetBiometrics';
 import Loading from 'components/Loading';
 import useEffectOnce from 'hooks/useEffectOnce';
 import myEvents from 'utils/deviceEvent';
@@ -19,7 +19,7 @@ export default function CheckPin(props: CheckPinProps) {
   const [errorMessage, setErrorMessage] = useState<string>();
   const pinRef = useRef<DigitInputInterface>();
   const [canUseBiometrics, setCanUseBiometrics] = useState(false);
-  const { onFinish, navigateTo: navigationTo } = useBaseContainer({
+  const { onFinish, navigateTo } = useBaseContainer({
     entryName: PortkeyEntries.CHECK_PIN,
   });
 
@@ -31,7 +31,7 @@ export default function CheckPin(props: CheckPinProps) {
           return setErrorMessage(PinErrorMessage.invalidPin);
         }
         if (targetScene === 'changePin') {
-          navigationTo(PortkeyEntries.SET_PIN, {
+          navigateTo(PortkeyEntries.SET_PIN, {
             params: {
               oldPin: pin,
             },
@@ -55,7 +55,7 @@ export default function CheckPin(props: CheckPinProps) {
         setErrorMessage(undefined);
       }
     },
-    [errorMessage, navigationTo, onFinish, targetScene],
+    [errorMessage, navigateTo, onFinish, targetScene],
   );
 
   const handleBiometrics = async () => {

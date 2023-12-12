@@ -1,6 +1,6 @@
 import { OperationTypeEnum, VerificationType } from 'packages/types/verifier';
-import { PortkeyEntries } from 'config/entries';
-import BaseContainer, { BaseContainerProps } from 'model/container/BaseContainer';
+import { PortkeyEntries } from '../../../config/entries';
+import BaseContainer, { BaseContainerProps } from '../../../model/container/BaseContainer';
 import VerifierDetails from 'pages/Guardian/VerifierDetails';
 import React from 'react';
 import { AccountOriginalType } from 'model/verify/core';

@@ -1,5 +1,5 @@
 import { CodegenConfig } from '@graphql-codegen/cli';
-import schemaPath from 'packages/graphql/schemaPath.config.js';
+import { schemaPath } from './schemaPath.config.js';
 
 const config: CodegenConfig = {
   generates: {},

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, ButtonProps } from '@rneui/themed';
-import { styles } from 'components/CommonButton/style';
+import { styles } from './style';
 import { pTd } from 'utils/unit';
 
 export type CommonButtonProps = {

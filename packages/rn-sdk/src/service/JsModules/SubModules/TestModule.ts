@@ -1,6 +1,6 @@
 import { NetworkTestCases } from 'tests/network';
-import { BaseJSModule, BaseMethodParams, TestCase, TestContext, TestReport } from 'service/JsModules/types';
-import { emitJSMethodResult } from 'service/JsModules/SubModules/WalletModule';
+import { BaseJSModule, BaseMethodParams, TestCase, TestContext, TestReport } from '../types';
+import { emitJSMethodResult } from './WalletModule';
 
 export const TestCases: Array<TestCase> = [];
 
@@ -71,6 +71,7 @@ export const testRunner = async (): Promise<TestReport> => {
       await testService.run(testContext);
       testReport.testsAccepted += 1;
     } catch (e) {
+      console.log('testService.run error : ', e, 'testService : ', testService);
       testReport.testsFailed += 1;
       testReport.details[testReport.details.length - 1].status = 'fail';
     }

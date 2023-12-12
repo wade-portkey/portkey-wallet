@@ -8,7 +8,8 @@ export function myThrottle(fn: Function, delay: number) {
   let timer: NodeJS.Timeout | null;
   return function ({ data }: { data: string }) {
     if (!timer) {
-      // eslint-disable-next-line prefer-rest-params
+      // eslint-disable-next-line prefer-rest-params, @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       fn.call(this, { data });
       timer = setTimeout(() => {
         if (timer) {
@@ -50,3 +51,8 @@ export const copyText = async (text: string) => {
     CommonToast.success(i18n.t('Copy Fail'));
   }
 };
+
+export function wrapEntry(entry: string) {
+  const prefix = 'portkey_';
+  return prefix + entry;
+}

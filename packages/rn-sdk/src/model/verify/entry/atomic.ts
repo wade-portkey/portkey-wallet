@@ -1,7 +1,7 @@
 import { useAppleAuthentication, useGoogleAuthentication } from 'model/hooks/authentication';
 import { useCallback } from 'react';
-import { GuardianConfig } from 'model/verify/guardian';
-import { AppleAccountInfo, GoogleAccountInfo } from 'model/verify/third-party-account';
+import { GuardianConfig } from '../guardian';
+import { AppleAccountInfo, GoogleAccountInfo } from '../third-party-account';
 
 export const useThirdPartyVerifyAtomic = (): {
   appleLoginAdapter: () => Promise<AppleAccountInfo>;
@@ -32,9 +32,7 @@ export const useThirdPartyVerifyAtomic = (): {
   };
 };
 
-export const useNonThirdPartySignInAtomic = (
-  entryName: string,
-): {
+export const useNonThirdPartySignInAtomic = (): {
   phoneOrEmailVerify: (params: { accountIdentifier: string }) => Promise<GuardianConfig>;
 } => {
   throw new Error('Not implemented');

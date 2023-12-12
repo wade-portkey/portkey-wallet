@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import type { AddressBookItem, AddressBookType } from 'packages/types/addressBook';
 import { ChainItemType } from 'packages/types/chain';
 import { addressFormat, isAddress } from 'packages/utils';
-import { AddressBookError } from 'packages/store/addressBook/types';
+import { AddressBookError } from './types';
 import { UpdateType } from 'packages/types';
 
 export interface addressBookState {
@@ -23,7 +23,7 @@ export const addressBookSlice = createSlice({
     ) => {
       const { addressBook, type, currentChain } = action.payload;
       const { rpcUrl, networkName } = currentChain;
-      const address = addressFormat(addressBook.address, currentChain.chainId, currentChain.chainType);
+      const address = addressFormat(addressBook.address, currentChain.chainId as any, currentChain.chainType);
 
       const error: string[] = [];
 

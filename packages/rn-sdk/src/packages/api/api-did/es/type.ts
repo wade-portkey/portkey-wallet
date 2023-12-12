@@ -1,5 +1,5 @@
 import { CustomFetchConfig } from 'packages/utils/fetch';
-import { BaseConfig, RequestConfig } from 'packages/api/types';
+import { BaseConfig, RequestConfig } from '../../types';
 
 export interface ESConfig extends CustomFetchConfig {
   params?: {

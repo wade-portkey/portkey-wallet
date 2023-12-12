@@ -1,4 +1,4 @@
-import aes from 'packages/utils/aes';
+import aes from '../aes';
 import AElf from 'aelf-sdk';
 import { DefaultBIP44Path } from 'packages/constants/wallet';
 import {
@@ -10,7 +10,7 @@ import {
   PasswordErrorMessage,
   PinErrorMessage,
   WalletNameErrorMessage,
-} from 'packages/utils/wallet/types';
+} from './types';
 import { isValidPassword, isValidPin, isValidWalletName } from 'packages/utils/reg';
 import { AccountType, Password, WalletInfoType } from 'packages/types/wallet';
 import { PIN_SIZE, ZERO } from 'packages/constants/misc';

@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { TokenState } from 'packages/types/types-ca/token';
-import { fetchAllTokenListAsync, getSymbolImagesAsync } from 'packages/store/store-ca/tokenManagement/action';
+import { fetchAllTokenListAsync, getSymbolImagesAsync } from './action';
 import { TokenItemShowType } from 'packages/types/types-eoa/token';
 
 const initialState: TokenState = {

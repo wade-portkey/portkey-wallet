@@ -2,7 +2,7 @@ import OverlayModal from 'components/OverlayModal';
 import Touchable from 'components/Touchable';
 import React, { ReactNode } from 'react';
 import { View, ViewStyle } from 'react-native';
-import { overlayStyles } from 'components/OverlayModal/OverlayBody/styles';
+import { overlayStyles } from './styles';
 
 export default function OverlayBody({
   type = 'bottom',

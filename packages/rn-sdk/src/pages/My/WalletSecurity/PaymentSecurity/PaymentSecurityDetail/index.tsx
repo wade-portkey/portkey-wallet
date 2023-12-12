@@ -14,7 +14,9 @@ import { callGetTransferLimitMethod } from 'model/contract/handler';
 import Loading from 'components/Loading';
 import useBaseContainer from 'model/container/UseBaseContainer';
 import { PortkeyEntries } from 'config/entries';
-import { PaymentSecurityEditProps } from 'pages/My/WalletSecurity/PaymentSecurity/PaymentSecurityEdit';
+import { PaymentSecurityEditProps } from '../PaymentSecurityEdit';
+import { GuardiansApprovalIntent } from 'pages/GuardianManage/GuardianHome';
+import CommonToast from 'components/CommonToast';
 
 export interface PaymentSecurityDetailProps {
   transferLimitDetail?: ITransferLimitItem;
@@ -24,7 +26,7 @@ export interface PaymentSecurityDetailProps {
 const PaymentSecurityDetail: React.FC = (props: PaymentSecurityDetailProps) => {
   const { transferLimitDetail, containerId } = props;
   const [detail, setDetail] = useState<ITransferLimitItem | undefined>(transferLimitDetail);
-  const { navigateTo } = useBaseContainer({
+  const { navigateForResult } = useBaseContainer({
     entryName: PortkeyEntries.PAYMENT_SECURITY_DETAIL_ENTRY,
     onShow: () => {
       getDetail();
@@ -36,13 +38,17 @@ const PaymentSecurityDetail: React.FC = (props: PaymentSecurityDetailProps) => {
     Loading.show();
     const { symbol, chainId } = transferLimitDetail;
     try {
-      const result = await callGetTransferLimitMethod(chainId, symbol);
-      if (result?.data) {
+      const { data } = (await callGetTransferLimitMethod(chainId, symbol)) || {};
+      if (data) {
+        const { dailyLimit } = data || {};
+        const parsedLimitNumber: number = typeof dailyLimit === 'string' ? Number(dailyLimit) : dailyLimit;
         setDetail(pre => {
           if (pre) {
             return {
               ...pre,
-              ...result?.data,
+              ...data,
+              // dailyLimit  <= 0 means the rule is disabled
+              restricted: parsedLimitNumber >= 0,
             };
           }
           return pre;
@@ -103,11 +109,22 @@ const PaymentSecurityDetail: React.FC = (props: PaymentSecurityDetailProps) => {
       <CommonButton
         type="solid"
         onPress={() => {
-          navigateTo<PaymentSecurityEditProps>(PortkeyEntries.PAYMENT_SECURITY_EDIT_ENTRY, {
-            params: {
-              transferLimitDetail: detail,
+          navigateForResult<GuardiansApprovalIntent, PaymentSecurityEditProps>(
+            PortkeyEntries.PAYMENT_SECURITY_EDIT_ENTRY,
+            {
+              params: {
+                transferLimitDetail: detail,
+              },
             },
-          });
+            intent => {
+              const { status } = intent;
+              if (status === 'success') {
+                CommonToast.success('edit success');
+              } else {
+                CommonToast.fail('edit failed');
+              }
+            },
+          );
         }}>
         Edit
       </CommonButton>

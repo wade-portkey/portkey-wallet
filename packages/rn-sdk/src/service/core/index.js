@@ -51,9 +51,9 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 exports.__esModule = true;
 exports.portkey = void 0;
-var inversify_config_1 = require("service/core/inversify.config");
-var types_1 = require("service/core/types");
-__exportStar(require("service/core/types"), exports);
+var inversify_config_1 = require("./inversify.config");
+var types_1 = require("./types");
+__exportStar(require("./types"), exports);
 var Portkey = /** @class */ (function () {
     function Portkey() {
         this._portkeyAccountService = inversify_config_1.myContainer.get(types_1.TYPES.AccountModule);

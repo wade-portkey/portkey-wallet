@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { IDiscoverStateType, IDiscoverNetworkStateType, ITabItem, IBookmarkItem } from 'packages/store/store-ca/discover/type';
+import { IDiscoverStateType, IDiscoverNetworkStateType, ITabItem, IBookmarkItem } from './type';
 import { NetworkType } from 'packages/types';
 import { enableMapSet } from 'immer';
 import { RECORD_LIMIT, TAB_LIMIT } from 'packages/constants/constants-ca/discover';

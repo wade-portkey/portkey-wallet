@@ -1,5 +1,5 @@
 import { NetworkItem } from 'packages/types/types-ca/network';
-import { BackEndNetWorkMap } from 'packages/constants/constants-ca/backend-network';
+import { BackEndNetWorkMap } from './backend-network';
 
 export const NetworkList: NetworkItem[] = [
   BackEndNetWorkMap['back-end-mainnet'],

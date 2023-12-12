@@ -1,5 +1,5 @@
-import { GuardianConfig } from 'model/verify/guardian';
-import { AccountOriginalType, VerifiedGuardianDoc } from 'model/verify/core';
+import { GuardianConfig } from '../guardian';
+import { AccountOriginalType, VerifiedGuardianDoc } from '../core';
 
 export interface SignUpConfig {
   accountIdentifier: string;

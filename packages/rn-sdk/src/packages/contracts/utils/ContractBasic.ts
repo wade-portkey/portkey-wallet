@@ -1,9 +1,9 @@
 import { sleep } from 'packages/utils';
 import { AElfInterface } from 'packages/types/aelf';
-import { getTxResult, handleContractError, handleContractParams, handleFunctionName } from 'packages/contracts/utils';
+import { getTxResult, handleContractError, handleContractParams, handleFunctionName } from '.';
 import { ChainType } from 'packages/types';
 import { encodedTx } from 'packages/utils/aelf';
-import { AElfCallSendMethod, AElfCallViewMethod, CallSendMethod, CallViewMethod, ContractProps } from 'packages/contracts/types';
+import { AElfCallSendMethod, AElfCallViewMethod, CallSendMethod, CallViewMethod, ContractProps } from '../types';
 
 export class ContractBasic {
   public address?: string;

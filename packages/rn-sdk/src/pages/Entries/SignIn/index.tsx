@@ -1,11 +1,11 @@
-import { PortkeyEntries } from 'config/entries';
-import BaseContainer, { BaseContainerProps, BaseContainerState } from 'model/container/BaseContainer';
+import { PortkeyEntries } from '../../../config/entries';
+import BaseContainer, { BaseContainerProps, BaseContainerState } from '../../../model/container/BaseContainer';
 import SignInPortkey from 'pages/Login/LoginPortkey';
 import React from 'react';
 import BaseContainerContext from 'model/container/BaseContainerContext';
 import { CountryCodeItem } from 'types/wallet';
 import { GlobalStorage } from 'service/storage';
-import { CURRENT_USING_COUNTRY_CODE } from 'model/global';
+import { CURRENT_USING_COUNTRY_CODE } from '../../../model/global';
 
 export default class SignInEntryPage extends BaseContainer<SignInPageProps, SignInPageState, SignInPageResult> {
   constructor(props: BaseContainerProps) {

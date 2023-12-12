@@ -1,6 +1,6 @@
-import { WalletInfoType } from 'packages/types/wallet';
+import { WalletInfoType } from '../wallet';
 import { ChainId, NetworkType } from 'packages/types';
-import { VerificationType } from 'packages/types/verifier';
+import { VerificationType } from '../verifier';
 
 export type ManagerInfo = {
   managerUniqueId: string;

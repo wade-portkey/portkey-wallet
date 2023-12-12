@@ -3,7 +3,7 @@ import { Text } from 'react-native';
 import GStyles from 'assets/theme/GStyles';
 import { TextS } from 'components/CommonText';
 import Touchable from 'components/Touchable';
-import styles from 'pages/Login/styles';
+import styles from '../styles';
 import { OfficialWebsite } from 'packages/constants/constants-ca/network';
 import { FontStyles } from 'assets/theme/styles';
 import useBaseContainer from 'model/container/UseBaseContainer';

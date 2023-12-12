@@ -1,4 +1,4 @@
-export * from 'packages/types/require';
+export * from './require';
 export type NetworkType = 'MAIN' | 'TESTNET' | 'TEST1' | 'UNKNOWN';
 export type ChainType = 'ethereum' | 'aelf';
 export type UpdateType = 'update' | 'remove' | 'add';

@@ -8,6 +8,8 @@ import { NetworkController } from 'network/controller';
 import { AccountOrGuardianOriginalTypeStr, CheckVerifyCodeResultDTO, GuardianInfo } from 'network/dto/guardian';
 import {
   AElfWeb3SDK,
+  BaseAccountStatus,
+  BaseProgressDTO,
   RequestProcessResult,
   RequestRegisterParams,
   RequestSocialRecoveryParams,
@@ -211,7 +213,9 @@ export const getCaInfoByAccountIdentifierOrSessionId = async (
     const result = fromRecovery
       ? await NetworkController.checkRegisterProcess(sessionId)
       : await NetworkController.checkSocialRecoveryProcess(sessionId);
-    const item = result?.items?.find(it => it.chainId === originalChainId);
+    const item = (result?.items as Array<BaseAccountStatus>)?.find(
+      (it: BaseAccountStatus) => it.chainId === originalChainId,
+    );
     if (!item) throw new Error('network failure');
     return item;
   } else {

@@ -1,8 +1,4 @@
-import {
-  CaHolderManagerDto,
-  GetCaHolderManagerInfoDto,
-  LoginGuardianDto,
-} from 'packages/graphql/contract/__generated__/types';
+import { CaHolderManagerDto, GetCaHolderManagerInfoDto, LoginGuardianDto } from './__generated__/types';
 
 //getCAHolderByManager
 export type GetCAHolderByManagerParamsType = Pick<GetCaHolderManagerInfoDto, 'manager' | 'caHash' | 'chainId'>;

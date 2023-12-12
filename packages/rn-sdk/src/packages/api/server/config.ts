@@ -1,6 +1,6 @@
 import { customFetch } from 'packages/utils/fetch';
-import { BaseConfig, RequestConfig, UrlObj } from 'packages/api/types';
-import { getRequestConfig, spliceUrl } from 'packages/api/utils';
+import { BaseConfig, RequestConfig, UrlObj } from '../types';
+import { getRequestConfig, spliceUrl } from '../utils';
 
 export class ServiceInit {
   [x: string]: any;

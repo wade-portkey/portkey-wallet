@@ -1,6 +1,6 @@
 import { request } from 'packages/api/api-did';
 import { createAsyncThunk, createAction } from '@reduxjs/toolkit';
-import { FiatType, AchTokenInfoType, GetFiatType } from 'packages/store/store-ca/payment/type';
+import { FiatType, AchTokenInfoType, GetFiatType } from './type';
 import { countryCodeMap } from 'packages/constants/constants-ca/payment';
 
 export const fetchBuyFiatListAsync = createAsyncThunk<FiatType[]>('payment/fetchBuyFiatListAsync', async () => {

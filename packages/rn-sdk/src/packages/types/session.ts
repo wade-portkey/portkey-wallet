@@ -1,4 +1,4 @@
-import { Timestamp } from 'packages/types';
+import { Timestamp } from './index';
 
 export enum SessionExpiredPlan {
   // hours

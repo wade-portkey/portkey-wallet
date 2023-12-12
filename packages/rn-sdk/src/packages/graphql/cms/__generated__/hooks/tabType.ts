@@ -1,4 +1,4 @@
-import * as Types from 'packages/graphql/cms/__generated__/types';
+import * as Types from '../types';
 
 import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';

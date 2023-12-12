@@ -1,4 +1,4 @@
-import { randomId } from 'packages/utils';
+import { randomId } from '.';
 
 const timeWorker: { [key: string]: NodeJS.Timeout } = {};
 

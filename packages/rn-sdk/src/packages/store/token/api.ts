@@ -1,4 +1,4 @@
-import response from 'packages/store/token/data.json';
+import response from './data.json';
 
 console.log(response);
 

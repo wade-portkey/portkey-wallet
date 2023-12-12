@@ -1,6 +1,6 @@
 import { IStorage, StorageBaseLoader } from 'packages/types/storage';
 import { request } from 'packages/api/api-did';
-import { RequestConfig } from 'packages/api/types';
+import { RequestConfig } from '../../types';
 import { LoginKeyType } from 'packages/types/types-ca/wallet';
 import { OperationTypeEnum } from 'packages/types/verifier';
 

@@ -1,1 +1,0 @@
-Object.defineProperty(exports,"__esModule",{value:true});exports.default=useEffectOnce;var _react=require("react");function useEffectOnce(effect){(0,_react.useEffect)(function(){effect();},[]);}

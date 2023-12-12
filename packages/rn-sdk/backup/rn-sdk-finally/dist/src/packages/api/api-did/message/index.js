@@ -1,1 +1,0 @@
-Object.defineProperty(exports,"__esModule",{value:true});exports.default=void 0;var _default=exports.default={sendScanLoginSuccess:'/api/app/message/scanLoginSuccess',sendScanLogin:'/api/app/message/scanLogin',checkQRCodeExist:'/api/app/qrcode'};

@@ -1,7 +1,7 @@
 import React, { forwardRef } from 'react';
 import { Input, InputProps } from '@rneui/themed';
 import Svg from 'components/Svg';
-import { generalStyles, searchStyle, bgWhiteStyles } from 'components/CommonInput/style';
+import { generalStyles, searchStyle, bgWhiteStyles } from './style';
 import { pTd } from 'utils/unit';
 import { useLanguage } from 'i18n/hooks';
 import { defaultColors } from 'assets/theme';

@@ -1,1 +1,0 @@
-Object.defineProperty(exports,"__esModule",{value:true});exports.default=void 0;var _default=exports.default={activityList:'/api/app/user/activities/activities',activity:'/api/app/user/activities/activity',activityListWithAddress:'/api/app/user/activities/transactions'};

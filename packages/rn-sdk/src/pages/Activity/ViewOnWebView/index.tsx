@@ -5,7 +5,7 @@ import WebView from 'react-native-webview';
 import CustomHeader from 'components/CustomHeader';
 import SafeAreaBox from 'components/SafeAreaBox';
 import { pTd } from 'utils/unit';
-import { ACH_REDIRECT_URL, ACH_WITHDRAW_URL } from 'constants/common';
+import { ACH_WITHDRAW_URL } from 'constants/common';
 import CommonToast from 'components/CommonToast';
 import Progressbar, { IProgressbar } from 'components/Progressbar';
 import { SafeAreaProvider } from 'react-native-safe-area-context';

@@ -1,7 +1,7 @@
 import { screenWidth } from 'packages/utils/mobile/device';
 import { defaultColors } from 'assets/theme';
 import React, { forwardRef, useImperativeHandle, useMemo, useState } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, ViewStyle } from 'react-native';
 import { pTd } from 'utils/unit';
 export interface IProgressbar {
   changeInnerBarWidth: (per: number) => void;
@@ -27,7 +27,7 @@ const Progressbar = forwardRef<IProgressbar>(function Progressbar(props, ref) {
 
   return (
     <View style={styles.progressBar}>
-      <View style={[styles.innerBar, innerBarWidthStyle]} />
+      <View style={[styles.innerBar, innerBarWidthStyle as ViewStyle]} />
     </View>
   );
 });

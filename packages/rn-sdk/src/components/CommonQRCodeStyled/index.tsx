@@ -1,6 +1,5 @@
 import React from 'react';
 import QRCodeStyled, { SVGQRCodeStyledProps } from 'react-native-qrcode-styled';
-// import portkeyLogo from '../../assets/image/pngs/portkeyBlackBorderRadius.png';
 import { pTd } from 'utils/unit';
 import { StyleSheet, View } from 'react-native';
 import { TextL } from 'components/CommonText';
@@ -39,7 +38,7 @@ export default function CommonQRCodeStyled(props: CommonQRCodeStyledPropsType) {
         pieceBorderRadius={2}
         color={'#000000'}
         logo={{
-          href: '../../assets/image/pngs/portkeyBlackBorderRadius.png',
+          href: 'assets/image/pngs/portkeyBlackBorderRadius.png',
           scale: 1.5,
           padding: pTd(5),
           hidePieces: false,

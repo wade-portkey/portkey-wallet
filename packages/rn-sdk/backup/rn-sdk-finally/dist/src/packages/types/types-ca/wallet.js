@@ -1,1 +1,0 @@
-Object.defineProperty(exports,"__esModule",{value:true});exports.LoginType=void 0;var LoginType=exports.LoginType=function(LoginType){LoginType[LoginType["Email"]=0]="Email";LoginType[LoginType["Phone"]=1]="Phone";LoginType[LoginType["Google"]=2]="Google";LoginType[LoginType["Apple"]=3]="Apple";return LoginType;}({});

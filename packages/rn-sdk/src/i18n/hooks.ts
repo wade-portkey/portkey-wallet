@@ -1,6 +1,6 @@
 import { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { isValidLanguage, LanguageValue } from 'i18n/config';
+import { isValidLanguage, LanguageValue } from './config';
 import { storeStorageData } from 'utils/asyncStorage';
 export function useLanguage() {
   const { i18n, t } = useTranslation();

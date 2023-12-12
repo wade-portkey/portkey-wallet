@@ -6,7 +6,7 @@ import {
   Message,
   MessageCount,
   TriggerMessageEventActionEnum,
-} from 'packages/im/types';
+} from '.';
 
 export type IMServiceCommon<T> = Promise<{
   code: string;

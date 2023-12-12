@@ -1,4 +1,4 @@
-import { LoginKeyType } from 'packages/types/types-ca/wallet';
+import { LoginKeyType } from './wallet';
 export interface Verifier {
   id: string; // aelf.Hash
 }

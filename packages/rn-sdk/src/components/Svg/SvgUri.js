@@ -21,7 +21,7 @@ import Svg, {
   Stop,
 } from 'react-native-svg';
 
-import * as utils from 'utils/svgUriUtils';
+import * as utils from '../../utils/svgUriUtils';
 
 const ACCEPTED_SVG_ELEMENTS = [
   'svg',

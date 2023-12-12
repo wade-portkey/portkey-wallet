@@ -1,10 +1,9 @@
-import { useAppCommonSelector, useAppCommonDispatch } from 'packages/hooks';
+import { useAppCommonSelector } from '.';
 
 export const useCheckIsLocking = (): Boolean => {
-  const dispatch = useAppCommonDispatch();
   const { leaveTime, autoLockingTime } = useAppCommonSelector(state => state.settings);
 
-  let result: boolean = true;
+  let result = true;
 
   if (autoLockingTime === Infinity) return false; // never lock
 

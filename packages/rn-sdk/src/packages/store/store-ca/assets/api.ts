@@ -1,6 +1,6 @@
 import { request } from 'packages/api/api-did';
 import { TokenItemShowType } from 'packages/types/types-ca/token';
-import { IAssetItemType } from 'packages/store/store-ca/assets/type';
+import { IAssetItemType } from './type';
 import { NFT_SMALL_SIZE, NFT_MIDDLE_SIZE } from 'packages/constants/constants-ca/assets';
 
 type ITokenItemResponse = Omit<TokenItemShowType, 'name' | 'address'>;

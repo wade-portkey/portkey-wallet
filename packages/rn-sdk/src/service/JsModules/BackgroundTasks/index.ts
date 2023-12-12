@@ -1,5 +1,5 @@
 import { AppRegistry } from 'react-native';
-import { JsModuleEntries } from 'service/JsModules/BatchedBridges';
+import { JsModuleEntries } from '../BatchedBridges';
 
 /**
  * Register all headless tasks from JsModuleEntries.

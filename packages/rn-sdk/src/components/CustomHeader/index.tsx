@@ -1,7 +1,7 @@
 import { View, TouchableOpacity, ViewStyle, StyleProp } from 'react-native';
 import React, { ReactNode, useMemo } from 'react';
 import Svg from 'components/Svg';
-import { blueStyles, hideTitleStyles, whitStyles } from 'components/CustomHeader/style/index.style';
+import { blueStyles, hideTitleStyles, whitStyles } from './style/index.style';
 import { pTd } from 'utils/unit';
 import GStyles from 'assets/theme/GStyles';
 import { TextL } from 'components/CommonText';

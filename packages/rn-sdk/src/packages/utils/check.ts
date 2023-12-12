@@ -1,4 +1,4 @@
-import { isValidEmail } from 'packages/utils/reg';
+import { isValidEmail } from './reg';
 export enum EmailError {
   noEmail = 'Please enter email address',
   invalidEmail = 'Invalid email address',

@@ -1,7 +1,7 @@
 import 'reflect-metadata';
 import { initEntries } from './src/global/init/entries';
 import { initJsMethodService } from './src/global/init/services';
-import { initLanguage } from './src/i18n';
+import { initLanguage } from './src/i18n/index';
 
 // we use i18n to translate
 initLanguage();
@@ -14,4 +14,4 @@ initJsMethodService();
 
 // export for npm
 export * from './src/service/core';
-export { UnlockedWallet } from './src/model/wallet';
+export type { UnlockedWallet } from './src/model/wallet';

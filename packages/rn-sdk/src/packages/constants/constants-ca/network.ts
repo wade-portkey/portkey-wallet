@@ -1,1 +1,1 @@
-export * from 'packages/constants/constants-ca/network-mainnet';
+export * from './network-mainnet';

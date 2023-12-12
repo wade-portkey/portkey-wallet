@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { createAction } from '@reduxjs/toolkit';
 import { HandleTokenArgTypes } from 'packages/types/types-ca/token';
-import { fetchAllTokenList } from 'packages/store/store-ca/tokenManagement/api';
+import { fetchAllTokenList } from './api';
 import { request } from 'packages/api/api-did';
 
 export const addTokenInCurrentAccount = createAction<HandleTokenArgTypes>('token/addTokenInCurrentAccount');

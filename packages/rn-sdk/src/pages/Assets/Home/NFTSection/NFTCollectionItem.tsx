@@ -11,7 +11,7 @@ import { TextL, TextM, TextS, TextXL } from 'components/CommonText';
 import { FontStyles } from 'assets/theme/styles';
 import { NFTCollectionItemShowType } from 'packages/types/types-ca/assets';
 import Touchable from 'components/Touchable';
-import { OpenCollectionObjType } from 'pages/Assets/Home/NFTSection';
+import { OpenCollectionObjType } from './index';
 import { ChainId } from 'packages/types';
 import { formatChainInfoToShow } from 'packages/utils';
 import { useCurrentNetworkType } from 'model/hooks/network';

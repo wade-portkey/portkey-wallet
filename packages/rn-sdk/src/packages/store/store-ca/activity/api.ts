@@ -6,7 +6,7 @@ import {
   IActivitiesApiParams,
   IActivitiesApiResponse,
   IActivityListWithAddressApiParams,
-} from 'packages/store/store-ca/activity/type';
+} from './type';
 
 export function fetchActivities(params: IActivitiesApiParams): Promise<IActivitiesApiResponse> {
   return request.activity.activityList({

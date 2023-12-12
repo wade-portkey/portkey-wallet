@@ -1,12 +1,6 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
 import { NFTCollectionItemShowType } from 'packages/types/types-ca/assets';
-import {
-  fetchAssetList,
-  fetchNFTSeriesList,
-  fetchNFTList,
-  fetchTokenList,
-  fetchTokenPrices,
-} from 'packages/store/store-ca/assets/api';
+import { fetchAssetList, fetchNFTSeriesList, fetchNFTList, fetchTokenList, fetchTokenPrices } from './api';
 import { AccountAssets, TokenItemShowType } from 'packages/types/types-ca/token';
 import { ChainId } from 'packages/types';
 import { NEW_CLIENT_MOCK_ELF_LIST, PAGE_SIZE_IN_NFT_ITEM } from 'packages/constants/constants-ca/assets';

@@ -57,7 +57,7 @@ const fetchFormat = (
 
   const myHeaders = new Headers();
   Object.entries({ ...defaultHeaders, ...headers }).forEach(([headerItem, value]) => {
-    myHeaders.append(headerItem, value);
+    myHeaders.append(headerItem, value as string);
   });
   return fetch(uri, {
     ...requestConfig,

@@ -1,12 +1,11 @@
 import { GuardianVerifyConfig, GuardianVerifyType } from 'model/verify/social-recovery';
-import { PortkeyEntries } from 'config/entries';
-import BaseContainer, { BaseContainerProps } from 'model/container/BaseContainer';
+import { PortkeyEntries } from '../../../config/entries';
+import BaseContainer, { BaseContainerProps } from '../../../model/container/BaseContainer';
 import GuardianApproval from 'pages/Guardian/GuardianApproval';
 import React from 'react';
 import { AfterVerifiedConfig } from 'model/verify/core';
 import { SetPinPageProps, SetPinPageResult } from 'pages/Pin/SetPin';
 import CommonToast from 'components/CommonToast';
-import { getUnlockedWallet } from 'model/wallet';
 
 export default class GuardianApprovalEntryPage extends BaseContainer<
   GuardianApprovalPageProps,
@@ -53,15 +52,13 @@ export default class GuardianApprovalEntryPage extends BaseContainer<
             typeof afterVerifiedData === 'string' ? afterVerifiedData : JSON.stringify(afterVerifiedData),
         },
       },
-      async res => {
+      res => {
         const { data } = res;
         if (data?.finished) {
-          const walletInfo = await getUnlockedWallet();
           this.onFinish({
             status: 'success',
             data: {
               isVerified: true,
-              walletInfo,
             },
           });
         }
@@ -95,5 +92,4 @@ export interface GuardianApprovalPageResult {
   isVerified: boolean;
   deliveredVerifiedData?: string;
   errorMessage?: string;
-  walletInfo?: any;
 }

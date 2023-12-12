@@ -1,1 +1,0 @@
-Object.defineProperty(exports,"__esModule",{value:true});exports.default=void 0;var _react=require("react");var BaseContainerContext=(0,_react.createContext)({entryName:''});var _default=exports.default=BaseContainerContext;

@@ -1,6 +1,6 @@
 import React from 'react';
 import Recaptcha from 'components/Recaptcha';
-import OverlayModal from 'components/OverlayModal';
+import OverlayModal from '../OverlayModal';
 import { screenWidth, screenHeight } from 'packages/utils/mobile/device';
 
 import { clearBackgroundTimeout, setBackgroundTimeout } from 'utils/backgroundTimer';

@@ -1,5 +1,5 @@
-import GuardianApproval from 'pages/Guardian/GuardianApproval';
-import VerifierDetails from 'pages/Guardian/VerifierDetails';
+import GuardianApproval from './GuardianApproval';
+import VerifierDetails from './VerifierDetails';
 
 const stackNav = [
   { name: 'GuardianApproval', component: GuardianApproval },

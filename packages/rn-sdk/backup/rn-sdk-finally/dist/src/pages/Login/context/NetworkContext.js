@@ -1,1 +1,0 @@
-Object.defineProperty(exports,"__esModule",{value:true});exports.default=void 0;var _react=require("react");var NetworkContext=(0,_react.createContext)({currentNetwork:undefined,changeCurrentNetwork:function changeCurrentNetwork(){}});var _default=exports.default=NetworkContext;

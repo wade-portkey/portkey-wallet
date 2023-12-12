@@ -1,7 +1,7 @@
 import { request } from 'packages/api/api-did';
 import { ChainId, NetworkType } from 'packages/types';
 import { createAsyncThunk, createAction } from '@reduxjs/toolkit';
-import { WalletState } from 'packages/store/store-ca/wallet/type';
+import { WalletState } from '../wallet/type';
 
 export const fetchTxFeeAsync = createAsyncThunk('fetchTxFeeAsync', async (chainIds: ChainId[], { getState }) => {
   const result = await request.txFee.fetchTxFee({

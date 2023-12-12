@@ -1,7 +1,7 @@
 import { UnlockedWallet } from 'model/wallet';
 import { CallCaMethodProps } from 'service/JsModules/SubModules/WalletModule';
 import { BaseMethodResult } from 'service/JsModules/types';
-import { WalletState } from 'service/core/types';
+import { WalletState } from './types';
 
 export interface IPortkeyAccountService {
   callCaContractMethod(props: CallCaMethodProps): Promise<BaseMethodResult>;

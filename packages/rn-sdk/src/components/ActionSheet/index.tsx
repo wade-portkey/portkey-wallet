@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
-import OverlayModal from 'components/OverlayModal';
+import OverlayModal from '../OverlayModal';
 import { View, Text, TouchableOpacity, Keyboard } from 'react-native';
-import { styles } from 'components/ActionSheet/style/style';
+import { styles } from './style/style';
 import { TextL, TextM, TextTitle } from 'components/CommonText';
 import ButtonRow, { ButtonRowProps } from 'components/ButtonRow';
 

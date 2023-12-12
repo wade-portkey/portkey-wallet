@@ -1,7 +1,7 @@
 import React from 'react';
 import Svg from 'components/Svg';
 import { TouchableOpacity, View } from 'react-native';
-import { dashBoardBtnStyle, innerPageStyles } from 'components/SendButton/style';
+import { dashBoardBtnStyle, innerPageStyles } from '../SendButton/style';
 import { TextM } from 'components/CommonText';
 import { useLanguage } from 'i18n/hooks';
 import TokenOverlay from 'components/TokenOverlay';
@@ -20,7 +20,7 @@ interface SendButtonType {
 export default function ReceiveButton(props: SendButtonType) {
   const { themeType = 'dashBoard' } = props;
   const { t } = useLanguage();
-  const { navigateTo: navigationTo } = useBaseContainer({
+  const { navigateTo } = useBaseContainer({
     entryName: PortkeyEntries.ASSETS_HOME_ENTRY,
   });
   const styles = themeType === 'dashBoard' ? dashBoardBtnStyle : innerPageStyles;
@@ -34,7 +34,7 @@ export default function ReceiveButton(props: SendButtonType) {
 
           TokenOverlay.showTokenList({
             onFinishSelectToken: (tokenInfo: TokenItemShowType) => {
-              navigationTo(PortkeyEntries.RECEIVE_TOKEN_ENTRY, { params: tokenInfo });
+              navigateTo(PortkeyEntries.RECEIVE_TOKEN_ENTRY, { params: tokenInfo });
             },
           });
         }}>

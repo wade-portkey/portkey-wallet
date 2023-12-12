@@ -1,7 +1,7 @@
 import { CountryCodeDataDTO, CountryCodeItem, defaultCountryCode } from 'types/wallet';
-import { PortkeyEntries } from 'config/entries';
-import BaseContainer, { BaseContainerProps } from 'model/container/BaseContainer';
-import { COUNTRY_CODE_DATA_KEY, CURRENT_USING_COUNTRY_CODE } from 'model/global';
+import { PortkeyEntries } from '../../../config/entries';
+import BaseContainer, { BaseContainerProps } from '../../../model/container/BaseContainer';
+import { COUNTRY_CODE_DATA_KEY, CURRENT_USING_COUNTRY_CODE } from '../../../model/global';
 import SelectCountry, { SelectCountryResult } from 'pages/Login/SelectCountry';
 import React from 'react';
 import { GlobalStorage } from 'service/storage';

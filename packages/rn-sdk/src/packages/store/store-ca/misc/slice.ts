@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getPhoneCountryCode, setLocalPhoneCountryCodeAction } from 'packages/store/store-ca/misc/actions';
-import { MiscState } from 'packages/store/store-ca/misc/types';
+import { getPhoneCountryCode, setLocalPhoneCountryCodeAction } from './actions';
+import { MiscState } from './types';
 import { DefaultCountry } from 'packages/constants/constants-ca/country';
 
 const initialState: MiscState = {

@@ -1,5 +1,5 @@
-import { PortkeyEntries } from 'config/entries';
-import BaseContainer, { BaseContainerProps } from 'model/container/BaseContainer';
+import { PortkeyEntries } from '../../../config/entries';
+import BaseContainer, { BaseContainerProps } from '../../../model/container/BaseContainer';
 import SignupPortkey from 'pages/Login/SignupPortkey';
 import React from 'react';
 import { CountryCodeItem } from 'types/wallet';

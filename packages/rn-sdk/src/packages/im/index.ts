@@ -1,24 +1,24 @@
 import RelationIM, { Im, config as relationConfig } from '@relationlabs/im';
-import * as utils from 'packages/im/utils';
+import * as utils from './utils';
 import { AElfWallet } from 'packages/types/aelf';
-import { IMStatusEnum, MessageCount, SocketMessage } from 'packages/im/types';
+import { IMStatusEnum, MessageCount, SocketMessage } from './types';
 import { sleep } from 'packages/utils';
-import { IIMService } from 'packages/im/types/service';
-import { IMConfig } from 'packages/im/config';
+import { IIMService } from './types/service';
+import { IMConfig } from './config';
 import { FetchRequest } from '@portkey/request';
 import { IBaseRequest } from '@portkey/types';
-import { IMService } from 'packages/im/service';
-import { IM_TOKEN_ERROR_ARRAY } from 'packages/im/constant';
+import { IMService } from './service';
+import { IM_TOKEN_ERROR_ARRAY } from './constant';
 import { request } from 'packages/api/api-did';
 
 export class IM {
   private _imInstance?: RelationIM;
 
-  private _channelMsgObservers: Map<string, Map<Symbol, (e: any) => void>> = new Map();
-  private _unreadMsgObservers: Map<Symbol, (e: any) => void> = new Map();
-  private _connectObservers: Map<Symbol, (e: any) => void> = new Map();
-  private _msgCountObservers: Map<Symbol, (e: MessageCount) => void> = new Map();
-  private _tokenObservers: Map<Symbol, (e: string) => void> = new Map();
+  private _channelMsgObservers: Map<string, Map<string, (e: any) => void>> = new Map();
+  private _unreadMsgObservers: Map<string, (e: any) => void> = new Map();
+  private _connectObservers: Map<string, (e: any) => void> = new Map();
+  private _msgCountObservers: Map<string, (e: MessageCount) => void> = new Map();
+  private _tokenObservers: Map<string, (e: string) => void> = new Map();
 
   private _msgCount: MessageCount = {
     unreadCount: 0,
@@ -133,10 +133,10 @@ export class IM {
   registerUnreadMsgObservers(cb: (e: any) => void) {
     const symbol = Symbol();
     const unreadMsgObservers = this._unreadMsgObservers;
-    unreadMsgObservers.set(symbol, cb);
+    unreadMsgObservers.set(symbol.toString(), cb);
     return {
       remove: () => {
-        unreadMsgObservers.has(symbol) && unreadMsgObservers.delete(symbol);
+        unreadMsgObservers.has(symbol.toString()) && unreadMsgObservers.delete(symbol.toString());
       },
     };
   }
@@ -153,18 +153,18 @@ export class IM {
 
     let channelObservers = channelMsgObservers.get(channelId);
     if (channelObservers) {
-      channelObservers.set(symbol, cb);
+      channelObservers.set(symbol.toString(), cb);
     } else {
-      channelObservers = new Map([[symbol, cb]]);
+      channelObservers = new Map([[symbol.toString(), cb]]);
       channelMsgObservers.set(channelId, channelObservers);
     }
 
     return {
       remove: () => {
-        const channelObservers = channelMsgObservers.get(channelId);
-        if (!channelObservers) return;
-        channelObservers.has(symbol) && channelObservers.delete(symbol);
-        if (channelObservers.size === 0) {
+        const observers = channelMsgObservers.get(channelId);
+        if (!observers) return;
+        observers.has(symbol.toString()) && observers.delete(symbol.toString());
+        if (observers.size === 0) {
           channelMsgObservers.delete(channelId);
         }
       },
@@ -220,10 +220,10 @@ export class IM {
   registerConnectObserver(cb: (e: any) => void) {
     const symbol = Symbol();
     const connectObservers = this._connectObservers;
-    connectObservers.set(symbol, cb);
+    connectObservers.set(symbol.toString(), cb);
     return {
       remove: () => {
-        connectObservers.has(symbol) && connectObservers.delete(symbol);
+        connectObservers.has(symbol.toString()) && connectObservers.delete(symbol.toString());
       },
     };
   }
@@ -246,10 +246,10 @@ export class IM {
   registerMessageCountObserver(cb: (e: MessageCount) => void) {
     const symbol = Symbol();
     const msgCountObservers = this._msgCountObservers;
-    msgCountObservers.set(symbol, cb);
+    msgCountObservers.set(symbol.toString(), cb);
     return {
       remove: () => {
-        msgCountObservers.has(symbol) && msgCountObservers.delete(symbol);
+        msgCountObservers.has(symbol.toString()) && msgCountObservers.delete(symbol.toString());
       },
     };
   }
@@ -264,10 +264,10 @@ export class IM {
   registerTokenObserver(cb: (e: string) => void) {
     const symbol = Symbol();
     const tokenObservers = this._tokenObservers;
-    tokenObservers.set(symbol, cb);
+    tokenObservers.set(symbol.toString(), cb);
     return {
       remove: () => {
-        tokenObservers.has(symbol) && tokenObservers.delete(symbol);
+        tokenObservers.has(symbol.toString()) && tokenObservers.delete(symbol.toString());
       },
     };
   }
@@ -384,4 +384,4 @@ const im = new IM();
 
 export default im;
 export { utils };
-export * from 'packages/im/types';
+export * from './types';

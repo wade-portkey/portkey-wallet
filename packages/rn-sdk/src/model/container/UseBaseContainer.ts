@@ -1,10 +1,10 @@
-import { PortkeyEntries } from 'config/entries';
 import { useCallback, useContext, useEffect, useMemo, useRef } from 'react';
 import { DeviceEventEmitter, EmitterSubscription } from 'react-native';
 import { EntryResult, PortkeyDeviceEventEmitter, RouterOptions, PortkeyModulesEntity } from 'service/native-modules';
-import { AcceptableValueType } from 'model/container/BaseContainer';
-import BaseContainerContext from 'model/container/BaseContainerContext';
+import { AcceptableValueType } from './BaseContainer';
+import BaseContainerContext from './BaseContainerContext';
 import { LaunchMode, LaunchModeSet } from 'global/init/entries';
+import { wrapEntry } from 'utils/commonUtil';
 
 const useBaseContainer = (props: BaseContainerHookedProps): BaseContainerHooks => {
   const onShowListener = useRef<EmitterSubscription | null>(null);
@@ -40,7 +40,7 @@ const useBaseContainer = (props: BaseContainerHookedProps): BaseContainerHooks =
 
   const navigateTo = useCallback(
     <T = { [x: string]: AcceptableValueType }>(
-      entry: PortkeyEntries,
+      entry: string,
       {
         params = {} as any,
         targetScene = 'none',
@@ -52,7 +52,7 @@ const useBaseContainer = (props: BaseContainerHookedProps): BaseContainerHooks =
       },
     ) => {
       PortkeyModulesEntity.RouterModule.navigateTo(
-        entry,
+        wrapEntry(entry),
         LaunchModeSet.get(entry) || LaunchMode.STANDARD,
         getEntryName(),
         targetScene ?? 'none',
@@ -65,14 +65,14 @@ const useBaseContainer = (props: BaseContainerHookedProps): BaseContainerHooks =
 
   const navigateForResult = useCallback(
     <V = VoidResult, T = { [x: string]: AcceptableValueType }>(
-      entry: PortkeyEntries,
+      entry: string,
       options: RouterOptions<T>,
       // eslint-disable-next-line @typescript-eslint/no-empty-function
       callback: (res: EntryResult<V>) => void = () => {},
     ) => {
       const { params, closeCurrentScreen, navigationAnimation, navigationAnimationDuration, targetScene } = options;
       PortkeyModulesEntity.RouterModule.navigateToWithOptions(
-        entry,
+        wrapEntry(entry),
         LaunchModeSet.get(entry) || LaunchMode.STANDARD,
         getEntryName(),
         {
@@ -129,7 +129,7 @@ const useBaseContainer = (props: BaseContainerHookedProps): BaseContainerHooks =
 export interface BaseContainerHooks {
   getEntryName: () => string;
   navigateTo: <T = { [x: string]: AcceptableValueType }>(
-    entry: PortkeyEntries,
+    entry: string,
     option: {
       params?: T;
       targetScene?: string;
@@ -137,7 +137,7 @@ export interface BaseContainerHooks {
     },
   ) => void;
   navigateForResult: <V = VoidResult, T = { [x: string]: AcceptableValueType }>(
-    entry: PortkeyEntries,
+    entry: string,
     options: RouterOptions<T>,
     callback?: (res: EntryResult<V>) => void,
   ) => void;

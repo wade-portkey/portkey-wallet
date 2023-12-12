@@ -1,1 +1,0 @@
-Object.defineProperty(exports,"__esModule",{value:true});exports.TAB_LIMIT=exports.RECORD_LIMIT=exports.DISCOVER_BOOKMARK_MAX_COUNT=void 0;var RECORD_LIMIT=exports.RECORD_LIMIT=100;var TAB_LIMIT=exports.TAB_LIMIT=50;var DISCOVER_BOOKMARK_MAX_COUNT=exports.DISCOVER_BOOKMARK_MAX_COUNT=30;

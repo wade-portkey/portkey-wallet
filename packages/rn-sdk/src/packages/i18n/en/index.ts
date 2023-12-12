@@ -1,5 +1,5 @@
-import NetworkError from 'packages/i18n/en/network-error.json';
-import WalletError from 'packages/i18n/en/wallet-error.json';
+import NetworkError from './network-error.json';
+import WalletError from './wallet-error.json';
 
 export default {
   ...NetworkError,

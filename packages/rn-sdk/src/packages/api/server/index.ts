@@ -1,4 +1,4 @@
-import { ServiceInit } from 'packages/api/server/config';
+import { ServiceInit } from './config';
 const myServer = new ServiceInit();
 
 export default myServer;

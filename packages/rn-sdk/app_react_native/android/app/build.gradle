@@ -73,9 +73,9 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace "com.react_native_app"
+    namespace "com.app_react_native"
     defaultConfig {
-        applicationId "com.react_native_app"
+        applicationId "com.app_react_native"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

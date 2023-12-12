@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo } from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
 import { BGStyles, FontStyles } from 'assets/theme/styles';
-import styles from 'pages/Login/styles';
+import styles from '../styles';
 import Touchable from 'components/Touchable';
 import GStyles from 'assets/theme/GStyles';
 import { TextL } from 'components/CommonText';
@@ -15,14 +15,12 @@ import CommonToast from 'components/CommonToast';
 import useEffectOnce from 'hooks/useEffectOnce';
 import { CheckPinProps, CheckPinResult } from 'pages/Pin/CheckPin';
 import { SignInPageProps, SignInPageResult } from 'pages/Entries/SignIn';
-import TermsServiceButton from 'pages/Login/components/TermsServiceButton';
+import TermsServiceButton from './TermsServiceButton';
 import Divider from 'components/Divider';
 import { defaultColors } from 'assets/theme';
-import { PageLoginType, PageType } from 'pages/Login/types';
+import { PageLoginType, PageType } from '../types';
 import { useVerifyEntry } from 'model/verify/entry';
 import { isIOS } from 'packages/utils/mobile/device';
-import { getOrReadCachedVerifierData } from 'model/contract/handler';
-import Loading from 'components/Loading';
 import { getUnlockedWallet } from 'model/wallet';
 
 const TitleMap = {
@@ -84,11 +82,6 @@ export default function Referral({
 
   useEffectOnce(async () => {
     walletCheck();
-    Loading.show();
-    try {
-      await getOrReadCachedVerifierData();
-    } catch (_) {}
-    Loading.hide();
   });
 
   const walletCheck = async () => {
@@ -127,7 +120,7 @@ export default function Referral({
     if (isIOS) {
       return { uri: 'QR-code' };
     } else {
-      return require('../../../assets/image/pngs/QR-code.png');
+      return require('assets/image/pngs/QR-code.png');
     }
   }, []);
 

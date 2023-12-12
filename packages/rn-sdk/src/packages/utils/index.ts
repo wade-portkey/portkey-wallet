@@ -1,6 +1,6 @@
 import { ChainId, ChainType, NetworkType } from 'packages/types';
 import { isAddress as web3IsAddress } from 'web3-utils';
-import { isAelfAddress, isDIDAelfAddress } from 'packages/utils/aelf';
+import { isAelfAddress, isDIDAelfAddress } from './aelf';
 import * as uuid from 'uuid';
 
 /**
@@ -47,8 +47,8 @@ export const getChainIdByAddress = (address: string, chainType: ChainType = 'ael
 };
 
 const protocolAndDomainRE = /^(?:\w+:)?\/\/(\S+)$/;
-const localhostDomainRE = /^localhost[\:?\d]*(?:[^\:?\d]\S*)?$/;
-const nonLocalhostDomainRE = /^[^\s\.]+\.\S{2,}$/;
+const localhostDomainRE = /^localhost[:?\d]*(?:[^:?\d]\S*)?$/;
+const nonLocalhostDomainRE = /^[^\s.]+\.\S{2,}$/;
 
 export function isUrl(string: string) {
   if (typeof string !== 'string') {

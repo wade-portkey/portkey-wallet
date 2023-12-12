@@ -1,7 +1,7 @@
-import { AccountOriginalType } from 'model/verify/core';
-import { GuardianConfig } from 'model/verify/guardian';
+import { AccountOriginalType } from '../core';
+import { GuardianConfig } from '../guardian';
 import { CheckVerifyCodeResultDTO } from 'network/dto/guardian';
-import { ThirdPartyAccountInfo } from 'model/verify/third-party-account';
+import { ThirdPartyAccountInfo } from '../third-party-account';
 import { ITransferLimitItem } from 'model/security';
 
 export interface GuardianVerifyConfig {

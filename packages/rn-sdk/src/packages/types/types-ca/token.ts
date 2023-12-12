@@ -1,6 +1,6 @@
-import { ChainId } from 'packages/types';
-import { ChainItemType } from 'packages/types/chain';
-import { AccountType } from 'packages/types/wallet';
+import { ChainId } from '..';
+import { ChainItemType } from '../chain';
+import { AccountType } from '../wallet';
 
 export interface BaseToken {
   id?: string; // id

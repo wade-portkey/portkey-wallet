@@ -7,8 +7,8 @@ import Svg from 'components/Svg';
 import Touchable from 'components/Touchable';
 import React from 'react';
 import { pTd } from 'utils/unit';
-import styles from 'pages/Login/styles';
-import NetworkContext from 'pages/Login/context/NetworkContext';
+import styles from '../styles';
+import NetworkContext from '../context/NetworkContext';
 
 export default function SwitchNetwork() {
   const networkContext = useContext(NetworkContext);

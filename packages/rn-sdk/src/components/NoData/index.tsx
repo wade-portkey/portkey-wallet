@@ -29,7 +29,7 @@ const NoData: React.FC<NoDataPropsType> = props => {
   if (type === 'top') {
     topStyle = {
       justifyContent: 'flex-start',
-      paddingTop: topDistance,
+      paddingTop: topDistance as number,
     };
   }
 

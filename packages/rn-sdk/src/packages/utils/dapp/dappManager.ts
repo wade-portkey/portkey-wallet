@@ -1,12 +1,12 @@
-import { addDapp, updateDapp } from 'packages/types/store-ca/dapp/actions';
-import { DappStoreItem } from 'packages/types/store-ca/dapp/type';
-import { ChainItemType } from 'packages/types/store-ca/wallet/type';
+import { addDapp, updateDapp } from 'packages/store/store-ca/dapp/actions';
+import { DappStoreItem } from 'packages/store/store-ca/dapp/type';
+import { ChainItemType } from 'packages/store/store-ca/wallet/type';
 import { DappManagerOptions, IDappManager, IDappManagerStore } from 'packages/types/types-ca/dapp';
 import { CACommonState } from 'packages/types/types-ca/store';
 import { CAInfo } from 'packages/types/types-ca/wallet';
 import { ChainId, ChainsInfo } from '@portkey/provider-types';
-import { handleAccounts, handleChainIds, handleCurrentCAInfo, handleOriginInfo } from 'packages/utils/dapp';
-import { isEqDapp } from 'packages/utils/dapp/browser';
+import { handleAccounts, handleChainIds, handleCurrentCAInfo, handleOriginInfo } from './index';
+import { isEqDapp } from './browser';
 import { NetworkType } from 'packages/types';
 import { DefaultChainId } from 'packages/constants/constants-ca/network';
 import { SessionInfo } from 'packages/types/session';

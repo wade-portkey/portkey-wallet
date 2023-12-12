@@ -1,8 +1,7 @@
 import { windowHeight } from 'packages/utils/mobile/device';
 import { isIOS } from 'packages/utils/mobile/device';
-import { makeStyles } from '@rneui/themed';
 import { pTd } from 'utils/unit';
-import gSTyles from 'assets/theme/GStyles';
+import gSTyles from './GStyles';
 
 export const useGStyles = {
   container: {

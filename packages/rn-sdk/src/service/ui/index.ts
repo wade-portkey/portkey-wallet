@@ -8,6 +8,7 @@ import { IPortkeyAccountService, IPortkeyUIManagerService } from 'service/core/b
 import { EntryResult, PortkeyModulesEntity } from 'service/native-modules';
 import { TYPES, WalletState } from 'service/core/types';
 import { AccountError } from 'service/error';
+import { wrapEntry } from 'utils/commonUtil';
 
 @injectable()
 export class UIManagerService implements IPortkeyUIManagerService {
@@ -63,14 +64,11 @@ export class UIManagerService implements IPortkeyUIManagerService {
 
   private async checkIsUnlocked() {
     const wallState = await this._accountService.getWalletState();
-    if(wallState !== WalletState.UNLOCKED){
-      console.warn("wallState state is error, wallet is not unlocked")
-    } 
     return wallState === WalletState.UNLOCKED;
   }
   private openFromExternal(target: PortkeyEntries) {
     PortkeyModulesEntity.RouterModule.navigateTo(
-      target,
+      wrapEntry(target),
       LaunchModeSet.get(target) || LaunchMode.STANDARD,
       'external',
       'none',
@@ -79,9 +77,8 @@ export class UIManagerService implements IPortkeyUIManagerService {
     );
   }
   private openResultFromExternal<R>(target: PortkeyEntries, callback: (res: EntryResult<R>) => void) {
-    console.log('target', target);
     PortkeyModulesEntity.RouterModule.navigateToWithOptions(
-      target,
+      wrapEntry(target),
       LaunchModeSet.get(target) || LaunchMode.STANDARD,
       'external',
       {} as any,

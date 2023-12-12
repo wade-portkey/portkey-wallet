@@ -1,1 +1,0 @@
-Object.defineProperty(exports,"__esModule",{value:true});exports.sellListenList=exports.queryExpirationTime=exports.SocketUrl=void 0;var _=require("./..");var SocketUrl=exports.SocketUrl='http://192.168.66.38:5577/ca';var queryExpirationTime=exports.queryExpirationTime=5*_.MINUTE;var sellListenList=exports.sellListenList=['onAchTxAddressReceived','onOrderTransferredReceived'];

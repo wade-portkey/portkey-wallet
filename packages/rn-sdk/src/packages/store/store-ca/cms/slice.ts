@@ -5,8 +5,8 @@ import {
   getTabMenuAsync,
   getBuyButtonAsync,
   getRememberMeBlackListAsync,
-} from 'packages/store/store-ca/cms/actions';
-import { CMSState } from 'packages/store/store-ca/cms/types';
+} from './actions';
+import { CMSState } from './types';
 
 const initialState: CMSState = {
   socialMediaListNetMap: {},

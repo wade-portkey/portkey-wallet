@@ -1,5 +1,5 @@
 import { createAction } from '@reduxjs/toolkit';
-import { ChannelList, UpdateChannelAttributeTypeEnum } from 'packages/store/store-ca/im/type';
+import { ChannelList, UpdateChannelAttributeTypeEnum } from './type';
 import { ChannelItem, Message } from 'packages/im';
 import { NetworkType } from 'packages/types';
 

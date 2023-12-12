@@ -1,7 +1,7 @@
 import { getUnlockedWallet } from 'model/wallet';
 import { NetworkController } from 'network/controller';
 import { TestCase } from 'service/JsModules/types';
-import { encryptLocal } from 'utils/crypto';
+import { decryptLocal, encryptLocal } from 'utils/crypto';
 
 export const NetworkTestCases: Array<TestCase> = [
   {
@@ -15,9 +15,9 @@ export const NetworkTestCases: Array<TestCase> = [
     describe: 'EncryptLocal',
     run: async testContext => {
       const msg = 'i-am-error';
-      const decrypted = await encryptLocal(await encryptLocal(msg));
-      console.log('decrypted', decrypted);
-      testContext.assert(msg === decrypted, 'msg should be the same after 2 times encryptLocal');
+      const decrypted = await decryptLocal(await encryptLocal(msg));
+      testContext.log('decrypted', decrypted);
+      testContext.assert(msg === decrypted, 'msg should be the same after encrypt and decrypt');
     },
   },
   {

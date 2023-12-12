@@ -1,1 +1,1 @@
-module.exports.queries = require('packages/graphql/contract/__generated__/operation/queries');
+module.exports.queries = require('./queries');

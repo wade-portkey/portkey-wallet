@@ -1,8 +1,8 @@
 import { NetworkController } from 'network/controller';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { CheckVerifyCodeResultDTO, SendVerifyCodeParams } from 'network/dto/guardian';
-import { AccountOriginalType } from 'model/verify/core';
-import { VerifiedGuardianDoc } from 'model/verify/core';
+import { CheckVerifyCodeResultDTO, SendVerifyCodeParams } from '../../../network/dto/guardian';
+import { AccountOriginalType } from '../core';
+import { VerifiedGuardianDoc } from '../core/index';
 
 export const INIT_TIME_OUT = 60;
 
@@ -47,7 +47,7 @@ const usePhoneOrEmailGuardian = (config: GuardianConfig): GuardianEntity => {
   useEffect(() => {
     startToCountDown();
     return () => {
-      timer.current && clearInterval(timer.current);
+      timer.current && clearInterval(timer.current as unknown as number);
     };
   }, []);
 
@@ -56,7 +56,7 @@ const usePhoneOrEmailGuardian = (config: GuardianConfig): GuardianEntity => {
     timer.current = setInterval(() => {
       setCountDown(prev => {
         if (prev === 0) {
-          timer.current && clearInterval(timer.current);
+          timer.current && clearInterval(timer.current as unknown as number);
           return 0;
         } else {
           return prev - 1;

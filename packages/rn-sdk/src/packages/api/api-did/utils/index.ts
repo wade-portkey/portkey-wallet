@@ -2,7 +2,7 @@ import { AElfWallet } from 'packages/types/aelf';
 import { customFetch } from 'packages/utils/fetch';
 import { stringify } from 'query-string';
 import AElf from 'aelf-sdk';
-import { request } from 'packages/api/api-did';
+import { request } from '../index';
 import { ChainId } from 'packages/types';
 export type RefreshTokenConfig = {
   grant_type: 'signature';
@@ -16,7 +16,7 @@ export type RefreshTokenConfig = {
   chainId: ChainId;
 };
 export const queryAuthorization = async (config: RefreshTokenConfig) => {
-  const { connectUrl, ..._config } = config;
+  const { ..._config } = config;
   const { access_token } = await customFetch(config.connectUrl + '/connect/token', {
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     method: 'POST',

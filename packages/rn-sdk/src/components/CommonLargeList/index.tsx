@@ -1,6 +1,6 @@
 import React, { forwardRef, Ref } from 'react';
 import { IndexPath, LargeList, LargeListPropType } from 'react-native-largelist';
-import UpPullLoading from 'components/CommonLargeList/components/UpPullLoading';
+import UpPullLoading from './components/UpPullLoading';
 export interface CommonLargeListProps
   extends Omit<LargeListPropType, 'heightForIndexPath' | 'renderIndexPath' | 'heightForSection'> {
   indexHeight?: number;

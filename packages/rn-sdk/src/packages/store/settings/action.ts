@@ -1,5 +1,5 @@
 import { createAction } from '@reduxjs/toolkit';
-import { LockingTimeType } from 'packages/store/settings/types';
+import { LockingTimeType } from './types';
 
 export const changeLockingTime = createAction<{
   time: LockingTimeType;

@@ -10,8 +10,8 @@ import {
   guardianTypeStrToEnum,
 } from 'model/global';
 import { SetPinPageResult, SetPinPageProps } from 'pages/Pin/SetPin';
-import { AccountOriginalType, AfterVerifiedConfig, VerifiedGuardianDoc } from 'model/verify/core';
-import { GuardianConfig } from 'model/verify/guardian';
+import { AccountOriginalType, AfterVerifiedConfig, VerifiedGuardianDoc } from '../core';
+import { GuardianConfig } from '../guardian';
 import useBaseContainer from 'model/container/UseBaseContainer';
 import { SendVerifyCodeResultDTO } from 'network/dto/guardian';
 import { OperationTypeEnum } from 'packages/types/verifier';
@@ -21,9 +21,9 @@ import { VerifierDetailsPageProps } from 'pages/Entries/VerifierDetails';
 import { VerifyPageResult } from 'pages/Guardian/VerifierDetails';
 import { useCallback } from 'react';
 import { PageType } from 'pages/Login/types';
-import { ThirdPartyAccountInfo, isAppleLogin } from 'model/verify/third-party-account';
+import { ThirdPartyAccountInfo, isAppleLogin } from '../third-party-account';
 import { GuardianApprovalPageProps, GuardianApprovalPageResult } from 'pages/Entries/GuardianApproval';
-import { useThirdPartyVerifyAtomic } from 'model/verify/entry/atomic';
+import { useThirdPartyVerifyAtomic } from './atomic';
 import { UnlockedWallet, getUnlockedWallet } from 'model/wallet';
 
 export interface LoginResult {
@@ -90,7 +90,7 @@ export const useVerifyEntry = (verifyConfig: VerifyConfig): VerifyEntryHooks => 
         },
       );
     },
-    [navigateForResult],
+    [navigateForResult, type],
   );
 
   const thirdPartyLogin = async (thirdPartyLoginType: 'google' | 'apple'): Promise<void> => {

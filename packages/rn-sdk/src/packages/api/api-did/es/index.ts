@@ -1,4 +1,4 @@
-import { ESBaseConfig } from 'packages/api/api-did/es/type';
+import { ESBaseConfig } from './type';
 
 const Method = 'GET';
 const BaseESUrl = `/api/app/`;

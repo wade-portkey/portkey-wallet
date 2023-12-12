@@ -1,9 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { DefaultChain } from 'packages/constants/network';
 import { ChainItemType } from 'packages/types/chain';
-import { ChainActionError, ChainState } from 'packages/store/network/types';
-import { checkNetworkName } from 'packages/store/network/utils';
-import { addCustomChainItem, fetchChainListAsync, updateCustomChainItem } from 'packages/store/network/actions';
+import { ChainActionError, ChainState } from './types';
+import { checkNetworkName } from './utils';
+import { addCustomChainItem, fetchChainListAsync, updateCustomChainItem } from './actions';
 
 const initialState: ChainState = {
   currentChain: DefaultChain,

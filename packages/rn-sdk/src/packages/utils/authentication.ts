@@ -1,4 +1,4 @@
-import { customFetch } from 'packages/utils/fetch';
+import { customFetch } from './fetch';
 import { Buffer } from 'buffer';
 
 if (!global.Buffer) {

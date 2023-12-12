@@ -27,8 +27,8 @@ import {
   VerifySignatureLoopParams,
   VerifySignatureParams,
   VerifySignatureResult,
-} from 'packages/im/types/service';
-import { ChannelMemberInfo, ContactItemType, Message, MessageCount } from 'packages/im/types';
+} from '../types/service';
+import { ChannelMemberInfo, ContactItemType, Message, MessageCount } from '../types';
 import { sleep } from 'packages/utils';
 
 export class IMService<T extends IBaseRequest = IBaseRequest> extends BaseService<T> implements IIMService {
@@ -93,7 +93,7 @@ export class IMService<T extends IBaseRequest = IBaseRequest> extends BaseServic
     return this.getAuthTokenLoop(params, checkIsContinue, times - 1);
   }
 
-  getUserInfo<T = GetUserInfoDefaultResult>(params: GetUserInfoParams): IMServiceCommon<T> {
+  getUserInfo<R = GetUserInfoDefaultResult>(params: GetUserInfoParams): IMServiceCommon<R> {
     return this._request.send({
       url: '/api/v1/users/userInfo',
       params,

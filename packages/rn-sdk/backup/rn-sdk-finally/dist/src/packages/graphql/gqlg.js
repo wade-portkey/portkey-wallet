@@ -1,1 +1,0 @@
-var gqlg=require('gql-generator');var schemaPath=require("./schemaPath.config");schemaPath.forEach(function(_ref){var name=_ref.name,path=_ref.path;gqlg({schemaFilePath:path,destDirPath:"./"+name+"/__generated__/operation",fileExtension:'gql'});});

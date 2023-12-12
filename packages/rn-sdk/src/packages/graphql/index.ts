@@ -1,4 +1,4 @@
-import * as contractQueries from 'packages/graphql/contract/queries';
-import * as cmsQueries from 'packages/graphql/cms/queries';
+import * as contractQueries from './contract/queries';
+import * as cmsQueries from './cms/queries';
 
 export { contractQueries, cmsQueries };

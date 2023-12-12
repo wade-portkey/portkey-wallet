@@ -1,7 +1,7 @@
 import BatchedBridge from 'react-native/Libraries/BatchedBridge/BatchedBridge';
-import { WalletModule } from 'service/JsModules/SubModules/WalletModule';
-import { BaseJSModule } from 'service/JsModules/types';
-import { TestModule } from 'service/JsModules/SubModules/TestModule';
+import { WalletModule } from '../SubModules/WalletModule';
+import { BaseJSModule } from '../types';
+import { TestModule } from '../SubModules/TestModule';
 
 enum JSModuleIdentifier {
   WALLET_MODULE = 'WalletModule',

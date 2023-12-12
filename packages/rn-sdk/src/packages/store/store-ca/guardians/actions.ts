@@ -2,7 +2,7 @@ import { createAction } from '@reduxjs/toolkit';
 import { VerifierItem, VerifyStatus } from 'packages/types/verifier';
 import { GuardiansInfo } from 'packages/types/types-ca/guardian';
 
-import { IVerifierInfo, StoreUserGuardianItem, UserGuardianItem, UserGuardianStatus } from 'packages/store/store-ca/guardians/type';
+import { IVerifierInfo, StoreUserGuardianItem, UserGuardianItem, UserGuardianStatus } from './type';
 
 export const resetGuardiansState = createAction('verifier/resetGuardiansState');
 

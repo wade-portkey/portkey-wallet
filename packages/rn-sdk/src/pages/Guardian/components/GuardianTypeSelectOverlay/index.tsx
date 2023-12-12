@@ -2,7 +2,7 @@ import React from 'react';
 import OverlayModal from 'components/OverlayModal';
 import { Keyboard, ScrollView, View } from 'react-native';
 import Touchable from 'components/Touchable';
-import styles from 'pages/Guardian/components/GuardianTypeSelectOverlay/styles';
+import styles from './styles';
 import GStyles from 'assets/theme/GStyles';
 import Svg from 'components/Svg';
 import { TextL } from 'components/CommonText';

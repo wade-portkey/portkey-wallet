@@ -2,18 +2,18 @@ import React, { useCallback, useEffect, useMemo, useState, useContext } from 're
 import { View, Image } from 'react-native';
 import { BGStyles, FontStyles } from 'assets/theme/styles';
 import myEvents from 'utils/deviceEvent';
-import styles from 'pages/Login/styles';
+import styles from '../styles';
 import Touchable from 'components/Touchable';
 import GStyles from 'assets/theme/GStyles';
 import { TextS, TextXXXL } from 'components/CommonText';
-import { PageLoginType } from 'pages/Login/types';
+import { PageLoginType } from '../types';
 import { useIntervalQueryCAInfoByAddress } from 'hooks/useIntervalQueryCAInfoByAddress';
 import { LoginQRData } from 'packages/types/types-ca/qrcode';
 import { useGetDeviceInfo } from 'hooks/device';
 import { DEVICE_INFO_VERSION } from 'packages/constants/constants-ca/device';
 import CommonQRCodeStyled from 'components/CommonQRCodeStyled';
 import { usePreventScreenCapture } from 'expo-screen-capture';
-import NetworkContext from 'pages/Login/context/NetworkContext';
+import NetworkContext from '../context/NetworkContext';
 import useBaseContainer from 'model/container/UseBaseContainer';
 import { SetPinPageResult, SetPinPageProps } from 'pages/Pin/SetPin';
 import { PortkeyEntries } from 'config/entries';
@@ -151,7 +151,7 @@ export default function QRCode({ setLoginType }: { setLoginType: (type: PageLogi
     if (isIOS) {
       return { uri: 'phone' };
     } else {
-      return require('../../../assets/image/pngs/phone.png');
+      return require('assets/image/pngs/phone.png');
     }
   }, []);
 

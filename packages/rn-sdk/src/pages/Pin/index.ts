@@ -1,7 +1,7 @@
-import SetPin from 'pages/Pin/SetPin';
-import CheckPin from 'pages/Pin/CheckPin';
-import ConfirmPin from 'pages/Pin/ConfirmPin';
-import SetBiometrics from 'pages/Pin/SetBiometrics';
+import SetPin from './SetPin';
+import CheckPin from './CheckPin';
+import ConfirmPin from './ConfirmPin';
+import SetBiometrics from './SetBiometrics';
 const stackNav = [
   { name: 'SetPin', component: SetPin, options: { gestureEnabled: false } },
   { name: 'ConfirmPin', component: ConfirmPin },

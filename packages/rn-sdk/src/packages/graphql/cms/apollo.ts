@@ -1,7 +1,7 @@
 import { ApolloClient, NormalizedCacheObject } from '@apollo/client';
 import { NetworkType } from 'packages/types';
 import { NetworkList } from 'packages/constants/constants-ca/network';
-import { graphQLClientProvider } from 'packages/graphql/client';
+import { graphQLClientProvider } from '../client';
 
 export const networkClientMap: Record<string, ApolloClient<NormalizedCacheObject>> = {};
 

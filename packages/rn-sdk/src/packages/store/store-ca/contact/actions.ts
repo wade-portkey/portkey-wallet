@@ -1,10 +1,10 @@
 import { createAsyncThunk, createAction } from '@reduxjs/toolkit';
 import { ContactItemType } from 'packages/types/types-ca/contact';
-import { ContactState } from 'packages/store/store-ca/contact/slice';
-import { FetchContractListAsyncPayloadType } from 'packages/store/store-ca/contact/type';
+import { ContactState } from './slice';
+import { FetchContractListAsyncPayloadType } from './type';
 import { CONTACT_API_FETCH_SIZE, CONTACT_API_RETRY_LIMIT } from 'packages/constants/constants-ca/contact';
-import { transContactsToIndexes } from 'packages/store/store-ca/contact/utils';
-import { WalletState } from 'packages/store/store-ca/wallet/type';
+import { transContactsToIndexes } from './utils';
+import { WalletState } from '../wallet/type';
 import { NetworkList } from 'packages/constants/constants-ca/network';
 import {
   getContactList as getContactListEs,

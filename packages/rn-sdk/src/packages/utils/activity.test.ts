@@ -1,5 +1,6 @@
 import { MAIN_CHAIN, SIDE_CHAIN, TEST_NET } from 'packages/constants/constants-ca/activity';
-import { getCurrentActivityMapKey, transNetworkText } from 'packages/utils/activity';
+import { getCurrentActivityMapKey, transNetworkText } from './activity';
+import { describe, expect, test } from '@jest/globals';
 
 describe('transNetworkText', () => {
   test('MainChain and Testnet', () => {

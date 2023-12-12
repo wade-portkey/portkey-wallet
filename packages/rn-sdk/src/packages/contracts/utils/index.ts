@@ -1,5 +1,5 @@
 import { AElfInterface, AElfWallet } from 'packages/types/aelf';
-import { ContractBasic } from 'packages/contracts/utils/ContractBasic';
+import { ContractBasic } from './ContractBasic';
 import AElf from 'aelf-sdk';
 import { getAelfInstance } from 'packages/utils/aelf';
 import { sleep } from 'packages/utils';
@@ -117,10 +117,10 @@ export async function getContractMethods(instance: any, address: any) {
   if (!methodsMap[key]) {
     const methods = await getFileDescriptorsSet(instance, address);
     const _obj: any = {};
-    Object.keys(methods).forEach(key => {
-      const service = methods[key];
-      Object.keys(service.methods).forEach(key => {
-        const method = service.methods[key].resolve();
+    Object.keys(methods).forEach(i => {
+      const service = methods[i];
+      Object.keys(service.methods).forEach(j => {
+        const method = service.methods[j].resolve();
         _obj[method.name] = method.resolvedRequestType;
       });
     });

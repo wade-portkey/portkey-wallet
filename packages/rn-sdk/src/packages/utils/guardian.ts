@@ -1,5 +1,5 @@
 import { ZERO } from 'packages/constants/misc';
-import { UserGuardianItem } from 'packages/types/store-ca/guardians/type';
+import { UserGuardianItem } from 'packages/store/store-ca/guardians/type';
 import { GuardiansInfo } from 'packages/types/types-ca/guardian';
 import { LoginType } from 'packages/types/types-ca/wallet';
 import { VerifierItem } from 'packages/types/verifier';

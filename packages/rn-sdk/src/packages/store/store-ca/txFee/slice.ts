@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchTxFeeAsync, resetTxFee } from 'packages/store/store-ca/txFee/actions';
-import { TxFeeType } from 'packages/store/store-ca/txFee/type';
+import { fetchTxFeeAsync, resetTxFee } from './actions';
+import { TxFeeType } from './type';
 
 const initialState: TxFeeType = {};
 

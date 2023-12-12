@@ -1,5 +1,5 @@
 import { ChainId } from 'packages/types';
-import { OperationTypeEnum } from 'packages/types/verifier';
+import { OperationTypeEnum } from '../verifier';
 
 export type VerifyTokenParams = {
   accessToken?: string;

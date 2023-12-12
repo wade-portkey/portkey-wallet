@@ -1,5 +1,5 @@
 import { ContactIndexType, ContactItemType } from 'packages/types/types-ca/contact';
-import { ContactState } from 'packages/store/store-ca/contact/slice';
+import { ContactState } from './slice';
 
 export interface FetchContractListAsyncPayloadType {
   isInit: boolean;

@@ -1,6 +1,6 @@
 import { sleep } from 'packages/utils';
 import { AElfInterface } from 'packages/types/aelf';
-import { getTxResult } from 'packages/utils/aelfUtils';
+import { getTxResult } from './aelfUtils';
 import { ChainType } from 'packages/types';
 import { encodedTx } from 'packages/utils/aelf';
 type SendOptions = {
@@ -60,11 +60,7 @@ export class ContractBasic {
     this.contractType = isELF ? 'aelf' : 'ethereum';
   }
 
-  public callViewMethod: CallViewMethod = async (
-    functionName,
-    paramsOption,
-    callOptions = { defaultBlock: 'latest' },
-  ) => {
+  public callViewMethod: CallViewMethod = async (functionName, paramsOption) => {
     if (this.callContract instanceof AElfContractBasic)
       return this.callContract.callViewMethod(functionName, paramsOption);
   };

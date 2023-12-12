@@ -13,8 +13,9 @@ import {
   transformArrayToMap,
   encodedTx,
   isCrossChain,
-} from 'packages/utils/aelf';
+} from './aelf';
 import AElf from 'aelf-sdk';
+import { beforeEach, describe, expect, jest, test } from '@jest/globals';
 
 jest.mock('aelf-sdk');
 
@@ -55,7 +56,7 @@ describe('isAelfAddress', () => {
     const res = isAelfAddress('add_re');
     expect(res).toBe(false);
   });
-  test('params without _, and return false', () => {
+  test('params without _, and return false2', () => {
     const res = isAelfAddress('add_re_ss');
     expect(res).toBe(false);
   });
@@ -247,7 +248,7 @@ describe('getAelfAddress', () => {
     const res = getAelfAddress(defaultPrefix + '_' + value);
     expect(res).toBe(defaultPrefix + '_' + value);
   });
-  test('have value with only suffix, and return successfully', () => {
+  test('have value with only suffix, and return successfully2', () => {
     jest.spyOn(AElf.utils, 'decodeAddressRep').mockReturnValue(true);
     const res = getAelfAddress(value + '_' + defaultSuffix);
     expect(res).toBe(value);
@@ -305,7 +306,7 @@ describe('getELFContract', () => {
 
     expect(res).toBe('contract');
   });
-  test('mock function, and return successfully', async () => {
+  test('mock function, and return successfully2', async () => {
     jest.mocked(AElf).mockReturnValue({ chain: { contractAt: jest.fn(() => 'contract') } } as any);
     jest.spyOn(AElf.providers, 'HttpProvider').mockReturnValue(jest.fn());
     jest.spyOn(AElf.wallet, 'getWalletByPrivateKey').mockReturnValue(wallet);
@@ -379,7 +380,7 @@ describe('encodedTx', () => {
   test('return resolved value', async () => {
     const contract = {
       functionName: {
-        getSignedTx: jest.fn().mockResolvedValue('raw'),
+        getSignedTx: jest.fn<() => Promise<string>>().mockResolvedValue('raw'),
       },
     };
     const res = await encodedTx({ instance, functionName: 'functionName', paramsOption: 'paramsOption', contract });
@@ -388,7 +389,7 @@ describe('encodedTx', () => {
   test('return rejected value', async () => {
     const contract = {
       functionName: {
-        getSignedTx: jest.fn().mockRejectedValue({ code: 500 }),
+        getSignedTx: jest.fn<() => Promise<{ code: number }>>().mockRejectedValue({ code: 500 }),
       },
     };
     const res = await encodedTx({ instance, functionName: 'functionName', paramsOption: 'paramsOption', contract });

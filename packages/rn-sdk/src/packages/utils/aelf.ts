@@ -2,7 +2,7 @@ import AElf from 'aelf-sdk';
 import { COMMON_PRIVATE } from 'packages/constants';
 import { AElfInterface } from 'packages/types/aelf';
 import { ChainId } from 'packages/types';
-import { isValidBase58 } from 'packages/utils/reg';
+import { isValidBase58 } from './reg';
 const Wallet = AElf.wallet;
 
 export function isEqAddress(a1?: string, a2?: string) {
@@ -77,7 +77,7 @@ export function isAllowAelfAddress(value: string) {
   return false;
 }
 
-export function getAelfAddress(value: string = '') {
+export function getAelfAddress(value = '') {
   const arr = value.split('_');
   if (arr.length === 3) return arr[1];
   for (let i = 0; i < arr.length; i++) {

@@ -1,5 +1,5 @@
 import React from 'react';
-import AppleLogin from 'model/hooks/apple-login/AppleLogin';
+import AppleLogin from './AppleLogin';
 import OverlayModal from 'components/OverlayModal';
 import { screenWidth } from 'packages/utils/mobile/device';
 import { clearBackgroundTimeout, setBackgroundTimeout } from 'utils/backgroundTimer';

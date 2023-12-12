@@ -1,4 +1,4 @@
-import { UserGuardianItem } from 'packages/types/store-ca/guardians/type';
+import { UserGuardianItem } from 'packages/store/store-ca/guardians/type';
 import { VerifierInfo } from 'packages/types/verifier';
 import { GuardiansStatus } from 'pages/Guardian/types';
 import { ContractBasic } from 'packages/contracts/utils/ContractBasic';

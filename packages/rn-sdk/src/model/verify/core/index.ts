@@ -11,11 +11,11 @@ import {
   RegisterProgressDTO,
   ManagerInfo,
   isRecoveryStatusItem,
+  BaseAccountStatus,
 } from 'network/dto/wallet';
 import { GlobalStorage, TempStorage } from 'service/storage';
-import { decrypt, encrypt, encryptLocal } from 'utils/crypto';
+import { decrypt, decryptLocal, encrypt, encryptLocal } from 'utils/crypto';
 
-const PIN_KEY = 'pin';
 const WALLET_CONFIG_KEY = 'walletConfig';
 const USE_BIOMETRIC_KEY = 'useBiometric';
 const LOCAL_WALLET_CONFIG_KEY = 'localWalletConfig';
@@ -118,7 +118,9 @@ const handleNormalVerify = async (config: NormalVerifyPathInfo): Promise<Recover
     timeGap: 500,
     verifyResult: result => {
       const { items } = result || {};
-      const item = items?.find(it => it.chainId === originalChainId);
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      const item = items?.find((it: BaseAccountStatus) => it.chainId === originalChainId);
       if (item) {
         return isRecoveryStatusItem(item)
           ? item.recoveryStatus === ProgressStatus.PASS
@@ -129,6 +131,8 @@ const handleNormalVerify = async (config: NormalVerifyPathInfo): Promise<Recover
     },
     declareFatalFail: alternative => {
       const { items } = alternative || {};
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       const item = items?.find(it => it.chainId === originalChainId);
       if (item) {
         return isRecoveryStatusItem(item)
@@ -150,6 +154,8 @@ const handleNormalVerify = async (config: NormalVerifyPathInfo): Promise<Recover
     privateKey,
     address,
     originalChainId,
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     caInfo: status?.items?.find(it => it.chainId === originalChainId) ?? undefined,
   };
 };
@@ -172,6 +178,8 @@ const findVerifyProcessOnCurrChain = (
   status: RecoveryProgressDTO | RegisterProgressDTO,
 ): ProgressStatus | undefined => {
   const { items } = status || {};
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   const item = items?.find(it => it.chainId === chainId);
   if (item) {
     return isRecoveryStatusItem(item) ? item.recoveryStatus : item.registerStatus;
@@ -208,9 +216,9 @@ export const lockWallet = async (): Promise<void> => {
 };
 
 export const exitWallet = async (): Promise<void> => {
-  GlobalStorage.remove(PIN_KEY);
   GlobalStorage.remove(USE_BIOMETRIC_KEY);
   GlobalStorage.remove(WALLET_CONFIG_KEY);
+  GlobalStorage.remove(LOCAL_WALLET_CONFIG_KEY);
   TempStorage.remove(WALLET_CONFIG_KEY);
 };
 
@@ -230,7 +238,6 @@ export const checkPin = async (pinValue: string): Promise<boolean> => {
     const encrypted = await GlobalStorage.getString(WALLET_CONFIG_KEY);
     if (!encrypted || !pinValue) throw new Error('wallet not exist');
     const decrypted = decrypt(encrypted, pinValue);
-    console.log('decrypted', decrypted);
     const decryptedWalletConfig = JSON.parse(decrypted);
     return !!decryptedWalletConfig;
   } catch (e) {
@@ -239,7 +246,10 @@ export const checkPin = async (pinValue: string): Promise<boolean> => {
   }
 };
 export const changePin = async (pinValue: string): Promise<void> => {
-  GlobalStorage.set(PIN_KEY, pinValue);
+  const unlockedWallet = await TempStorage.getString(WALLET_CONFIG_KEY);
+  if (!unlockedWallet) throw new Error('wallet not unlocked!');
+  const encrypted = encrypt(unlockedWallet, pinValue);
+  GlobalStorage.set(WALLET_CONFIG_KEY, encrypted);
 };
 
 export const unLockTempWallet = async (pinValue?: string, useBiometric = false): Promise<boolean> => {
@@ -252,7 +262,7 @@ export const unLockTempWallet = async (pinValue?: string, useBiometric = false):
       const encrypted = await GlobalStorage.getString(LOCAL_WALLET_CONFIG_KEY);
       console.log('encrypted', encrypted);
       if (!encrypted) throw new Error('wallet not exist');
-      decrypted = await encryptLocal(encrypted);
+      decrypted = await decryptLocal(encrypted);
     } else {
       const encrypted = await GlobalStorage.getString(WALLET_CONFIG_KEY);
       if (!encrypted || !pinValue) throw new Error('wallet not exist');

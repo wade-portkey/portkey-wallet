@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { defaultColors } from 'assets/theme';
+import { defaultColors } from 'assets/theme/index';
 import GStyles from 'assets/theme/GStyles';
 import { pTd } from 'utils/unit';
 

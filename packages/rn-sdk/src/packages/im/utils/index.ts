@@ -1,2 +1,2 @@
-export * from 'packages/im/utils/sign';
-export * from 'packages/im/utils/parser';
+export * from './sign';
+export * from './parser';

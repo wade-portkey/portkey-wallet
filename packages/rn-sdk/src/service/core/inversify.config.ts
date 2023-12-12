@@ -1,7 +1,7 @@
 import { Container } from 'inversify';
-import { TYPES } from 'service/core/types';
-import { IPortkeyAccountService, IPortkeyUIManagerService } from 'service/core/base';
-import { PortkeyAccountService } from 'service/core/account';
+import { TYPES } from './types';
+import { IPortkeyAccountService, IPortkeyUIManagerService } from './base';
+import { PortkeyAccountService } from './account';
 import { UIManagerService } from 'service/ui';
 
 const myContainer = new Container();

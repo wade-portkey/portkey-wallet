@@ -1,9 +1,9 @@
 import { TypedUseSelectorHook, useSelector, useDispatch } from 'react-redux';
-import { RootCommonState } from 'packages/types/store';
+import { RootCommonState } from '../types/store';
 import { DependencyList, useCallback, useRef, useEffect } from 'react';
 
-export { useAppEOASelector } from 'packages/hooks/hooks-eoa';
-export { useAppCASelector } from 'packages/hooks/hooks-ca';
+// export { useAppEOASelector } from './hooks-eoa/index';
+// export { useAppCASelector } from './hooks-ca/index';
 
 export const useAppCommonDispatch: () => any = useDispatch;
 export const useAppCommonSelector: TypedUseSelectorHook<RootCommonState> = useSelector;

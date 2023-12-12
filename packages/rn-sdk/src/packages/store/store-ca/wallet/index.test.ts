@@ -13,13 +13,14 @@ import {
   getCaHolderInfoAsync,
   setChainListAction,
   createWalletAction,
-} from 'packages/store/store-ca/wallet/actions';
-import { changeEncryptStr } from 'packages/store/wallet/utils';
-import { walletSlice } from 'packages/store/store-ca/wallet/slice';
-import { WalletError, WalletType } from 'packages/store/store-ca/wallet/type';
-import { checkPassword } from 'packages/store/store-ca/wallet/utils';
+} from './actions';
+import { changeEncryptStr } from '../../wallet/utils';
+import { walletSlice } from './slice';
+import { WalletError, WalletType } from './type';
+import { checkPassword } from './utils';
 import { getCaHolder } from 'packages/api/api-did/es/utils';
 import { configureStore } from '@reduxjs/toolkit';
+import { jest, describe, test, expect, beforeEach } from '@jest/globals';
 
 const reducer = walletSlice.reducer;
 jest.mock('./utils');
@@ -122,6 +123,8 @@ describe('setCAInfo', () => {
         caInfo: {
           TESTNET: {},
           MAIN: {},
+          TEST1: {},
+          UNKNOWN: {},
         },
       },
     };
@@ -178,6 +181,8 @@ describe('setManageInfo', () => {
             },
           },
           MAIN: {},
+          TEST1: {},
+          UNKNOWN: {},
         },
       },
     };
@@ -294,17 +299,12 @@ describe('changePin', () => {
       caInfo: {
         TESTNET: {},
         MAIN: {},
+        TEST1: {},
+        UNKNOWN: {},
       },
     },
   };
   test('WalletInfo does not exist, throw error', () => {
-    const mockState = {
-      walletAvatar: 'master1',
-      walletType: 'aelf' as WalletType,
-      walletName: 'Wallet 02',
-      currentNetwork: 'TESTNET' as NetworkType,
-      chainList: [],
-    };
     expect(() => reducer(mockState, changePin(payload))).toThrowError(WalletError.noCreateWallet);
   });
   test('WalletInfo does not exist, update AESEncryptMnemonic', () => {
@@ -387,6 +387,8 @@ describe('setCAInfoType', () => {
         caInfo: {
           TESTNET: {},
           MAIN: {},
+          TEST1: {},
+          UNKNOWN: {},
         },
       },
     };
@@ -504,6 +506,8 @@ describe('resetCaInfo', () => {
         caInfo: {
           TESTNET: {},
           MAIN: {},
+          TEST1: {},
+          UNKNOWN: {},
         },
       },
     };

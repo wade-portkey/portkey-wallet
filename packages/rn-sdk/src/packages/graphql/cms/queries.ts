@@ -1,32 +1,32 @@
 import { NetworkType } from 'packages/types';
-import { getApolloClient } from 'packages/graphql/cms/apollo';
+import { getApolloClient } from './apollo';
 
 import {
   SocialMediaCustomDocument,
   SocialMediaCustomQuery,
   SocialMediaCustomQueryVariables,
-} from 'packages/graphql/cms/__generated__/hooks/socialMediaCustom';
+} from './__generated__/hooks/socialMediaCustom';
 import {
   TabMenuCustomDocument,
   TabMenuCustomQuery,
   TabMenuCustomQueryVariables,
-} from 'packages/graphql/cms/__generated__/hooks/tabMenuCustom';
+} from './__generated__/hooks/tabMenuCustom';
 import {
   DiscoverGroupCustomDocument,
   DiscoverGroupCustomQuery,
   DiscoverGroupCustomQueryVariables,
-} from 'packages/graphql/cms/__generated__/hooks/discoverGroupCustom';
+} from './__generated__/hooks/discoverGroupCustom';
 import {
   EntranceCustomDocument,
   EntranceCustomQuery,
   EntranceCustomQueryVariables,
-} from 'packages/graphql/cms/__generated__/hooks/entranceCustom';
+} from './__generated__/hooks/entranceCustom';
 
 import {
   RememberMeBlackListSitesCustomDocument,
   RememberMeBlackListSitesCustomQuery,
   RememberMeBlackListSitesCustomQueryVariables,
-} from 'packages/graphql/cms/__generated__/hooks/rememberMeBlackListSitesCustom';
+} from './__generated__/hooks/rememberMeBlackListSitesCustom';
 
 // SocialMedia
 const getSocialMedia = async (network: NetworkType, params: SocialMediaCustomQueryVariables) => {

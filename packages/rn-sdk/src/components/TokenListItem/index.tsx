@@ -7,7 +7,7 @@ import { TextL, TextS } from 'components/CommonText';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { formatChainInfoToShow } from 'packages/utils';
 import { pTd } from 'utils/unit';
-import { CommonInfo } from 'components/TokenOverlay/hooks';
+import { CommonInfo } from '../TokenOverlay/hooks';
 interface TokenListItemType {
   noBalanceShow?: boolean;
   item?: any;

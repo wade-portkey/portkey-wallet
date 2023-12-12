@@ -1,5 +1,5 @@
-import { contactSlice } from 'packages/store/store-ca/contact/slice';
-import * as utils from 'packages/store/store-ca/contact/utils';
+import { contactSlice } from './slice';
+import * as utils from './utils';
 import { configureStore } from '@reduxjs/toolkit';
 import {
   addContactAction,
@@ -7,12 +7,13 @@ import {
   editContactAction,
   fetchContactListAsync,
   resetContact,
-} from 'packages/store/store-ca/contact/actions';
+} from './actions';
 import {
   getContactList as getContactListEs,
   getContactEventList as getContactEventListEs,
 } from 'packages/api/api-did/es/utils';
 import { ChainId } from 'packages/types';
+import { jest, describe, test, expect, beforeEach } from '@jest/globals';
 
 const reducer = contactSlice.reducer;
 jest.mock('packages/api/api-did/es/utils');

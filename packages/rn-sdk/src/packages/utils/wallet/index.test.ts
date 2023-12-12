@@ -82,7 +82,7 @@ describe('formatWalletInfo', () => {
     expect((res as any).accountInfo.publicKey).toBeDefined();
   });
   test('Valid input, check generate AESEncryptPrivateKey and AESEncryptMnemonic', () => {
-    aes.encrypt = jest.fn();
+    // aes.encrypt = jest.fn();
     formatWalletInfo(walletInfoInput, password);
     expect(aes.encrypt).toHaveBeenCalledTimes(2);
   });
@@ -132,7 +132,7 @@ describe('formatAccountInfo', () => {
     expect(res).toHaveProperty('publicKey');
   });
   test('Valid input, check generate AESEncryptPrivateKey', () => {
-    aes.encrypt = jest.fn();
+    // aes.encrypt = jest.fn();
     formatAccountInfo(walletInfoInput, password, accountName);
     expect(aes.encrypt).toHaveBeenCalledTimes(1);
   });
@@ -153,7 +153,7 @@ describe('getAccountByMnemonic', () => {
     password = '11111111',
     BIP44Path = DefaultBIP44Path;
   test('Valid input', () => {
-    aes.decrypt = jest.fn().mockReturnValue(true);
+    // aes.decrypt = jest.fn().mockReturnValue(true);
     (AElf as any).wallet.getWalletByMnemonic = jest.fn();
     const res = getAccountByMnemonic({ AESEncryptMnemonic, password, BIP44Path });
     expect(aes.decrypt).toHaveBeenCalledTimes(1);
@@ -161,11 +161,11 @@ describe('getAccountByMnemonic', () => {
     expect(res).toBeFalsy();
   });
   test('The mnemonic does not exist', () => {
-    aes.decrypt = jest.fn().mockReturnValue(false);
+    // aes.decrypt = jest.fn().mockReturnValue(false);
     expect(getAccountByMnemonic({ AESEncryptMnemonic, password, BIP44Path })).toBeFalsy();
   });
   test('The AESEncryptMnemonic does not exist', () => {
-    aes.decrypt = jest.fn().mockReturnValue(false);
+    // aes.decrypt = jest.fn().mockReturnValue(false);
     expect(getAccountByMnemonic({ AESEncryptMnemonic: '', password, BIP44Path })).toBeFalsy();
   });
 });

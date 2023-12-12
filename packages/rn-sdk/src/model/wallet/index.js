@@ -149,7 +149,7 @@ var getCachedCaAddress = function (endPoint, originalCaInfo, originalChainId) { 
                         }
                     });
                 }); },
-                target: 'PERMANENT'
+                target: 'TEMP'
             })];
     });
 }); };

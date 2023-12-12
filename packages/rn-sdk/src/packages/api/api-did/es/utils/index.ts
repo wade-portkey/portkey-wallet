@@ -1,6 +1,6 @@
 import { request } from 'packages/api/api-did';
 import { GetContractListApiType } from 'packages/types/types-ca/contact';
-import { IGetContactListParams } from 'packages/api/api-did/es/type';
+import { IGetContactListParams } from '../type';
 
 export const getContactList = (
   baseURL: string,

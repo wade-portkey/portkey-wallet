@@ -15,7 +15,7 @@ import { ApprovalType, VerificationType, OperationTypeEnum, VerifyStatus } from 
 import { BGStyles, FontStyles } from 'assets/theme/styles';
 import { isIOS } from 'packages/utils/mobile/device';
 import { LoginType } from 'packages/types/types-ca/wallet';
-import { VerifierImage } from 'pages/Guardian/components/VerifierImage';
+import { VerifierImage } from '../VerifierImage';
 import { GuardiansStatus, GuardiansStatusItem } from 'pages/Guardian/types';
 import { useThrottleCallback } from 'packages/hooks';
 import { verification } from 'utils/api';

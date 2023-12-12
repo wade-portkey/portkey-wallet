@@ -1,5 +1,5 @@
 import { request } from 'packages/api/api-did';
-import { CryptoInfoType, GetAchTokenDataType, OrderQuoteType } from 'packages/api/api-did/payment/type';
+import { CryptoInfoType, GetAchTokenDataType, OrderQuoteType } from '../type';
 import { TransDirectEnum } from 'packages/constants/constants-ca/payment';
 import { PaymentTypeEnum } from 'packages/types/types-ca/payment';
 

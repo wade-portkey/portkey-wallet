@@ -5,6 +5,16 @@
   "author": "Carbon.lv <130360750+carbon-portkey@users.noreply.github.com>",
   "license": "MIT",
   "main": "./dist/index.js",
+  "files": [
+    "dist",
+    "script",
+    "src",
+    "android",
+    "ios",
+    "native-dependencies.js",
+    "tsconfig.json",
+    "PortkeySDK.podspec"
+  ],
   "dependencies": {
     "@apollo/client": "^3.7.3",
     "@babel/compat-data": "^7.22.20",
@@ -27,9 +37,9 @@
     "@rneui/base": "^4.0.0-rc.6",
     "@rneui/themed": "^4.0.0-rc.6",
     "@types/crypto-js": "^4.2.1",
-    "@types/lodash": "^4.14.202",
     "@types/is-url": "^1.2.32",
     "@types/jest": "^29.5.11",
+    "@types/lodash": "^4.14.202",
     "@types/url-parse": "^1.4.11",
     "acorn": "^8.1.0",
     "aelf-sdk": "^3.2.45-beta.1",
@@ -99,7 +109,7 @@
   },
   "scripts": {
     "start": "react-native start",
-    "build": "rm -rf dist/ && babel index.js --out-file dist/index.js --extensions \".js,.jsx,.ts,.tsx,.json\" && babel src --out-dir dist/src --extensions \".js,.jsx,.ts,.tsx\" && cpy \"src/**/*.(json|png|svg)\" dist/src",
+    "build": " rm -rf dist/ && tsc && rm -rf ./dist/src/ && babel index.ts --out-file dist/index.js --extensions \".js,.jsx,.ts,.tsx,.json\" && babel src --out-dir dist/src --extensions \".js,.jsx,.ts,.tsx\" && cpy \"src/**/*.(json|png|svg)\" dist/src",
     "postinstall": "node ./script/postinstall.js",
     "lint": "eslint . --ext .ts,.tsx"
   },
@@ -122,6 +132,7 @@
     "@types/lodash": "^4.14.202",
     "@types/react": "^18.2.21",
     "@types/react-native": "^0.69.7",
+    "@types/react-native-background-timer": "^2.0.2",
     "@types/uuid": "^9.0.7",
     "@typescript-eslint/eslint-plugin": "^5.29.0",
     "@typescript-eslint/parser": "^5.29.0",
@@ -137,6 +148,7 @@
     "metro-react-native-babel-preset": "^0.70.3",
     "prettier": "^2.6.2",
     "ts-node": "^10.9.1",
+    "tsc": "^2.0.4",
     "typescript": "^4.4.4"
   },
   "resolutions": {

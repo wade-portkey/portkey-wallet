@@ -1,1 +1,0 @@
-Object.defineProperty(exports,"__esModule",{value:true});exports.PaymentTypeEnum=void 0;var PaymentTypeEnum=exports.PaymentTypeEnum=function(PaymentTypeEnum){PaymentTypeEnum["BUY"]="BUY";PaymentTypeEnum["SELL"]="SELL";return PaymentTypeEnum;}({});

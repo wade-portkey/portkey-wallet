@@ -1,9 +1,10 @@
 import { ChainId } from 'packages/types';
-import { clearMarketToken, resetToken, tokenManagementSlice } from 'packages/store/store-ca/tokenManagement/slice';
-import { fetchAllTokenList } from 'packages/store/store-ca/tokenManagement/api';
+import { clearMarketToken, resetToken, tokenManagementSlice } from './slice';
+import { fetchAllTokenList } from './api';
 import { configureStore } from '@reduxjs/toolkit';
-import { fetchAllTokenListAsync, getSymbolImagesAsync } from 'packages/store/store-ca/tokenManagement/action';
+import { fetchAllTokenListAsync, getSymbolImagesAsync } from './action';
 import { request } from 'packages/api/api-did';
+import { jest, describe, test, expect } from '@jest/globals';
 
 jest.mock('./api');
 jest.mock('packages/api/api-did');

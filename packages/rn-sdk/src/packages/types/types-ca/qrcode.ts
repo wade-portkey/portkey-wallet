@@ -1,6 +1,6 @@
-import { ChainId, ChainType, NetworkType } from 'packages/types';
-import { DeviceType, QRExtraDataType } from 'packages/types/types-ca/device';
-import { IToSendAssetParamsType } from 'packages/types/types-ca/routeParams';
+import { ChainId, ChainType, NetworkType } from '..';
+import { DeviceType, QRExtraDataType } from './device';
+import { IToSendAssetParamsType } from './routeParams';
 
 export interface QRData {
   type: 'login' | 'send';

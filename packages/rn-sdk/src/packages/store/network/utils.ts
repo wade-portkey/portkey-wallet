@@ -1,4 +1,4 @@
-import { ChainActionError } from 'packages/store/network/types';
+import { ChainActionError } from './types';
 import AElf from 'aelf-sdk';
 import { ChainType } from 'packages/types';
 import { enumToMap, formatRpcUrl, isUrl } from 'packages/utils';

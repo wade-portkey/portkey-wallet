@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { IMStateType, UpdateChannelAttributeTypeEnum } from 'packages/store/store-ca/im/type';
+import { IMStateType, UpdateChannelAttributeTypeEnum } from './type';
 import {
   removeChannel,
   nextChannelList,
@@ -16,8 +16,8 @@ import {
   addChannel,
   setRelationId,
   setRelationToken,
-} from 'packages/store/store-ca/im/actions';
-import { formatChannelList } from 'packages/store/store-ca/im/util';
+} from './actions';
+import { formatChannelList } from './util';
 
 const initialState: IMStateType = {
   channelListNetMap: {},

@@ -1,7 +1,7 @@
 import { createAsyncThunk, createAction } from '@reduxjs/toolkit';
 import { request } from 'packages/api/api-did';
 import { NetworkType } from 'packages/types';
-import { MiscState } from 'packages/store/store-ca/misc/types';
+import { MiscState } from './types';
 import { NetworkList } from 'packages/constants/constants-ca/network';
 import { DefaultCountry } from 'packages/constants/constants-ca/country';
 import { CountryItem } from 'packages/types/types-ca/country';

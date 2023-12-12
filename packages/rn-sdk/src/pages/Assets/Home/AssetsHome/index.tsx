@@ -1,13 +1,13 @@
 import React, { useMemo } from 'react';
 import { View, Text } from 'react-native';
-import { styles } from 'pages/Assets/Home/AssetsHome/style';
+import { styles } from './style';
 import ReceiveButton from 'components/ReceiveButton';
 import { TextM } from 'components/CommonText';
 import FaucetButton from 'components/FaucetButton';
 import { useUnlockedWallet } from 'model/wallet';
 import { useCurrentNetworkType } from 'model/hooks/network';
 import SendButton from 'components/SendButton';
-import DashBoardTab from 'pages/Assets/Home/DashBoardTab';
+import DashBoardTab from '../DashBoardTab';
 import { useAccountTokenBalanceList, useSearchTokenList, useTokenPrices, useNftCollections } from 'model/hooks/balance';
 import CustomHeader from 'components/CustomHeader';
 import useBaseContainer from 'model/container/UseBaseContainer';

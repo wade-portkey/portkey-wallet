@@ -1,7 +1,6 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
 import { RecentContactItemType } from 'packages/types/types-ca/contact';
-import { fetchRecentTransactionUsers } from 'packages/store/store-ca/recent/api';
-import { initialRecentData } from 'packages/hooks/hooks-ca/useRecent';
+import { fetchRecentTransactionUsers } from './api';
 
 import { RECENT_LIST_PAGE_SIZE } from 'packages/constants/constants-ca/recent';
 import { ChainId } from 'packages/types';
@@ -57,7 +56,13 @@ export const recentSlice = createSlice({
       }>,
     ) => {
       const { caAddress } = action.payload;
-      state[caAddress] = initialRecentData;
+      state[caAddress] = {
+        isFetching: false,
+        skipCount: 0,
+        maxResultCount: 10,
+        totalRecordCount: 0,
+        recentContactList: [],
+      };
     },
     resetRecent: () => initialState,
   },

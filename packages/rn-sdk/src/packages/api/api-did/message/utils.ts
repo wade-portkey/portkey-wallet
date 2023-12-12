@@ -1,4 +1,4 @@
-import { request } from 'packages/api/api-did';
+import { request } from '../index';
 type sendScanLoginSuccessParams = {
   targetClientId: string;
 };

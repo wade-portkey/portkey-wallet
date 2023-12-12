@@ -1,0 +1,11 @@
+"use strict";
+exports.__esModule = true;
+exports.myContainer = void 0;
+var inversify_1 = require("inversify");
+var types_1 = require("./types");
+var account_1 = require("./account");
+var ui_1 = require("service/ui");
+var myContainer = new inversify_1.Container();
+exports.myContainer = myContainer;
+myContainer.bind(types_1.TYPES.AccountModule).to(account_1.PortkeyAccountService);
+myContainer.bind(types_1.TYPES.UIManagerModule).to(ui_1.UIManagerService);

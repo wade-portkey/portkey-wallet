@@ -27,6 +27,7 @@ var AssetsHome_1 = require("pages/Assets/Home/AssetsHome");
 var PaymentSecurityHome_1 = require("pages/My/WalletSecurity/PaymentSecurity/PaymentSecurityHome");
 var PaymentSecurityDetail_1 = require("pages/My/WalletSecurity/PaymentSecurity/PaymentSecurityDetail");
 var PaymentSecurityEdit_1 = require("pages/My/WalletSecurity/PaymentSecurity/PaymentSecurityEdit");
+var commonUtil_1 = require("utils/commonUtil");
 var initEntries = function () {
     var entryConfig = new Map();
     entryConfig.set(entries_1.PortkeyEntries.TEST, function () { return TestPage_1["default"]; });
@@ -63,7 +64,7 @@ var initEntries = function () {
     entryConfig.set(entries_1.PortkeyEntries.PAYMENT_SECURITY_EDIT_ENTRY, function () { return PaymentSecurityEdit_1["default"]; });
     for (var _i = 0, entryConfig_1 = entryConfig; _i < entryConfig_1.length; _i++) {
         var _a = entryConfig_1[_i], key = _a[0], value = _a[1];
-        react_native_1.AppRegistry.registerComponent(key, value);
+        react_native_1.AppRegistry.registerComponent((0, commonUtil_1.wrapEntry)(key), value);
     }
     registerLaunchMode();
 };

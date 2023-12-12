@@ -9,7 +9,7 @@ import useBaseContainer from 'model/container/UseBaseContainer';
 import { PortkeyEntries } from 'config/entries';
 import { changePin, getVerifiedAndLockWallet } from 'model/verify/core';
 import Loading from 'components/Loading';
-import { SetBiometricsProps, SetBiometricsResult, touchAuth } from 'pages/Pin/SetBiometrics';
+import { SetBiometricsProps, SetBiometricsResult, touchAuth } from '../SetBiometrics';
 import CommonToast from 'components/CommonToast';
 import { authenticateBioReady, isBiometricsCanUse } from 'service/biometric';
 

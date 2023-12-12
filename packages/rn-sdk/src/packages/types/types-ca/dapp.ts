@@ -1,10 +1,10 @@
-import { CACommonState } from 'packages/types/types-ca/store';
+import { CACommonState } from './store';
 import { Accounts, ChainIds, ChainsInfo, WalletName } from '@portkey/provider-types';
-import { DappStoreItem } from 'packages/types/store-ca/dapp/type';
-import { ChainId, NetworkType } from 'packages/types';
-import { ChainItemType } from 'packages/types/store-ca/wallet/type';
-import { CAInfo } from 'packages/types/types-ca/wallet';
-import { SessionInfo } from 'packages/types/session';
+import { DappStoreItem } from 'packages/store/store-ca/dapp/type';
+import { ChainId, NetworkType } from '../index';
+import { ChainItemType } from 'packages/store/store-ca/wallet/type';
+import { CAInfo } from './wallet';
+import { SessionInfo } from '../session';
 export interface IDappManager<T = CACommonState> {
   getState(): Promise<T>;
   isLogged(): Promise<boolean>;

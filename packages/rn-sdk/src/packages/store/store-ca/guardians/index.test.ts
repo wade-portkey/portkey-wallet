@@ -1,4 +1,4 @@
-import { guardiansSlice } from 'packages/store/store-ca/guardians/slice';
+import { guardiansSlice } from './slice';
 import {
   resetGuardiansState,
   setVerifierListAction,
@@ -11,8 +11,10 @@ import {
   resetUserGuardianStatus,
   setUserGuardianSessionIdAction,
   resetGuardians,
-} from 'packages/store/store-ca/guardians/actions';
+} from './actions';
 import { VerifyStatus } from 'packages/types/verifier';
+import { describe, test, expect } from '@jest/globals';
+
 const reducer = guardiansSlice.reducer;
 
 const mockUserGuardiansListItem1 = {

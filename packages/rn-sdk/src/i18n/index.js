@@ -52,11 +52,11 @@ var i18next_1 = require("i18next");
 var react_i18next_1 = require("react-i18next");
 var RNLocalize = require("react-native-localize");
 var asyncStorage_1 = require("utils/asyncStorage");
-var config_1 = require("i18n/config");
+var config_1 = require("./config");
 var en_1 = require("packages/i18n/en");
 var zh_1 = require("packages/i18n/zh");
-var en_json_1 = require("i18n/languages/en.json");
-var zh_json_1 = require("i18n/languages/zh.json");
+var en_json_1 = require("./languages/en.json");
+var zh_json_1 = require("./languages/zh.json");
 // the translations
 // (tip move them in a JSON file and import them,
 // or even better, manage them separated from your code: https://react.i18next.com/guides/multiple-translation-files)

@@ -1,4 +1,4 @@
-import { ChainId } from 'packages/types';
+import { ChainId } from '..';
 
 // nft collection types
 export type NFTCollectionItemBaseType = {

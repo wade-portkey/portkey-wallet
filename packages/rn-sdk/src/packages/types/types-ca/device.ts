@@ -1,4 +1,4 @@
-import { PartialOption } from 'packages/types/common';
+import { PartialOption } from '../common';
 
 export interface DeviceInfoType {
   deviceName?: string;

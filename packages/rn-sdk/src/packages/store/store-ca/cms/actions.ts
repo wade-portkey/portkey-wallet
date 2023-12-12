@@ -1,11 +1,10 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { CMSState } from 'packages/store/store-ca/cms/types';
+import { CMSState } from './types';
 import { NetworkType } from 'packages/types';
 import {
   getDiscoverGroup,
   getSocialMedia,
   getTabMenu,
-  getBuyButton,
   getRememberMeBlackListSites,
 } from 'packages/graphql/cms/queries';
 
@@ -93,18 +92,19 @@ export const getDiscoverGroupAsync = createAsyncThunk<Required<Pick<CMSState, 'd
 
 export const getBuyButtonAsync = createAsyncThunk<Required<Pick<CMSState, 'buyButtonNetMap'>>, NetworkType>(
   'cms/getBuyButtonAsync',
-  async (network: NetworkType) => {
-    const result = await getBuyButton(network, {});
+  async () => {
+    throw new Error('discoverGroupListNetMap error');
+    // const result = await getBuyButton(network, {});
 
-    if (result.data.buyButton) {
-      return {
-        buyButtonNetMap: {
-          [network]: result.data.buyButton,
-        },
-      };
-    } else {
-      throw new Error('discoverGroupListNetMap error');
-    }
+    // if (result.data.buyButton) {
+    //   return {
+    //     buyButtonNetMap: {
+    //       [network]: result.data.buyButton,
+    //     },
+    //   };
+    // } else {
+    //   throw new Error('discoverGroupListNetMap error');
+    // }
   },
 );
 

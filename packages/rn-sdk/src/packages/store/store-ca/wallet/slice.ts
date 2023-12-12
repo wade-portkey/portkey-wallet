@@ -1,6 +1,6 @@
 import { NetworkType } from 'packages/types';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { checkPassword } from 'packages/store/store-ca/wallet/utils';
+import { checkPassword } from './utils';
 import {
   changePin,
   createWalletAction,
@@ -14,9 +14,9 @@ import {
   setOriginChainId,
   setWalletNameAction,
   updateCASyncState,
-} from 'packages/store/store-ca/wallet/actions';
-import { WalletError, WalletState } from 'packages/store/store-ca/wallet/type';
-import { changeEncryptStr } from 'packages/store/wallet/utils';
+} from './actions';
+import { WalletError, WalletState } from './type';
+import { changeEncryptStr } from '../../wallet/utils';
 
 const initialState: WalletState = {
   walletAvatar: `master${(Math.floor(Math.random() * 10000) % 6) + 1}`,

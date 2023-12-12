@@ -1,6 +1,6 @@
 import { ChainItemType } from 'packages/types/chain';
 import { AccountType } from 'packages/types/wallet';
-import { ChainId } from 'packages/types';
+import { ChainId } from '..';
 
 export interface BaseToken {
   id?: string; // id
@@ -46,7 +46,7 @@ export type FilterTokenList = (token_name: string, address: string) => TokenItem
 export interface TokenState {
   addedTokenData: AddedTokenData;
   tokenDataShowInMarket: TokenListShowInMarketType;
-  isFetchingTokenList: Boolean;
+  isFetchingTokenList: boolean;
 }
 
 export interface AccountItemType {

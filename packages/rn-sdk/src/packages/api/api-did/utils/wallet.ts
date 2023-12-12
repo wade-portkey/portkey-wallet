@@ -1,8 +1,8 @@
 import type { GuardiansApproved } from '@portkey/services';
 import { LoginKeyType } from 'packages/types/types-ca/wallet';
 import { VerificationType } from 'packages/types/verifier';
-import { request } from 'packages/api/api-did';
-import { IContext } from 'packages/api/api-did/types';
+import { request } from '..';
+import { IContext } from '../types';
 
 interface RegisterDIDWalletParams extends IContext {
   baseUrl?: string;

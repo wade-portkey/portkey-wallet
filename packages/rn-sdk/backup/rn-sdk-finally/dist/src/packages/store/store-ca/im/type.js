@@ -1,1 +1,0 @@
-Object.defineProperty(exports,"__esModule",{value:true});exports.UpdateChannelAttributeTypeEnum=void 0;var UpdateChannelAttributeTypeEnum=exports.UpdateChannelAttributeTypeEnum=function(UpdateChannelAttributeTypeEnum){UpdateChannelAttributeTypeEnum["UPDATE_UNREAD_CHANNEL"]="updateUnreadChannel";return UpdateChannelAttributeTypeEnum;}({});

@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { defaultColors } from 'assets/theme';
+import { defaultColors } from 'assets/theme/index';
 import { pTd } from 'utils/unit';
 
 const { font4, font2, primaryColor, bg5, bg6, bg14 } = defaultColors;

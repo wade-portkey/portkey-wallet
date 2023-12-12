@@ -1,6 +1,6 @@
 import React, { memo, useCallback, useRef } from 'react';
 import Svg from 'components/Svg';
-import { dashBoardBtnStyle, innerPageStyles } from 'components/FaucetButton/style';
+import { dashBoardBtnStyle, innerPageStyles } from './style';
 import { TokenItemShowType } from 'packages/types/types-ca/token';
 
 import { View, TouchableOpacity } from 'react-native';

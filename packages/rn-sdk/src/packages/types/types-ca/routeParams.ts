@@ -1,5 +1,5 @@
-import { ChainId, ChainType } from 'packages/types';
-import type { SendType } from 'packages/types/types-ca/send';
+import { ChainId, ChainType } from '..';
+import type { SendType } from './send';
 
 export interface IToSendHomeAssetParamsBaseType {
   symbol: string;

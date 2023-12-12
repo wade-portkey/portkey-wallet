@@ -1,10 +1,10 @@
 import type { ChainItemType, BasicContracts, UpdateChainListType } from 'packages/types/chain';
 import { createAction, createAsyncThunk } from '@reduxjs/toolkit';
-import { fetchChainList } from 'packages/store/network/api';
-import { checkRpcUrlFormat } from 'packages/store/network/utils';
-import { getELFTokenAddress } from 'packages/contracts';
+import { fetchChainList } from './api';
+import { checkRpcUrlFormat } from './utils';
+import { getELFTokenAddress } from 'packages/contracts/index';
 import type { BaseToken } from 'packages/types/types-eoa/token';
-import { ChainActionError } from 'packages/store/network/types';
+import { ChainActionError } from './types';
 
 export const setCurrentChain = createAction<{ rpcUrl: string }>('chain/setCurrentChain');
 export const updateChainListAction = createAction<UpdateChainListType>('chain/updateChainList');

@@ -1,6 +1,6 @@
 import { TransactionTypes } from 'packages/constants/constants-ca/activity';
-import { ChainId, ChainType } from 'packages/types';
-import { BaseToken } from 'packages/types/types-ca/token';
+import { ChainId, ChainType } from '..';
+import { BaseToken } from './token';
 
 export type ActivityItemType = {
   chainId: string;

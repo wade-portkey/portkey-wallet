@@ -1,7 +1,7 @@
 import { AccountType, CreateType, WalletInfoType } from 'packages/types/wallet';
 import aes from 'packages/utils/aes';
 import { isEqAddress } from 'packages/utils/aelf';
-import { WalletError, WalletState } from 'packages/store/wallet/type';
+import { WalletError, WalletState } from './type';
 import { enumToMap } from 'packages/utils';
 import { formatAccountInfo, getAccountByMnemonic } from 'packages/utils/wallet';
 

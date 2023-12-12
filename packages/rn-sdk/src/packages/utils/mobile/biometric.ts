@@ -1,6 +1,6 @@
-import { authenticationReady, touchAuth } from 'packages/utils/mobile/authentication';
-import { isIOS } from 'packages/utils/mobile/device';
-import secureStore, { SecureKeys } from 'packages/utils/mobile/secureStore';
+import { authenticationReady, touchAuth } from './authentication';
+import { isIOS } from './device';
+import secureStore, { SecureKeys } from './secureStore';
 export async function setSecureStoreItem(key: typeof SecureKeys[number] = 'Password', value: string) {
   const isReady = await authenticationReady();
   if (!isReady) throw { message: 'biometrics is not ready' };

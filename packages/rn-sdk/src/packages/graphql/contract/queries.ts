@@ -1,20 +1,20 @@
 import { NetworkType } from 'packages/types';
-import { getApolloClient } from 'packages/graphql/contract/apollo';
-import { GetCAHolderByManagerParamsType, CaHolderWithGuardian } from 'packages/graphql/contract/types';
+import { getApolloClient } from './apollo';
+import { GetCAHolderByManagerParamsType, CaHolderWithGuardian } from './types';
 
 import {
   CaHolderManagerInfoDocument,
   CaHolderManagerInfoQuery,
   CaHolderManagerInfoQueryVariables,
-} from 'packages/graphql/contract/__generated__/hooks/caHolderManagerInfo';
+} from './__generated__/hooks/caHolderManagerInfo';
 
 import {
   LoginGuardianInfoDocument,
   LoginGuardianInfoQuery,
   LoginGuardianInfoQueryVariables,
-} from 'packages/graphql/contract/__generated__/hooks/loginGuardianInfo';
+} from './__generated__/hooks/loginGuardianInfo';
 
-import { TokenInfoDocument, TokenInfoQuery, TokenInfoQueryVariables } from 'packages/graphql/contract/__generated__/hooks/tokenInfo';
+import { TokenInfoDocument, TokenInfoQuery, TokenInfoQueryVariables } from './__generated__/hooks/tokenInfo';
 
 // CAHolderManager
 const getCAHolderManagerInfo = async (network: NetworkType, params: CaHolderManagerInfoQueryVariables) => {

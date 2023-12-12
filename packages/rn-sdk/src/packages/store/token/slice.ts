@@ -2,7 +2,7 @@ import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
 import { ChainItemType } from 'packages/types/chain';
 import { TokenItemType, TokenState } from 'packages/types/types-eoa/token';
 import { AccountType } from 'packages/types/wallet';
-import { fetchTokenList } from 'packages/store/token/api';
+import { fetchTokenList } from './api';
 import { isSameTypeToken } from 'packages/utils/token';
 
 const initialState: TokenState = {
