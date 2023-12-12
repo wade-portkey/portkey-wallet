@@ -12,7 +12,7 @@ import { getUnlockedWallet } from 'model/wallet';
 import { SendResult, ViewResult } from 'packages/contracts/types';
 import { BaseMethodResult } from 'service/JsModules/types';
 import { AccountError, errorMap } from 'service/error';
-import { WalletState } from './types';
+import { WalletState } from './type';
 
 @injectable()
 export class PortkeyAccountService implements IPortkeyAccountService {

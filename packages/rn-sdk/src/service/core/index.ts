@@ -1,8 +1,8 @@
 import { myContainer } from './inversify.config';
 import { IPortkeyAccountService, IPortkeyUIManagerService } from './base';
-import { TYPES } from './types';
+import { TYPES } from './type';
 import { CallCaMethodProps } from 'service/JsModules/SubModules/WalletModule';
-export * from './types';
+export * from './type';
 
 class Portkey implements IPortkeyAccountService, IPortkeyUIManagerService {
   private _portkeyAccountService: IPortkeyAccountService;
