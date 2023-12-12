@@ -121,23 +121,18 @@ RCT_EXPORT_METHOD(navigateBack:(NSDictionary *)result)
         if ([result[@"animated"] isKindOfClass:NSNumber.class]) {
             animated = [result[@"animated"] boolValue];
         }
-        if ([self isModal:topViewController]) {
+        if ([topViewController isBeingPresented]) {
             [topViewController dismissViewControllerAnimated:animated completion:nil];
         } else {
-            [topViewController.navigationController popViewControllerAnimated:animated];
+            UINavigationController *nc = topViewController.navigationController;
+            if (nc.viewControllers.count <= 1) {
+                [topViewController dismissViewControllerAnimated:animated completion:nil];
+            } else {
+                [nc popViewControllerAnimated:animated];
+            }
         }
     });
 }
-
-- (BOOL)isModal:(UIViewController *)vc {
-     if([vc presentingViewController])
-         return YES;
-     if([[[vc navigationController] presentingViewController] presentedViewController] == [vc navigationController])
-         return YES;
-     if([[[vc tabBarController] presentingViewController] isKindOfClass:[UITabBarController class]])
-         return YES;
-    return NO;
- }
 
 - (UIViewController *)topViewController {
     UIViewController *resultVC;
