@@ -95,6 +95,7 @@ function App() {
               <MyButton
                 title={`Call Method: ${value[0]}`}
                 onPress={() => {
+                  console.error('Call Method:', value[0]);
                   portkey[value[0]]
                     .apply(portkey, value.slice(1))
                     .then(res => {
