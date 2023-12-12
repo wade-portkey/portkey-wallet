@@ -57,7 +57,7 @@ export const shrinkSendQrData = (data: QRCodeDataObjType): QrCodeDataArrType => 
 export const expandQrData = (data: QrCodeDataArrType | QRCodeDataObjType): QRCodeDataObjType => {
   if (!Array.isArray(data)) return data;
 
-  let dataArr = data;
+  const dataArr = data;
   return {
     address: dataArr[IndexOfQrData.ADDRESS_INDEX],
     netWorkType: dataArr[IndexOfQrData.NETWORK_TYPE_INDEX],

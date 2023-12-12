@@ -11,7 +11,7 @@ import * as uuid from 'uuid';
  * @returns
  */
 export const addressFormat = (
-  address: string = 'address',
+  address = 'address',
   chainId: ChainId = 'AELF',
   chainType: ChainType = 'aelf',
 ): string => {
@@ -47,8 +47,8 @@ export const getChainIdByAddress = (address: string, chainType: ChainType = 'ael
 };
 
 const protocolAndDomainRE = /^(?:\w+:)?\/\/(\S+)$/;
-const localhostDomainRE = /^localhost[\:?\d]*(?:[^\:?\d]\S*)?$/;
-const nonLocalhostDomainRE = /^[^\s\.]+\.\S{2,}$/;
+const localhostDomainRE = /^localhost[:?\d]*(?:[^:?\d]\S*)?$/;
+const nonLocalhostDomainRE = /^[^\s.]+\.\S{2,}$/;
 
 export function isUrl(string: string) {
   if (typeof string !== 'string') {

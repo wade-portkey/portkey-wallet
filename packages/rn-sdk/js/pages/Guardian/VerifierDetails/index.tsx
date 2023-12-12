@@ -6,7 +6,7 @@ import PageContainer from 'components/PageContainer';
 import DigitInput, { DigitInputInterface } from 'components/DigitInput';
 import React, { useMemo, useRef } from 'react';
 import { StyleSheet, Text } from 'react-native';
-import { OperationTypeEnum, VerificationType } from 'packages/types/verifier';
+import { OperationTypeEnum } from 'packages/types/verifier';
 import { FontStyles } from 'assets/theme/styles';
 import { LoginType } from 'packages/types/types-ca/wallet';
 import { AccountOriginalType } from 'model/verify/core';
@@ -18,9 +18,9 @@ import useBaseContainer from 'model/container/UseBaseContainer';
 import { PortkeyEntries } from 'config/entries';
 import { CheckVerifyCodeResultDTO } from 'network/dto/guardian';
 import GuardianItem from '../components/GuardianItem';
-import { UserGuardianItem } from 'packages/types/store-ca/guardians/type';
 import CommonToast from 'components/CommonToast';
 import useEffectOnce from 'hooks/useEffectOnce';
+import { UserGuardianItem } from 'packages/store/store-ca/guardians/type';
 
 function TipText({ guardianAccount, isRegister }: { guardianAccount?: string; isRegister?: boolean }) {
   const [first, last] = useMemo(() => {

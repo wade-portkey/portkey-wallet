@@ -71,6 +71,7 @@ export const testRunner = async (): Promise<TestReport> => {
       await testService.run(testContext);
       testReport.testsAccepted += 1;
     } catch (e) {
+      console.log('testService.run error : ', e, 'testService : ', testService);
       testReport.testsFailed += 1;
       testReport.details[testReport.details.length - 1].status = 'fail';
     }

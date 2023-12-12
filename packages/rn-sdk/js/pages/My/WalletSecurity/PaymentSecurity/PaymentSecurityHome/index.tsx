@@ -22,19 +22,20 @@ import useBaseContainer from 'model/container/UseBaseContainer';
 import { PortkeyEntries } from 'config/entries';
 import { PaymentSecurityDetailProps } from '../PaymentSecurityDetail';
 import { GuardiansApprovalIntent } from 'pages/GuardianManage/GuardianHome';
+import { useInitCaches } from 'global/init/caches';
 
 const _renderPaymentSecurityItem = ({ item }: { item: ITransferLimitItem }) => {
   const { defaultToken } = useCommonNetworkInfo();
   const symbolImages = useSymbolImages();
   const networkType = useCurrentNetworkInfo();
-  const { navigateTo: navigationTo } = useBaseContainer({
+  const { navigateTo } = useBaseContainer({
     entryName: PortkeyEntries.PAYMENT_SECURITY_HOME_ENTRY,
   });
 
   return (
     <Touchable
       onPress={() => {
-        navigationTo<PaymentSecurityDetailProps>(PortkeyEntries.PAYMENT_SECURITY_DETAIL_ENTRY, {
+        navigateTo<PaymentSecurityDetailProps>(PortkeyEntries.PAYMENT_SECURITY_DETAIL_ENTRY, {
           params: {
             transferLimitDetail: item,
           },
@@ -84,7 +85,7 @@ const ItemStyles = StyleSheet.create({
 const PaymentSecurityList = ({ containerId }: { containerId: string }) => {
   const [isRefreshing, setIsRefreshing] = useState(false);
   const { list, isNext, next, init } = useTransferLimitList();
-
+  useInitCaches();
   useBaseContainer({
     entryName: PortkeyEntries.PAYMENT_SECURITY_HOME_ENTRY,
     onNewIntent: (intent: GuardiansApprovalIntent) => {
@@ -95,9 +96,7 @@ const PaymentSecurityList = ({ containerId }: { containerId: string }) => {
     },
     containerId,
     onShow: () => {
-      setTimeout(() => {
-        init();
-      }, 100);
+      init();
     },
   });
 

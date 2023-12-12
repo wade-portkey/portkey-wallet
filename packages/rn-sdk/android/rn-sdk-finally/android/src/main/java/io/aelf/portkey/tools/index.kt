@@ -10,7 +10,7 @@ import io.aelf.portkey.BuildConfig
 import io.aelf.portkey.components.logic.JSEventBus
 import io.aelf.portkey.components.services.GeneralJSMethodService
 
-internal fun generateUniqueCallbackID(): String {
+internal fun generateUniqueID(): String {
     return System.currentTimeMillis().toString() + Math.random().toString()
 }
 
@@ -42,7 +42,7 @@ internal fun callJsMethod(
             ).show()
     }
     bundle.putString("taskName", taskName)
-    val callbackId = generateUniqueCallbackID()
+    val callbackId = generateUniqueID()
     bundle.putString("eventId", callbackId)
     JSEventBus.registerCallback(callbackId, callback, JSMethodData::class.java)
     val service = Intent(applicationContext, GeneralJSMethodService::class.java)

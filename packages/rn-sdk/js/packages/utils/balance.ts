@@ -44,23 +44,19 @@ export const getBalance = async ({
   tokens,
   currentAccount,
   currentChain,
-  tokenAddress,
   tokenContract,
-
-  rpcUrl,
   delay = 10000,
 }: useBalancesProps): Promise<string[]> => {
   const tokensList = Array.isArray(tokens) ? tokens.map(item => item.symbol) : [tokens.symbol];
   if (!currentAccount?.address) return tokensList.map(() => '');
   let promise;
 
-  let timer = setTimeout(() => {
+  const timer = setTimeout(() => {
     return Promise.reject();
   }, delay);
 
   if (currentChain.chainType === 'aelf') {
     // elf chain
-    const contract = tokenContract;
     // const tokenContract = await getTokenContract(rpcUrl, tokenAddress, wallet1);
 
     if (!tokenContract) return Promise.reject();

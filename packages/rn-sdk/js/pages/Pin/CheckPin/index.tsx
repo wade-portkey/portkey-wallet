@@ -19,7 +19,7 @@ export default function CheckPin(props: CheckPinProps) {
   const [errorMessage, setErrorMessage] = useState<string>();
   const pinRef = useRef<DigitInputInterface>();
   const [canUseBiometrics, setCanUseBiometrics] = useState(false);
-  const { onFinish, navigateTo: navigationTo } = useBaseContainer({
+  const { onFinish, navigateTo } = useBaseContainer({
     entryName: PortkeyEntries.CHECK_PIN,
   });
 
@@ -31,7 +31,7 @@ export default function CheckPin(props: CheckPinProps) {
           return setErrorMessage(PinErrorMessage.invalidPin);
         }
         if (targetScene === 'changePin') {
-          navigationTo(PortkeyEntries.SET_PIN, {
+          navigateTo(PortkeyEntries.SET_PIN, {
             params: {
               oldPin: pin,
             },
@@ -55,7 +55,7 @@ export default function CheckPin(props: CheckPinProps) {
         setErrorMessage(undefined);
       }
     },
-    [errorMessage, navigationTo, onFinish, targetScene],
+    [errorMessage, navigateTo, onFinish, targetScene],
   );
 
   const handleBiometrics = async () => {

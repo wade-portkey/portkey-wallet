@@ -78,7 +78,7 @@ const getCachedCaAddress = async (endPoint: string, originalCaInfo: CaInfo, orig
       }
       return multiCaAddresses;
     },
-    target: 'PERMANENT',
+    target: 'TEMP',
   });
 };
 

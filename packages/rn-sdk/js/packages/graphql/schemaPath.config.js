@@ -1,4 +1,4 @@
-const schemaPath = [
+export const schemaPath = [
   {
     name: 'contract',
     path: './schema/contract_schema.graphql',
@@ -10,5 +10,3 @@ const schemaPath = [
     isCustomExist: true,
   },
 ];
-
-module.exports = schemaPath;

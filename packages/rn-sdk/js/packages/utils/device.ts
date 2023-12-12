@@ -133,11 +133,10 @@ export const extraDataDecode = (_extraData: ExtraDataType): ExtraDataDecodeType 
 
   const deviceInfoStr = _extraData.deviceInfo;
   switch (_extraData.version) {
-    case '0.0.1':
+    case '0.0.1': {
       const extraDataArray = deviceInfoStr.split(',').map(itemValue => Number(itemValue));
-
       let deviceType: DeviceType = DeviceType.OTHER,
-        transactionTime: number | undefined = undefined;
+        transactionTime: number | undefined;
       const firstNum = extraDataArray[0];
       if (firstNum !== undefined && !isNaN(firstNum)) {
         if (DeviceType[firstNum] !== undefined) {
@@ -157,7 +156,7 @@ export const extraDataDecode = (_extraData: ExtraDataType): ExtraDataDecodeType 
         extraData.transactionTime = transactionTime;
       }
       break;
-
+    }
     case '1.0.0':
     case '2.0.0':
       try {

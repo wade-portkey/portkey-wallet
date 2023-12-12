@@ -60,11 +60,7 @@ export class ContractBasic {
     this.contractType = isELF ? 'aelf' : 'ethereum';
   }
 
-  public callViewMethod: CallViewMethod = async (
-    functionName,
-    paramsOption,
-    callOptions = { defaultBlock: 'latest' },
-  ) => {
+  public callViewMethod: CallViewMethod = async (functionName, paramsOption) => {
     if (this.callContract instanceof AElfContractBasic)
       return this.callContract.callViewMethod(functionName, paramsOption);
   };

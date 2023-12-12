@@ -16,22 +16,25 @@ export function useIntervalQueryCAInfoByAddress(network: NetworkType, address?: 
     async () => {
       if (!address || caInfo) return;
       try {
-        let info;
+        let managerInfo;
         const { caHolderManagerInfo } = await contractQueries.getCAHolderByManager(network, {
           manager: address,
         });
         console.log(caHolderManagerInfo, '=====caHolderManagerInfo');
-        info = caHolderManagerInfo[0];
-        if (!info) return;
+        managerInfo = caHolderManagerInfo[0];
+        if (!managerInfo) return;
         // information is not a origin chain
-        if (info.originChainId !== info.chainId) {
-          const { caHolderManagerInfo } = await contractQueries.getCAHolderByManager(network, {
-            caHash: info.caHash,
-            chainId: info.originChainId,
-          });
-          info = caHolderManagerInfo[0];
+        if (managerInfo.originChainId !== managerInfo.chainId) {
+          const { caHolderManagerInfo: originalChainManagerInfo } = await contractQueries.getCAHolderByManager(
+            network,
+            {
+              caHash: managerInfo.caHash,
+              chainId: managerInfo.originChainId,
+            },
+          );
+          managerInfo = originalChainManagerInfo[0];
         }
-        const { caAddress, caHash, loginGuardianInfo, originChainId = DefaultChainId } = info;
+        const { caAddress, caHash, loginGuardianInfo, originChainId = DefaultChainId } = managerInfo;
         if (caAddress && caHash && loginGuardianInfo[0] && originChainId) {
           const guardianList = loginGuardianInfo.filter(item => item?.chainId === originChainId);
           if (guardianList.length === 0) return;

@@ -20,7 +20,7 @@ interface SendButtonType {
 export default function ReceiveButton(props: SendButtonType) {
   const { themeType = 'dashBoard' } = props;
   const { t } = useLanguage();
-  const { navigateTo: navigationTo } = useBaseContainer({
+  const { navigateTo } = useBaseContainer({
     entryName: PortkeyEntries.ASSETS_HOME_ENTRY,
   });
   const styles = themeType === 'dashBoard' ? dashBoardBtnStyle : innerPageStyles;
@@ -34,7 +34,7 @@ export default function ReceiveButton(props: SendButtonType) {
 
           TokenOverlay.showTokenList({
             onFinishSelectToken: (tokenInfo: TokenItemShowType) => {
-              navigationTo(PortkeyEntries.RECEIVE_TOKEN_ENTRY, { params: tokenInfo });
+              navigateTo(PortkeyEntries.RECEIVE_TOKEN_ENTRY, { params: tokenInfo });
             },
           });
         }}>

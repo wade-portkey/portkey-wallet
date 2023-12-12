@@ -34,11 +34,7 @@ const QrScanner: React.FC = () => {
   // const jumpToWebview = useDiscoverJumpWithNetWork();
   const [refresh, setRefresh] = useState<boolean>();
   const [permissionGranted, setPermissionGranted] = useState<boolean>(false);
-  const {
-    onFinish,
-    navigateForResult,
-    navigateTo: navigationTo,
-  } = useBaseContainer({
+  const { onFinish, navigateForResult, navigateTo } = useBaseContainer({
     entryName: PortkeyEntries.SCAN_QR_CODE,
   });
   const navigateBack = (res: EntryResult<ScanQRCodeResult> = { status: 'success', data: {} }) => {
@@ -92,13 +88,13 @@ const QrScanner: React.FC = () => {
         const entry = isEntry.entry;
         const params = isEntry.query;
         if (entry !== undefined && isPortkeyEntries(entry)) {
-          navigationTo(entry as PortkeyEntries, { params: params });
+          navigateTo(entry as PortkeyEntries, { params: params });
         } else {
           CommonToast.fail("It looks like you want to jump to the page, but you don't have the right entry parameter");
         }
       }
     },
-    [navigationTo],
+    [navigateTo],
   );
   const handleBarCodeScanned = myThrottle(async ({ data = '' }) => {
     if (!canScan.current) {
