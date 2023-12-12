@@ -1,3 +1,4 @@
 .env
 output/
 dist/
+node_modules/
