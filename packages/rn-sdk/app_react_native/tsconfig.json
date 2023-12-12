@@ -1,5 +1,5 @@
 {
-  "extends": "@portkey/react-native-sdk/tsconfig.json",
+  "extends": "react-native-sdk-beta/tsconfig.json",
   "compilerOptions": {
     
   }

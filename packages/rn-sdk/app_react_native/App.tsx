@@ -7,7 +7,7 @@ import {
   TouchableWithoutFeedback,
   TouchableOpacity,
 } from 'react-native';
-import {portkey} from '@portkey/react-native-sdk';
+import {portkey} from 'react-native-sdk-beta';
 
 function MyButton({title, onPress}) {
   return (

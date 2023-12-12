@@ -64,12 +64,13 @@
       //         "../mobile-app-did/js/*"
       //     ],
       // }
-      "types": ["reflect-metadata"],
-      "experimentalDecorators": true,
-      "emitDecoratorMetadata": true,
       "outDir": "./dist",
       "declaration": true,
       "emitDeclarationOnly": true,
+      // Decorator enable
+      "types": ["reflect-metadata"],
+      "experimentalDecorators": true,
+      "emitDecoratorMetadata": true,
   },
   "exclude": [
       "android",

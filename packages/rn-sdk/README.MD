@@ -4,38 +4,60 @@
 
 ```
 npm install @portkey/rn-sdk --save
-or
+// or
 yarn add @portkey/rn-sdk
 ```
 <br>
 
-**Step 2: Config android** <br>
-We are using expo-related libraries, so you need to configure the expo autolinking plugin
+**Step 2: Config** <br>
+1. We are using expo-related libraries, so you need to configure the expo autolinking plugin
 ```
-// in settings.gradle
+// in android/settings.gradle file, add the code
 apply from: new File(["node", "--print", "require.resolve('expo/package.json')"].execute(null, rootDir).text.trim(), "../scripts/autolinking.gradle");
 useExpoModules()
 ```
-
-**Step 3: Create .env file** <br>
+2. Create .env file <br>
 In order to use Google login, You need to create an **.env** file in the same directory as **package.json**, the file  must contain **GOOGLE_WEB_CLIENT_ID**, **GOOGLE_IOS_CLIENT_ID**,**GOOGLE_ANDROID_CLIENT_ID**
 ```
-# .env file
+# .env file like this
 GOOGLE_WEB_CLIENT_ID="your google web client id"
 GOOGLE_IOS_CLIENT_ID = "your google ios client id"
 GOOGLE_ANDROID_CLIENT_ID = "your google android client id"
 ```
+3. extends tsconfig.json <br>
+In your tsconfig.json, add  "extends" key-value
+```
+{
+  "extends": "@portkey/react-native-sdk/tsconfig.json",
+  "compilerOptions": {
+    ...
+  }
+}
+```
+if you already extends other tsconfig.json, you can config like this:
+```
+{
+  "compilerOptions": {
+      // add this code
+      "types": ["reflect-metadata"],
+      "experimentalDecorators": true,
+      "emitDecoratorMetadata": true,
+  }
 
-**Step 4: Init**
+}
+```
+
+**Step 3: Init**
 ```
 // Please import the following statement in your entry file
 import '@portkey/rn-sdk';
 ```
-> Note: We use autolink, so you don't need to configure any Android/IOS dependencies. But you need to recompile your Android/IOS project so that the autolink takes effect.
+> Note: We use autolink, you don't need to configure Android/IOS dependencies. But you need to recompile your Android/IOS project so that the autolink takes effect.
 
 Now, all configuration is complete and you can use the portkey service freely.
 
-## Usage
+
+## API Usage
 ```
 import { portkey } from '@portkey/rn-sdk';
 // get walletInfo
