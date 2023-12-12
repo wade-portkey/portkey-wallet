@@ -84,11 +84,6 @@ export default function Referral({
 
   useEffectOnce(async () => {
     walletCheck();
-    Loading.show();
-    try {
-      await getOrReadCachedVerifierData();
-    } catch (_) {}
-    Loading.hide();
   });
 
   const walletCheck = async () => {
