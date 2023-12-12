@@ -80,7 +80,7 @@ export const useVerifyEntry = (verifyConfig: VerifyConfig): VerifyEntryHooks => 
         {
           params: {
             deliveredGuardianInfo: JSON.stringify(config),
-            operationType: type === PageType.login ? OperationTypeEnum.communityRecovery : OperationTypeEnum.register,
+            operationType: OperationTypeEnum.register, // keep it as register
           },
         },
         res => {
@@ -90,7 +90,7 @@ export const useVerifyEntry = (verifyConfig: VerifyConfig): VerifyEntryHooks => 
         },
       );
     },
-    [navigateForResult, type],
+    [navigateForResult],
   );
 
   const thirdPartyLogin = async (thirdPartyLoginType: 'google' | 'apple'): Promise<void> => {

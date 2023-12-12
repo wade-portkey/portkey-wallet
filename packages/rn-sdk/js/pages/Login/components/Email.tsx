@@ -29,7 +29,7 @@ export default function Email({
   type = PageType.login,
 }: {
   setLoginType: (type: PageLoginType) => void;
-  type?: PageType;
+  type: PageType;
 }) {
   const { t } = useLanguage();
   const iptRef = useRef<any>();

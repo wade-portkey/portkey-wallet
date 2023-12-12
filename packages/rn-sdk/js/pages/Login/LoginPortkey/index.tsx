@@ -47,7 +47,7 @@ export default function LogInPortKey({
   });
   const loginMap = useMemo(
     () => ({
-      [PageLoginType.email]: <Email setLoginType={setLoginType} />,
+      [PageLoginType.email]: <Email setLoginType={setLoginType} type={PageType.login} />,
       [PageLoginType.qrCode]: <QRCode setLoginType={setLoginType} />,
       [PageLoginType.phone]: (
         <Phone
