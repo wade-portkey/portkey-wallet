@@ -14,7 +14,6 @@ import { NetworkController } from 'network/controller';
 import { AElfChainStatusItemDTO, AElfWeb3SDK, ApprovedGuardianInfo } from 'network/dto/wallet';
 import { selectCurrentBackendConfig } from 'utils/commonUtil';
 import { addManager } from 'utils/wallet';
-import { PortkeyModulesEntity } from 'service/native-modules';
 import { handleCachedValue } from 'service/storage/cache';
 
 export interface Verifier {
@@ -45,7 +44,6 @@ export const getContractInstance = async (allowTemplateWallet = false): Promise<
     });
   } catch (e: any) {
     console.error(e);
-    PortkeyModulesEntity.NativeWrapperModule.onError('getContractInstance', (e && e.message) || '', {});
     throw e;
   }
 };

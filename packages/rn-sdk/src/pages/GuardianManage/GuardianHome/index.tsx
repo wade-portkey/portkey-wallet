@@ -139,7 +139,6 @@ export default function GuardianHome({ containerId }: { containerId: any }) {
             key={idx}
             onPress={async () => {
               const chainId = await PortkeyConfig.currChainId();
-              const cachedVerifierData = Object.values((await getVerifierData()).data?.verifierServers ?? {});
               navigateForResult(PortkeyEntries.GUARDIAN_DETAIL_ENTRY, {
                 closeCurrentScreen: false,
                 params: {
@@ -147,7 +146,7 @@ export default function GuardianHome({ containerId }: { containerId: any }) {
                     particularGuardianInfo: parseGuardianInfo(
                       guardianList[Number(guardian.key)],
                       chainId,
-                      cachedVerifierData,
+                      [],
                       undefined,
                       '',
                       AccountOriginalType.Email,

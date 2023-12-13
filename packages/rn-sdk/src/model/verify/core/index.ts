@@ -146,6 +146,7 @@ const handleNormalVerify = async (config: NormalVerifyPathInfo): Promise<Recover
   if (findVerifyProcessOnCurrChain(originalChainId, status) !== ProgressStatus.PASS) {
     console.warn(`after ${retryTimes} times polling, account status is still pending.`);
   }
+  const { caHash, caAddress } = status?.items?.find(it => it.chainId === originalChainId) || {};
   return {
     sessionId,
     fromRecovery,
@@ -156,7 +157,7 @@ const handleNormalVerify = async (config: NormalVerifyPathInfo): Promise<Recover
     originalChainId,
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    caInfo: status?.items?.find(it => it.chainId === originalChainId) ?? undefined,
+    caInfo: { caHash, caAddress },
   };
 };
 
