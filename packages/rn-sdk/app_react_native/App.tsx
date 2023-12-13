@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react';
+import React, {useState} from 'react';
 import {
   Modal,
   View,
@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {portkey} from 'react-native-sdk-beta';
+import 'react-native-get-random-values';
 
 function MyButton({title, onPress}) {
   return (
@@ -155,7 +156,7 @@ const styles = StyleSheet.create({
   buttonText: {
     color: 'white',
     fontSize: 16,
-    textTransform: 'none', // 设置为 'none' 可以取消大写
+    textTransform: 'none',
   },
 });
 

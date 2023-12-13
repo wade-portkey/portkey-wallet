@@ -36,7 +36,7 @@ class NativeWrapperModule(context: ReactApplicationContext) :
 
     @ReactMethod
     fun onError(from: String, errMsg: String, data: ReadableMap) {
-        Log.e("NativeWrapperModule:Entry $from ", "onError: $errMsg, data: ${data.toHashMap()}")
+        Log.e("NativeWrapperModule", "Entry $from, onError: $errMsg, data: ${data.toHashMap()}")
     }
 
     @ReactMethod(isBlockingSynchronousMethod = true)
@@ -47,7 +47,7 @@ class NativeWrapperModule(context: ReactApplicationContext) :
 
     @ReactMethod
     fun onWarning(from: String, warnMsg: String) {
-        Log.w("NativeWrapperModule:Entry $from ", "onWarning: $warnMsg")
+        Log.w("NativeWrapperModule", "Entry $from, onWarning: $warnMsg")
     }
 
     @ReactMethod

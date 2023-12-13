@@ -177,7 +177,7 @@ export const useVerifyEntry = (verifyConfig: VerifyConfig): VerifyEntryHooks => 
       setErrorMessage(message);
       if (message) return;
     }
-    const loadingKey = Loading.show();
+    Loading.show();
     try {
       const accountCheckResult = await attemptAccountCheck(accountIdentifier);
       if (accountCheckResult.hasRegistered) {
@@ -199,9 +199,8 @@ export const useVerifyEntry = (verifyConfig: VerifyConfig): VerifyEntryHooks => 
       }
     } catch (error) {
       setErrorMessage(handleErrorMessage(error));
-      Loading.hide(loadingKey);
     }
-    Loading.hide(loadingKey);
+    Loading.hide();
   };
 
   const onPageSignUp = async (accountIdentifier: string, thirdPartyAccountInfo?: ThirdPartyAccountInfo) => {

@@ -15,6 +15,7 @@ import { AElfChainStatusItemDTO, AElfWeb3SDK, ApprovedGuardianInfo } from 'netwo
 import { handleCachedValue } from 'service/storage/cache';
 import { selectCurrentBackendConfig } from 'utils/commonUtil';
 import { addManager } from 'utils/wallet';
+import { PortkeyModulesEntity } from 'service/native-modules';
 
 export interface Verifier {
   id: string;
@@ -28,19 +29,25 @@ export interface Verifier {
  * @returns Contract Basic
  */
 export const getContractInstance = async (allowTemplateWallet = false): Promise<ContractBasic> => {
-  let privateKey = '';
-  if (allowTemplateWallet && !(await isWalletUnlocked())) {
-    privateKey = '6167c717e781099c8ee77cbf0c3f6e7c8315fc581eb7daa891c872c026359c84';
-  } else {
-    const { privateKey: pk } = (await getUnlockedWallet()) || {};
-    privateKey = pk;
+  try {
+    let privateKey = '';
+    if (allowTemplateWallet && !(await isWalletUnlocked())) {
+      privateKey = '6167c717e781099c8ee77cbf0c3f6e7c8315fc581eb7daa891c872c026359c84';
+    } else {
+      const { privateKey: pk } = (await getUnlockedWallet()) || {};
+      privateKey = pk;
+    }
+    const { caContractAddress, peerUrl } = (await getCachedNetworkConfig()) || {};
+    return await getContractBasic({
+      contractAddress: caContractAddress,
+      rpcUrl: peerUrl,
+      account: AElfWeb3SDK.getWalletByPrivateKey(privateKey),
+    });
+  } catch (e: any) {
+    console.error(e);
+    PortkeyModulesEntity.NativeWrapperModule.onError('getContractInstance', (e && e.message) || '', {});
+    throw e;
   }
-  const { caContractAddress, peerUrl } = (await getCachedNetworkConfig()) || {};
-  return await getContractBasic({
-    contractAddress: caContractAddress,
-    rpcUrl: peerUrl,
-    account: AElfWeb3SDK.getWalletByPrivateKey(privateKey),
-  });
 };
 
 /**
