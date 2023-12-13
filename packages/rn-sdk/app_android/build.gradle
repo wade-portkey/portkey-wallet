@@ -15,6 +15,7 @@ buildscript {
     dependencies {
         classpath("com.android.tools.build:gradle:$agp_version")
         classpath("com.facebook.react:react-native-gradle-plugin")
+        classpath "com.vanniktech:gradle-maven-publish-plugin:0.18.0"
     }
 
     subprojects { subproject ->
