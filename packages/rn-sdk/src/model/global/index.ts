@@ -9,7 +9,6 @@ import { AccountOrGuardianOriginalTypeStr, CheckVerifyCodeResultDTO, GuardianInf
 import {
   AElfWeb3SDK,
   BaseAccountStatus,
-  BaseProgressDTO,
   RequestProcessResult,
   RequestRegisterParams,
   RequestSocialRecoveryParams,
@@ -30,13 +29,19 @@ export const attemptAccountCheck = async (accountIdentifier: string): Promise<Ac
   if (registerResultDTO?.result) {
     const { originChainId } = registerResultDTO.result;
     originChainId && setCurrChainId(originChainId as any);
-    const guardianResultDTO = await NetworkController.getAccountIdentifierResult(
-      originChainId ?? (await PortkeyConfig.currChainId()),
-      accountIdentifier,
-    );
-    return {
-      hasRegistered: guardianResultDTO?.guardianList?.guardians?.length > 0,
-    };
+    try {
+      const guardianResultDTO = await NetworkController.getAccountIdentifierResult(
+        originChainId ?? (await PortkeyConfig.currChainId()),
+        accountIdentifier,
+      );
+      return {
+        hasRegistered: guardianResultDTO?.guardianList?.guardians?.length > 0,
+      };
+    } catch (e) {
+      return {
+        hasRegistered: false,
+      };
+    }
   } else if (registerResultDTO?.errCode === '3002') {
     return {
       hasRegistered: false,

@@ -24,7 +24,6 @@ plugins {
     id 'org.jetbrains.kotlin.android' version '1.8.0' apply false
 }
 
-//// 在这里添加 Kotlin 配置
 //subprojects {
 //    afterEvaluate {project ->
 //        if(project.hasProperty("android")) {
