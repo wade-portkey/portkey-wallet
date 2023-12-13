@@ -2765,11 +2765,6 @@
   dependencies:
     "@types/node" "*"
 
-"@types/crypto-js@^4.2.1":
-  version "4.2.1"
-  resolved "https://registry.npmmirror.com/@types/crypto-js/-/crypto-js-4.2.1.tgz#480edd76991a63050cb88db1a8840758c55a7135"
-  integrity sha512-FSPGd9+OcSok3RsM0UZ/9fcvMOXJ1ENE/ZbLfOPlBWj7BgXtEAM8VYfTtT760GiLbQIMoVozwVuisjvsVwqYWw==
-
 "@types/elliptic@^6.4.14":
   version "6.4.18"
   resolved "https://registry.npmmirror.com/@types/elliptic/-/elliptic-6.4.18.tgz#bc96e26e1ccccbabe8b6f0e409c85898635482e1"
@@ -8900,10 +8895,10 @@ react-native-gesture-handler@2.9.0:
     lodash "^4.17.21"
     prop-types "^15.7.2"
 
-react-native-get-random-values@^1.8.0:
-  version "1.10.0"
-  resolved "https://registry.yarnpkg.com/react-native-get-random-values/-/react-native-get-random-values-1.10.0.tgz#c2c5f12a4ef8b1175145347b4a4b9f9a40d9ffc8"
-  integrity sha512-gZ1zbXhbb8+Jy9qYTV8c4Nf45/VB4g1jmXuavY5rPfUn7x3ok9Vl3FTl0dnE92Z4FFtfbUNNwtSfcmomdtWg+A==
+react-native-get-random-values@1.8.0:
+  version "1.8.0"
+  resolved "https://registry.yarnpkg.com/react-native-get-random-values/-/react-native-get-random-values-1.8.0.tgz#1cb4bd4bd3966a356e59697b8f372999fe97cb16"
+  integrity sha512-H/zghhun0T+UIJLmig3+ZuBCvF66rdbiWUfRSNS6kv5oDSpa1ZiVyvRWtuPesQpT8dXj+Bv7WJRQOUP+5TB1sA==
   dependencies:
     fast-base64-decode "^1.0.0"
 
@@ -8983,10 +8978,10 @@ react-native-safe-modules@^1.0.3:
   dependencies:
     dedent "^0.6.0"
 
-react-native-sdk-beta@1.0.0-beta.1:
-  version "1.0.0-beta.1"
-  resolved "https://registry.yarnpkg.com/react-native-sdk-beta/-/react-native-sdk-beta-1.0.0-beta.1.tgz#c35ac7f854c59d866584c0a2b764a15e7c90ff69"
-  integrity sha512-p+/qMJV4K+DhG7jSCAEfOGYNSe9Vshe40dfzocpWvTe9DhUKkYRu18D8qy5DzLvDGQtDxYCPECpBJuuuB3zgaQ==
+react-native-sdk-beta@1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/react-native-sdk-beta/-/react-native-sdk-beta-1.0.2.tgz#80791a926b6385f05b38cae0ae49a9aeffb87ba9"
+  integrity sha512-OZ9Fb0Avh/OuJF+vzSrVXIho4UxXMSRDTJ6dZdS3EXnx6q4FaVmxzRFHthVpehGfdqcE++yJvg3YfY4ua5EPsQ==
   dependencies:
     "@apollo/client" "^3.7.3"
     "@babel/compat-data" "^7.22.20"
@@ -9008,7 +9003,6 @@ react-native-sdk-beta@1.0.0-beta.1:
     "@relationlabs/im" "^0.4.0-beta-3"
     "@rneui/base" "^4.0.0-rc.6"
     "@rneui/themed" "^4.0.0-rc.6"
-    "@types/crypto-js" "^4.2.1"
     "@types/is-url" "^1.2.32"
     "@types/jest" "^29.5.11"
     "@types/lodash" "^4.14.202"
@@ -9049,7 +9043,7 @@ react-native-sdk-beta@1.0.0-beta.1:
     react-native-config "^1.4.6"
     react-native-fast-image "^8.6.3"
     react-native-gesture-handler "2.9.0"
-    react-native-get-random-values "^1.8.0"
+    react-native-get-random-values "1.8.0"
     react-native-gradle-plugin "^0.71.19"
     react-native-keyboard-aware-scroll-view "^0.9.5"
     react-native-largelist "3.1.0-rc.2"
