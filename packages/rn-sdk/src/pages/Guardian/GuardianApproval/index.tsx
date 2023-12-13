@@ -37,10 +37,12 @@ import { AppleAccountInfo, GoogleAccountInfo, isAppleLogin } from 'model/verify/
 import { useAppleAuthentication, useGoogleAuthentication } from 'model/hooks/authentication';
 import { getBottomSpace } from 'utils/screen';
 import {
+  Verifier,
   callAddGuardianMethod,
   callEditGuardianMethod,
   callEditPaymentSecurityMethod,
   callRemoveGuardianMethod,
+  getVerifierData,
 } from 'model/contract/handler';
 
 export default function GuardianApproval({
@@ -53,7 +55,7 @@ export default function GuardianApproval({
   onPageFinish: (result: GuardianApprovalPageResult) => void;
 }) {
   const {
-    guardians,
+    guardians: originalGuardians,
     accountIdentifier = '',
     accountOriginalType,
     thirdPartyAccountInfo,
@@ -62,6 +64,8 @@ export default function GuardianApproval({
     pastGuardian,
     paymentSecurityConfig,
   } = guardianListConfig;
+
+  const [verifiers, setVerifiers] = useState<Array<Verifier>>([]);
 
   const { t } = useLanguage();
 
@@ -92,6 +96,18 @@ export default function GuardianApproval({
       operationType = OperationTypeEnum.communityRecovery;
     }
   }
+
+  const guardians = useMemo(() => {
+    return originalGuardians?.map(item => {
+      const verifierData = verifiers.find(it => it.id === item.sendVerifyCodeParams.verifierId);
+      const { name = 'Portkey', imageUrl = '' } = verifierData || {};
+      return {
+        ...item,
+        name,
+        imageUrl,
+      };
+    });
+  }, [originalGuardians, verifiers]);
 
   const { navigateForResult, onFinish: onBackPage } = useBaseContainer({
     entryName: PortkeyEntries.GUARDIAN_APPROVAL_ENTRY,
@@ -148,11 +164,13 @@ export default function GuardianApproval({
     },
     [setGuardianStatus],
   );
-  useEffectOnce(() => {
+  useEffectOnce(async () => {
     const expiredTimer = setInterval(() => {
       if (guardianExpiredTime.current && Date.now() > guardianExpiredTime.current) setIsExpired(true);
     }, 1000);
     if (verifiedTime) guardianExpiredTime.current = verifiedTime + GUARDIAN_EXPIRED_TIME;
+    const cachedVerifierData = Object.values((await getVerifierData()).data?.verifierServers ?? {});
+    setVerifiers(cachedVerifierData);
     return () => {
       expiredTimer && clearInterval(expiredTimer);
     };

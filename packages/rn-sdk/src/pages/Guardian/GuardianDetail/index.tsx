@@ -61,7 +61,6 @@ export default function GuardianDetail(config: { info: string }) {
   useEffectOnce(async () => {
     Loading.show();
     const { particularGuardianInfo, originalGuardianItem } = JSON.parse(config.info) as ModifyGuardianProps;
-    console.log('GuardianDetail info: ', config.info);
     particularGuardianInfo && setEditGuardian(particularGuardianInfo);
     originalGuardianItem && setOriginalGuardianItem(originalGuardianItem);
     const {
@@ -81,7 +80,6 @@ export default function GuardianDetail(config: { info: string }) {
         OperationTypeEnum.editGuardian,
       );
     });
-    console.log('guardians:', JSON.stringify(parsedGuardians));
     parsedGuardians && setUserGuardiansList(parsedGuardians);
     Loading.hide();
   });

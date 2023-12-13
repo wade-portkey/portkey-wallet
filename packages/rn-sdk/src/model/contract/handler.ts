@@ -15,6 +15,7 @@ import { AElfChainStatusItemDTO, AElfWeb3SDK, ApprovedGuardianInfo } from 'netwo
 import { selectCurrentBackendConfig } from 'utils/commonUtil';
 import { addManager } from 'utils/wallet';
 import { PortkeyModulesEntity } from 'service/native-modules';
+import { handleCachedValue } from 'service/storage/cache';
 
 export interface Verifier {
   id: string;
@@ -85,10 +86,20 @@ export const getVerifierData = async (): Promise<{
     };
   };
 }> => {
-  const contractInstance = await getContractInstance(true);
-  const result = await contractInstance.callViewMethod('GetVerifierServers', '');
-  if (!result?.data) throw new Error('getOrReadCachedVerifierData: result is invalid');
-  return result;
+  return handleCachedValue({
+    target: 'TEMP',
+    getIdentifier: async () => {
+      const chainId = await PortkeyConfig.currChainId();
+      const endPoint = await PortkeyConfig.endPointUrl();
+      return `GetVerifierServers_${chainId}_${endPoint}`;
+    },
+    getValueIfNonExist: async () => {
+      const contractInstance = await getContractInstance(true);
+      const result = await contractInstance.callViewMethod('GetVerifierServers', '');
+      if (!result?.data) throw new Error('getOrReadCachedVerifierData: result is invalid');
+      return result;
+    },
+  });
 };
 
 /**
