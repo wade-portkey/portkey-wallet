@@ -37,7 +37,7 @@ class RouterModule(reactContext: ReactApplicationContext) :
             return
         }
 
-        activity?.navigateToAnotherReactActivity(
+        currentActivity?.navigateToAnotherReactActivity(
             entryName = targetEntry,
             targetScene = targetScene,
             from = from,
