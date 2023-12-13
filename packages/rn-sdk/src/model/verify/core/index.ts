@@ -146,6 +146,8 @@ const handleNormalVerify = async (config: NormalVerifyPathInfo): Promise<Recover
   if (findVerifyProcessOnCurrChain(originalChainId, status) !== ProgressStatus.PASS) {
     console.warn(`after ${retryTimes} times polling, account status is still pending.`);
   }
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   const { caHash, caAddress } = status?.items?.find(it => it.chainId === originalChainId) || {};
   return {
     sessionId,
@@ -271,7 +273,6 @@ export const unLockTempWallet = async (pinValue?: string, useBiometric = false):
     }
     const decryptedWalletConfig = JSON.parse(decrypted);
     if (!decryptedWalletConfig) throw new Error('decrypt error!');
-    // TODO decrypt walletConfig
     TempStorage.set(WALLET_CONFIG_KEY, decrypted);
     return true;
   } catch (e) {
