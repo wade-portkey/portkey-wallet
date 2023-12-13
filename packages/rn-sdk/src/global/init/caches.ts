@@ -1,5 +1,5 @@
 import useEffectOnce from 'hooks/useEffectOnce';
-import { getOrReadCachedVerifierData } from 'model/contract/handler';
+import { getVerifierData } from 'model/contract/handler';
 
 export const useInitCaches = () => {
   useEffectOnce(() => {
@@ -12,5 +12,5 @@ export const initCaches = async () => {
 };
 
 const initVerifierDataCache = async () => {
-  return getOrReadCachedVerifierData();
+  return getVerifierData();
 };

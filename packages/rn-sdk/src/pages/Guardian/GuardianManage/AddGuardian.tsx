@@ -36,7 +36,7 @@ import {
 } from 'model/hooks/authentication';
 import { PortkeyConfig } from 'global/constants';
 import useEffectOnce from 'hooks/useEffectOnce';
-import { Verifier, getOrReadCachedVerifierData } from 'model/contract/handler';
+import { Verifier, getVerifierData } from 'model/contract/handler';
 import { NetworkController } from 'network/controller';
 import { getUnlockedWallet } from 'model/wallet';
 import {
@@ -66,7 +66,7 @@ type thirdPartyInfoType = {
   accessToken: string;
 };
 
-type TypeItemType = typeof LOGIN_TYPE_LIST[number];
+type TypeItemType = (typeof LOGIN_TYPE_LIST)[number];
 
 const AddGuardian: React.FC = () => {
   const { t } = useLanguage();
@@ -100,7 +100,7 @@ const AddGuardian: React.FC = () => {
 
   useEffectOnce(async () => {
     await checkMMKVStorage();
-    const { data } = await getOrReadCachedVerifierData();
+    const { data } = await getVerifierData();
     const { verifierServers: verifiers } = data || {};
     console.log('verifiers', JSON.stringify(verifiers));
     verifiers && setVerifierMap(verifiers);
@@ -109,7 +109,7 @@ const AddGuardian: React.FC = () => {
     } = await getUnlockedWallet();
     const chainId = await PortkeyConfig.currChainId();
     const guardiansInfo = await NetworkController.getGuardianInfo('', caHash);
-    const cachedVerifierData = Object.values((await getOrReadCachedVerifierData()).data?.verifierServers ?? {});
+    const cachedVerifierData = Object.values((await getVerifierData()).data?.verifierServers ?? {});
     const parsedGuardians = guardiansInfo?.guardianList?.guardians?.map(guardian => {
       return parseGuardianInfo(
         guardian,

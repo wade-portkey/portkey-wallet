@@ -12,7 +12,6 @@ import { GuardianConfig } from 'model/verify/guardian';
 import { getUnlockedWallet } from 'model/wallet';
 import { NetworkController } from 'network/controller';
 import { AElfChainStatusItemDTO, AElfWeb3SDK, ApprovedGuardianInfo } from 'network/dto/wallet';
-import { handleCachedValue } from 'service/storage/cache';
 import { selectCurrentBackendConfig } from 'utils/commonUtil';
 import { addManager } from 'utils/wallet';
 import { PortkeyModulesEntity } from 'service/native-modules';
@@ -79,27 +78,17 @@ export const callAddManagerMethod = async (extraData: string, managerAddress: st
 /**
  * get the verifier data on the chain, which can be used to display ```Guardian```'s icon and name.
  */
-export const getOrReadCachedVerifierData = async (): Promise<{
+export const getVerifierData = async (): Promise<{
   data?: {
     verifierServers: {
       [key: string | number]: Verifier;
     };
   };
 }> => {
-  return handleCachedValue({
-    target: 'TEMP',
-    getIdentifier: async () => {
-      const chainId = await PortkeyConfig.currChainId();
-      const endPoint = await PortkeyConfig.endPointUrl();
-      return `GetVerifierServers_${chainId}_${endPoint}`;
-    },
-    getValueIfNonExist: async () => {
-      const contractInstance = await getContractInstance(true);
-      const result = await contractInstance.callViewMethod('GetVerifierServers', '');
-      if (!result?.data) throw new Error('getOrReadCachedVerifierData: result is invalid');
-      return result;
-    },
-  });
+  const contractInstance = await getContractInstance(true);
+  const result = await contractInstance.callViewMethod('GetVerifierServers', '');
+  if (!result?.data) throw new Error('getOrReadCachedVerifierData: result is invalid');
+  return result;
 };
 
 /**

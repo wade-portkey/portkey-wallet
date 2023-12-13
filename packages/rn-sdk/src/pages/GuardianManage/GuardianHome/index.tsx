@@ -22,7 +22,7 @@ import Loading from 'components/Loading';
 import { ModifyGuardianProps } from 'pages/Guardian/GuardianManage/ModifyGuardian';
 import { PortkeyConfig } from 'global/constants';
 import { OperationTypeEnum } from 'packages/types/verifier';
-import { Verifier, getOrReadCachedVerifierData } from 'model/contract/handler';
+import { Verifier, getVerifierData } from 'model/contract/handler';
 import { UserGuardianItem } from 'packages/store/store-ca/guardians/type';
 
 export default function GuardianHome({ containerId }: { containerId: any }) {
@@ -35,7 +35,7 @@ export default function GuardianHome({ containerId }: { containerId: any }) {
 
   useEffectOnce(async () => {
     Loading.show();
-    const { data } = await getOrReadCachedVerifierData();
+    const { data } = await getVerifierData();
     const { verifierServers: verifiers } = data || {};
     console.log('verifiers', JSON.stringify(verifiers));
     verifiers && setVerifierMap(verifiers);
@@ -139,9 +139,7 @@ export default function GuardianHome({ containerId }: { containerId: any }) {
             key={idx}
             onPress={async () => {
               const chainId = await PortkeyConfig.currChainId();
-              const cachedVerifierData = Object.values(
-                (await getOrReadCachedVerifierData()).data?.verifierServers ?? {},
-              );
+              const cachedVerifierData = Object.values((await getVerifierData()).data?.verifierServers ?? {});
               navigateForResult(PortkeyEntries.GUARDIAN_DETAIL_ENTRY, {
                 closeCurrentScreen: false,
                 params: {

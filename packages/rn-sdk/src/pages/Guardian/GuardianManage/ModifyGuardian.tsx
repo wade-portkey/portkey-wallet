@@ -24,7 +24,7 @@ import GuardianAccountItem from '../components/GuardianAccountItem';
 import { GuardianConfig } from 'model/verify/guardian';
 import { PortkeyConfig } from 'global/constants';
 import useEffectOnce from 'hooks/useEffectOnce';
-import { Verifier, callCancelLoginGuardianMethod, getOrReadCachedVerifierData } from 'model/contract/handler';
+import { Verifier, callCancelLoginGuardianMethod, getVerifierData } from 'model/contract/handler';
 import { guardianTypeStrToEnum, parseGuardianInfo } from 'model/global';
 import { AccountOriginalType } from 'model/verify/core';
 import { getUnlockedWallet } from 'model/wallet';
@@ -40,7 +40,7 @@ type thirdPartyInfoType = {
   accessToken: string;
 };
 
-type TypeItemType = typeof LOGIN_TYPE_LIST[number];
+type TypeItemType = (typeof LOGIN_TYPE_LIST)[number];
 
 const ModifyGuardian = (config: { info: string }) => {
   const { t } = useLanguage();
@@ -68,7 +68,7 @@ const ModifyGuardian = (config: { info: string }) => {
       const { particularGuardianInfo, originalGuardianItem } = JSON.parse(config.info) as ModifyGuardianProps;
       particularGuardianInfo && setEditGuardian(particularGuardianInfo);
       originalGuardianItem && setOriginalGuardianItem(originalGuardianItem);
-      const { data } = await getOrReadCachedVerifierData();
+      const { data } = await getVerifierData();
       const { verifierServers: verifiers } = data || {};
       console.log('verifiers', JSON.stringify(verifiers));
       verifiers && setVerifierMap(verifiers);
@@ -77,7 +77,7 @@ const ModifyGuardian = (config: { info: string }) => {
       } = await getUnlockedWallet();
       const chainId = await PortkeyConfig.currChainId();
       const guardiansInfo = await NetworkController.getGuardianInfo('', caHash);
-      const cachedVerifierData = Object.values((await getOrReadCachedVerifierData()).data?.verifierServers ?? {});
+      const cachedVerifierData = Object.values((await getVerifierData()).data?.verifierServers ?? {});
       const parsedGuardians = guardiansInfo?.guardianList?.guardians?.map(guardian => {
         return parseGuardianInfo(
           guardian,

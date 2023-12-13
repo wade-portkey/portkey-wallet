@@ -21,7 +21,7 @@ import { useAppleAuthentication, useGoogleAuthentication } from 'model/hooks/aut
 import { GuardianConfig } from 'model/verify/guardian';
 import { PortkeyConfig } from 'global/constants';
 import useEffectOnce from 'hooks/useEffectOnce';
-import { getContractInstance, getOrReadCachedVerifierData } from 'model/contract/handler';
+import { getContractInstance, getVerifierData } from 'model/contract/handler';
 import { guardianEnumToTypeStr, guardianTypeStrToEnum, isReacptchaOpen, parseGuardianInfo } from 'model/global';
 import { AccountOriginalType } from 'model/verify/core';
 import { getUnlockedWallet } from 'model/wallet';
@@ -69,7 +69,7 @@ export default function GuardianDetail(config: { info: string }) {
     } = await getUnlockedWallet();
     const chainId = await PortkeyConfig.currChainId();
     const guardiansInfo = await NetworkController.getGuardianInfo('', caHash);
-    const cachedVerifierData = Object.values((await getOrReadCachedVerifierData()).data?.verifierServers ?? {});
+    const cachedVerifierData = Object.values((await getVerifierData()).data?.verifierServers ?? {});
     const parsedGuardians = guardiansInfo?.guardianList?.guardians?.map(it => {
       return parseGuardianInfo(
         it,
