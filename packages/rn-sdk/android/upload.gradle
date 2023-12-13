@@ -5,8 +5,10 @@ def GroupId = 'io.aelf.portkey'
 def ArtifactId = 'core'
 def Version = android.defaultConfig.versionName
 
-def userName = "xxxx"
-def passWord = "xxxx"
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+def userName = properties.getProperty('ossrhUsername')
+def passWord = properties.getProperty('ossrhPassword')
 
 
 def releasesRepoUrl = "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
@@ -27,14 +29,8 @@ afterEvaluate {
                 artifactId = ArtifactId
                 version = Version
 
-                // 必须有这个 否则不会上传AAR包
                 afterEvaluate { artifact(tasks.getByName("bundleReleaseAar")) }
-                // 多渠道，可以自行指定aar路径
-                // def projectName = project.getName()
-                // artifact "build/outputs/aar/${projectName}-release.aar"
-                // 上传source，这样使用方可以看到方法注释
                 artifact generateSourcesJar
-                //依赖关系
                 pom.withXml{
                     def dependenciesNode = asNode().appendNode("dependencies")
                     configurations.implementation.allDependencies.forEach(){
@@ -50,10 +46,10 @@ afterEvaluate {
             }
         }
 
-        //仓库地址配置
+
         repositories {
             maven {
-                //允许使用 http
+                //allow http
                allowInsecureProtocol = true
                 url = releasesRepoUrl
                credentials {
