@@ -636,7 +636,7 @@ DEPENDENCIES:
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
   - lottie-react-native (from `../node_modules/lottie-react-native`)
   - OpenSSL-Universal (= 1.1.1100)
-  - "PortkeySDK (from `../node_modules/@portkey/react-native-sdk`)"
+  - PortkeySDK (from `../node_modules/react-native-sdk-beta`)
   - RCT-Folly (from `../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec`)
   - RCTRequired (from `../node_modules/react-native/Libraries/RCTRequired`)
   - RCTTypeSafety (from `../node_modules/react-native/Libraries/TypeSafety`)
@@ -770,7 +770,7 @@ EXTERNAL SOURCES:
   lottie-react-native:
     :path: "../node_modules/lottie-react-native"
   PortkeySDK:
-    :path: "../node_modules/@portkey/react-native-sdk"
+    :path: "../node_modules/react-native-sdk-beta"
   RCT-Folly:
     :podspec: "../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec"
   RCTRequired:
