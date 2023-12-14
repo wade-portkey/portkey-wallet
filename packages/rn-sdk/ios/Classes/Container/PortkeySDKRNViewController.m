@@ -12,8 +12,6 @@
 @interface PortkeySDKRNViewController ()
 
 @property (nonatomic, strong) PortkeySDKRootView *rnRootView;
-@property (nonatomic, assign) BOOL isLeave;
-@property (nonatomic, assign) BOOL hasShown;
 
 @end
 
@@ -40,16 +38,13 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:animated];
-    if (self.hasShown) {
-        [PortkeySDKNativeWrapperModule sendOnShowEventWithModuleName:self.rnRootView.moduleName
-                                                              bridge:self.rnRootView.bridge
-                                                         containerId:self.containerId];
-    }
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    self.hasShown = YES;
+    [PortkeySDKNativeWrapperModule sendOnShowEventWithModuleName:self.rnRootView.moduleName
+                                                          bridge:self.rnRootView.bridge
+                                                     containerId:self.containerId];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
